@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UN AI Readouts — Index</title>
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --ink: #1a1c20;
+    --muted: #5b6470;
+    --rule: #e3e1da;
+    --accent: #2e4a86;
+
+    --inst:  #1f5fb0;   /* institutional silo */
+    --inst-soft: #e2ecf8;
+    --them:  #6a4ba8;   /* thematic silo */
+    --them-soft: #ece5f6;
+    --ext:   #6a727b;   /* hosted elsewhere */
+    --ext-soft: #ecedef;
+
+    --focus: #ffbf47;
+    --radius: 12px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 18px rgba(0,0,0,.05);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+  }
+  a { color: var(--accent); }
+  a:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 4rem;
+  }
+
+  header.page {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+  }
+  header.page .kicker {
+    font-size: .78rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+    margin: 0 0 .5rem;
+  }
+  header.page h1 {
+    font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+    margin: 0 0 .6rem;
+    line-height: 1.15;
+  }
+  header.page p.lede {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.02rem;
+    max-width: 62ch;
+  }
+
+  .asr-note {
+    background: #fbf1dc;
+    border-left: 4px solid #b27406;
+    padding: .7rem 1rem;
+    margin: 1.25rem 0 0;
+    border-radius: 0 8px 8px 0;
+    font-size: .88rem;
+    color: #4a3a10;
+  }
+  .asr-note strong { color: #3a2d08; }
+
+  section.silo { margin-top: 2.25rem; }
+  section.silo > .silo-head {
+    display: flex;
+    align-items: baseline;
+    gap: .75rem;
+    flex-wrap: wrap;
+    margin-bottom: .35rem;
+  }
+  section.silo h2 {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+  .silo-type {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .18rem .55rem;
+    border-radius: 999px;
+  }
+  .silo-type.inst { background: var(--inst-soft); color: var(--inst); }
+  .silo-type.them { background: var(--them-soft); color: var(--them); }
+  .silo-type.ext  { background: var(--ext-soft);  color: var(--ext); }
+  section.silo > p.silo-blurb {
+    margin: 0 0 1rem;
+    color: var(--muted);
+    font-size: .92rem;
+    max-width: 66ch;
+  }
+
+  .cards {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .cards { grid-template-columns: 1fr 1fr; }
+    .cards.single { grid-template-columns: 1fr; max-width: 30rem; }
+  }
+
+  article.card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 5px solid var(--accent);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.1rem 1.25rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  article.card.inst { border-left-color: var(--inst); }
+  article.card.them { border-left-color: var(--them); }
+  article.card.ext  { border-left-color: var(--ext); }
+
+  article.card .meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: .5rem;
+    font-size: .78rem;
+    color: var(--muted);
+  }
+  article.card .date { font-weight: 600; white-space: nowrap; }
+  article.card h3 {
+    margin: 0;
+    font-size: 1.08rem;
+    line-height: 1.25;
+  }
+  article.card h3 a { text-decoration: none; color: var(--ink); }
+  article.card h3 a:hover { color: var(--accent); text-decoration: underline; }
+  article.card p.desc {
+    margin: 0;
+    font-size: .9rem;
+    color: var(--muted);
+  }
+  article.card .links {
+    margin-top: auto;
+    padding-top: .35rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem 1rem;
+    font-size: .86rem;
+  }
+  article.card .links a { font-weight: 600; text-decoration: none; }
+  article.card .links a:hover { text-decoration: underline; }
+  article.card .links .sep { color: var(--rule); }
+  .ext-badge {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ext);
+  }
+
+  footer.page {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: .86rem;
+  }
+  footer.page p { margin: .3rem 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="page">
+    <p class="kicker">Index</p>
+    <h1>UN AI Readouts</h1>
+    <p class="lede">AI-assisted briefings that turn UN meeting transcripts into short, interactive readouts — the consensus, the fault lines, and who said what, each stance traceable to the record. Pick a readout below.</p>
+    <div class="asr-note">
+      <strong>How to read these.</strong> Each readout is built from the UN <a href="https://transcripts.un.org/en" target="_blank" rel="noopener">transcripts.un.org</a> automatic-speech-recognition (ASR) transcript — a strong draft, <em>not</em> an official UN record. Position-critical quotes are checked against the meeting audio before publication; every readout carries its own source note and a linked methodology page.
+    </div>
+  </header>
+
+  <!-- ============================================================
+       HOSTED HERE — one <section class="silo"> per silo.
+       To add a readout: copy one <article class="card"> block into
+       the right silo's .cards grid (or add a new silo section).
+       Silo type badge: inst = institutional, them = thematic.
+       ============================================================ -->
+
+  <section class="silo" id="security-council">
+    <div class="silo-head">
+      <h2>Security Council</h2>
+      <span class="silo-type inst">Institutional silo</span>
+    </div>
+    <p class="silo-blurb">Grouped by the speaking body, not by topic. Sub-threads (e.g. Sudan / South Sudan) may be tracked as a sequence if further sessions accumulate.</p>
+    <div class="cards single">
+
+      <article class="card inst">
+        <div class="meta-row">
+          <span>Sudan / Darfur · ICC</span>
+          <span class="date">15 Jul 2026</span>
+        </div>
+        <h3><a href="readouts/sudan-icc-briefing-2026-07.html">Darfur and the ICC — 10,197th meeting</a></h3>
+        <p class="desc">The ICC Deputy Prosecutor's 43rd report under Resolution 1593. The fault line: defend the Court vs. delegitimise it. 17 speakers; 9 quotes audio-verified.</p>
+        <div class="links">
+          <a href="readouts/sudan-icc-briefing-2026-07.html">Read the readout →</a>
+          <span class="sep">·</span>
+          <a href="methodology/sudan-icc-methodology.html">Methodology</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Next silo section (e.g. AI at the UN — thematic) gets added here
+       when its first readout ships. Template:
+
+  <section class="silo" id="SLUG">
+    <div class="silo-head">
+      <h2>SILO NAME</h2>
+      <span class="silo-type them">Thematic silo</span>
+    </div>
+    <p class="silo-blurb">ONE-LINE DESCRIPTION.</p>
+    <div class="cards">
+      <article class="card them"> … </article>
+    </div>
+  </section>
+  -->
+
+  <!-- ============================================================
+       HOSTED ELSEWHERE — earlier readouts live in their own repo.
+       External links; nothing copied here.
+       ============================================================ -->
+
+  <section class="silo" id="earlier">
+    <div class="silo-head">
+      <h2>Earlier readouts</h2>
+      <span class="silo-type ext">Hosted separately</span>
+    </div>
+    <p class="silo-blurb">Produced before this index existed and still live at their original location. <span class="ext-badge">↗ open in the UN80 repo</span></p>
+    <div class="cards">
+
+      <article class="card ext">
+        <div class="meta-row">
+          <span>UN80 Initiative · GA</span>
+          <span class="date">12 May 2025</span>
+        </div>
+        <h3><a href="https://christian-wandel.github.io/UN80-ai-readout/readouts/un80-briefing-2025-05.html" target="_blank" rel="noopener">UN80 — SG launch briefing</a></h3>
+        <p class="desc">The Secretary-General's informal briefing launching the UN80 reform initiative. Round 1 of the UN80 arc.</p>
+        <div class="links">
+          <a href="https://christian-wandel.github.io/UN80-ai-readout/readouts/un80-briefing-2025-05.html" target="_blank" rel="noopener">Read the readout ↗</a>
+          <span class="sep">·</span>
+          <a href="https://christian-wandel.github.io/UN80-ai-readout/methodology/un80-methodology.html" target="_blank" rel="noopener">Methodology</a>
+        </div>
+      </article>
+
+      <article class="card ext">
+        <div class="meta-row">
+          <span>UN80 Initiative · WG</span>
+          <span class="date">16 Sep 2025</span>
+        </div>
+        <h3><a href="https://christian-wandel.github.io/UN80-ai-readout/readouts/un80-briefing-2025-09.html" target="_blank" rel="noopener">UN80 — Working Group, round 2</a></h3>
+        <p class="desc">The UN80 Working Group's second round. Round 2 of the UN80 arc.</p>
+        <div class="links">
+          <a href="https://christian-wandel.github.io/UN80-ai-readout/readouts/un80-briefing-2025-09.html" target="_blank" rel="noopener">Read the readout ↗</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <footer class="page">
+    <p>An experiment in AI-assisted UN meeting analysis. Every stance is verbatim from the source transcript; unstated positions are marked, never inferred.</p>
+    <p>Built with Claude Code. Sources: UN transcripts.un.org (ASR) and UN Web TV. Not affiliated with the United Nations.</p>
+  </footer>
+
+</div>
+</body>
+</html>
