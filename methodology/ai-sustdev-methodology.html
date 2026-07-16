@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Methodology — How the AI &amp; Sustainable Development Readout Was Produced</title>
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --ink: #1a1c20;
+    --muted: #5b6470;
+    --rule: #e3e1da;
+    --accent-default: #2e4a86;
+
+    --green: #2f7a4d;
+    --green-soft: #e6f1ea;
+    --amber: #b27406;
+    --amber-soft: #fbf1dc;
+    --red:   #b03333;
+    --red-soft: #f7e3e3;
+    --blue:  #1f5fb0;
+    --blue-soft: #e2ecf8;
+    --grey:  #6a727b;
+    --grey-soft: #ecedef;
+
+    --focus: #ffbf47;
+    --radius: 10px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+  }
+  a { color: var(--accent-default); }
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .skip {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--ink); color: #fff; padding: .6rem 1rem;
+    z-index: 100;
+  }
+  .skip:focus { left: 0; }
+
+  .shell {
+    display: grid;
+    grid-template-columns: 240px minmax(0,1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    nav#toc { position: static !important; max-height: none !important; }
+  }
+
+  header.page {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  header.page h1 {
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    margin: 0 0 .5rem;
+    line-height: 1.2;
+  }
+  header.page dl.meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .15rem 1rem;
+    margin: .75rem 0 0;
+    color: var(--muted);
+    font-size: .92rem;
+  }
+  header.page dt { font-weight: 600; color: var(--ink); }
+  header.page dd { margin: 0; }
+  header.page .crosslink { margin-top: .85rem; font-size: .9rem; }
+  header.page .crosslink a { margin-right: 1rem; }
+
+  nav#toc {
+    position: sticky;
+    top: 1rem;
+    align-self: start;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    padding: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    font-size: .92rem;
+  }
+  nav#toc h2 {
+    margin: 0 0 .5rem;
+    font-size: .78rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  nav#toc ol { list-style: none; padding: 0; margin: 0; }
+  nav#toc li { margin: .15rem 0; }
+  nav#toc a {
+    display: block;
+    padding: .35rem .5rem;
+    border-radius: 6px;
+    color: var(--ink);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+  }
+  nav#toc a:hover { background: var(--bg); }
+  nav#toc a[aria-current="location"] {
+    background: var(--bg);
+    border-left-color: var(--accent-default);
+    font-weight: 600;
+  }
+
+  main { min-width: 0; }
+  section.block {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+  section.block > details > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    user-select: none;
+  }
+  section.block > details > summary::-webkit-details-marker { display: none; }
+  section.block > details > summary::before {
+    content: "▸";
+    color: var(--muted);
+    transition: transform .15s ease;
+    display: inline-block;
+    width: 1ch;
+  }
+  section.block > details[open] > summary::before { transform: rotate(90deg); }
+  .body { padding: 0 1.25rem 1.25rem; }
+  .body > :first-child { margin-top: 0; }
+
+  h3.sub { font-size: 1rem; margin: 1.25rem 0 .5rem; color: var(--ink); }
+  ul.tight { margin: .25rem 0 .75rem; padding-left: 1.25rem; }
+  ul.tight li { margin: .25rem 0; }
+  ol.tight { margin: .25rem 0 .75rem; padding-left: 1.25rem; }
+  ol.tight li { margin: .35rem 0; }
+
+  code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: .86em;
+    background: var(--grey-soft);
+    padding: .1rem .35rem;
+    border-radius: 4px;
+  }
+  pre {
+    background: #1f2127;
+    color: #e8e6df;
+    padding: .9rem 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: .82rem;
+    line-height: 1.5;
+    margin: .6rem 0 1rem;
+  }
+  pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+
+  .note {
+    background: var(--bg);
+    border-left: 4px solid var(--accent-default);
+    padding: .6rem .9rem;
+    margin: .75rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .note strong { color: var(--ink); }
+  .warn {
+    background: var(--amber-soft);
+    border-left: 4px solid var(--amber);
+    padding: .6rem .9rem;
+    margin: .75rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .ok {
+    background: var(--green-soft);
+    border-left: 4px solid var(--green);
+    padding: .6rem .9rem;
+    margin: .75rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .pipeline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    align-items: stretch;
+    margin: .5rem 0 1rem;
+  }
+  .pipeline .step {
+    flex: 1 1 140px;
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--accent-default);
+    border-radius: 8px;
+    background: var(--surface);
+    padding: .65rem .75rem;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .pipeline .step .n {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--accent-default);
+  }
+  .pipeline .step .t { font-weight: 600; margin: .1rem 0 .25rem; }
+  .pipeline .step .d { font-size: .82rem; color: var(--muted); }
+
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    margin: .6rem 0 1rem;
+    font-size: .9rem;
+  }
+  table.data th, table.data td {
+    text-align: left;
+    padding: .5rem .6rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  table.data th {
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    border-bottom: 2px solid var(--rule);
+  }
+  table.data tr:last-child td { border-bottom: none; }
+  table.data code { white-space: nowrap; }
+  table.data td.match { color: var(--green); font-weight: 600; white-space: nowrap; }
+
+  .tag {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 600;
+    padding: .12rem .5rem;
+    border-radius: 999px;
+    letter-spacing: .02em;
+  }
+  .tag.auto  { background: var(--blue-soft);  color: var(--blue);  border: 1px solid color-mix(in srgb, var(--blue) 25%, transparent); }
+  .tag.human { background: var(--green-soft); color: var(--green); border: 1px solid color-mix(in srgb, var(--green) 25%, transparent); }
+
+  .global-toolbar {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: .75rem 1rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+  .control-group { display: flex; align-items: center; gap: .5rem; }
+  .btn {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: .4rem .75rem;
+    font: inherit;
+    font-size: .88rem;
+    cursor: pointer;
+    color: var(--ink);
+  }
+  .btn:hover { background: var(--bg); }
+
+  footer.page {
+    grid-column: 1 / -1;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    font-style: italic;
+    font-size: .9rem;
+  }
+
+  @media print {
+    body { background: #fff; color: #000; }
+    .shell { grid-template-columns: 1fr; max-width: none; padding: 0; gap: 0; }
+    nav#toc, .global-toolbar { display: none !important; }
+    section.block { box-shadow: none; border: none; page-break-inside: avoid; }
+    section.block > details > summary { font-size: 1.2rem; }
+    pre { white-space: pre-wrap; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="shell">
+
+  <header class="page">
+    <h1>Methodology: How the AI &amp; Sustainable Development Readout Was Produced</h1>
+    <dl class="meta">
+      <dt>Subject</dt><dd>Method behind the readout of the HLPF 2026 side event on AI and the future of sustainable development</dd>
+      <dt>Source event</dt><dd>"AI and the Future of Sustainable Development: Innovation, Inclusion and Resilience," HLPF 2026 side event, 15 July 2026 (ECOSOC, UN Headquarters)</dd>
+      <dt>Purpose</dt><dd>A reproducible record of how the source transcript was obtained, treated, analysed, quote-verified, and published</dd>
+    </dl>
+    <p class="crosslink">
+      See also:
+      <a href="../readouts/ai-sustdev-panel-public-2026-07.html">The readout</a>
+      <a href="../pipeline/quote-verification.md">Quote-verification method</a>
+    </p>
+  </header>
+
+  <div class="warn" style="grid-column:1/-1;margin-bottom:1.25rem;">
+    <strong>Source is UN ASR, not an official record.</strong> This readout is built from the automatic-speech-recognition (ASR) transcript published on the UN transcripts portal (<a href="https://transcripts.un.org/en" target="_blank" rel="noopener">transcripts.un.org</a>). ASR transcripts are not official UN records. Every position-critical quote here was <strong>audio-verified against the meeting recording before publication</strong> (see <a href="#stage4">Stage 4</a>) — all 17 matched. Names and figures elsewhere are still treated as provisional against the ASR text; in particular the Tajik keynote speaker's name is unresolved in the source and is withheld pending confirmation.
+  </div>
+
+  <nav id="toc" aria-label="Sections">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#overview">Overview &amp; Purpose</a></li>
+      <li><a href="#glance">Pipeline at a Glance</a></li>
+      <li><a href="#tooling">Tools Used</a></li>
+      <li><a href="#stage1">Stage 1 — Discovery</a></li>
+      <li><a href="#stage2">Stage 2 — Fetch &amp; Convert</a></li>
+      <li><a href="#stage3">Stage 3 — Analysis &amp; Coding</a></li>
+      <li><a href="#stage4">Stage 4 — Quote Verification</a></li>
+      <li><a href="#stage5">Stage 5 — Synthesis</a></li>
+      <li><a href="#stage6">Stage 6 — Publication</a></li>
+      <li><a href="#framing">A Note on the Analytical Frame</a></li>
+      <li><a href="#provenance">Provenance &amp; Traceability</a></li>
+      <li><a href="#limits">Limitations &amp; Honesty Notes</a></li>
+      <li><a href="#runbook">Replication Runbook</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+
+    <div class="global-toolbar" role="group" aria-label="Document controls">
+      <div class="control-group">
+        <button class="btn" id="expand-all" type="button">Expand all</button>
+        <button class="btn" id="collapse-all" type="button">Collapse all</button>
+      </div>
+    </div>
+
+    <section class="block" id="overview">
+      <details open>
+        <summary>Overview &amp; Purpose</summary>
+        <div class="body">
+          <p>This document records how the <a href="../readouts/ai-sustdev-panel-public-2026-07.html">AI &amp; Sustainable Development readout</a> was produced. The readout summarises a side event held at the margins of the High-level Political Forum on Sustainable Development (HLPF) 2026 on 15 July 2026, co-hosted by the Permanent Missions of Pakistan and Tajikistan with Pakistan's Prime Minister's Youth Program, on how artificial intelligence can advance the Sustainable Development Goals.</p>
+          <p>It exists for two reasons:</p>
+          <ul class="tight">
+            <li><strong>Replication.</strong> This is the first readout in the <code>ai-at-un</code> thematic silo, and it is the first the pipeline has run on a <strong>panel / side-event format</strong> sourced from the transcripts portal (earlier panel readouts were captured and transcribed locally). It is a concrete runbook for the next AI-at-the-UN session.</li>
+            <li><strong>Provenance.</strong> If a reader asks how the conclusions were reached and where the information came from, this document answers that directly.</li>
+          </ul>
+          <p>The source transcript was <strong>obtained from the UN transcripts portal</strong> rather than captured and transcribed locally. The portal supplies a speaker-attributed ASR transcript, which removes the recording and speech-to-text stages but adds a dependency on machine transcription — and, in this case, surfaced a timing quirk (the transcript was made against a longer cut of the recording than the one now published) that had to be corrected before verification. That is written up in full at <a href="#stage4">Stage 4</a>.</p>
+          <p>The work moved through six stages: the meeting was discovered on the portal, its transcript fetched and converted to attributed markdown, analysed into consensus and tensions of emphasis, its quotes verified against the recording, synthesised into a structured briefing, and published as a single interactive HTML page with this methodology record. Every stance on the readout traces to a verbatim passage in the transcript. Where a speaker did not state a position, they are marked silent rather than guessed (the project's no-fabrication rule).</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="glance">
+      <details open>
+        <summary>Pipeline at a Glance</summary>
+        <div class="body">
+          <div class="pipeline">
+            <div class="step"><div class="n">Stage 1</div><div class="t">Discover</div><div class="d">Find the side event on transcripts.un.org</div></div>
+            <div class="step"><div class="n">Stage 2</div><div class="t">Fetch + convert</div><div class="d">Portal JSON → attributed markdown</div></div>
+            <div class="step"><div class="n">Stage 3</div><div class="t">Analyse</div><div class="d">Code consensus + tensions of emphasis</div></div>
+            <div class="step"><div class="n">Stage 4</div><div class="t">Verify quotes</div><div class="d">Audio-check every quote vs. the recording</div></div>
+            <div class="step"><div class="n">Stage 5</div><div class="t">Synthesise</div><div class="d">Consensus, tensions, participant cards</div></div>
+            <div class="step"><div class="n">Stage 6</div><div class="t">Publish</div><div class="d">One interactive HTML readout</div></div>
+          </div>
+          <p class="note">Each stage produces a named file on disk, so any claim on the readout can be walked back to its source. The transcript, the source-analysis notes, and the HTML all live under the project's <code>transcripts/ai-at-un/</code> and <code>readouts/</code> folders.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="tooling">
+      <details open>
+        <summary>Tools Used</summary>
+        <div class="body">
+          <p>The transcript came from the UN's own portal, so this readout needed no recording or first-pass speech-to-text tooling to <em>produce</em> the source text. Quote verification, however, does download the meeting audio and run a local speech-to-text model to check the ASR text — those tools are named below alongside the fetch, analysis and build.</p>
+
+          <table class="data">
+            <thead>
+              <tr><th>Stage</th><th>Tool</th><th>What it is</th><th>Role here</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Discover / fetch / convert</td>
+                <td><strong>fetch_un_transcripts.py</strong></td>
+                <td>Purpose-built Python script (stdlib only)</td>
+                <td>Queried the portal, downloaded the meeting JSON, and converted it to speaker-attributed markdown.</td>
+              </tr>
+              <tr>
+                <td>Source</td>
+                <td><strong>transcripts.un.org</strong></td>
+                <td>Official UN transcripts portal (ASR)</td>
+                <td>Supplied the raw transcript with built-in speaker attribution (name, role, affiliation) and per-sentence timestamps.</td>
+              </tr>
+              <tr>
+                <td>Verify — audio</td>
+                <td><strong>UN Web TV / Kaltura VOD</strong></td>
+                <td>Official UN video archive (Kaltura partner 2503451)</td>
+                <td>The recording against which every position-critical quote was audio-verified. English audio flavor pulled via an unauthenticated widget session.</td>
+              </tr>
+              <tr>
+                <td>Verify — slice</td>
+                <td><strong>ffmpeg</strong></td>
+                <td>Audio/video toolkit</td>
+                <td>Cut a short window from the MP4 around each quote's (offset-corrected) timestamp for transcription.</td>
+              </tr>
+              <tr>
+                <td>Verify — transcribe</td>
+                <td><strong>whisper.cpp (large-v3-turbo)</strong></td>
+                <td>Local CUDA speech-to-text (<code>projects/whisper-local/</code>)</td>
+                <td>Independently transcribed each sliced window so the quote could be compared against a second speech-to-text pass, not just the portal ASR.</td>
+              </tr>
+              <tr>
+                <td>Analyse + orchestrate + build</td>
+                <td><strong>Claude Code (Opus 4.8)</strong></td>
+                <td>AI analysis and coding assistant</td>
+                <td>Extracted and coded positions, ran the verification workflow, drafted the briefing, and rendered the HTML.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 class="sub">How Claude Code was used</h3>
+          <p>Claude Code read the full attributed transcript, extracted each speaker's stated position verbatim, coded the event as consensus + tensions of emphasis (see <a href="#framing">the frame note</a>), ran the quote-verification workflow end to end — including diagnosing and correcting the recording-cut timing offset — drafted the structured briefing, and rendered it into the interactive HTML page, reusing the panel-format design system established by the Beyond GDP HLPF readout. Opus 4.8 was chosen because the honest reading of this event (a consensual advocacy room, not a clash of camps) is a subtle judgement that is easy to get wrong by manufacturing conflict. The substantive judgements — what each speaker meant, how to frame the room, the briefing wording — are the analyst's; the assistant did the extraction, the verification runs, the consolidation and the build. The human's only gate is reading the final HTML.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage1">
+      <details open>
+        <summary>Stage 1 — Discovery</summary>
+        <div class="body">
+          <p>The UN transcripts portal carries ASR transcripts for the preceding 365 days. This side event was located on the portal as asset <code>k1q/k1qcq6j7ul</code>. Its companion video sits on UN Web TV as the same Kaltura asset (live entry <code>1_qcq6j7ul</code>).</p>
+          <div class="note"><strong>Side events are not numbered records.</strong> Unlike a Security Council meeting (S/PV.n) or a GA plenary, an HLPF side event has no formal document symbol — it is discovered by title/asset slug on the portal, not by a record number. That makes the asset slug the single durable identifier to record for later verification.</div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage2">
+      <details open>
+        <summary>Stage 2 — Fetch &amp; Convert</summary>
+        <div class="body">
+          <p>The meeting was fetched into the <code>ai-at-un</code> silo and converted to attributed markdown:</p>
+          <pre><code>python pipeline/fetch_un_transcripts.py fetch k1q/k1qcq6j7ul --silo ai-at-un
+python pipeline/fetch_un_transcripts.py convert transcripts/ai-at-un/2026-07-15_k1qcq6j7ul.json</code></pre>
+          <p>The portal's JSON nests the useful fields — title and summary under <code>metadata</code>, the statements under <code>transcript.data</code>, and per-sentence word timestamps under each statement's <code>paragraphs[].sentences[]</code>. The conversion produced 52 statements across 15 substantive speakers: a moderator, two keynote speakers (Tajikistan, Pakistan), a three-person panel (UNDP, Google, a youth delegate), floor interventions from Kazakhstan, China and Azerbaijan, four audience questioners, and Pakistan's Permanent Representative closing.</p>
+          <div class="warn"><strong>Format is a panel, not a chaired debate.</strong> The pipeline's default is calibrated for chaired, sequential-statement formats (Security Council, GA). This event is a moderated side event with keynotes, a panel, floor interventions and open-floor Q&amp;A — so it was rendered with the <strong>panel adaptation</strong> (participant cards coloured by actor type, a "tensions of emphasis" section, an outliers box), the structural precedent being the Beyond GDP HLPF panel readout, not the chaired template.</div>
+          <div class="note"><strong>Dropped as procedural noise.</strong> Off-record housekeeping in Hindi/Urdu at the open (a brief exchange about a water bottle and "should I start?"), the moderator's per-speaker hand-offs, and one-line "thank you" fillers carry no substantive position and were not rendered.</div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage3">
+      <details open>
+        <summary>Stage 3 — Analysis &amp; Coding</summary>
+        <div class="body">
+          <p>With the attributed transcript in hand, each speaker's stated position was extracted verbatim and sorted. The working notes are kept in <code>readouts/ai-sustdev-panel-2026-07-source.md</code>, which records the consensus points, the tensions of emphasis, the stand-out interventions, and the per-participant positions, each anchored to a quote.</p>
+          <h3 class="sub">How the event was coded</h3>
+          <p>Unlike the Security Council readouts, this event was not coded onto opposing stance axes — because there were no opposing camps to plot (see <a href="#framing">the note on the analytical frame</a>). It was coded on three layers drawn directly from what was said:</p>
+          <ul class="tight">
+            <li><strong>Consensus</strong> — the commitments nearly every speaker shared (bridge the divide; youth as shapers; human-centred, safe AI; AI for the SDGs; cooperation as the mechanism), each anchored to a verbatim quote from a different speaker.</li>
+            <li><strong>Tensions of emphasis</strong> — real differences in <em>weight</em>, not open disputes: finance-vs-skills as the binding constraint; sovereign capacity vs. Big-Tech partnership; state showcase-optimism vs. the UNDP risk warning. Each is shown as the speakers' verbatim words side by side, explicitly labelled as differences in emphasis rather than a fight.</li>
+            <li><strong>Stand-out interventions (outliers)</strong> — the distinct or dissenting notes worth reading twice: UNDP's compute-concentration and safeguards warning, the Myanmar conflict-state question, the procurement-access exchange, China's parallel-venue announcement.</li>
+          </ul>
+          <p>Participants are coloured by <strong>actor type</strong> — member state, UN system, industry, youth, audience — not by negotiating bloc, because this was a mixed advocacy room, not a bloc negotiation. Where a speaker did not state a position on a point, they are simply not shown on it; nothing was inferred.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage4">
+      <details open>
+        <summary>Stage 4 — Quote Verification (audio)</summary>
+        <div class="body">
+          <p>The portal transcript is machine ASR, so every quote destined for the page — talking points, participant cards, the executive summary — was checked against the actual meeting audio before publication rather than flagged as provisional. This is a <strong>mandatory pipeline stage</strong>. The full method, escalation ladder and run log live in <a href="../pipeline/quote-verification.md"><code>pipeline/quote-verification.md</code></a>; the summary follows.</p>
+
+          <h3 class="sub">The method</h3>
+          <ol class="tight">
+            <li><strong>Resolve the recording.</strong> A <code>baseEntry/get</code> on the live UN Web TV entry <code>1_qcq6j7ul</code> returned the recorded VOD entry <code>1_gr3kz7u8</code>. <code>getPlaybackContext</code> enumerated the flavors; the English-audio flavor is <code>1_w51t2aqe</code> (<code>flavorParamsId</code> 100). No API key is needed — an unauthenticated widget session gives access.</li>
+            <li><strong>Confirm the flavor layout.</strong> This was the first panel-format entry the pipeline had verified, so the flavor list was checked before assuming the Security Council layout transferred. It did: the English flavor is paramsId 100, exactly as for the chaired sessions — the method carried over unchanged.</li>
+            <li><strong>Download the English audio.</strong> The ~103 MB English-audio MP4 was pulled via the Kaltura <code>playManifest</code> URL for that flavor.</li>
+            <li><strong>Slice each quote's window.</strong> For each of the 17 quotes, ffmpeg cut a short window centred on the sentence's (offset-corrected) timestamp.</li>
+            <li><strong>Transcribe independently.</strong> Each window was run through <code>whisper-cli.exe</code> (large-v3-turbo, flags <code>-mc 0 -tp 0.0 -nf -nt</code>) so the quote could be compared against a second, independent speech-to-text pass — not just re-read from the portal ASR.</li>
+            <li><strong>Compare and judge.</strong> The whisper output was compared to the ASR quote text; a match confirms the quote, a mismatch triggers a correction and a re-slice.</li>
+          </ol>
+
+          <div class="warn">
+            <strong>The recording-was-re-cut offset — the distinguishing quirk of this run.</strong> On the first pass, every one of the 17 slices returned <em>coherent but wrong</em> content — other real sentences from the meeting, not garble. That signature (plausible text, wrong place) is the fingerprint of a <em>uniform timestamp offset</em>, not a set of missed quotes. The cause, confirmed by a banner on the transcript page: the UN transcript was made from an earlier <strong>1h34m</strong> version of the recording that was later shortened to the published <strong>1h15m</strong> — a ~19-minute front-loaded trim. So the JSON timestamps sit on the long cut and the audio sits on the short cut, off by a constant <strong>−1119 seconds</strong>. The fix: map audio position to content at several landmark points to measure the offset, confirm it is <em>stable at both ends of the meeting</em> (a distributed trim would drift; this one did not), then slice every quote at <code>json_start − 1119</code> with a ±12s window. This is now written up as a second known cause (alongside interpretation drift) in the verification method.</div>
+
+          <h3 class="sub">Why the English flavor, never "Interlingua"</h3>
+          <p>The English audio flavor (paramsId 100) is always the verification target. It is the channel the portal ASR actually transcribes — floor audio for English speakers, the English interpreter for everyone else — so it is the like-for-like comparison. This event ran mostly in English on the floor, so drift <em>within</em> the audio was negligible; the only timing issue was the global re-cut offset above.</p>
+
+          <h3 class="sub">The result: 17 of 17 quotes matched</h3>
+          <p>After the offset correction, all 17 position-critical quotes matched the recording; no corrections were needed. One non-correcting artifact was noted and left as-is: the audio has the Google speaker say "intelligent for the many" (a slight slur of delivery) where both the readout and the ASR read the intended "intelligence for the many." The readout, source notes and silo index were updated to verified with timestamps.</p>
+          <table class="data">
+            <thead>
+              <tr><th>Speaker</th><th>Quote (opening)</th><th>Audio pos.</th><th>Result</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Chairman Khan (Pakistan)</td><td>"Yet AI is not inherently inclusive…"</td><td><code>~493s</code></td><td class="match">match</td></tr>
+              <tr><td>Chairman Khan (Pakistan)</td><td>"…not the sophistication of its algorithms, but the lives it improves."</td><td><code>~836s</code></td><td class="match">match</td></tr>
+              <tr><td>Chairman Khan (Pakistan)</td><td>"It must not become a tool of technological monopoly."</td><td><code>~811s</code></td><td class="match">match</td></tr>
+              <tr><td>Jennifer Lui (UNDP)</td><td>"…three-quarters of it sits in only one country…"</td><td><code>~986s</code></td><td class="match">match</td></tr>
+              <tr><td>Jennifer Lui (UNDP)</td><td>"…how do we make sure the frontier benefits actually reach us?"</td><td><code>~1016s</code></td><td class="match">match</td></tr>
+              <tr><td>Jennifer Lui (UNDP)</td><td>"Our safeguards are not keeping pace with AI's growth."</td><td><code>~1036s</code></td><td class="match">match</td></tr>
+              <tr><td>Jennifer Lui (UNDP)</td><td>"…decided in many smaller choices… micro-governance choices…"</td><td><code>~1321s</code></td><td class="match">match</td></tr>
+              <tr><td>Jennifer Lui (UNDP)</td><td>"…are being enlisted into cybercriminality."</td><td><code>~3806s</code></td><td class="match">match</td></tr>
+              <tr><td>Hashim Saeed (Google)</td><td>"…not as a tool for automation, but as a bridge for opportunity…"</td><td><code>~1530s</code></td><td class="match">match</td></tr>
+              <tr><td>Hashim Saeed (Google)</td><td>"…should be intelligence for the many."</td><td><code>~1805s</code></td><td class="match">match*</td></tr>
+              <tr><td>Hashim Saeed (Google)</td><td>"…only 14% of workers… received formal and true AI training."</td><td><code>~1620s</code></td><td class="match">match</td></tr>
+              <tr><td>Bisma Qamar (Pakistan youth)</td><td>"History will not remember the speed of AI…"</td><td><code>~2104s</code></td><td class="match">match</td></tr>
+              <tr><td>Bisma Qamar (Pakistan youth)</td><td>"…choose inclusion over exclusion…"</td><td><code>~2127s</code></td><td class="match">match</td></tr>
+              <tr><td>Kazakhstan</td><td>"Developing countries should not merely adopt… they should actively shape its future."</td><td><code>~2470s</code></td><td class="match">match</td></tr>
+              <tr><td>China</td><td>"…its power to leapfrog traditional development barriers."</td><td><code>~2585s</code></td><td class="match">match</td></tr>
+              <tr><td>China</td><td>"…boosted efficiency by over 30% while cutting defects by half…"</td><td><code>~2601s</code></td><td class="match">match</td></tr>
+              <tr><td>Amb. Asim (Pakistan PR)</td><td>"…it's the humanity that must shape the future of the AI."</td><td><code>~4098s</code></td><td class="match">match</td></tr>
+            </tbody>
+          </table>
+          <p class="note">* "intelligence for the many" — audio delivery slurs to "intelligent for the many"; the intended and ASR-canonical reading is kept. Audio positions are offset-corrected (<code>json_start − 1119s</code>). Because these span the keynotes, all three panelists, and every floor intervention, verifying them anchors both the consensus layer and the UNDP counter-current directly to the recording.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage5">
+      <details open>
+        <summary>Stage 5 — Synthesis &amp; Briefing</summary>
+        <div class="body">
+          <p>The coded, verified material was collapsed into a single structured briefing following the panel-adapted house format:</p>
+          <ul class="tight">
+            <li><strong>Executive summary</strong> — the headline proposition (bridge or widen the divide) plus the four shared commitments as a skimmable bullet list, and a callout flagging the one voice (UNDP) that complicated the room's optimism.</li>
+            <li><strong>Governing frame</strong> — a highlighted box for the reference point four speakers kept returning to (the UN Global Dialogue on AI Governance + Independent Scientific Panel, Geneva the week before) plus China's parallel Shanghai venue. This replaces the "process news" box a negotiation readout would carry, since no hard deadline emerged here.</li>
+            <li><strong>Areas of consensus</strong> — the shared frame, each point anchored to a verbatim quote from a different speaker.</li>
+            <li><strong>Who spoke</strong> — searchable participant cards, coloured by actor type, filterable by segment (keynote / panel / floor / audience).</li>
+            <li><strong>Tensions of emphasis</strong> — the three differences in weight, each shown as the speakers' verbatim words side by side and explicitly framed as emphasis, not dispute.</li>
+            <li><strong>Stand-out interventions</strong> — the outliers box.</li>
+            <li><strong>Talking points</strong> — the single verbatim home of the key quotes, all audio-verified; body prose paraphrases them.</li>
+          </ul>
+          <p>Two structural rules keep it brief: <strong>each position appears once in prose</strong>, with full detail only in the participant cards; and the page opens with the reader-facing sections expanded and the deeper layers collapsed behind an expand-all control — a two-to-five-minute read for a high-level reader.</p>
+          <div class="note"><strong>No time-series layer.</strong> Because the <code>ai-at-un</code> silo is thematic with time-series intent "none" (retrieval + optional summary, not a tracked negotiation), this readout ships as a <em>standalone</em>: no sequence banner and no topic-persistence table. Those elements belong to active-sequence silos such as Beyond GDP.</div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage6">
+      <details open>
+        <summary>Stage 6 — Publication (HTML)</summary>
+        <div class="body">
+          <p>The briefing was rendered as a single self-contained HTML page — a static file with inline CSS and JS, no build step, no external dependencies.</p>
+          <h3 class="sub">Interactive elements</h3>
+          <ul class="tight">
+            <li><strong>Searchable participant grid.</strong> A card per speaker, coloured by actor type, filterable by actor type and by segment (keynote / panel / floor / audience) and free-text-searchable across names and positions.</li>
+            <li><strong>Tension rows.</strong> Each tension of emphasis is a stack of verbatim quote rows, colour-keyed to the speaker's actor type, with a short "lean" label per speaker (e.g. "Finance / investment", "Skills / capacity") — deliberately not framed as opposing poles.</li>
+            <li><strong>Tiered collapse.</strong> Reader-facing sections open on load; deeper sections sit behind an expand-all / collapse-all control.</li>
+          </ul>
+          <h3 class="sub">Accessibility choices</h3>
+          <ul class="tight">
+            <li>A skip-to-content link and visible keyboard focus outlines.</li>
+            <li>Collapsible sections with an expand-all / collapse-all control.</li>
+            <li>A sticky table of contents that tracks the reader's position.</li>
+          </ul>
+          <p>This methodology page reuses the same design system, so the readout and its method read as one family.</p>
+          <div class="note"><strong>Verification.</strong> The rendered page was served locally and checked structurally: HTTP 200, balanced collapsible sections, 14 participant cards matching the participant roster, and the reader-facing sections open on load. (Playwright was not used for this run; a static page with a self-contained filter script has no server-side behaviour to drive.)</div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="framing">
+      <details open>
+        <summary>A Note on the Analytical Frame</summary>
+        <div class="body">
+          <p>The single most important analytical judgement in this readout is a <em>negative</em> one: <strong>this event had no hard fault lines, and it would have been a fabrication to invent them.</strong> The house panel template centres a "fault lines — where the room divides" section, and it would have been easy to force this event into it. But this was a <strong>co-hosted advocacy side event</strong>, convened by Pakistan and Tajikistan to put a shared message on the HLPF record — not an intergovernmental negotiation. Nearly every speaker agreed on the same frame.</p>
+          <p>So the readout is coded to three honest layers instead: a strong <strong>consensus</strong>; the real <strong>tensions of emphasis</strong> underneath it (differences in where speakers put the weight — finance vs. skills, sovereignty vs. Big-Tech, optimism vs. risk — not open disputes); and the one genuine <strong>counter-current</strong>, UNDP's Jennifer Lui, whose compute-concentration and safeguards warning is the clearest departure from the room's celebratory tone. Presenting the tensions as if they were camps in a fight would have overstated the disagreement and misrepresented the event. This choice is disclosed here so a reader can weigh it; the coding table in the source notes shows the quote behind each placement, and the underlying transcript is the check.</p>
+          <p>This mirrors the reasoning used elsewhere in the project: where a dimension is universal and non-diagnostic (every Security Council speaker "condemns the atrocities"; every UN80 speaker "supports UN80"), coding it produces a uniform field with no signal, so the analysis moves to the axis where the real variation lives. Here, the real variation is not <em>whether</em> the room agrees — it does — but <em>where the emphasis falls</em> and <em>who complicates the optimism</em>.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="provenance">
+      <details open>
+        <summary>Provenance &amp; Traceability</summary>
+        <div class="body">
+          <p>This is the short answer to "how do you know?" Each type of claim on the readout traces to a specific source.</p>
+          <table class="data">
+            <thead>
+              <tr><th>Claim type</th><th>Traces to</th><th>How</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Verbatim quotes in talking points and cards</td>
+                <td>Portal ASR transcript, audio-verified against the recording</td>
+                <td>Reproduced from the ASR text, then checked sentence-by-sentence against the Kaltura English-audio VOD (Stage 4), after correcting the recording-cut timestamp offset. All 17 matched.</td>
+              </tr>
+              <tr>
+                <td>Who said what (speaker attribution)</td>
+                <td>Portal metadata + moderator hand-off cues</td>
+                <td>Attribution supplied by the portal, cross-read against the moderator's introductions in the transcript. One name (the Tajik keynote) is unresolved in the source and withheld.</td>
+              </tr>
+              <tr>
+                <td>Consensus / tension / outlier coding per speaker</td>
+                <td><code>ai-sustdev-panel-2026-07-source.md</code></td>
+                <td>Extracted from the transcript; each anchored to a quote; unstated positions marked, not guessed.</td>
+              </tr>
+              <tr>
+                <td>Consensus points, tensions of emphasis, stand-out interventions</td>
+                <td><code>ai-sustdev-panel-2026-07-source.md</code></td>
+                <td>Synthesis of the coded positions into a structured briefing.</td>
+              </tr>
+              <tr>
+                <td>Hard figures (₹60 bn, 1.6 M laptops, 2 M professionals, etc.)</td>
+                <td>Portal ASR, <em>flagged as provisional</em></td>
+                <td>Reproduced from the ASR text and explicitly flagged for number-check; the audio pass verifies wording, not figures. Listed in the source notes' ASR watch-list.</td>
+              </tr>
+              <tr>
+                <td>Section text and visual elements on the page</td>
+                <td>The readout HTML file</td>
+                <td>Rendered directly from the briefing; no new facts introduced at this stage.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="limits">
+      <details open>
+        <summary>Limitations &amp; Honesty Notes</summary>
+        <div class="body">
+          <p>The method is transparent about where error can enter. None of the steps below were hidden; each was managed.</p>
+          <ul class="tight">
+            <li><strong>The transcript is machine ASR, not an official record.</strong> Portal ASR mishears names, acronyms and figures. The <em>quotes</em> on the readout are mitigated by the Stage 4 audio check, which passed 17/17; but non-quoted ASR text remains provisional.</li>
+            <li><strong>One speaker's name is unresolved.</strong> The Tajik keynote speaker is headed "Abdurrahman Zadeh" in the transcript but introduced phonetically as "Ramonov"; the two do not match (and the ASR separately renders the President's name "Emomali Rahmon" nearby, a plausible confusion source). The name is <strong>withheld</strong> from the readout — the speaker is labelled by office only — pending confirmation against the video or a UN protocol list.</li>
+            <li><strong>Hard figures are unverified.</strong> The audio pass confirms that a speaker <em>said</em> a figure, not that the figure is correct. All quantitative claims (₹60 bn, 1.6 M laptops, 73k trained, 2 M AI professionals by 2030, Kazakhstan's index rankings, China's +30% / 90% figures, and so on) are reproduced from the ASR and flagged for number-check; they are the speakers' own claims, not independently corroborated.</li>
+            <li><strong>The recording was re-cut.</strong> The published audio (1h15m) is shorter than the version the transcript was timed against (1h34m). Verification handled this with a measured, both-ends-confirmed −1119s offset — but it means a naive slice at the raw JSON timestamp lands in the wrong place, a documented gotcha for any future portal-sourced session carrying the same "some parts may not match playback" banner.</li>
+            <li><strong>The consensus reading is interpretive.</strong> Framing the event as consensus + tensions + one counter-current (rather than as camps) is an analytical judgement, disclosed in the <a href="#framing">frame note</a>. A different analyst might weight the tensions differently; the transcript is the check.</li>
+          </ul>
+          <h3 class="sub">What was automated versus human-checked</h3>
+          <ul class="tight">
+            <li><span class="tag auto">Automated</span> Portal discovery, transcript fetch, JSON-to-markdown conversion, first-pass position extraction, <strong>and the entire quote-verification workflow</strong> (flavor resolution, VOD download, offset diagnosis, ffmpeg slicing, whisper transcription, comparison) — Claude runs this end to end.</li>
+            <li><span class="tag human">Human-checked</span> The reading of the transcript for meaning; the decision to code it as consensus rather than camps; the briefing wording. The human's <strong>only gate is reading the final HTML</strong> — by design, per the pipeline's division of labour.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="runbook">
+      <details open>
+        <summary>Replication Runbook</summary>
+        <div class="body">
+          <p>To repeat this for the next AI-at-the-UN session in the <code>ai-at-un</code> silo, or any other portal-sourced panel / side event. All commands run from the project folder so the relative <code>transcripts/</code> paths resolve. See <code>pipeline/un-transcripts.md</code> for the fetcher guide and <code>pipeline/quote-verification.md</code> for the full verification method.</p>
+
+          <h3 class="sub">1. Discover the meeting</h3>
+          <p>Find the session on the portal by its title / asset slug (side events have no document symbol). Record both the transcript asset slug (<code>k…/k…</code>) and the UN Web TV / Kaltura live entry for later verification.</p>
+
+          <h3 class="sub">2. Fetch and convert</h3>
+          <pre><code>python pipeline/fetch_un_transcripts.py fetch &lt;slug&gt; --silo ai-at-un
+python pipeline/fetch_un_transcripts.py convert transcripts/ai-at-un/&lt;file&gt;.json</code></pre>
+          <p>Produces <code>&lt;date&gt;_&lt;slug&gt;_attributed.md</code> and updates <code>transcripts/ai-at-un/INDEX.md</code>. Drop procedural noise (housekeeping, hand-offs, one-line fillers). Confirm the format: a panel / side event uses the <strong>panel adaptation</strong>, not the chaired template.</p>
+
+          <h3 class="sub">3. Analyse and code</h3>
+          <ol class="tight">
+            <li>Extract each speaker's stated position verbatim.</li>
+            <li><strong>Decide the frame honestly.</strong> Is this a negotiation with real camps, or a consensual room? If consensual, code consensus + tensions of emphasis + outliers — do not manufacture fault lines. Mark unstated positions silent.</li>
+            <li>Save the working notes as <code>&lt;readout-slug&gt;-source.md</code>, with an anchor quote per point, an ASR-flag list, and any unresolved names.</li>
+          </ol>
+
+          <h3 class="sub">4. Verify quotes against the audio (mandatory, do not skip)</h3>
+          <ol class="tight">
+            <li>Resolve the VOD entry (<code>baseEntry/get</code> on the live entry) and the English audio flavor (<code>getPlaybackContext</code>; paramsId 100). <strong>Check the flavors — do not assume paramsId 100 exists for a differently-configured entry.</strong> (For panel-format entries it does — confirmed on this run.)</li>
+            <li>Download the English-audio MP4 via the Kaltura <code>playManifest</code> URL.</li>
+            <li><strong>Sanity-check the timing before slicing all quotes.</strong> If a banner warns the recording was re-cut, or if a first slice returns coherent-but-wrong content, measure the JSON→audio offset at 2–3 landmarks, confirm it is stable at both ends, and slice at <code>json_start − offset</code>. Interpreted speakers can additionally drift 10–20s (widen the window).</li>
+            <li>For each position-critical quote, ffmpeg-slice a window and transcribe with whisper large-v3-turbo; compare to the ASR quote.</li>
+            <li>Update the readout, source notes and INDEX from "unverified" to verified with timestamps once all quotes match.</li>
+          </ol>
+          <p class="note">Full step-by-step method, escalation ladder and run log: <a href="../pipeline/quote-verification.md"><code>pipeline/quote-verification.md</code></a>.</p>
+
+          <h3 class="sub">5. Synthesise the briefing</h3>
+          <p>Collapse the coded, verified positions into the panel house structure: executive summary (headline + shared commitments + the counter-current callout), governing frame / process box, areas of consensus, participant cards, tensions of emphasis, outliers box, and audio-verified talking points. For a thematic "none" silo, ship standalone — no sequence banner, no time-series table.</p>
+          <p>Two rules keep it brief. <strong>One prose home per position:</strong> a speaker is named once in the prose; anything more belongs in its card. <strong>Quotes live once:</strong> talking points hold the verbatim text; body prose paraphrases with a pointer.</p>
+
+          <h3 class="sub">6. Publish</h3>
+          <p>Render the briefing into one HTML page, reusing the panel design system and the participant-card / tension-row data structure. Name it <code>&lt;topic-slug&gt;-panel-public-&lt;YYYY-MM&gt;.html</code> and cross-link it with a methodology page built from this one. The canonical panel structural example is <code>readouts/beyond-gdp-panel-public-2026-07.html</code>.</p>
+
+          <div class="note">
+            <strong>File-naming chain.</strong>
+            portal <code>&lt;slug&gt;.json</code> → <code>&lt;date&gt;_&lt;slug&gt;_attributed.md</code> → <code>&lt;readout-slug&gt;-source.md</code> → the readout HTML page → this methodology page.
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <footer class="page">
+      Methodology record for the AI &amp; Sustainable Development readout — HLPF 2026 side event, 15 July 2026. Source: the UN transcripts portal ASR transcript (asset k1q/k1qcq6j7ul), with the 17 position-critical quotes audio-verified against the Kaltura English-audio VOD (recorded entry 1_gr3kz7u8, flavor 1_w51t2aqe / paramsId 100) on 16 July 2026, after correcting a −1119s recording-cut timestamp offset — all 17 matched. Analysis grounded in that transcript only. Analysed, verified and built with Claude Code (Opus 4.8). Silo: ai-at-un (thematic), readout 1.
+    </footer>
+
+  </main>
+</div>
+
+<script>
+(function () {
+  const allDetails = () => document.querySelectorAll('section.block > details');
+  document.getElementById('expand-all').addEventListener('click', () => allDetails().forEach(d => d.open = true));
+  document.getElementById('collapse-all').addEventListener('click', () => allDetails().forEach(d => d.open = false));
+
+  const tocLinks = Array.from(document.querySelectorAll('nav#toc a'));
+  const sections = tocLinks.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    const setCurrent = id => tocLinks.forEach(a => {
+      if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setCurrent(visible[0].target.id);
+    }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+    sections.forEach(s => io.observe(s));
+  }
+})();
+</script>
+</body>
+</html>

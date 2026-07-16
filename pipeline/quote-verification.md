@@ -78,6 +78,20 @@ Known cause: **interpretation drift.** JSON timestamps are exact for floor-Engli
 speakers but drift 10–20 s on interpreted segments (observed on France, ~10–20 s;
 Russia end-of-statement, needed a wider window). The interpreter lags the floor.
 
+Second known cause: **re-cut recording (large, uniform offset).** The
+transcripts.un.org page sometimes carries a banner like *"this transcript was made
+from an earlier 1h34m version of the audio that has since been shortened to
+1h15m — some parts may not match playback."* When present, the JSON timestamps are
+on the **long cut** and the downloadable audio flavor is the **short cut**, so every
+quote is off by a **constant multi-minute offset** (AI-at-UN 2026-07-15: −1119 s ≈
+the 19-min trim). Symptom: first-pass whisper returns *coherent but wrong* content
+(other real sentences from the meeting), not garble — a dead giveaway it's an offset,
+not a miss. **Fix:** map audio→content at 2–3 landmark points (`ffmpeg -ss T -t 20`
++ whisper, find that text in the JSON, `offset = json_start − T`), confirm the offset
+is stable at **both ends** (trim could theoretically be distributed, not front-loaded),
+then slice every quote at `json_start − offset` with a ±12 s window. Verified stable
+front-to-back on the AI-at-UN run (17/17 matched after correction).
+
 ### 7. Judge match / mismatch — carefully
 
 - **Match** = the quoted words appear in whisper's output (punctuation/casing
@@ -114,3 +128,4 @@ Russia end-of-statement, needed a wider window). The interpreter lags the floor.
 | 2026-07-15 | UN80 SG launch (12 May 2025) | `1_etbytvxk` / `1_sr8p1tub` | 5 | all matched |
 | 2026-07-15 | UN80 WG opening (16 Sep 2025) | `1_64fljgzl` / `1_pvibk8vw` | 6 | 5 matched, 1 ASR garble corrected ("are own" → "Member States own") |
 | 2026-07-16 | SC 10197 Sudan/ICC (15 Jul 2026) | `1_c3icpgx0` / `1_1jj8elbu` | 9 | all matched; France quotes needed wider windows (interpretation drift) |
+| 2026-07-16 | HLPF AI &amp; Sustainable Development side event (15 Jul 2026) | `1_gr3kz7u8` / `1_w51t2aqe` | 17 | all matched, 0 corrections; recording re-cut 1h34m→1h15m required a uniform −1119 s JSON→audio offset (first panel-format entry — flavor layout identical to SC, paramsId 100 present) |
