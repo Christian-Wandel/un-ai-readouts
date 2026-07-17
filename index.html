@@ -75,43 +75,62 @@
   }
   .asr-note strong { color: #3a2d08; }
 
-  /* Each topic group carries its own accent colour (--g) set on the
-     section id below — the coloured card edge + badge per group. */
-  section.group { margin-top: 2.25rem; --g: var(--accent); --g-soft: #e7ebf3; }
+  /* Each topic group is a collapsible <details>. It carries its own
+     accent colour (--g) set on the id below, and a data-type attribute
+     (thematic | institutional) kept for future filtering — not shown. */
+  details.group { margin-top: 2rem; --g: var(--accent); --g-soft: #e7ebf3; }
   #ai-at-un          { --g: #6a4ba8; --g-soft: #ece5f6; }
   #beyond-gdp        { --g: #1f7a5a; --g-soft: #e0f2ec; }
   #security-council  { --g: #1f5fb0; --g-soft: #e2ecf8; }
   #un80              { --g: #a8642a; --g-soft: #f6ebe0; }
 
-  section.group > .group-head {
+  details.group > summary {
+    cursor: pointer;
+    list-style: none;
+    border-left: 5px solid var(--g);
+    padding: .15rem 0 .15rem 1rem;
+    border-radius: 3px;
+  }
+  details.group > summary::-webkit-details-marker { display: none; }
+  details.group > summary:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .group-head {
     display: flex;
     align-items: baseline;
-    gap: .75rem;
+    gap: .6rem;
     flex-wrap: wrap;
-    margin-bottom: .35rem;
+    margin-bottom: .3rem;
   }
-  section.group h2 {
+  .group-head h2 {
     font-size: 1.25rem;
     margin: 0;
   }
-  .group-type {
+  .chev {
     display: inline-block;
-    font-size: .68rem;
-    font-weight: 700;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    padding: .18rem .55rem;
-    border-radius: 999px;
-    background: var(--g-soft);
     color: var(--g);
+    font-size: .95rem;
+    transition: transform .15s ease;
+    transform: translateY(-1px);
   }
-  section.group > p.group-blurb {
-    margin: 0 0 1rem;
+  details[open] > summary .chev { transform: rotate(90deg) translateX(-1px); }
+  details.group > summary:hover h2 { color: var(--g); }
+  .group-count {
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  p.group-blurb {
+    margin: 0;
     color: var(--muted);
     font-size: .92rem;
     max-width: 78ch;
   }
 
+  details.group > .cards { margin-top: 1rem; }
   .cards {
     display: grid;
     gap: 1rem;
@@ -187,28 +206,32 @@
   <header class="page">
     <p class="kicker">Index</p>
     <h1>UN AI Readouts</h1>
-    <p class="lede">AI-assisted briefings that turn UN meeting transcripts into short, interactive readouts — the consensus, the fault lines, and who said what, each stance traceable to the record. Pick a readout below.</p>
+    <p class="lede">AI-assisted briefings that turn UN meeting transcripts into short, interactive readouts — the consensus, the fault lines, and who said what, each stance traceable to the record. Open a topic below to see its readouts.</p>
     <div class="asr-note">
       <strong>How to read these.</strong> Each readout is built from the UN <a href="https://transcripts.un.org/en" target="_blank" rel="noopener">transcripts.un.org</a> automatic-speech-recognition (ASR) transcript — a strong draft, <em>not</em> an official UN record. Position-critical quotes are checked against the meeting audio before publication; every readout carries its own source note and a linked methodology page.
     </div>
   </header>
 
   <!-- ============================================================
-       TOPIC GROUPS — one <section class="group"> per group, in
-       alphabetical order. To add a readout: copy one
-       <article class="card"> block into the right group's .cards
-       grid (or add a new group section — set its accent colour on
-       the section id in the CSS above).
-       Group type badge: Institutional = by speaking body,
-       Thematic = by subject.
+       TOPIC GROUPS — one <details class="group"> per group, in
+       alphabetical order. data-type (thematic | institutional) is
+       kept for future filtering; it is not rendered.
+       To add a readout: copy one <article class="card"> block into
+       the right group's .cards grid. For a new group: copy a
+       <details class="group"> block, give it an id, set its accent
+       colour (--g / --g-soft) on that id in the CSS above, and
+       update the readout count in .group-count.
        ============================================================ -->
 
-  <section class="group" id="ai-at-un">
-    <div class="group-head">
-      <h2>AI at the UN</h2>
-      <span class="group-type">Thematic</span>
-    </div>
-    <p class="group-blurb">Grouped by subject, not by speaking body — how artificial intelligence is discussed across the UN, spanning governance, sustainable development, skills, and youth. Sessions are collected for retrieval; not tracked as a negotiation sequence.</p>
+  <details class="group" id="ai-at-un" data-type="thematic">
+    <summary>
+      <div class="group-head">
+        <span class="chev">▶</span>
+        <h2>AI at the UN</h2>
+        <span class="group-count">1 readout</span>
+      </div>
+      <p class="group-blurb">Grouped by subject, not by speaking body — how artificial intelligence is discussed across the UN, spanning governance, sustainable development, skills, and youth. Sessions are collected for retrieval; not tracked as a negotiation sequence.</p>
+    </summary>
     <div class="cards single">
 
       <article class="card">
@@ -224,14 +247,17 @@
       </article>
 
     </div>
-  </section>
+  </details>
 
-  <section class="group" id="beyond-gdp">
-    <div class="group-head">
-      <h2>Beyond GDP</h2>
-      <span class="group-type">Thematic</span>
-    </div>
-    <p class="group-blurb">The UN process to rethink how national progress is measured — what should count alongside GDP, and who decides. Followed as a sequence across three 2026 rounds; start with the time-series overview, then open a single round for the full stance detail.</p>
+  <details class="group" id="beyond-gdp" data-type="thematic">
+    <summary>
+      <div class="group-head">
+        <span class="chev">▶</span>
+        <h2>Beyond GDP</h2>
+        <span class="group-count">5 readouts</span>
+      </div>
+      <p class="group-blurb">The UN process to rethink how national progress is measured — what should count alongside GDP, and who decides. Followed as a sequence across three 2026 rounds; start with the time-series overview, then open a single round for the full stance detail.</p>
+    </summary>
     <div class="cards">
 
       <article class="card">
@@ -299,14 +325,17 @@
       </article>
 
     </div>
-  </section>
+  </details>
 
-  <section class="group" id="security-council">
-    <div class="group-head">
-      <h2>Security Council</h2>
-      <span class="group-type">Institutional</span>
-    </div>
-    <p class="group-blurb">Formal meetings of the Security Council, grouped by the body rather than by subject. Recurring files — like the Sudan / Darfur ICC briefings — are followed across sessions as they accumulate.</p>
+  <details class="group" id="security-council" data-type="institutional">
+    <summary>
+      <div class="group-head">
+        <span class="chev">▶</span>
+        <h2>Security Council</h2>
+        <span class="group-count">1 readout</span>
+      </div>
+      <p class="group-blurb">Formal meetings of the Security Council, grouped by the body rather than by subject. Recurring files — like the Sudan / Darfur ICC briefings — are followed across sessions as they accumulate.</p>
+    </summary>
     <div class="cards single">
 
       <article class="card">
@@ -322,14 +351,17 @@
       </article>
 
     </div>
-  </section>
+  </details>
 
-  <section class="group" id="un80">
-    <div class="group-head">
-      <h2>UN80</h2>
-      <span class="group-type">Thematic</span>
-    </div>
-    <p class="group-blurb">The Secretary-General's UN80 initiative to reform the UN system in its 80th year — from the launch briefing through the Working Group rounds that followed.</p>
+  <details class="group" id="un80" data-type="thematic">
+    <summary>
+      <div class="group-head">
+        <span class="chev">▶</span>
+        <h2>UN80</h2>
+        <span class="group-count">2 readouts</span>
+      </div>
+      <p class="group-blurb">The Secretary-General's UN80 initiative to reform the UN system in its 80th year — from the launch briefing through the Working Group rounds that followed.</p>
+    </summary>
     <div class="cards">
 
       <article class="card">
@@ -357,7 +389,7 @@
       </article>
 
     </div>
-  </section>
+  </details>
 
   <footer class="page">
     <p>An experiment in AI-assisted UN meeting analysis. Every stance is verbatim from the source transcript; unstated positions are marked, never inferred.</p>
