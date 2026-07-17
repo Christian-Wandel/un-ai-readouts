@@ -13,13 +13,6 @@
     --rule: #e3e1da;
     --accent: #2e4a86;
 
-    --inst:  #1f5fb0;   /* institutional silo */
-    --inst-soft: #e2ecf8;
-    --them:  #6a4ba8;   /* thematic silo */
-    --them-soft: #ece5f6;
-    --ext:   #6a727b;   /* hosted elsewhere */
-    --ext-soft: #ecedef;
-
     --focus: #ffbf47;
     --radius: 12px;
     --shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 18px rgba(0,0,0,.05);
@@ -40,9 +33,9 @@
   }
 
   .wrap {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 2.5rem 1.25rem 4rem;
+    padding: 2.5rem 1.5rem 4rem;
   }
 
   header.page {
@@ -67,7 +60,7 @@
     margin: 0;
     color: var(--muted);
     font-size: 1.02rem;
-    max-width: 62ch;
+    max-width: 72ch;
   }
 
   .asr-note {
@@ -78,22 +71,30 @@
     border-radius: 0 8px 8px 0;
     font-size: .88rem;
     color: #4a3a10;
+    max-width: 82ch;
   }
   .asr-note strong { color: #3a2d08; }
 
-  section.silo { margin-top: 2.25rem; }
-  section.silo > .silo-head {
+  /* Each topic group carries its own accent colour (--g) set on the
+     section id below — the coloured card edge + badge per group. */
+  section.group { margin-top: 2.25rem; --g: var(--accent); --g-soft: #e7ebf3; }
+  #ai-at-un          { --g: #6a4ba8; --g-soft: #ece5f6; }
+  #beyond-gdp        { --g: #1f7a5a; --g-soft: #e0f2ec; }
+  #security-council  { --g: #1f5fb0; --g-soft: #e2ecf8; }
+  #un80              { --g: #a8642a; --g-soft: #f6ebe0; }
+
+  section.group > .group-head {
     display: flex;
     align-items: baseline;
     gap: .75rem;
     flex-wrap: wrap;
     margin-bottom: .35rem;
   }
-  section.silo h2 {
+  section.group h2 {
     font-size: 1.25rem;
     margin: 0;
   }
-  .silo-type {
+  .group-type {
     display: inline-block;
     font-size: .68rem;
     font-weight: 700;
@@ -101,15 +102,14 @@
     text-transform: uppercase;
     padding: .18rem .55rem;
     border-radius: 999px;
+    background: var(--g-soft);
+    color: var(--g);
   }
-  .silo-type.inst { background: var(--inst-soft); color: var(--inst); }
-  .silo-type.them { background: var(--them-soft); color: var(--them); }
-  .silo-type.ext  { background: var(--ext-soft);  color: var(--ext); }
-  section.silo > p.silo-blurb {
+  section.group > p.group-blurb {
     margin: 0 0 1rem;
     color: var(--muted);
     font-size: .92rem;
-    max-width: 66ch;
+    max-width: 78ch;
   }
 
   .cards {
@@ -119,13 +119,17 @@
   }
   @media (min-width: 640px) {
     .cards { grid-template-columns: 1fr 1fr; }
-    .cards.single { grid-template-columns: 1fr; max-width: 30rem; }
+    .cards.single { grid-template-columns: 1fr; max-width: 34rem; }
+  }
+  @media (min-width: 1000px) {
+    .cards { grid-template-columns: 1fr 1fr 1fr; }
+    .cards.single { grid-template-columns: 1fr; max-width: 34rem; }
   }
 
   article.card {
     background: var(--surface);
     border: 1px solid var(--rule);
-    border-left: 5px solid var(--accent);
+    border-left: 5px solid var(--g);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     padding: 1.1rem 1.25rem 1.15rem;
@@ -133,9 +137,6 @@
     flex-direction: column;
     gap: .5rem;
   }
-  article.card.inst { border-left-color: var(--inst); }
-  article.card.them { border-left-color: var(--them); }
-  article.card.ext  { border-left-color: var(--ext); }
 
   article.card .meta-row {
     display: flex;
@@ -169,13 +170,6 @@
   article.card .links a { font-weight: 600; text-decoration: none; }
   article.card .links a:hover { text-decoration: underline; }
   article.card .links .sep { color: var(--rule); }
-  .ext-badge {
-    font-size: .68rem;
-    font-weight: 700;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-    color: var(--ext);
-  }
 
   footer.page {
     margin-top: 3rem;
@@ -200,119 +194,24 @@
   </header>
 
   <!-- ============================================================
-       HOSTED HERE — one <section class="silo"> per silo.
-       To add a readout: copy one <article class="card"> block into
-       the right silo's .cards grid (or add a new silo section).
-       Silo type badge: inst = institutional, them = thematic.
+       TOPIC GROUPS — one <section class="group"> per group, in
+       alphabetical order. To add a readout: copy one
+       <article class="card"> block into the right group's .cards
+       grid (or add a new group section — set its accent colour on
+       the section id in the CSS above).
+       Group type badge: Institutional = by speaking body,
+       Thematic = by subject.
        ============================================================ -->
 
-  <section class="silo" id="beyond-gdp">
-    <div class="silo-head">
-      <h2>Beyond GDP</h2>
-      <span class="silo-type ext">Hosted separately</span>
-    </div>
-    <p class="silo-blurb">Grouped by subject and tracked as a sequence — the UN process to move national progress measurement beyond GDP, followed across three 2026 rounds. This silo lives in its own repo. Start with the time-series overview to see how positions and fault lines moved; open a single round for the full stance detail. An expert in the field confirmed the May analysis was accurate. <span class="ext-badge">↗ open in the Beyond GDP repo</span></p>
-    <div class="cards">
-
-      <article class="card ext">
-        <div class="meta-row">
-          <span>Dedicated tracker · Mar → Jul 2026</span>
-          <span class="date">2026</span>
-        </div>
-        <h3><a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/" target="_blank" rel="noopener">Beyond GDP — UN Process Readouts</a></h3>
-        <p class="desc">The silo's own site: an interactive tracker indexing all three 2026 rounds plus the drift and time-series analysis pages, hosted in its own repo. <span class="ext-badge">↗ opens the Beyond GDP repo</span></p>
-        <div class="links">
-          <a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/" target="_blank" rel="noopener">Open the tracker ↗</a>
-        </div>
-      </article>
-
-      <article class="card ext">
-        <div class="meta-row">
-          <span>Time-series overview · Mar → Jul 2026</span>
-          <span class="date">2026</span>
-        </div>
-        <h3><a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-timeseries-2026.html" target="_blank" rel="noopener">Beyond GDP — how the room moved</a></h3>
-        <p class="desc">The whole arc in one view: position drift and fault-line movement across the March briefing, the May consultation, and the July panel. The best single entry point.</p>
-        <div class="links">
-          <a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-timeseries-2026.html" target="_blank" rel="noopener">Read the overview ↗</a>
-          <span class="sep">·</span>
-          <a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-comparison-mar-may-2026.html" target="_blank" rel="noopener">Mar → May drift ↗</a>
-        </div>
-      </article>
-
-      <article class="card ext">
-        <div class="meta-row">
-          <span>First Open Consultation</span>
-          <span class="date">7 May 2026</span>
-        </div>
-        <h3><a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-consultation-public.html" target="_blank" rel="noopener">The Beyond GDP Framework consultation</a></h3>
-        <p class="desc">The flagship readout: 27 delegations across every major bloc, filterable stance cards, and a fault-line plot mapping the finance-link, subjectivity, and governance-venue divides.</p>
-        <div class="links">
-          <a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-consultation-public.html" target="_blank" rel="noopener">Read the readout ↗</a>
-          <span class="sep">·</span>
-          <a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/methodology/beyond-gdp-methodology.html" target="_blank" rel="noopener">Methodology ↗</a>
-        </div>
-      </article>
-
-      <article class="card ext">
-        <div class="meta-row">
-          <span>GA briefing</span>
-          <span class="date">4 Mar 2026</span>
-        </div>
-        <h3><a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-ga-briefing-2026-03.html" target="_blank" rel="noopener">Beyond GDP — GA briefing</a></h3>
-        <p class="desc">The opening round: the General Assembly briefing that set the terms of the debate two months before the consultation.</p>
-        <div class="links">
-          <a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-ga-briefing-2026-03.html" target="_blank" rel="noopener">Read the readout ↗</a>
-        </div>
-      </article>
-
-      <article class="card ext">
-        <div class="meta-row">
-          <span>HLPF 2026 panel</span>
-          <span class="date">Jul 2026</span>
-        </div>
-        <h3><a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-panel-public-2026-07.html" target="_blank" rel="noopener">Beyond GDP — from analysis to impact</a></h3>
-        <p class="desc">The HLPF Goals Lounge panel: fault-line spectrum strips, a topic-persistence table across all three rounds, and the elements-paper process ahead.</p>
-        <div class="links">
-          <a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-panel-public-2026-07.html" target="_blank" rel="noopener">Read the readout ↗</a>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <section class="silo" id="security-council">
-    <div class="silo-head">
-      <h2>Security Council</h2>
-      <span class="silo-type inst">Institutional</span>
-    </div>
-    <p class="silo-blurb">Grouped by the speaking body, not by topic. Sub-threads (e.g. Sudan / South Sudan) may be tracked as a sequence if further sessions accumulate.</p>
-    <div class="cards single">
-
-      <article class="card inst">
-        <div class="meta-row">
-          <span>Sudan / Darfur · ICC</span>
-          <span class="date">15 Jul 2026</span>
-        </div>
-        <h3><a href="readouts/sudan-icc-briefing-2026-07.html">Darfur and the ICC — 10,197th meeting</a></h3>
-        <p class="desc">The ICC Deputy Prosecutor's 43rd report under Resolution 1593. The fault line: defend the Court vs. delegitimise it. 17 speakers; 9 quotes audio-verified.</p>
-        <div class="links">
-          <a href="readouts/sudan-icc-briefing-2026-07.html">Read the readout →</a>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <section class="silo" id="ai-at-un">
-    <div class="silo-head">
+  <section class="group" id="ai-at-un">
+    <div class="group-head">
       <h2>AI at the UN</h2>
-      <span class="silo-type them">Thematic</span>
+      <span class="group-type">Thematic</span>
     </div>
-    <p class="silo-blurb">Grouped by subject, not by speaking body — how artificial intelligence is discussed across the UN, spanning governance, sustainable development, skills, and youth. Sessions are collected for retrieval; not tracked as a negotiation sequence.</p>
+    <p class="group-blurb">Grouped by subject, not by speaking body — how artificial intelligence is discussed across the UN, spanning governance, sustainable development, skills, and youth. Sessions are collected for retrieval; not tracked as a negotiation sequence.</p>
     <div class="cards single">
 
-      <article class="card them">
+      <article class="card">
         <div class="meta-row">
           <span>HLPF 2026 · ECOSOC side event</span>
           <span class="date">15 Jul 2026</span>
@@ -327,35 +226,113 @@
     </div>
   </section>
 
-  <!-- Next silo section (e.g. another thematic or institutional silo) gets
-       added here when its first readout ships. Template:
-
-  <section class="silo" id="SLUG">
-    <div class="silo-head">
-      <h2>SILO NAME</h2>
-      <span class="silo-type them">Thematic silo</span>
+  <section class="group" id="beyond-gdp">
+    <div class="group-head">
+      <h2>Beyond GDP</h2>
+      <span class="group-type">Thematic</span>
     </div>
-    <p class="silo-blurb">ONE-LINE DESCRIPTION.</p>
+    <p class="group-blurb">The UN process to rethink how national progress is measured — what should count alongside GDP, and who decides. Followed as a sequence across three 2026 rounds; start with the time-series overview, then open a single round for the full stance detail.</p>
     <div class="cards">
-      <article class="card them"> … </article>
+
+      <article class="card">
+        <div class="meta-row">
+          <span>Dedicated tracker · Mar → Jul 2026</span>
+          <span class="date">2026</span>
+        </div>
+        <h3><a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/" target="_blank" rel="noopener">Beyond GDP — UN Process Readouts</a></h3>
+        <p class="desc">The dedicated tracker for the whole process: all three 2026 rounds plus the drift and time-series analysis pages in one place.</p>
+        <div class="links">
+          <a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/" target="_blank" rel="noopener">Open the tracker ↗</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="meta-row">
+          <span>Time-series overview · Mar → Jul 2026</span>
+          <span class="date">2026</span>
+        </div>
+        <h3><a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-timeseries-2026.html" target="_blank" rel="noopener">Beyond GDP — how the room moved</a></h3>
+        <p class="desc">The whole arc in one view: position drift and fault-line movement across the March briefing, the May consultation, and the July panel. The best single entry point.</p>
+        <div class="links">
+          <a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-timeseries-2026.html" target="_blank" rel="noopener">Read the overview ↗</a>
+          <span class="sep">·</span>
+          <a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-comparison-mar-may-2026.html" target="_blank" rel="noopener">Mar → May drift ↗</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="meta-row">
+          <span>First Open Consultation</span>
+          <span class="date">7 May 2026</span>
+        </div>
+        <h3><a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-consultation-public.html" target="_blank" rel="noopener">The Beyond GDP Framework consultation</a></h3>
+        <p class="desc">The flagship readout: 27 delegations across every major bloc, filterable stance cards, and a fault-line plot mapping the finance-link, subjectivity, and governance-venue divides.</p>
+        <div class="links">
+          <a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-consultation-public.html" target="_blank" rel="noopener">Read the readout ↗</a>
+          <span class="sep">·</span>
+          <a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/methodology/beyond-gdp-methodology.html" target="_blank" rel="noopener">Methodology ↗</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="meta-row">
+          <span>GA briefing</span>
+          <span class="date">4 Mar 2026</span>
+        </div>
+        <h3><a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-ga-briefing-2026-03.html" target="_blank" rel="noopener">Beyond GDP — GA briefing</a></h3>
+        <p class="desc">The opening round: the General Assembly briefing that set the terms of the debate two months before the consultation.</p>
+        <div class="links">
+          <a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-ga-briefing-2026-03.html" target="_blank" rel="noopener">Read the readout ↗</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="meta-row">
+          <span>HLPF 2026 panel</span>
+          <span class="date">Jul 2026</span>
+        </div>
+        <h3><a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-panel-public-2026-07.html" target="_blank" rel="noopener">Beyond GDP — from analysis to impact</a></h3>
+        <p class="desc">The HLPF Goals Lounge panel: fault-line spectrum strips, a topic-persistence table across all three rounds, and the elements-paper process ahead.</p>
+        <div class="links">
+          <a href="https://christian-wandel.github.io/un-beyond-gdp-readouts/readouts/beyond-gdp-panel-public-2026-07.html" target="_blank" rel="noopener">Read the readout ↗</a>
+        </div>
+      </article>
+
     </div>
   </section>
-  -->
 
-  <!-- ============================================================
-       HOSTED ELSEWHERE — earlier readouts live in their own repo.
-       External links; nothing copied here.
-       ============================================================ -->
-
-  <section class="silo" id="earlier">
-    <div class="silo-head">
-      <h2>Earlier readouts</h2>
-      <span class="silo-type ext">Hosted separately</span>
+  <section class="group" id="security-council">
+    <div class="group-head">
+      <h2>Security Council</h2>
+      <span class="group-type">Institutional</span>
     </div>
-    <p class="silo-blurb">Produced before this index existed and still live at their original location. <span class="ext-badge">↗ open in the UN80 repo</span></p>
+    <p class="group-blurb">Formal meetings of the Security Council, grouped by the body rather than by subject. Recurring files — like the Sudan / Darfur ICC briefings — are followed across sessions as they accumulate.</p>
+    <div class="cards single">
+
+      <article class="card">
+        <div class="meta-row">
+          <span>Sudan / Darfur · ICC</span>
+          <span class="date">15 Jul 2026</span>
+        </div>
+        <h3><a href="readouts/sudan-icc-briefing-2026-07.html">Darfur and the ICC — 10,197th meeting</a></h3>
+        <p class="desc">The ICC Deputy Prosecutor's 43rd report under Resolution 1593. The fault line: defend the Court vs. delegitimise it. 17 speakers; 9 quotes audio-verified.</p>
+        <div class="links">
+          <a href="readouts/sudan-icc-briefing-2026-07.html">Read the readout →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="group" id="un80">
+    <div class="group-head">
+      <h2>UN80</h2>
+      <span class="group-type">Thematic</span>
+    </div>
+    <p class="group-blurb">The Secretary-General's UN80 initiative to reform the UN system in its 80th year — from the launch briefing through the Working Group rounds that followed.</p>
     <div class="cards">
 
-      <article class="card ext">
+      <article class="card">
         <div class="meta-row">
           <span>UN80 Initiative · GA</span>
           <span class="date">12 May 2025</span>
@@ -367,7 +344,7 @@
         </div>
       </article>
 
-      <article class="card ext">
+      <article class="card">
         <div class="meta-row">
           <span>UN80 Initiative · WG</span>
           <span class="date">16 Sep 2025</span>
