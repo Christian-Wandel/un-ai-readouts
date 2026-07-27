@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Methodology — How the Secretary-General Town Hall Readout Was Produced</title>
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --ink: #1a1c20;
+    --muted: #5b6470;
+    --rule: #e3e1da;
+    --accent-default: #2e4a86;
+
+    --green: #2f7a4d;
+    --green-soft: #e6f1ea;
+    --amber: #b27406;
+    --amber-soft: #fbf1dc;
+    --red:   #b03333;
+    --red-soft: #f7e3e3;
+    --blue:  #1f5fb0;
+    --blue-soft: #e2ecf8;
+    --grey:  #6a727b;
+    --grey-soft: #ecedef;
+
+    --focus: #ffbf47;
+    --radius: 10px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+  }
+  a { color: var(--accent-default); }
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .skip {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--ink); color: #fff; padding: .6rem 1rem;
+    z-index: 100;
+  }
+  .skip:focus { left: 0; }
+
+  .shell {
+    display: grid;
+    grid-template-columns: 240px minmax(0,1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    nav#toc { position: static !important; max-height: none !important; }
+  }
+
+  header.page {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  header.page h1 {
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    margin: 0 0 .5rem;
+    line-height: 1.2;
+  }
+  header.page dl.meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .15rem 1rem;
+    margin: .75rem 0 0;
+    color: var(--muted);
+    font-size: .92rem;
+  }
+  header.page dt { font-weight: 600; color: var(--ink); }
+  header.page dd { margin: 0; }
+  header.page .crosslink { margin-top: .85rem; font-size: .9rem; }
+  header.page .crosslink a { margin-right: 1rem; }
+
+  nav#toc {
+    position: sticky;
+    top: 1rem;
+    align-self: start;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    padding: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    font-size: .92rem;
+  }
+  nav#toc h2 {
+    margin: 0 0 .5rem;
+    font-size: .78rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  nav#toc ol { list-style: none; padding: 0; margin: 0; }
+  nav#toc li { margin: .15rem 0; }
+  nav#toc a {
+    display: block;
+    padding: .35rem .5rem;
+    border-radius: 6px;
+    color: var(--ink);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+  }
+  nav#toc a:hover { background: var(--bg); }
+  nav#toc a[aria-current="location"] {
+    background: var(--bg);
+    border-left-color: var(--accent-default);
+    font-weight: 600;
+  }
+
+  main { min-width: 0; }
+  section.block {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+  section.block > details > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    user-select: none;
+  }
+  section.block > details > summary::-webkit-details-marker { display: none; }
+  section.block > details > summary::before {
+    content: "▸";
+    color: var(--muted);
+    transition: transform .15s ease;
+    display: inline-block;
+    width: 1ch;
+  }
+  section.block > details[open] > summary::before { transform: rotate(90deg); }
+  .body { padding: 0 1.25rem 1.25rem; }
+  .body > :first-child { margin-top: 0; }
+
+  h3.sub { font-size: 1rem; margin: 1.25rem 0 .5rem; color: var(--ink); }
+  ul.tight { margin: .25rem 0 .75rem; padding-left: 1.25rem; }
+  ul.tight li { margin: .25rem 0; }
+  ol.tight { margin: .25rem 0 .75rem; padding-left: 1.25rem; }
+  ol.tight li { margin: .35rem 0; }
+
+  code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: .86em;
+    background: var(--grey-soft);
+    padding: .1rem .35rem;
+    border-radius: 4px;
+  }
+  pre {
+    background: #1f2127;
+    color: #e8e6df;
+    padding: .9rem 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: .82rem;
+    line-height: 1.5;
+    margin: .6rem 0 1rem;
+  }
+  pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+
+  .note {
+    background: var(--bg);
+    border-left: 4px solid var(--accent-default);
+    padding: .6rem .9rem;
+    margin: .75rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .note strong { color: var(--ink); }
+  .warn {
+    background: var(--amber-soft);
+    border-left: 4px solid var(--amber);
+    padding: .6rem .9rem;
+    margin: .75rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .ok {
+    background: var(--green-soft);
+    border-left: 4px solid var(--green);
+    padding: .6rem .9rem;
+    margin: .75rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .pipeline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    align-items: stretch;
+    margin: .5rem 0 1rem;
+  }
+  .pipeline .step {
+    flex: 1 1 140px;
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--accent-default);
+    border-radius: 8px;
+    background: var(--surface);
+    padding: .65rem .75rem;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .pipeline .step .n {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--accent-default);
+  }
+  .pipeline .step .t { font-weight: 600; margin: .1rem 0 .25rem; }
+  .pipeline .step .d { font-size: .82rem; color: var(--muted); }
+
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    margin: .6rem 0 1rem;
+    font-size: .9rem;
+  }
+  table.data th, table.data td {
+    text-align: left;
+    padding: .5rem .6rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  table.data th {
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    border-bottom: 2px solid var(--rule);
+  }
+  table.data tr:last-child td { border-bottom: none; }
+  table.data code { white-space: nowrap; }
+  table.data td.match { color: var(--green); font-weight: 600; white-space: nowrap; }
+  table.data td.pending { color: var(--amber); font-weight: 600; white-space: nowrap; }
+  .tbl-wrap { overflow-x: auto; }
+
+  .tag {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 600;
+    padding: .12rem .5rem;
+    border-radius: 999px;
+    letter-spacing: .02em;
+  }
+  .tag.auto  { background: var(--blue-soft);  color: var(--blue);  border: 1px solid color-mix(in srgb, var(--blue) 25%, transparent); }
+  .tag.human { background: var(--green-soft); color: var(--green); border: 1px solid color-mix(in srgb, var(--green) 25%, transparent); }
+
+  .global-toolbar {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: .75rem 1rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+  .control-group { display: flex; align-items: center; gap: .5rem; }
+  .btn {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: .4rem .75rem;
+    font: inherit;
+    font-size: .88rem;
+    cursor: pointer;
+    color: var(--ink);
+  }
+  .btn:hover { background: var(--bg); }
+
+  footer.page {
+    grid-column: 1 / -1;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    font-style: italic;
+    font-size: .9rem;
+  }
+
+  @media print {
+    body { background: #fff; color: #000; }
+    .shell { grid-template-columns: 1fr; max-width: none; padding: 0; gap: 0; }
+    nav#toc, .global-toolbar { display: none !important; }
+    section.block { box-shadow: none; border: none; page-break-inside: avoid; }
+    section.block > details > summary { font-size: 1.2rem; }
+    pre { white-space: pre-wrap; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="shell">
+
+  <header class="page">
+    <h1>Methodology: How the Secretary-General Town Hall Readout Was Produced</h1>
+    <dl class="meta">
+      <dt>Subject</dt><dd>Method behind the readout of the public town hall with the six candidates for Secretary-General</dd>
+      <dt>Source event</dt><dd>UN Town Hall: The Next Secretary-General, 23 July 2026, General Assembly Hall</dd>
+      <dt>Purpose</dt><dd>A reproducible record of how the source transcript was obtained, treated, analysed, and published</dd>
+    </dl>
+    <p class="crosslink">
+      See also:
+      <a href="../readouts/sg-townhall-2026-07.html">The readout</a>
+      <a href="../pipeline/quote-verification.md">Quote-verification method</a>
+    </p>
+  </header>
+
+  <div class="warn" style="grid-column:1/-1;margin-bottom:1.25rem;">
+    <strong>Source is UN ASR, not an official record.</strong> This readout is built from the automatic-speech-recognition transcript published on the UN transcripts portal (<a href="https://transcripts.un.org/en" target="_blank" rel="noopener">transcripts.un.org</a>). ASR transcripts are not official UN records. Every position-critical quote on the readout was <strong>audio-verified against the meeting recording before publication</strong> (see <a href="#stage4">Stage 4</a>): all 12 matched, and 2 ASR garbles were corrected to the audio reading. Names, figures and non-quoted text elsewhere are still treated as provisional against the ASR.
+  </div>
+
+  <nav id="toc" aria-label="Sections">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#overview">Overview &amp; Purpose</a></li>
+      <li><a href="#glance">Pipeline at a Glance</a></li>
+      <li><a href="#tooling">Tools Used</a></li>
+      <li><a href="#stage1">Stage 1 — Discovery</a></li>
+      <li><a href="#stage2">Stage 2 — Fetch &amp; Convert</a></li>
+      <li><a href="#names">Stage 2b — Name Normalisation</a></li>
+      <li><a href="#stage3">Stage 3 — Analysis &amp; Coding</a></li>
+      <li><a href="#stage4">Stage 4 — Quote Verification</a></li>
+      <li><a href="#stage5">Stage 5 — Synthesis</a></li>
+      <li><a href="#stage6">Stage 6 — Publication</a></li>
+      <li><a href="#framing">A Note on the Analytical Frame</a></li>
+      <li><a href="#provenance">Provenance &amp; Traceability</a></li>
+      <li><a href="#limits">Limitations &amp; Honesty Notes</a></li>
+      <li><a href="#runbook">Replication Runbook</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+
+    <div class="global-toolbar" role="group" aria-label="Document controls">
+      <div class="control-group">
+        <button class="btn" id="expand-all" type="button">Expand all</button>
+        <button class="btn" id="collapse-all" type="button">Collapse all</button>
+      </div>
+    </div>
+
+    <section class="block" id="overview">
+      <details open>
+        <summary>Overview &amp; Purpose</summary>
+        <div class="body">
+          <p>This document records how the <a href="../readouts/sg-townhall-2026-07.html">Secretary-General town hall readout</a> was produced. The readout covers the public town hall of 23 July 2026, at which six candidates for Secretary-General answered questions from Bloomberg moderators and from member states, an NGO, UN staff and civil society in the General Assembly Hall.</p>
+          <p>It exists for two reasons:</p>
+          <ul class="tight">
+            <li><strong>Replication.</strong> This is the first delivered readout in the <code>secretary-general</code> group, and the 2026 selection is expected to generate more sessions before the appointment. The same treatment will be applied to those, so this is a concrete runbook.</li>
+            <li><strong>Provenance.</strong> If a reader asks how the conclusions were reached and where the information came from, this document answers that directly.</li>
+          </ul>
+          <p>The source transcript was obtained from the UN transcripts portal rather than captured and transcribed locally. The portal supplies a speaker-attributed ASR transcript, which removes the recording and speech-to-text stages but adds a dependency on machine transcription — a dependency that matters unusually much here, because the ASR mishears almost every candidate's name.</p>
+          <p>Two things make this readout different from its predecessors in this project, and both are described below: the speakers are <strong>candidates for an office rather than delegations representing states</strong>, which forced a different analytical frame (<a href="#framing">see the frame note</a>); and the format is a <strong>moderated debate</strong> rather than the chaired, sequential-statement format the pipeline is calibrated for.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="glance">
+      <details open>
+        <summary>Pipeline at a Glance</summary>
+        <div class="body">
+          <div class="pipeline">
+            <div class="step"><div class="n">Stage 1</div><div class="t">Discover</div><div class="d">Locate the asset on transcripts.un.org</div></div>
+            <div class="step"><div class="n">Stage 2</div><div class="t">Fetch + convert</div><div class="d">Portal JSON → attributed markdown</div></div>
+            <div class="step"><div class="n">Stage 2b</div><div class="t">Normalise names</div><div class="d">Check every speaker against official UN sources</div></div>
+            <div class="step"><div class="n">Stage 3</div><div class="t">Analyse</div><div class="d">Code candidates on office theory + two axes</div></div>
+            <div class="step"><div class="n">Stage 4</div><div class="t">Verify quotes</div><div class="d">Audio-check every quote vs. the recording</div></div>
+            <div class="step"><div class="n">Stage 5</div><div class="t">Synthesise</div><div class="d">Consensus, fault lines, commitment ledger</div></div>
+            <div class="step"><div class="n">Stage 6</div><div class="t">Publish</div><div class="d">One interactive HTML readout</div></div>
+          </div>
+          <p class="note">Each stage produces a named file on disk, so any claim on the readout can be walked back to its source. The transcript, the source-analysis notes and the HTML live under the project's <code>transcripts/secretary-general/</code> and <code>readouts/</code> folders.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="tooling">
+      <details open>
+        <summary>Tools Used</summary>
+        <div class="body">
+          <p>The transcript came from the UN's own portal, so no recording or first-pass speech-to-text tooling was needed to produce the source text. The verification stage, when run, downloads the meeting audio and runs a local speech-to-text model against it; those tools are listed here for completeness.</p>
+
+          <table class="data">
+            <thead>
+              <tr><th>Stage</th><th>Tool</th><th>What it is</th><th>Role here</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Discover / fetch / convert</td>
+                <td><strong>fetch_un_transcripts.py</strong></td>
+                <td>Purpose-built Python script (stdlib only)</td>
+                <td>Downloaded the meeting JSON and converted it to speaker-attributed markdown.</td>
+              </tr>
+              <tr>
+                <td>Source</td>
+                <td><strong>transcripts.un.org</strong></td>
+                <td>Official UN transcripts portal (ASR)</td>
+                <td>Supplied the raw transcript with built-in speaker attribution and per-sentence timestamps.</td>
+              </tr>
+              <tr>
+                <td>Name normalisation</td>
+                <td><strong>un.org selection page + PGA letter</strong></td>
+                <td>Official UN sources on the selection and appointment process</td>
+                <td>Authoritative spellings and titles for all six candidates, used to correct the ASR renderings.</td>
+              </tr>
+              <tr>
+                <td>Verify — audio</td>
+                <td><strong>UN Web TV / Kaltura VOD</strong></td>
+                <td>Official UN video archive (Kaltura partner 2503451)</td>
+                <td>The recording against which every quote was audio-verified. Live entry <code>1_hkyf9mo0</code> → VOD <code>1_qth9jlfl</code>, English flavor <code>1_cr68e9m4</code>.</td>
+              </tr>
+              <tr>
+                <td>Verify — slice</td>
+                <td><strong>ffmpeg</strong></td>
+                <td>Audio/video toolkit</td>
+                <td>Cuts a short window from the MP4 around each quote's JSON timestamp.</td>
+              </tr>
+              <tr>
+                <td>Verify — transcribe</td>
+                <td><strong>whisper.cpp (large-v3-turbo)</strong></td>
+                <td>Local CUDA speech-to-text (<code>projects/whisper-local/</code>)</td>
+                <td>Independently transcribes each window so the quote is compared against a second speech-to-text pass, not just the portal ASR.</td>
+              </tr>
+              <tr>
+                <td>Analyse + orchestrate + build</td>
+                <td><strong>Claude Code (Opus 5)</strong></td>
+                <td>AI analysis and coding assistant</td>
+                <td>Extracted and coded positions, drafted the briefing, and rendered the HTML.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 class="sub">How Claude Code was used</h3>
+          <p>Claude Code read the full attributed transcript, extracted each candidate's stated position verbatim, coded those positions on the readout's axes, checked candidate identities against official UN sources, drafted the structured briefing and rendered it into the interactive HTML page, reusing the design system established by the earlier readouts. The substantive judgements — what each candidate meant, where they sit on each axis, the briefing wording — are the analyst's; the assistant did the extraction, the consolidation and the build. The division of labour is spelled out in the <a href="#limits">limitations section</a>.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage1">
+      <details open>
+        <summary>Stage 1 — Discovery</summary>
+        <div class="body">
+          <p>The event was supplied directly as a portal URL rather than found by search: <code>asset/k1h/k1hkyf9mo0</code>. Informal meetings and special events generally carry asset-ID slugs rather than the structured meeting-record slugs used for Security Council and General Assembly sessions, so there is no S/PV or A/PV number to key on here.</p>
+          <p>The portal metadata confirmed the event's identity, duration (1h 49m), the convening arrangement (the Office of the President of the General Assembly with Bloomberg), and listed the nominees with their nomination dates. Its companion video sits on UN Web TV as Kaltura asset <code>k1h/k1hkyf9mo0</code> (entry <code>1_hkyf9mo0</code>).</p>
+          <div class="note"><strong>New group created.</strong> No existing group covered the selection of the Secretary-General, so <code>transcripts/secretary-general/</code> was created with a profile block recording its type, its time-series intent and its format. The reasoning behind those settings is in the <a href="#framing">frame note</a>.</div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage2">
+      <details open>
+        <summary>Stage 2 — Fetch &amp; Convert</summary>
+        <div class="body">
+          <p>The meeting was fetched into the new group and converted to attributed markdown:</p>
+          <pre><code>python pipeline/fetch_un_transcripts.py fetch asset/k1h/k1hkyf9mo0 --silo secretary-general
+python pipeline/fetch_un_transcripts.py convert transcripts/secretary-general/2026-07-23_k1hkyf9mo0.json</code></pre>
+          <p>The portal's JSON nests the useful fields — title, summary and topic taxonomy under <code>metadata</code>, the statements under <code>transcript.data</code>, and per-sentence word timestamps under each statement's <code>paragraphs[].sentences[]</code>. The conversion emitted <code>2026-07-23_k1hkyf9mo0_attributed.md</code>: one heading per speaker turn with attribution and timestamp, followed by that speaker's text.</p>
+          <p>Conversion produced <strong>196 statements across 17 speaker labels</strong>. The high statement count relative to the Security Council briefing is a direct consequence of the format: moderators interject constantly, ask follow-ups and enforce time, so turns are short and numerous.</p>
+          <div class="warn"><strong>Format mismatch, handled explicitly.</strong> The project's pipeline is calibrated for chaired, sequential-statement formats. This is a moderated debate: six speakers answer the <em>same</em> questions in rotation, plus individually targeted and audience questions. That is closer to the panel adaptation used for the HLPF readouts than to a Council briefing, but it is not that either — a panel has independent experts talking about a topic, whereas here six people are competing for the same job and answering identical prompts. The comparative structure is an asset rather than a problem: it produces a genuine like-for-like comparison, which is why the readout is organised around how the candidates differ on shared questions.</div>
+          <div class="note"><strong>Dropped as procedural noise.</strong> Moderator hand-offs, timing warnings and "please wrap it up" exchanges; the broadcast open and the Bloomberg sign-off; the applause markers and the walk-on; and the audio-quality exchange in which one candidate asked for a question to be repeated. That last one is noted in the source file because it explains why her answer initially addressed only part of the question.</div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="names">
+      <details open>
+        <summary>Stage 2b — Name Normalisation (a stage this meeting forced)</summary>
+        <div class="body">
+          <p>Every readout so far has carried an ASR-flag list for mangled proper nouns. This meeting made that a first-class stage rather than a footnote, because the ASR mishears <strong>all six candidate names</strong>, and a readout that misnames the people it is about would be worthless.</p>
+          <p>Each name was checked against the UN's own selection-and-appointment page and the President of the General Assembly's letter convening the town hall. The corrections:</p>
+          <div class="tbl-wrap">
+            <table class="data">
+              <thead>
+                <tr><th>Official spelling</th><th>Nationality</th><th>ASR rendering in the transcript</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Rebeca Grynspan</strong></td><td>Costa Rica</td><td>"Rebecca Greenspan" throughout — the worst error in the transcript, and a real person's name replaced with a different real name</td></tr>
+                <tr><td><strong>Carolyn Rodrigues Birkett</strong></td><td>Guyana</td><td>Six variants including "Rodriguez-Burkett", "Rodriguez-Bercat", "Rodriguez-Bercániz", "Rodriguez-Piquet"; "Caroline" for "Carolyn"</td></tr>
+                <tr><td><strong>Macky Sall</strong></td><td>Senegal</td><td>"Sol", "Saul", "Sahle"; one hand-off garbled into a non-existent name</td></tr>
+                <tr><td><strong>Rafael Mariano Grossi</strong></td><td>Argentina</td><td>"Grassi"</td></tr>
+                <tr><td><strong>María Fernanda Espinosa</strong></td><td>Ecuador</td><td>"Espinoza"</td></tr>
+                <tr><td><strong>Michelle Bachelet</strong></td><td>Chile</td><td>Name largely correct; speaker <em>function</em> inconsistent between turns</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Two further normalisations were applied on the same basis. The transcript renders what is almost certainly <strong>UN80</strong> as "UNAID" and "UNAT" in two candidates' closing statements; a third candidate says "UN80" correctly in the same section, which confirms the referent. And one candidate's reference to "Unity for Peace" is the General Assembly's <strong>Uniting for Peace</strong> procedure. Both are corrected in the readout and flagged in the source notes.</p>
+          <div class="warn"><strong>One speaker's words passed through interpretation.</strong> Macky Sall spoke in French throughout. The portal transcribes the English interpretation, so his text is the product of a two-step chain — live interpreter, then machine transcription. His positions are directionally reliable, but his wording is not verbatim in the way the English speakers' is. The readout says so at the top of the page and again at his quote, and no load-bearing claim rests on his exact phrasing.</div>
+          <p>Audience questioners' personal names are ASR-rendered and several are low-confidence. The readout therefore names the state or organisation each questioner represented, which is stated clearly on the record, and treats the personal names as approximate in the source notes only.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage3">
+      <details open>
+        <summary>Stage 3 — Analysis &amp; Coding</summary>
+        <div class="body">
+          <p>Each candidate's stated position was extracted verbatim and sorted into comparable positions. The working notes are kept in <code>readouts/sg-townhall-2026-07-source.md</code>, which records the consensus points, the fault lines, the outliers and the per-candidate coding, each anchored to a quote.</p>
+          <h3 class="sub">How positions were coded</h3>
+          <p>Each candidate was placed on axes drawn directly from what they said (see <a href="#framing">the frame note</a> for why these axes and not a support/oppose spectrum):</p>
+          <ul class="tight">
+            <li><strong>Theory of the office (X):</strong> where the candidate locates the Secretary-General's power — <code>convener</code> (the leverage is bringing actors to a table), <code>broker</code> (the leverage is direct, persistent negotiation with the parties), or <code>administrator</code> (the leverage is running the institution well and serving member states with better information). <strong>These are kinds, not a scale:</strong> left-to-right on the plot carries no ranking, which is a deliberate departure from the earlier readouts where the X-axis ran from one pole to its opposite.</li>
+            <li><strong>Selectable Y:</strong> <em>candour about constraint</em> — how explicitly the candidate says the office is limited and that reform depends on member states (<code>high</code> / <code>mid</code> / <code>low</code>); or <em>reform posture</em> — <code>structural</code> (change the business model and incentives), <code>continuity</code> (complete the reform under way), or <code>sceptical</code> (distrust reform rhetoric until delivery proves it).</li>
+          </ul>
+          <p>Colour repeats the X-axis grouping rather than encoding a separate camp variable, because with six speakers a second colour dimension would add noise rather than signal. Where a candidate did not state a position on a dimension, it would be marked silent rather than guessed; here all six answered the core common questions, so nothing is silent on the office-theory axis.</p>
+          <div class="note"><strong>Who is coded and who is not.</strong> The President of the General Assembly and the two moderators are framing voices and are not coded — the same treatment the Secretary-General received as a framing presence in the UN80 readout. The six audience questioners are recorded because their questions set the agenda, but they are not placed on the candidate axes.</div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage4">
+      <details open>
+        <summary>Stage 4 — Quote Verification (audio)</summary>
+        <div class="body">
+          <p>The portal transcript is machine ASR, so every quote destined for the page was checked against the actual meeting audio before publication rather than flagged as provisional. This is a <strong>mandatory pipeline stage</strong>. The full method, escalation ladder and run log live in <a href="../pipeline/quote-verification.md"><code>pipeline/quote-verification.md</code></a>.</p>
+
+          <h3 class="sub">The method</h3>
+          <ol class="tight">
+            <li><strong>Resolve the recording.</strong> A <code>baseEntry/get</code> on the live entry <code>1_hkyf9mo0</code> returned the recorded VOD entry <code>1_qth9jlfl</code>. <code>getPlaybackContext</code> enumerated the flavors.</li>
+            <li><strong>Download the English audio</strong> via the Kaltura <code>playManifest</code> URL for that flavor — a 54 MB audio-only MP4.</li>
+            <li><strong>Slice each quote's window.</strong> For each of the twelve quotes, ffmpeg cut a window centred on the sentence's JSON <code>start</code> timestamp.</li>
+            <li><strong>Transcribe independently</strong> with <code>whisper-cli.exe</code> (large-v3-turbo, flags <code>-mc 0 -tp 0.0 -nf -nt</code>), so each quote was compared against a second, independent speech-to-text pass rather than re-read from the portal ASR.</li>
+            <li><strong>Compare and judge.</strong> A match confirms the quote; a mismatch triggers a correction to the audio reading.</li>
+          </ol>
+
+          <div class="warn"><strong>The English flavor is not paramsId 100 on this entry.</strong> Earlier runs in this project took the English audio flavor at <code>flavorParamsId</code> 100. This entry uses a different layout entirely: its language-tagged flavors sit in the 2732xxx range, with English at <strong>2732162</strong> (flavor id <code>1_cr68e9m4</code>). Assuming paramsId 100 would have failed outright. The rule going forward is to enumerate the flavor list and select on <code>language == English</code> rather than on a remembered params id.</div>
+
+          <div class="ok"><strong>No drift, no offset.</strong> Unlike the Sudan/ICC run, where interpreted speakers' timestamps lagged the audio by 10 to 20 seconds, and the AI-at-UN run, where a re-cut recording forced a uniform −1119-second correction, every quote here landed on a first-pass slice — <em>including</em> the French-speaking candidate's interpreted segment. Candidate-debate audio on this entry is cleanly aligned with the JSON timestamps.</div>
+
+          <h3 class="sub">The result: 12 of 12 matched, 2 ASR garbles corrected</h3>
+          <p>All twelve quotes were confirmed present in the recording. In two cases the machine transcript had mangled words that the audio makes clear, and the readout now carries the audio reading rather than the ASR text:</p>
+          <ul class="tight">
+            <li><strong>Grossi on AI governance.</strong> The ASR ran two sentences together, dropping a clause entirely: it rendered "There are certain guardrails that can be Some people say…" where the audio has "There are certain guardrails that can be <strong>applied, but we have to be extremely careful.</strong> Some people say…" The dropped clause is substantive — it is his caveat — so this correction changes what the quote conveys.</li>
+            <li><strong>Grynspan on the greatest threat.</strong> The ASR produced "the erosion of the believed, what founded this organization, that was the great powers thought", which is not grammatical English. The audio has "the erosion of the <strong>belief that</strong> founded this organization, that was the great <strong>power</strong> thought". The sense was recoverable but the wording was not quotable as transcribed.</li>
+          </ul>
+          <p>A third difference was noted and deliberately left alone: the ASR has "cutting costs" where the audio has "cutting cost". That is a transcription artefact with no effect on meaning.</p>
+          <div class="tbl-wrap">
+            <table class="data">
+              <thead>
+                <tr><th>Speaker</th><th>Quote (opening)</th><th>Audio</th><th>Result</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Grynspan</td><td>"The blockade of the Security Council is when the job… starts"</td><td><code>1465s</code></td><td class="match">match</td></tr>
+                <tr><td>Rodrigues Birkett</td><td>"…does not have the luxury of doing, and that is not trying."</td><td><code>1353s</code></td><td class="match">match</td></tr>
+                <tr><td>Grossi</td><td>"Impartiality is one of the most difficult traits of the job…"</td><td><code>1633s</code></td><td class="match">match</td></tr>
+                <tr><td>Bachelet</td><td>"…if you do that, I will take all your funds."</td><td><code>3269s</code></td><td class="match">match</td></tr>
+                <tr><td>Grynspan</td><td>"…cutting cost is not enough. Without a vision of change…"</td><td><code>5963s</code></td><td class="match">match</td></tr>
+                <tr><td>Grossi</td><td>"Everybody's a reformer now. Let's see what happens on January 1st."</td><td><code>6125s</code></td><td class="match">match</td></tr>
+                <tr><td>Espinosa</td><td>"Today, 72 member states have not yet paid their dues."</td><td><code>6234s</code></td><td class="match">match</td></tr>
+                <tr><td>Grossi</td><td>"There are certain guardrails… we need an IAEA for AI"</td><td><code>4548s</code></td><td class="pending">corrected</td></tr>
+                <tr><td>Grynspan</td><td>"…the belief that might is right… the erosion of the belief…"</td><td><code>5341s</code></td><td class="pending">corrected</td></tr>
+                <tr><td>Sall</td><td>"…the liquidity crisis in reality is hiding a crisis of trust"</td><td><code>3507s</code> <span class="tag auto">interpreted</span></td><td class="match">match</td></tr>
+                <tr><td>Espinosa</td><td>"…not to confuse activity with impact"</td><td><code>5564s</code></td><td class="match">match</td></tr>
+                <tr><td>Rodrigues Birkett</td><td>"We have the Multidimensional Vulnerability Index…"</td><td><code>5861s</code></td><td class="match">match</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">Both corrections landed on quotes that anchor fault lines — Grossi's is the anchor of the AI-governance divide and Grynspan's is her statement of the central threat. That is the argument for the stage: the two quotes most worth getting right were the two the machine transcript got wrong.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage5">
+      <details open>
+        <summary>Stage 5 — Synthesis &amp; Briefing</summary>
+        <div class="body">
+          <p>The coded positions were collapsed into a structured briefing following the locked house format, with one addition specific to this event:</p>
+          <ul class="tight">
+            <li><strong>Executive summary</strong> — what happened plus the defining divide, broken into a skimmable bullet list of the three theories of the office.</li>
+            <li><strong>What was asked, and the process around it</strong> — the second must-read section. For a briefing this slot holds what the principal reported; for a candidate debate it holds the questions actually put, plus a note on where this event sits in the selection process, since the answers are meaningless without knowing that the decisive phase is the Security Council's closed-door straw polls.</li>
+            <li><strong>Areas of consensus</strong> — unusually wide here, and stated as such.</li>
+            <li><strong>Fault lines</strong> — the single analytical home of every position: where the office's power lies; what reform means; how candid to be about constraint; how to govern AI. Each names its poles and anchors; outliers box at the end.</li>
+            <li><strong>Fault-line plot</strong> with a selectable Y-axis.</li>
+            <li><strong>The first-100-days ledger</strong> — <em>an addition for this format.</em> The closing statements produced six specific, checkable lists of intended first actions. Rendered as a table, this is the most durable thing the town hall produced: whoever is appointed can be measured against it in 2027.</li>
+            <li><strong>Talking points</strong> — the single verbatim home of the key quotes; body prose paraphrases them.</li>
+            <li><strong>A reference grid</strong> — the per-candidate detail layer.</li>
+          </ul>
+          <p>The anti-repetition rules hold: each position appears once in prose, with full detail only in the reference cards, and the page opens with only the first two sections expanded — a two-to-five-minute read for a high-level reader, with everything deeper collapsed behind the expand-all control.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage6">
+      <details open>
+        <summary>Stage 6 — Publication (HTML)</summary>
+        <div class="body">
+          <p>The briefing was rendered as a single self-contained HTML page — a static file with inline CSS and JS, no build step, no external dependencies.</p>
+          <h3 class="sub">Interactive elements</h3>
+          <ul class="tight">
+            <li><strong>Fault-line cluster plot.</strong> A two-axis scatter with the horizontal axis fixed to the theory of the office and the vertical axis toggling between candour about constraint and reform posture. Each dot is one candidate, with their summary on hover.</li>
+            <li><strong>Searchable reference grid.</strong> A card per candidate, filterable by theory of the office and free-text-searchable across names, titles and summaries.</li>
+            <li><strong>Commitment ledger table</strong>, horizontally scrollable on narrow screens.</li>
+          </ul>
+          <h3 class="sub">Accessibility choices</h3>
+          <ul class="tight">
+            <li>A skip-to-content link and visible keyboard focus outlines.</li>
+            <li>Collapsible sections with an expand-all / collapse-all control.</li>
+            <li>A sticky table of contents that tracks the reader's position.</li>
+            <li>Plot dots are keyboard-focusable and carry accessible labels.</li>
+          </ul>
+          <p>This methodology page reuses the same design system, so the readout and its method read as one family.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="framing">
+      <details open>
+        <summary>A Note on the Analytical Frame</summary>
+        <div class="body">
+          <p>Every prior readout in this project codes <strong>delegations</strong> by <strong>stance on a contested proposal</strong>. That frame does not fit this event, for two reasons, and saying so plainly is more useful than forcing it.</p>
+          <p><strong>First, the speakers are candidates for an office, not delegations representing states.</strong> Nothing said here is a national position. One candidate does not speak for Chile, another does not speak for Senegal. Coding them as delegations would misrepresent the record, and the readout carries that warning in its footer.</p>
+          <p><strong>Second, there is no contested proposal.</strong> This is a job interview conducted in public. The six were asked the same questions and largely agree on the diagnosis: the UN faces a crisis of trust that shows up as a crisis of cash, reform is imperative, and multilateralism is under strain. A consensus-versus-opposition axis would produce a near-uniform field with no signal — the same problem that made "supports UN80" non-diagnostic in the earlier readout, and "condemns the atrocities" non-diagnostic in the Sudan one.</p>
+          <p>The live variance is not whether the UN is in trouble but <strong>what each candidate thinks the office can actually do about it, and how much they concede it cannot.</strong> Hence the axes: where they locate the office's power, how candid they are about its constraints, and what they mean by reform. This choice is itself an analytical judgement, disclosed here so a reader can weigh it. A different analyst might draw the axes differently; the underlying transcript is the check.</p>
+          <h3 class="sub">Why this group is thematic with a bounded time series</h3>
+          <p>The group is <strong>thematic</strong> — it is defined by a subject, the selection of the next Secretary-General, and that subject fans across the General Assembly, the Security Council and events convened by the President of the General Assembly. It is not defined by one speaking body, so it is not institutional.</p>
+          <p>Its time-series intent is <strong>planned</strong>, with a deliberate end date. The 2026 selection is a bounded, connected process: the candidates' informal dialogues sit upstream of this town hall, and the straw polls and appointment sit downstream. Tracking whether positions harden, converge or quietly drop across that sequence is exactly the kind of question a time series answers. Once a Secretary-General is appointed the cluster closes, and the group reverts to retrieval-only until the next cycle. This is the clearest case yet of the project's rule that a time series is a property some clusters earn rather than something every group has.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="provenance">
+      <details open>
+        <summary>Provenance &amp; Traceability</summary>
+        <div class="body">
+          <p>This is the short answer to "how do you know?" Each type of claim on the readout traces to a specific source.</p>
+          <table class="data">
+            <thead>
+              <tr><th>Claim type</th><th>Traces to</th><th>How</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Verbatim quotes in talking points and tooltips</td>
+                <td>Portal ASR transcript</td>
+                <td>Reproduced from the ASR text, then checked sentence by sentence against the Kaltura English-audio VOD (Stage 4). All 12 matched; 2 were corrected to the audio reading.</td>
+              </tr>
+              <tr>
+                <td>Candidate names, nationalities and titles</td>
+                <td>un.org selection-and-appointment page; PGA town-hall letter</td>
+                <td>Checked against official UN sources and corrected from the ASR renderings (Stage 2b).</td>
+              </tr>
+              <tr>
+                <td>Who said what (speaker attribution)</td>
+                <td>Portal metadata + moderator hand-off cues</td>
+                <td>Attribution supplied by the portal, cross-read against the moderators' named hand-offs in the transcript.</td>
+              </tr>
+              <tr>
+                <td>Selection-process context (straw polls, timeline)</td>
+                <td>Public reporting on the selection process, outside the transcript</td>
+                <td>The only material on the readout not derived from the meeting. Confined to the process note, and described in general terms rather than asserting specific dates as settled.</td>
+              </tr>
+              <tr>
+                <td>Office-theory, candour and reform coding</td>
+                <td><code>sg-townhall-2026-07-source.md</code></td>
+                <td>Extracted from the transcript; each placement anchored to a quote; unstated positions marked, not guessed.</td>
+              </tr>
+              <tr>
+                <td>Consensus points, fault lines, outliers, commitment ledger</td>
+                <td><code>sg-townhall-2026-07-source.md</code></td>
+                <td>Synthesis of the coded positions into a structured briefing.</td>
+              </tr>
+              <tr>
+                <td>Section text and visualisations on the page</td>
+                <td>The readout HTML file</td>
+                <td>Rendered directly from the briefing; no new facts introduced at this stage.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="limits">
+      <details open>
+        <summary>Limitations &amp; Honesty Notes</summary>
+        <div class="body">
+          <p>The method is transparent about where error can enter. None of the steps below were hidden; each was managed.</p>
+          <ul class="tight">
+            <li><strong>The transcript is machine ASR, not an official record.</strong> It mishears names heavily — all six candidates, plus several audience questioners whose names remain approximate. Names have been corrected against official UN sources and the quoted passages were audio-verified, but non-quoted ASR text elsewhere remains provisional. The Stage 4 run found the machine transcript had garbled two of the twelve quotes badly enough to change or destroy their meaning, which is a fair indication of the error rate in the unverified remainder.</li>
+            <li><strong>One candidate's words passed through interpretation.</strong> Macky Sall spoke in French; his English text is interpreter output, then machine-transcribed. Directionally reliable, not verbatim.</li>
+            <li><strong>The one-minute format compresses positions.</strong> Candidates were cut off mid-sentence several times. Where a position is truncated in the record, the readout says so rather than completing the thought — but a one-minute answer is a thin basis for characterising anyone's programme, and the readout should be read as a record of what was said on this occasion rather than a full account of any candidate's platform.</li>
+            <li><strong>Coding is interpretive, not official.</strong> The office-theory, candour and reform axes are an analytical reading, disclosed in the <a href="#framing">frame note</a>, not a UN classification. Reasonable analysts would place some candidates differently — particularly on candour, which is the most judgement-laden of the three.</li>
+            <li><strong>These are not state positions.</strong> Worth repeating because the visual grammar of this project's readouts otherwise implies it: the cards and dots are individuals speaking for themselves.</li>
+            <li><strong>Process context comes from outside the transcript.</strong> The straw-poll and timeline material in the process note is not in the meeting record. It is included because the readout is unusable without it, and it is kept general rather than asserting precise dates.</li>
+          </ul>
+          <h3 class="sub">What was automated versus human-checked</h3>
+          <ul class="tight">
+            <li><span class="tag auto">Automated</span> Transcript fetch, JSON-to-markdown conversion, first-pass position extraction, name cross-checking against official sources, <strong>the entire quote-verification workflow</strong> (VOD resolution, audio download, ffmpeg slicing, whisper transcription, comparison), and the briefing and HTML build.</li>
+            <li><span class="tag human">Human-checked</span> The reading of the transcript for meaning; the coding judgements; the briefing wording. The human's only gate is reading the final HTML, per the pipeline's division of labour.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="runbook">
+      <details open>
+        <summary>Replication Runbook</summary>
+        <div class="body">
+          <p>To repeat this for the next session in the <code>secretary-general</code> group, or any other portal-sourced candidate debate. All commands run from the project folder so the relative <code>transcripts/</code> paths resolve. See <code>pipeline/un-transcripts.md</code> for the fetcher guide and <code>pipeline/quote-verification.md</code> for the verification method.</p>
+
+          <h3 class="sub">1. Discover the event</h3>
+          <p>Special events and informal meetings usually carry asset-ID slugs rather than meeting-record slugs, so there may be no PV number to key on. Note both the transcript asset slug and the UN Web TV / Kaltura entry for later verification.</p>
+
+          <h3 class="sub">2. Fetch and convert</h3>
+          <pre><code>python pipeline/fetch_un_transcripts.py fetch asset/&lt;id&gt; --silo secretary-general
+python pipeline/fetch_un_transcripts.py convert transcripts/secretary-general/&lt;file&gt;.json</code></pre>
+          <p>Drop the procedural noise: moderator hand-offs, timing warnings, broadcast open and sign-off, applause markers.</p>
+
+          <h3 class="sub">3. Normalise every proper noun before analysing</h3>
+          <p>Do this first, not last. Check all candidate names, nationalities and titles against the UN selection-and-appointment page and the convening letter. Check institutional shorthand too — reform-process names are frequently mangled. Record every correction in the source notes so a reader can see what was changed and why. Identify any speaker working through interpretation and flag them.</p>
+
+          <h3 class="sub">4. Analyse and code</h3>
+          <ol class="tight">
+            <li>Extract each candidate's stated position verbatim, organised by the question they were answering — the common questions give the like-for-like comparison.</li>
+            <li>Code each on the axes; mark unstated positions silent.</li>
+            <li>Capture the closing first-100-days statements separately; they are the most checkable output.</li>
+            <li>Save the working notes as <code>&lt;readout-slug&gt;-source.md</code>, with an anchor quote per placement plus an ASR-flag list.</li>
+          </ol>
+
+          <h3 class="sub">5. Verify quotes against the audio (mandatory, do not skip)</h3>
+          <ol class="tight">
+            <li>Resolve the VOD entry and the English audio flavor; check the flavor list rather than assuming paramsId 100.</li>
+            <li>Download the English-audio MP4 via the Kaltura <code>playManifest</code> URL.</li>
+            <li>For each position-critical quote, ffmpeg-slice a window at the JSON sentence timestamp and transcribe with whisper large-v3-turbo.</li>
+            <li>Compare to the ASR quote; on misalignment widen the window. Start wide for interpreted speakers, who drift 10 to 20 seconds.</li>
+            <li>Update the readout, source notes, group index and this page from pending to verified, with timestamps.</li>
+          </ol>
+
+          <h3 class="sub">6. Synthesise and publish</h3>
+          <p>Follow the house format, adding the commitment-ledger section for candidate debates. Serve the finished page locally and check it in a browser before publishing.</p>
+        </div>
+      </details>
+    </section>
+
+    <footer class="page">
+      Methodology record for the readout of the UN Town Hall with candidates for the position of Secretary-General, 23 July 2026 (transcripts.un.org asset k1h/k1hkyf9mo0). Source transcript is UN ASR, not an official record. The 12 position-critical quotes were audio-verified on 27 July 2026; 2 ASR garbles corrected. Group: secretary-general (thematic), readout 1.
+    </footer>
+
+  </main>
+</div>
+
+<script>
+(function () {
+  const allDetails = () => document.querySelectorAll('section.block > details');
+  document.getElementById('expand-all').addEventListener('click', () => allDetails().forEach(d => d.open = true));
+  document.getElementById('collapse-all').addEventListener('click', () => allDetails().forEach(d => d.open = false));
+
+  const tocLinks = Array.from(document.querySelectorAll('nav#toc a'));
+  const sections = tocLinks.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    const setCurrent = id => tocLinks.forEach(a => {
+      if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setCurrent(visible[0].target.id);
+    }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+    sections.forEach(s => io.observe(s));
+  }
+})();
+</script>
+</body>
+</html>

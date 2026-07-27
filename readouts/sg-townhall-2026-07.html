@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UN Town Hall: The Next Secretary-General — 23 July 2026</title>
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --ink: #1a1c20;
+    --muted: #5b6470;
+    --rule: #e3e1da;
+    --accent-default: #2e4a86;
+
+    --green: #2f7a4d;
+    --amber: #b27406;
+    --amber-soft: #fbf1dc;
+    --red:   #b03333;
+    --grey:  #6a727b;
+    --grey-soft: #ecedef;
+
+    /* Theory-of-the-office palette */
+    --bloc-convener:      #1f5fb0;  /* Convener */
+    --bloc-broker:        #197b5a;  /* Broker / negotiator */
+    --bloc-administrator: #8a6d1c;  /* Administrator / servant of the membership */
+    --bloc-frame:         #6a4ba8;  /* PGA / moderators — framing, not coded */
+
+    --focus: #ffbf47;
+    --radius: 10px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+  }
+  a { color: var(--accent-default); }
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .skip {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--ink); color: #fff; padding: .6rem 1rem;
+    z-index: 100;
+  }
+  .skip:focus { left: 0; }
+
+  .shell {
+    display: grid;
+    grid-template-columns: 240px minmax(0,1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    nav#toc { position: static !important; max-height: none !important; }
+  }
+
+  header.page {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  header.page h1 {
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    margin: 0 0 .5rem;
+    line-height: 1.2;
+  }
+  header.page dl.meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .15rem 1rem;
+    margin: .75rem 0 0;
+    color: var(--muted);
+    font-size: .92rem;
+  }
+  header.page dt { font-weight: 600; color: var(--ink); }
+  header.page dd { margin: 0; }
+
+  .asr-note {
+    grid-column: 1 / -1;
+    background: var(--amber-soft);
+    border: 1px solid color-mix(in srgb, var(--amber) 30%, var(--rule));
+    border-left: 4px solid var(--amber);
+    border-radius: var(--radius);
+    padding: .7rem 1rem;
+    margin-bottom: 1.25rem;
+    font-size: .86rem;
+    color: #4a3d1a;
+  }
+  .asr-note strong { color: var(--amber); }
+
+  nav#toc {
+    position: sticky;
+    top: 1rem;
+    align-self: start;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    padding: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    font-size: .92rem;
+  }
+  nav#toc h2 {
+    margin: 0 0 .5rem;
+    font-size: .78rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  nav#toc ol { list-style: none; padding: 0; margin: 0; }
+  nav#toc li { margin: .15rem 0; }
+  nav#toc a {
+    display: block;
+    padding: .35rem .5rem;
+    border-radius: 6px;
+    color: var(--ink);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+  }
+  nav#toc a:hover { background: var(--bg); }
+  nav#toc a[aria-current="location"] {
+    background: var(--bg);
+    border-left-color: var(--accent-default);
+    font-weight: 600;
+  }
+
+  main { min-width: 0; }
+  section.block {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+  section.block > details > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    user-select: none;
+  }
+  section.block > details > summary::-webkit-details-marker { display: none; }
+  section.block > details > summary::before {
+    content: "▸";
+    color: var(--muted);
+    transition: transform .15s ease;
+    display: inline-block;
+    width: 1ch;
+  }
+  section.block > details[open] > summary::before { transform: rotate(90deg); }
+  .body { padding: 0 1.25rem 1.25rem; }
+  .body > :first-child { margin-top: 0; }
+
+  h3.sub { font-size: 1rem; margin: 1.25rem 0 .5rem; color: var(--ink); }
+  ul.tight { margin: .25rem 0 .75rem; padding-left: 1.25rem; }
+  ul.tight li { margin: .25rem 0; }
+
+  blockquote.tp {
+    border-left: 4px solid var(--accent-default);
+    background: var(--bg);
+    margin: .75rem 0;
+    padding: .75rem 1rem;
+    font-style: italic;
+    color: #2a2f37;
+    border-radius: 0 6px 6px 0;
+  }
+  blockquote.tp footer {
+    margin-top: .45rem;
+    font-style: normal;
+    font-size: .85rem;
+    color: var(--muted);
+  }
+
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    padding: 1rem 1.25rem; border-bottom: 1px solid var(--rule);
+    background: linear-gradient(180deg, #fbfaf6 0%, var(--surface) 100%);
+  }
+  .control-group { display: flex; align-items: center; gap: .5rem; }
+  .control-group .label {
+    font-size: .78rem; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--muted); font-weight: 600;
+  }
+  .search {
+    flex: 1 1 220px; min-width: 180px;
+    padding: .5rem .75rem; border: 1px solid var(--rule); border-radius: 8px;
+    font: inherit; background: var(--surface);
+  }
+
+  .chips {
+    display: flex; flex-wrap: wrap; gap: .4rem;
+    padding: .75rem 1.25rem; border-bottom: 1px solid var(--rule);
+    background: var(--surface);
+  }
+  .chip {
+    border: 1px solid var(--rule); background: var(--surface);
+    border-radius: 999px; padding: .3rem .7rem;
+    font: inherit; font-size: .85rem; cursor: pointer; color: var(--ink);
+  }
+  .chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .chip[data-filter="convener"][aria-pressed="true"]      { background: var(--bloc-convener);      border-color: var(--bloc-convener); }
+  .chip[data-filter="broker"][aria-pressed="true"]        { background: var(--bloc-broker);        border-color: var(--bloc-broker); }
+  .chip[data-filter="administrator"][aria-pressed="true"] { background: var(--bloc-administrator); border-color: var(--bloc-administrator); }
+
+  .result-count { font-size: .85rem; color: var(--muted); padding: 0 1.25rem .5rem; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: .85rem; padding: 1rem 1.25rem 1.25rem;
+  }
+  .card {
+    --accent: var(--grey); --accent-bg: var(--grey-soft);
+    background: var(--surface); border: 1px solid var(--rule);
+    border-left: 5px solid var(--accent); border-radius: 8px;
+    padding: .75rem .9rem; box-shadow: var(--shadow);
+    transition: border-color .15s ease;
+  }
+  .card h4 { margin: 0 0 .1rem; font-size: 1rem; }
+  .card .who { font-size: .8rem; color: var(--muted); margin: 0 0 .35rem; }
+  .card .badge-row { display: flex; flex-wrap: wrap; gap: .3rem; margin: .25rem 0 .5rem; }
+  .badge {
+    display: inline-block; font-size: .72rem; font-weight: 600;
+    padding: .15rem .5rem; border-radius: 999px;
+    background: var(--accent-bg); color: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    letter-spacing: .02em;
+  }
+  .card p { margin: .25rem 0 0; font-size: .92rem; color: #2a2f37; }
+  .card[hidden] { display: none; }
+
+  .card[data-bloc="convener"]      { --accent: var(--bloc-convener);      --accent-bg: color-mix(in srgb, var(--bloc-convener) 12%, white); }
+  .card[data-bloc="broker"]        { --accent: var(--bloc-broker);        --accent-bg: color-mix(in srgb, var(--bloc-broker) 12%, white); }
+  .card[data-bloc="administrator"] { --accent: var(--bloc-administrator); --accent-bg: color-mix(in srgb, var(--bloc-administrator) 12%, white); }
+
+  .global-toolbar {
+    grid-column: 1 / -1;
+    display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    justify-content: space-between;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: var(--radius); padding: .75rem 1rem; margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+  .btn {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 8px; padding: .4rem .75rem;
+    font: inherit; font-size: .88rem; cursor: pointer; color: var(--ink);
+  }
+  .btn:hover { background: var(--bg); }
+
+  footer.page {
+    grid-column: 1 / -1; margin-top: 1.5rem; padding-top: 1rem;
+    border-top: 1px solid var(--rule); color: var(--muted);
+    font-style: italic; font-size: .9rem;
+  }
+
+  .fault-line {
+    background: var(--bg); border-left: 4px solid var(--accent-default);
+    padding: .6rem .9rem; margin: .5rem 0; border-radius: 0 6px 6px 0;
+  }
+  .fault-line strong { color: var(--ink); }
+  .outlier {
+    background: var(--amber-soft); border-left: 4px solid var(--amber);
+    padding: .6rem .9rem; margin: .75rem 0; border-radius: 0 6px 6px 0;
+  }
+
+  .plot-controls {
+    display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    padding: 1rem 1.25rem; border-bottom: 1px solid var(--rule);
+    background: linear-gradient(180deg, #fbfaf6 0%, var(--surface) 100%);
+  }
+  .plot-controls select {
+    font: inherit; padding: .4rem .55rem;
+    border: 1px solid var(--rule); border-radius: 8px; background: var(--surface);
+  }
+  .plot-wrap { padding: 1rem 1.25rem 1.5rem; overflow-x: auto; }
+  .plot {
+    --cell: 200px;
+    position: relative; display: grid;
+    grid-template-columns: 32px 130px repeat(3, var(--cell));
+    grid-template-rows: repeat(3, var(--cell)) 28px 28px;
+    gap: 0; min-width: calc(32px + 130px + 3 * var(--cell)); margin: 0 auto;
+  }
+  .plot .axis-label {
+    font-size: .78rem; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .06em;
+    display: flex; align-items: center; justify-content: center; padding: .25rem;
+  }
+  .plot .axis-label.x { grid-row: 5; grid-column: 3 / span 3; border-top: 1px solid var(--rule); }
+  .plot .axis-label.y {
+    grid-row: 1 / span 3; grid-column: 1;
+    writing-mode: vertical-rl; transform: rotate(180deg);
+  }
+  .plot .col-head {
+    grid-row: 4; font-size: .8rem; font-weight: 600; color: var(--ink);
+    text-align: center; padding: .3rem .25rem; border-top: 1px solid var(--rule);
+  }
+  .plot .row-head {
+    grid-column: 2; font-size: .78rem; color: var(--ink); font-weight: 600;
+    display: flex; align-items: center; justify-content: flex-end;
+    padding: .25rem .5rem; text-align: right; border-right: 1px solid var(--rule);
+  }
+  .plot .cell {
+    position: relative; border: 1px dashed var(--rule);
+    background: color-mix(in srgb, var(--bg) 60%, white); min-height: var(--cell);
+  }
+  .plot .cell-inner { position: absolute; inset: 18px; }
+  .plot .cell:hover { background: color-mix(in srgb, var(--accent-default) 5%, white); }
+  .dot {
+    position: absolute; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--dot, var(--grey)); color: #fff;
+    font-size: .62rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; cursor: default;
+    box-shadow: 0 1px 3px rgba(0,0,0,.18);
+    transform: translate(-50%, -50%); border: 2px solid #fff;
+    transition: transform .12s ease, z-index 0s;
+  }
+  .dot:hover, .dot:focus { transform: translate(-50%, -50%) scale(1.5); z-index: 10; outline: none; }
+  .dot[data-bloc="convener"]      { --dot: var(--bloc-convener); }
+  .dot[data-bloc="broker"]        { --dot: var(--bloc-broker); }
+  .dot[data-bloc="administrator"] { --dot: var(--bloc-administrator); }
+
+  #dot-float-tip {
+    position: fixed; background: var(--ink); color: #fff;
+    padding: .45rem .6rem; border-radius: 6px;
+    font-size: .68rem; line-height: 1.35; font-weight: 400;
+    width: 250px; white-space: normal; text-align: left;
+    pointer-events: none; z-index: 9999; opacity: 0; transition: opacity .12s ease;
+  }
+  #dot-float-tip strong { display: block; margin-bottom: .15rem; font-size: .72rem; }
+
+  .plot-legend {
+    display: flex; flex-wrap: wrap; gap: .75rem 1.25rem;
+    padding: .75rem 1.25rem 1rem; font-size: .82rem; color: var(--muted);
+  }
+  .plot-legend .swatch {
+    display: inline-block; width: 12px; height: 12px; border-radius: 50%;
+    vertical-align: middle; margin-right: .35rem; border: 2px solid #fff;
+    box-shadow: 0 0 0 1px var(--rule);
+  }
+  .plot-guide {
+    margin: 0 1.25rem .75rem; padding: .65rem .9rem;
+    background: color-mix(in srgb, var(--accent-default) 7%, white);
+    border-left: 3px solid var(--accent-default); border-radius: 6px;
+    font-size: .83rem; color: var(--muted); line-height: 1.5;
+  }
+  .plot-guide p { margin: 0; }
+
+  .axis-explainer {
+    margin: .5rem 1.25rem .75rem; padding: .75rem 1rem;
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+    font-size: .83rem; line-height: 1.55;
+  }
+  .axis-explainer .ae-header { display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; }
+  .axis-explainer .ae-icon { flex-shrink: 0; color: var(--accent-default); }
+  .axis-explainer .ae-title { font-weight: 700; font-size: .88rem; color: var(--ink); }
+  .axis-explainer .ae-def { color: var(--muted); margin-bottom: .6rem; }
+  .axis-explainer .ae-rows { display: flex; flex-direction: column; gap: .3rem; }
+  .axis-explainer .ae-row { display: flex; gap: .6rem; align-items: baseline; }
+  .axis-explainer .ae-row-label { font-weight: 600; min-width: 150px; color: var(--ink); flex-shrink: 0; }
+  .axis-explainer .ae-row-desc { color: var(--muted); }
+
+  .process-note {
+    background: color-mix(in srgb, var(--accent-default) 7%, white);
+    border-left: 4px solid var(--accent-default);
+    border-radius: 0 6px 6px 0;
+    padding: .7rem .9rem; margin: .75rem 0;
+    font-size: .9rem;
+  }
+  .process-note strong { color: var(--ink); }
+
+  .tbl-wrap { overflow-x: auto; margin: .75rem 0; }
+  table.commit {
+    border-collapse: collapse; width: 100%; font-size: .88rem; min-width: 560px;
+  }
+  table.commit th, table.commit td {
+    text-align: left; vertical-align: top;
+    padding: .5rem .6rem; border-bottom: 1px solid var(--rule);
+  }
+  table.commit th {
+    font-size: .76rem; text-transform: uppercase; letter-spacing: .05em;
+    color: var(--muted); background: var(--bg);
+  }
+  table.commit td:first-child { font-weight: 600; white-space: nowrap; }
+
+  @media (max-width: 720px) {
+    .plot { --cell: 110px; grid-template-columns: 32px 90px repeat(3, var(--cell)); min-width: calc(32px + 90px + 3 * var(--cell)); }
+    .dot { width: 22px; height: 22px; font-size: .58rem; }
+  }
+
+  @media print {
+    body { background: #fff; color: #000; }
+    .shell { grid-template-columns: 1fr; max-width: none; padding: 0; gap: 0; }
+    nav#toc, .global-toolbar, .controls, .chips, .result-count { display: none !important; }
+    section.block { box-shadow: none; border: none; page-break-inside: avoid; }
+    section.block > details > summary { font-size: 1.2rem; }
+    .card { box-shadow: none; }
+    .grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="shell">
+
+  <header class="page">
+    <h1>UN Town Hall: The Next Secretary-General</h1>
+    <dl class="meta">
+      <dt>Subject</dt><dd>Public town hall with the six candidates for Secretary-General, convened by the President of the General Assembly with Bloomberg as media partner</dd>
+      <dt>Date</dt><dd>23 July 2026 — General Assembly Hall, New York (1h 49m)</dd>
+      <dt>Speakers</dt><dd>6 candidates + the President of the General Assembly, 2 moderators and 6 questioners from member states, an NGO, UN staff and civil society</dd>
+      <dt>Format</dt><dd>Moderated debate: opening statements, three thematic rounds of common and individual questions, closing statements on the first 100 days</dd>
+    </dl>
+    <p style="margin:.85rem 0 0; font-size:.9rem;">
+      <a href="../methodology/sg-townhall-methodology.html">How this was made — methodology</a>
+    </p>
+  </header>
+
+  <div class="asr-note">
+    <strong>Source note.</strong> This readout is built from the UN transcripts.un.org automatic-speech-recognition (ASR) preview transcript, <em>not</em> an official UN record. The 12 position-critical quotes below were checked against the meeting audio (<a href="https://webtv.un.org/en/asset/k1h/k1hkyf9mo0">UN Web TV recording</a>, English channel) on 27 July 2026; all 12 matched, and <strong>two ASR garbles were corrected against the recording</strong> (a dropped clause in Grossi's AI answer, and a mangled phrase in Grynspan's closing). Other quotations still reproduce the ASR text. Candidate names are badly mangled by the ASR and have been normalised to the official spellings used by the UN — most importantly <strong>Rebeca Grynspan</strong> (rendered "Rebecca Greenspan" throughout) and <strong>Carolyn Rodrigues Birkett</strong> (rendered six different ways). <strong>Macky Sall spoke in French</strong>; his text passed through live interpretation before the ASR, so his wording is directionally reliable rather than verbatim.
+  </div>
+
+  <nav id="toc" aria-label="Sections">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#summary">Executive Summary</a></li>
+      <li><a href="#brief">What Was Asked, and the Process Around It</a></li>
+      <li><a href="#consensus">Areas of Consensus</a></li>
+      <li><a href="#implications">Fault Lines</a></li>
+      <li><a href="#plot">Fault-Line Plot</a></li>
+      <li><a href="#commitments">The First-100-Days Ledger</a></li>
+      <li><a href="#talking">Talking Points</a></li>
+      <li><a href="#reference">Reference: Candidates at a Glance</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+
+    <div class="global-toolbar" role="group" aria-label="Document controls">
+      <div class="control-group">
+        <button class="btn" id="expand-all" type="button">Expand all</button>
+        <button class="btn" id="collapse-all" type="button">Collapse all</button>
+      </div>
+    </div>
+
+    <section class="block" id="summary">
+      <details open>
+        <summary>Executive Summary</summary>
+        <div class="body">
+          <p>Six candidates to succeed António Guterres took the same stage for ninety minutes of common questions, individual questions and audience questions — the last large public, comparative event before the Security Council's closed-door straw polls. They agreed on the diagnosis almost completely: the UN faces a crisis of trust that shows up as a crisis of cash, reform is imperative, and multilateralism is being eroded by great-power rivalry. A readout organised around who supports what would be a flat field.</p>
+          <p>The real variance is <strong>what each candidate thinks the office can actually do, and how honest they are about what it cannot</strong>. That splits three ways on where they locate the Secretary-General's power:</p>
+          <ul class="tight">
+            <li><strong>The broker</strong> — <strong>Rebeca Grynspan</strong>, <strong>Rafael Mariano Grossi</strong> and <strong>Macky Sall</strong>: the leverage is direct, persistent negotiation with the parties, including hostile ones. All three argue from a worked example — the Black Sea grain deal, the IAEA's presence at Zaporizhzhia, the wartime trips to Sochi and Kyiv — and Grynspan would build machinery for it inside her own office.</li>
+            <li><strong>The convener</strong> — <strong>Michelle Bachelet</strong> and <strong>María Fernanda Espinosa</strong>: the leverage is the UN's unique ability to bring governments, industry, science and civil society to one table and set rules there.</li>
+            <li><strong>The administrator</strong> — <strong>Carolyn Rodrigues Birkett</strong>: the leverage is running the Secretariat well and equipping member states with neutral information so they can make the structural decisions that are theirs to make.</li>
+          </ul>
+          <p>A second divide cuts across the first and is the one most likely to be tested in the straw polls: <strong>how candidly a candidate admits the office is constrained</strong>. Grossi is the outlier here, declining to promise anything and warning that reform talk is cheap — "everybody's a reformer now." Espinosa puts a number on the problem, saying 72 member states had not paid their dues. Bachelet and Rodrigues Birkett answer constraint questions mainly by asserting persistence.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="brief">
+      <details open>
+        <summary>What Was Asked, and the Process Around It</summary>
+        <div class="body">
+          <p>The President of the General Assembly, Annalena Baerbock, opened the event by framing the choice as one about the custodianship of the Charter and its three pillars, and said the point of putting all candidates on one stage was to hear how they would define principled leadership, reform the organisation, and represent the world's eight billion people. The moderators, Haslinda Amin and Romaine Bostick of Bloomberg, ran a hard clock: several candidates were cut off mid-sentence, and where a position is truncated in the record this readout says so rather than completing the thought.</p>
+
+          <div class="process-note">
+            <strong>Where this sits in the selection.</strong> The Secretary-General is appointed by the 193-member General Assembly on the recommendation of the Security Council, where any permanent member can block a candidate. Security Council straw polls — informal, unrecorded indicative votes marking each candidate as encourage, discourage or no opinion — were expected to begin at the end of July 2026, with a recommendation to the Assembly anticipated in September and the appointment later in the year. The next Secretary-General takes office on 1 January 2027. This town hall is therefore the last major moment when the candidates' positions are on the public record side by side, before the decisive phase moves behind closed doors.
+          </div>
+
+          <p>The questions came in three rounds, each mixing a question put to all six with individually targeted ones:</p>
+          <ul class="tight">
+            <li><strong>Crisis and conflict.</strong> To all: the Strait of Hormuz crisis closed a critical shipping lane and the Security Council could not adopt a resolution — what keeps the UN meaningful when diplomacy inside the Council fails? Individually: Bachelet on Gaza and the limits of moral authority; Sall on what he would champion without Council backing; Rodrigues Birkett on veto paralysis; Espinosa on making climate cross-cutting rather than environmental; Grossi, asked by <strong>Estonia</strong>, on a permanent member waging a war of aggression; Grynspan, asked by an <strong>NGO from Mali</strong>, on the Sahel and locally-rooted peacebuilding.</li>
+            <li><strong>UN reform and leadership.</strong> To all: at the end of a first term, what would the UN do better? Individually: Grossi on influence versus authority; Bachelet on a major donor threatening funding over criticism; Grynspan on what she would protect if forced to cut; Sall on independence from the permanent five; Espinosa, asked by <strong>Sierra Leone</strong>, on Security Council reform; Rodrigues Birkett, asked by a <strong>UN staff member</strong>, on staff morale, managerial efficiency and accountability.</li>
+            <li><strong>Global challenges.</strong> To all: many consequential decisions are now made by private companies rather than governments — what should the Secretary-General do about powerful private actors? Individually: Grynspan on the weaponisation of trade; Grossi on rules for autonomous weapons; Rodrigues Birkett on pandemic preparedness; Espinosa on financing climate adaptation; Sall, asked by <strong>Zimbabwe</strong>, on the global financial architecture and debt; Bachelet, asked by a <strong>civil-society representative</strong>, on the human-rights pillar and its funding.</li>
+          </ul>
+          <p>A closing all-candidate question asked for the greatest threat facing the world's peoples, and each candidate then had two minutes on their first hundred days. Those closing lists are specific enough to be checked later, and are set out in <a href="#commitments">the ledger below</a>.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="consensus">
+      <details>
+        <summary>Areas of Consensus</summary>
+        <div class="body">
+          <p>The agreed ground is unusually wide. Everything here was stated by all six candidates or by all but one.</p>
+          <ul class="tight">
+            <li><strong>Reform is imperative, and the goal is leaner without being weaker.</strong> Bachelet's formulation — a UN that is leaner "but muscled" — is close to what the others describe in their own words.</li>
+            <li><strong>The money crisis is a trust crisis.</strong> Grynspan ties the financial crisis directly to the political crisis of the organisation; Sall says the liquidity crisis conceals a crisis of trust and would open the accounts to every member state in response; Espinosa gives the figure of 72 member states in arrears and reads it as a message about confidence rather than a cash-flow problem alone.</li>
+            <li><strong>A deadlocked Security Council is where the Secretary-General's job begins, not where it ends.</strong> All six answered the Hormuz question this way, with Rodrigues Birkett putting it most bluntly: the office does not have the luxury of not trying.</li>
+            <li><strong>Impartiality has to be perceived, not merely asserted.</strong> Espinosa draws the distinction explicitly; Grossi calls impartiality one of the hardest parts of the job and separates it from indifference.</li>
+            <li><strong>Security Council reform belongs to member states.</strong> Espinosa refuses to endorse an African permanent seat on the grounds that the Secretary-General has no role taking sides on composition; Rodrigues Birkett draws the same line between Secretariat reform, which is the SG's, and structural reform, which is not.</li>
+            <li><strong>Senior appointments on competence with gender and geographical balance.</strong> Named in the closing statements by Sall, Rodrigues Birkett, Espinosa and Bachelet.</li>
+            <li><strong>Climate belongs in the peace and security conversation.</strong> Espinosa, Grynspan, Bachelet and Sall each link climate to conflict, displacement or food insecurity.</li>
+            <li><strong>AI needs cooperation that includes industry, science and civil society, without smothering innovation.</strong> Unanimous as a goal; the method is contested (see the fault lines).</li>
+            <li><strong>Development finance must reach developing countries on fairer terms.</strong> Sall and Rodrigues Birkett both work through the international financial institutions; Espinosa and Grynspan emphasise investment, capital access and adaptation finance.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="implications">
+      <details>
+        <summary>Fault Lines</summary>
+        <div class="body">
+          <p>Four divides run through the debate. Because the candidates share a diagnosis, every one of them is about method rather than goal — which is the honest reading of this record. Each names the poles, who anchors them, and what separates the sides. Every candidate's fuller position is in the <a href="#reference">reference grid</a>.</p>
+
+          <div class="fault-line">
+            <strong>1. Where the office's power lies</strong> — the defining divide, and the one that predicts what each would build first.
+            <ul class="tight">
+              <li><strong>Brokers</strong> — <strong>Grynspan</strong> anchors this pole and would build machinery for it: a good-offices support unit inside the Executive Office, described as a small, agile team operating at the highest political level. She argues from the Black Sea grain agreement and says the same could have been attempted early at Hormuz. <strong>Grossi</strong> argues from the IAEA's inspector presence at Zaporizhzhia and six negotiated ceasefires there, and insists credibility comes from arriving with viable solutions at what he calls the real table rather than the imaginary one. <strong>Sall</strong> offers his wartime trips to Sochi and Kyiv as chairperson of the African Union as proof that permanent contact must be maintained whatever the tension.</li>
+              <li><strong>Conveners</strong> — <strong>Bachelet</strong> describes the Secretary-General as a convener and the UN as a uniquely suited place to seat governments, industry, academia and technologists together and produce what she calls a smart mix of measures. <strong>Espinosa</strong> uses almost the same verbs — convene, partner, advocate — and would build a prevention and early-action hub rather than a mediation unit.</li>
+              <li><strong>Administrator</strong> — <strong>Rodrigues Birkett</strong> puts the most weight on the Secretariat itself and on supplying member states with neutral information so they can make the structural decisions. She argues for good offices too, but her first-order lever is the institution rather than the negotiating table.</li>
+            </ul>
+          </div>
+
+          <div class="fault-line">
+            <strong>2. What reform means</strong> — a new business model, completing the current one, or a word to distrust.
+            <ul class="tight">
+              <li><strong>Structural</strong> — <strong>Grynspan</strong> is sharpest, arguing that cutting costs without a vision of change only makes the organisation weaker, and would go after the incentives that drive duplication and unhealthy competition, reforming from the top and not only the bottom (full quote below). <strong>Espinosa</strong> wants to move from budget cuts and agency mergers to a new business model built on impact, performance and accountability. <strong>Sall</strong> aims at a different target: member states' own working methods, citing roughly 40,000 active mandates and more than 27,000 annual meetings.</li>
+              <li><strong>Continuity</strong> — <strong>Rodrigues Birkett</strong> would carry the reform already under way through to delivery, using technology, and expects results visible on the ground within a first term. <strong>Bachelet</strong> frames her version as deepening and accelerating reforms that combine efficiency with effectiveness.</li>
+              <li><strong>Sceptical of the word</strong> — <strong>Grossi</strong> alone treats reform rhetoric as the problem, warning that everybody is a reformer now and the test comes on 1 January (full quote below). He calls for brutal honesty and a new deal between the Secretary-General and both the membership and the staff.</li>
+              <li>Worth noting inside the structural camp: Grynspan and Espinosa aim at the Secretariat's incentives, Sall aims at the member states' mandate load. Those are different reforms wearing the same label.</li>
+            </ul>
+          </div>
+
+          <div class="fault-line">
+            <strong>3. How candid to be about constraint</strong> — the axis member states are most likely to test.
+            <ul class="tight">
+              <li><strong>High candour</strong> — <strong>Grossi</strong> repeatedly separates what falls within the Secretary-General's mandate from what sits with the membership, and says a hundred days may not be enough. <strong>Espinosa</strong> names the arrears figure and states that Security Council reform is entirely in member states' hands. <strong>Sall</strong> says that without member states, reforms will be timid regardless of the Secretary-General's will.</li>
+              <li><strong>Agency-forward</strong> — <strong>Bachelet</strong> and <strong>Rodrigues Birkett</strong> answer constraint questions primarily through persistence and presence: the office cannot give up, must keep trying, must be there. Both are concrete elsewhere, but they lead with will rather than limits.</li>
+              <li><strong>Between the two</strong> — <strong>Grynspan</strong> rejected the moderator's premise that she must choose what to cut, while being precise about the numbers behind the liquidity problem: candid on facts, agency-forward on strategy.</li>
+            </ul>
+          </div>
+
+          <div class="fault-line">
+            <strong>4. How to govern AI</strong> — build an institution or build a platform.
+            <ul class="tight">
+              <li><strong>Against the institutional analogue</strong> — <strong>Grossi</strong> is the only candidate to argue against the obvious model, and he argues against his own agency. Some people say the world needs an IAEA for AI; he says the diffuse, cross-jurisdictional way frontier models are built makes a top-down, over-normative approach extremely difficult, and what is needed instead is a collaborative platform for agreeing behavioural rules while keeping a human in the loop (full quote below). Pressed on whether he would back a verification system for autonomous weapons, he called a nuclear-style regime an illusion, because IAEA verification rests on the material balance of tangible things and this is a different dimension.</li>
+              <li><strong>Multistakeholder convening</strong> — <strong>Grynspan</strong> names the approach polylateralism and would bring technologists, scientists, industry and civil society into the room. <strong>Bachelet</strong> wants clear rules binding governments and industry alike alongside measures that keep innovation moving. <strong>Espinosa</strong> puts it as making human dignity the source code of new technology.</li>
+              <li><strong>Through the membership</strong> — <strong>Rodrigues Birkett</strong> would trust the combined wisdom of the 193 to produce a governance framework, and is the only candidate to frame the risk in terms of what young people fear: that AI takes their jobs and kills their creativity.</li>
+            </ul>
+          </div>
+
+          <div class="outlier">
+            <strong>Outliers and single-candidate items.</strong>
+            <strong>Grossi</strong> — the only candidate who declines to promise, closing on a warning about reform theatre rather than a list of deliverables.
+            <strong>Grynspan</strong> — the only one to refuse a moderator's framing outright, rejecting the premise that she should name what to sacrifice and arguing that a stable financial path is a precondition for strategy at all; also the only one to diagnose the UN as supply-driven rather than demand-driven, with headquarters acting as a wall between the field and member states.
+            <strong>Bachelet</strong> — the only one to answer the donor-pressure question with an instance of having paid the price, recounting that a donor withdrew all funding from UN Women after she acted anyway (full quote below); also the only one to name Article 99 and Uniting for Peace as specific tools for a deadlocked Council.
+            <strong>Espinosa</strong> — the only one to quantify non-payment, and the only one to make the generational gap her headline threat, noting that nearly half of humanity is under 30 while the institutions shaping their future are designed, led and governed by previous generations.
+            <strong>Rodrigues Birkett</strong> — the only one to connect this office to the beyond-GDP agenda, naming the Multidimensional Vulnerability Index as a lever for concessional financing for vulnerable countries; also the only one to raise under- and unrepresented countries in Secretariat staffing, and to say plainly that a woman as Secretary-General can deliver.
+            <strong>Sall</strong> — the only one to put member states' own working methods at the centre of reform, and the only one to close on an extended metaphor, comparing the organisation to an organ whose many pipes need an organist to play in harmony.
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="plot">
+      <details>
+        <summary>Fault-Line Plot — Cluster Map</summary>
+
+        <div class="plot-guide">
+          <p><strong>How to read this plot.</strong> The X-axis is fixed to the defining divide — where the candidate locates the Secretary-General's power (convener → broker → administrator; these are kinds, not a scale, so left-to-right carries no ranking). Choose a fault-line dimension below for the Y-axis. Each dot is one candidate; colour repeats the X-axis grouping. Hover a dot for that candidate's summary. These are personal programmes, not national positions, and they reflect the 23 July 2026 town hall only.</p>
+        </div>
+
+        <div class="plot-controls">
+          <div class="control-group">
+            <label class="label" for="axis-y">Y axis — fault-line dimension</label>
+            <select id="axis-y">
+              <option value="candour" selected>Candour about constraint</option>
+              <option value="reform">Reform posture</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="axis-explainer" id="axis-explainer" aria-live="polite"></div>
+
+        <div class="plot-wrap">
+          <div class="plot" id="plot-grid" role="img" aria-label="Two-axis scatter of candidate positions"></div>
+        </div>
+
+        <div class="plot-legend" id="plot-legend"></div>
+      </details>
+    </section>
+
+    <section class="block" id="commitments">
+      <details>
+        <summary>The First-100-Days Ledger</summary>
+        <div class="body">
+          <p>Each candidate was asked to name their priorities for a first hundred days. These answers are the most checkable thing the town hall produced: specific enough that whoever is appointed can be held to them in 2027. Listed in the order they spoke.</p>
+          <div class="tbl-wrap">
+            <table class="commit">
+              <thead>
+                <tr><th scope="col">Candidate</th><th scope="col">Stated first-100-days priorities</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Macky Sall</td>
+                  <td>Build a senior team on competence, diversity and geographical balance. Strengthen peace and security capacity through preventive diplomacy, early warning, mediation, good offices and closer cooperation with regional organisations on peace operations. Launch an operational review of structures and mandates, and consultations with member states on reform including the UN80 process. Work on the liquidity crisis alongside accountability and transparency. Begin consultations on the post-2030 agenda with member states, the Bretton Woods institutions, the private sector, civil society and philanthropy.</td>
+                </tr>
+                <tr>
+                  <td>Carolyn Rodrigues Birkett</td>
+                  <td>Deploy a senior team balanced by geography and gender. Advance Secretariat reform and supply member states with neutral information for the structural decisions that are theirs. Push on conflict prevention and resolution using mediation and good offices. Tackle impediments to humanitarian delivery. Begin work on under- and unrepresented countries in staffing. Open discussions with the international financial institutions on concessional financing, using the Multidimensional Vulnerability Index and beyond-GDP work.</td>
+                </tr>
+                <tr>
+                  <td>Rebeca Grynspan</td>
+                  <td>Return peacemaking to the centre and establish a good-offices support unit in the Executive Office. Engage member states, the Security Council and conflict parties from day one. Build an integrated planning structure for peace and security, more demand-driven and more partnered with regional organisations. Carry the UN80 process beyond cost-cutting by reforming incentives and reforming from the top as well as the bottom. Put the finances on a stable footing, and treat communication and credibility as part of mandate delivery.</td>
+                </tr>
+                <tr>
+                  <td>Rafael Mariano Grossi</td>
+                  <td>Declines to give a list, arguing a hundred days will show whether the organisation means business rather than deliver everything. Would open a different dialogue — a new deal between the Secretary-General and member states, and between the Secretary-General, the Secretariat and staff — with brutal honesty about what is achievable, separating what falls to the office from what falls to the membership, and testing the membership's real level of ambition.</td>
+                </tr>
+                <tr>
+                  <td>María Fernanda Espinosa</td>
+                  <td>Appoint a high-quality cabinet and reformed executive office on competence and integrity. Focus on reform implementation and financial stability, moving the UN80 process from budget cuts and mergers toward a new business model based on impact, performance and accountability. Be visible where crises are, make prevention an operating principle rather than a slogan, and establish a prevention and early-action hub early. Restore dialogue with the organisation's staff.</td>
+                </tr>
+                <tr>
+                  <td>Michelle Bachelet</td>
+                  <td>Appoint senior management on competence and integrity with gender and geographical balance. Engage member states early on management challenges and on deepening and accelerating reform toward a leaner but not weaker UN, working with staff as well as states. Seek financial stability through assessed and voluntary contributions. Review the institutional and financial tools available under Chapter VI to strengthen peacemaking and peacebuilding, and pursue increased finance for development and climate action.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="talking">
+      <details>
+        <summary>Talking Points</summary>
+        <div class="body">
+          <p style="font-size:.85rem;color:var(--muted);margin-top:0;">These quotes were checked against the meeting audio (English channel) on 27 July 2026 and match the recording; two were corrected from the ASR text where the machine transcript had dropped or garbled words. Still an ASR transcript, not an official UN record. Sall's words additionally passed through French-to-English interpretation.</p>
+          <blockquote class="tp">"The blockade of the Security Council is when the job of the Secretary-General starts, because precisely is to open the possibilities for agreement."<footer>— Rebeca Grynspan, anchoring the broker pole; she goes on to cite the Black Sea grain agreement as the worked example</footer></blockquote>
+          <blockquote class="tp">"One thing the Secretary-General does not have the luxury of doing, and that is not trying. The Secretary-General must try, and I would be that Secretary-General that would try."<footer>— Carolyn Rodrigues Birkett, on a Council that cannot agree</footer></blockquote>
+          <blockquote class="tp">"Impartiality is one of the most difficult traits of the job of the Secretary-General, which is not indifference, it is having the ability to put forward conclusions, concrete solutions, to listen, not to condemn, to be there to solve a problem."<footer>— Rafael Mariano Grossi, on the core asset of the office</footer></blockquote>
+          <blockquote class="tp">"There was this donor who came and said, if you do that, I will take all your funds. I did it because that was what needed to be done. It took all the funds off, but we tried to find other funds."<footer>— Michelle Bachelet, asked what she would do if a major donor demanded softer criticism; recalling her time as Executive Director of UN Women</footer></blockquote>
+          <blockquote class="tp">"Cutting costs is not enough. Without a vision of change, that only will make us weaker. I will reform how incentives work, tackle the behavior that drives duplication and unhealthy competition, and we also have to reform from the top, not only from the bottom."<footer>— Rebeca Grynspan, the sharpest statement of structural reform</footer></blockquote>
+          <blockquote class="tp">"When it comes to reform, of course, important. Everybody's a reformer now. Let's see what happens on January 1st."<footer>— Rafael Mariano Grossi, the debate's most pointed line about reform rhetoric</footer></blockquote>
+          <blockquote class="tp">"Today, 72 member states have not yet paid their dues to the organization. This is, of course, not only a financial issue. I think it is a message that we need to regain trust of member states."<footer>— María Fernanda Espinosa, the only candidate to put a number on it</footer></blockquote>
+          <blockquote class="tp">"There are certain guardrails that can be applied, but we have to be extremely careful. Some people say that we need an IAEA for AI… we are going to need a collaborative platform to define together what are the certain behavioral rules that we may agree on in order not to stifle innovation that we all need and to avoid that we lose the more important factor, human in the loop."<footer>— Rafael Mariano Grossi, arguing against the institutional model his own agency represents</footer></blockquote>
+          <blockquote class="tp">"The main challenge for we the people is the belief that might is right. It's the weakening of international law and humanitarian law. It's the erosion of the belief that founded this organization, that was the great power thought that they needed restraint."<footer>— Rebeca Grynspan, on the greatest threat</footer></blockquote>
+          <blockquote class="tp">"Today the liquidity crisis in reality is hiding a crisis of trust and the pretext is reform. So I would open— I'd be open book, I would open the accounts of the organization."<footer>— Macky Sall, on preserving independence from the permanent five (interpreted from French)</footer></blockquote>
+          <blockquote class="tp">"Our responsibility is to make the UN relevant again, to deliver, to touch the hearts and souls of people on the ground, to serve people on the ground, and not to confuse activity with impact."<footer>— María Fernanda Espinosa, closing</footer></blockquote>
+          <blockquote class="tp">"We have the Multidimensional Vulnerability Index and work has already started on going beyond GDP, but how do we use the MVI, for example, to work on concessional financing for the most vulnerable countries."<footer>— Carolyn Rodrigues Birkett, the only candidate to bring the beyond-GDP agenda into this debate</footer></blockquote>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="reference">
+      <details>
+        <summary>Reference: Candidates at a Glance</summary>
+
+        <div class="controls" role="search">
+          <div class="control-group" style="flex:1 1 220px;">
+            <label for="country-search" class="label" style="white-space:nowrap;">Search</label>
+            <input id="country-search" class="search" type="search" placeholder="Filter by name or position text…" aria-controls="country-grid">
+          </div>
+        </div>
+
+        <div class="chips" role="group" aria-label="Filter by theory of the office">
+          <button class="chip" data-filter="all"           aria-pressed="true">All</button>
+          <button class="chip" data-filter="broker"        aria-pressed="false">Broker</button>
+          <button class="chip" data-filter="convener"      aria-pressed="false">Convener</button>
+          <button class="chip" data-filter="administrator" aria-pressed="false">Administrator</button>
+        </div>
+
+        <div class="result-count" id="result-count" aria-live="polite">Showing 6 of 6</div>
+
+        <div class="grid" id="country-grid">
+
+          <article class="card" data-office="broker" data-candour="mid" data-reform="structural" data-bloc="broker">
+            <h4>Rebeca Grynspan</h4>
+            <p class="who">Costa Rica · Secretary-General of UNCTAD; former Vice-President of Costa Rica</p>
+            <div class="badge-row"><span class="badge">Broker · Structural reform</span></div>
+            <p>Council deadlock is where the job starts; cites the Black Sea grain agreement and would create a good-offices support unit in her own executive office. Reform must change incentives, not just cut costs, and from the top as well as the bottom. Diagnoses the UN as supply-driven rather than demand-driven, with headquarters walling the field off from member states. Refused the premise that she must name cuts. Calls the multistakeholder approach polylateralism. Names "might is right" and the erosion of great-power restraint as the central threat.</p>
+          </article>
+
+          <article class="card" data-office="broker" data-candour="high" data-reform="sceptical" data-bloc="broker">
+            <h4>Rafael Mariano Grossi</h4>
+            <p class="who">Argentina · Director General, International Atomic Energy Agency</p>
+            <div class="badge-row"><span class="badge">Broker · Sceptical of reform talk</span></div>
+            <p>Argues from the IAEA's inspector presence at Zaporizhzhia and six negotiated ceasefires; credibility means arriving with viable solutions at the real table. Impartiality is the hardest trait and is not indifference. The only candidate who declines to promise a hundred-day list, warning that everybody is a reformer now. Wants a new deal with member states and with staff, and brutal honesty about what the office can do. On AI, rejects an IAEA-style body and nuclear-style verification in favour of a collaborative platform keeping a human in the loop.</p>
+          </article>
+
+          <article class="card" data-office="broker" data-candour="high" data-reform="structural" data-bloc="broker">
+            <h4>Macky Sall</h4>
+            <p class="who">Senegal · Former President of Senegal; former Chairperson of the African Union and of ECOWAS</p>
+            <div class="badge-row"><span class="badge">Broker · Structural reform</span></div>
+            <p>Offers permanent contact whatever the tension, citing his wartime trips to Sochi and Kyiv as African Union chair. Says the liquidity crisis hides a crisis of trust, and would open the organisation's accounts to every member state in response. Targets member states' own working methods — roughly 40,000 active mandates, more than 27,000 annual meetings. On private actors, redirects to reforming the global financial architecture, borrowing costs and credit rating agencies. Spoke in French; text is interpreted.</p>
+          </article>
+
+          <article class="card" data-office="convener" data-candour="low" data-reform="continuity" data-bloc="convener">
+            <h4>Michelle Bachelet</h4>
+            <p class="who">Chile · Former President of Chile; former UN High Commissioner for Human Rights; former Executive Director of UN Women</p>
+            <div class="badge-row"><span class="badge">Convener · Continuity reform</span></div>
+            <p>The Secretary-General as convener, with the UN uniquely able to seat governments, industry, academia and technologists together behind a smart mix of rules and innovation. Wants a leaner but muscled UN. The only candidate to answer the donor-pressure question with a case where she acted and lost the funding. Names Article 99 and Uniting for Peace as tools when the Council is deadlocked, and would review Chapter VI instruments for peacemaking. On human rights, notes the tiny share of the regular budget reaching the High Commissioner's office.</p>
+          </article>
+
+          <article class="card" data-office="convener" data-candour="high" data-reform="structural" data-bloc="convener">
+            <h4>María Fernanda Espinosa</h4>
+            <p class="who">Ecuador · Former President of the UN General Assembly; former Minister of Foreign Affairs and of Defence</p>
+            <div class="badge-row"><span class="badge">Convener · Structural reform</span></div>
+            <p>Convene, partner, advocate — and be perceived as an honest broker rather than merely claiming impartiality. Would move the UN80 process from cuts and mergers to a new business model built on impact, performance and accountability, and build a prevention and early-action hub. The only candidate to quantify arrears at 72 member states. Declines to back any particular Security Council composition, calling that entirely a member-state matter. Makes the generational gap her headline threat and warns against confusing activity with impact.</p>
+          </article>
+
+          <article class="card" data-office="administrator" data-candour="low" data-reform="continuity" data-bloc="administrator">
+            <h4>Carolyn Rodrigues Birkett</h4>
+            <p class="who">Guyana · Permanent Representative of Guyana to the United Nations; former Minister</p>
+            <div class="badge-row"><span class="badge">Administrator · Continuity reform</span></div>
+            <p>The Secretary-General does not have the luxury of not trying. Locates the lever in the Secretariat and in giving member states neutral information for the structural decisions that are theirs. Would complete the reform already under way and expects delivery on the ground within a term. The only candidate to bring the Multidimensional Vulnerability Index and beyond-GDP work into the debate, as a route to concessional financing. Raises under- and unrepresented countries in staffing, and says plainly that a woman as Secretary-General can deliver.</p>
+          </article>
+
+        </div>
+      </details>
+    </section>
+
+    <footer class="page">
+      Readout based solely on analysis of the transcripts.un.org ASR transcript of the UN Town Hall with candidates for the position of Secretary-General, 23 July 2026 (asset k1h/k1hkyf9mo0). Not an official UN record; the 12 position-critical quotes were audio-verified on 27 July 2026, with two ASR garbles corrected. Positions are the candidates' own programmes, not the positions of their states. Group: secretary-general (thematic), readout 1.
+    </footer>
+
+  </main>
+</div>
+
+<script>
+(function () {
+  const allDetails = () => document.querySelectorAll('section.block > details');
+  document.getElementById('expand-all').addEventListener('click', () => allDetails().forEach(d => d.open = true));
+  document.getElementById('collapse-all').addEventListener('click', () => allDetails().forEach(d => d.open = false));
+
+  // Search + chip filter
+  const search = document.getElementById('country-search');
+  const grid = document.getElementById('country-grid');
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  const chips = Array.from(document.querySelectorAll('.chip'));
+  const count = document.getElementById('result-count');
+  let activeFilter = 'all';
+
+  function apply() {
+    const q = search.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach(card => {
+      const text = Array.from(card.querySelectorAll('h4, p')).map(n => n.textContent).join(' ').toLowerCase();
+      const matchesText = !q || text.includes(q);
+      let matchesChip = activeFilter === 'all' || card.dataset.office === activeFilter;
+      const show = matchesText && matchesChip;
+      card.hidden = !show;
+      if (show) visible++;
+    });
+    count.textContent = 'Showing ' + visible + ' of ' + cards.length;
+  }
+  search.addEventListener('input', apply);
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      activeFilter = chip.dataset.filter;
+      chips.forEach(c => c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'));
+      apply();
+    });
+  });
+
+  // Scroll-spy
+  const tocLinks = Array.from(document.querySelectorAll('nav#toc a'));
+  const sections = tocLinks.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    const setCurrent = id => tocLinks.forEach(a => {
+      if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setCurrent(visible[0].target.id);
+    }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+    sections.forEach(s => io.observe(s));
+  }
+
+  // ---------- Fault-line plot ----------
+  // Coding strictly from the transcript. These are personal programmes, not state positions.
+  // office:  convener | broker | administrator      (X — theory of the office; kinds, not a scale)
+  // candour: low | mid | high                        (Y for "Candour about constraint")
+  // reform:  continuity | structural | sceptical     (Y for "Reform posture")
+  const data = [
+    { name:"Rebeca Grynspan",         bloc:"broker",        office:"broker",        candour:"mid",  reform:"structural" },
+    { name:"Rafael Mariano Grossi",   bloc:"broker",        office:"broker",        candour:"high", reform:"sceptical"  },
+    { name:"Macky Sall",              bloc:"broker",        office:"broker",        candour:"high", reform:"structural" },
+    { name:"Michelle Bachelet",       bloc:"convener",      office:"convener",      candour:"low",  reform:"continuity" },
+    { name:"María Fernanda Espinosa", bloc:"convener",      office:"convener",      candour:"high", reform:"structural" },
+    { name:"Carolyn Rodrigues Birkett", bloc:"administrator", office:"administrator", candour:"low",  reform:"continuity" }
+  ];
+
+  // Pull the summary line from each card
+  const stanceMap = {};
+  document.querySelectorAll('#country-grid .card').forEach(c => {
+    const ps = c.querySelectorAll('p');
+    stanceMap[c.querySelector('h4').textContent.trim()] = ps[ps.length - 1].textContent.trim();
+  });
+
+  const AXES = {
+    office:  { label:"Theory of the office", buckets:["convener","broker","administrator"], labels:["Convener","Broker","Administrator"] },
+    candour: { label:"Candour about constraint", buckets:["low","mid","high"], labels:["Agency-forward","Between","High candour"] },
+    reform:  { label:"Reform posture", buckets:["continuity","structural","sceptical"], labels:["Continuity","Structural","Sceptical of talk"] }
+  };
+  const Y_KEY = { candour:"candour", reform:"reform" };
+
+  const plot = document.getElementById('plot-grid');
+  const ySel = document.getElementById('axis-y');
+  const legendEl = document.getElementById('plot-legend');
+  const explainerEl = document.getElementById('axis-explainer');
+
+  const EYE_SVG = `<svg class="ae-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+
+  const AXIS_INFO = {
+    candour: {
+      title: "Candour about constraint",
+      def: "How explicitly a candidate says the office is limited and that reform depends on member states, rather than framing their own will and presence as the operative variable.",
+      rows: [
+        { label: "High candour (top)", desc: "Names the limit sharply — Grossi separating mandate from membership, Espinosa on 72 states in arrears, Sall on reforms staying timid without member states." },
+        { label: "Between (mid)", desc: "Grynspan: precise about the financial facts while rejecting the premise that retrenchment is the starting point." },
+        { label: "Agency-forward (bottom)", desc: "Bachelet and Rodrigues Birkett answer constraint questions primarily through persistence and presence." }
+      ]
+    },
+    reform: {
+      title: "Reform posture",
+      def: "What a candidate means by reform: rebuilding the business model and incentives, completing the process already under way, or distrusting the word until delivery proves it.",
+      rows: [
+        { label: "Sceptical of talk (top)", desc: "Grossi — everybody is a reformer now; the test comes on 1 January, and it needs a new deal with states and staff." },
+        { label: "Structural (mid)", desc: "Grynspan and Espinosa on incentives and a new business model; Sall on member states' own mandate and meeting load." },
+        { label: "Continuity (bottom)", desc: "Rodrigues Birkett and Bachelet — carry the existing reform through to delivery, deepened and accelerated." }
+      ]
+    }
+  };
+
+  function renderExplainer() {
+    const info = AXIS_INFO[ySel.value];
+    if (!info) { explainerEl.innerHTML = ''; return; }
+    explainerEl.innerHTML = `
+      <div class="ae-header">${EYE_SVG}<span class="ae-title">${info.title} — what this dimension measures</span></div>
+      <p class="ae-def">${info.def}</p>
+      <div class="ae-rows">
+        ${info.rows.map(r => `<div class="ae-row"><span class="ae-row-label">${r.label}</span><span class="ae-row-desc">${r.desc}</span></div>`).join('')}
+      </div>`;
+  }
+
+  const floatTip = document.createElement('div');
+  floatTip.id = 'dot-float-tip';
+  document.body.appendChild(floatTip);
+
+  function showTip(dot, name, stanceText) {
+    floatTip.innerHTML = '';
+    const strong = document.createElement('strong');
+    strong.textContent = name;
+    floatTip.appendChild(strong);
+    floatTip.appendChild(document.createTextNode(stanceText));
+    floatTip.style.opacity = '1';
+    moveTip(dot);
+  }
+  function moveTip(dot) {
+    const r = dot.getBoundingClientRect();
+    const tw = 250, th = floatTip.offsetHeight || 60;
+    let left = r.left + r.width / 2 - tw / 2;
+    let top  = r.top - th - 8;
+    if (top < 8) top = r.bottom + 8;
+    left = Math.max(8, Math.min(left, window.innerWidth - tw - 8));
+    floatTip.style.left = left + 'px';
+    floatTip.style.top  = top  + 'px';
+  }
+  function hideTip() { floatTip.style.opacity = '0'; }
+
+  function hash(str) { let h = 2166136261; for (let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619);} return (h >>> 0); }
+  const jitter = {};
+  data.forEach(d => {
+    const h = hash(d.name);
+    jitter[d.name] = { x: 20 + (h % 60), y: 20 + ((h >>> 8) % 60) };
+  });
+
+  function renderLegend() {
+    const items = [
+      ["var(--bloc-broker)","Broker — direct negotiation"],
+      ["var(--bloc-convener)","Convener — bring actors to the table"],
+      ["var(--bloc-administrator)","Administrator — run the institution"]
+    ];
+    legendEl.innerHTML = items.map(([c, label]) => `<span><span class="swatch" style="background:${c}"></span>${label}</span>`).join('');
+  }
+
+  function render() {
+    const xAxis = AXES['office'], yAxis = AXES[ySel.value];
+    const yKey = Y_KEY[ySel.value];
+    plot.innerHTML = '';
+
+    const yLab = document.createElement('div'); yLab.className = 'axis-label y'; yLab.textContent = yAxis.label; plot.appendChild(yLab);
+    const xLab = document.createElement('div'); xLab.className = 'axis-label x'; xLab.textContent = xAxis.label; plot.appendChild(xLab);
+
+    xAxis.labels.forEach((lab, i) => {
+      const h = document.createElement('div'); h.className = 'col-head';
+      h.style.gridColumn = String(i + 3); h.style.gridRow = '4';
+      h.textContent = lab; plot.appendChild(h);
+    });
+    yAxis.labels.slice().reverse().forEach((lab, i) => {
+      const h = document.createElement('div'); h.className = 'row-head';
+      h.style.gridColumn = '2'; h.style.gridRow = String(i + 1);
+      h.textContent = lab; plot.appendChild(h);
+    });
+
+    const cells = {};
+    for (let yi = 0; yi < 3; yi++) {
+      for (let xi = 0; xi < 3; xi++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.style.gridColumn = String(xi + 3);
+        cell.style.gridRow = String(yi + 1);
+        const inner = document.createElement('div');
+        inner.className = 'cell-inner';
+        cell.appendChild(inner);
+        plot.appendChild(cell);
+        const yBucket = yAxis.buckets[2 - yi];
+        const xBucket = xAxis.buckets[xi];
+        cells[xBucket + '|' + yBucket] = inner;
+      }
+    }
+
+    data.forEach(d => {
+      const xb = d.office, yb = d[yKey];
+      const cell = cells[xb + '|' + yb];
+      if (!cell) return;
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      dot.tabIndex = 0;
+      dot.dataset.bloc = d.bloc;
+      const initials = d.name.split(/[\s()/-]+/).filter(Boolean).slice(0,2).map(w => w[0]).join('').toUpperCase();
+      dot.textContent = initials;
+      dot.setAttribute('aria-label', d.name);
+      const j = jitter[d.name];
+      dot.style.left = j.x + '%';
+      dot.style.top  = j.y + '%';
+      const name = d.name, stanceText = stanceMap[d.name] || '';
+      dot.addEventListener('mouseenter', () => showTip(dot, name, stanceText));
+      dot.addEventListener('mouseleave', hideTip);
+      dot.addEventListener('focus',      () => showTip(dot, name, stanceText));
+      dot.addEventListener('blur',       hideTip);
+      cell.appendChild(dot);
+    });
+
+    renderLegend();
+  }
+
+  ySel.addEventListener('change', () => { render(); renderExplainer(); });
+  render();
+  renderExplainer();
+})();
+</script>
+</body>
+</html>
