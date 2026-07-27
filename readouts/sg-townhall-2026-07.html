@@ -87,19 +87,6 @@
   header.page dt { font-weight: 600; color: var(--ink); }
   header.page dd { margin: 0; }
 
-  .asr-note {
-    grid-column: 1 / -1;
-    background: var(--amber-soft);
-    border: 1px solid color-mix(in srgb, var(--amber) 30%, var(--rule));
-    border-left: 4px solid var(--amber);
-    border-radius: var(--radius);
-    padding: .7rem 1rem;
-    margin-bottom: 1.25rem;
-    font-size: .86rem;
-    color: #4a3d1a;
-  }
-  .asr-note strong { color: var(--amber); }
-
   nav#toc {
     position: sticky;
     top: 1rem;
@@ -273,9 +260,76 @@
 
   .fault-line {
     background: var(--bg); border-left: 4px solid var(--accent-default);
-    padding: .6rem .9rem; margin: .5rem 0; border-radius: 0 6px 6px 0;
+    padding: .6rem .9rem; margin: .9rem 0; border-radius: 0 6px 6px 0;
   }
   .fault-line strong { color: var(--ink); }
+  .fl-title {
+    display: block;
+    color: var(--accent-default);
+    font-size: 1rem;
+    margin-bottom: .5rem;
+    padding-bottom: .35rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent-default) 22%, transparent);
+  }
+  .fl-title strong { color: var(--accent-default); }
+  .fl-title .fl-gloss { font-weight: 400; color: var(--muted); font-size: .9rem; }
+
+  /* Candidate name colour = theory-of-the-office group, matching the plot.
+     Applied everywhere a candidate is named so a reader can track one person
+     through the page by colour alone. */
+  .c-broker        { color: var(--bloc-broker); }
+  .c-convener      { color: var(--bloc-convener); }
+  .c-administrator { color: var(--bloc-administrator); }
+  strong.c-broker, strong.c-convener, strong.c-administrator { font-weight: 700; }
+
+  /* Pole groups inside a fault line: coloured label + one row per candidate */
+  .pole { margin: 1.1rem 0 0; }
+  .pole:first-of-type { margin-top: .5rem; }
+  .pole > .pole-label {
+    font-weight: 700; font-size: .8rem; text-transform: uppercase;
+    letter-spacing: .06em; margin-bottom: .1rem;
+    padding: .28rem .6rem;
+    border-radius: 5px;
+    display: inline-block;
+    color: var(--pole-ink, var(--ink));
+    background: var(--pole-bg, var(--grey-soft));
+    border: 1px solid color-mix(in srgb, var(--pole-ink, var(--ink)) 25%, transparent);
+  }
+  .pole.p-broker        { --pole-ink: var(--bloc-broker);        --pole-bg: color-mix(in srgb, var(--bloc-broker) 12%, white); }
+  .pole.p-convener      { --pole-ink: var(--bloc-convener);      --pole-bg: color-mix(in srgb, var(--bloc-convener) 12%, white); }
+  .pole.p-administrator { --pole-ink: var(--bloc-administrator); --pole-bg: color-mix(in srgb, var(--bloc-administrator) 12%, white); }
+  .pole.p-mixed         { --pole-ink: var(--muted);              --pole-bg: var(--grey-soft); }
+  ul.who-list { list-style: none; margin: 0; padding: 0; }
+  ul.who-list > li {
+    display: grid;
+    grid-template-columns: 150px minmax(0,1fr);
+    gap: .2rem .9rem;
+    padding: .38rem 0;
+    border-top: 1px solid var(--rule);
+    font-size: .92rem;
+  }
+  ul.who-list > li > .who-name { font-weight: 700; color: var(--ink); }
+  /* group colour must win over the generic .who-name rule above */
+  ul.who-list > li > .who-name.c-broker        { color: var(--bloc-broker); }
+  ul.who-list > li > .who-name.c-convener      { color: var(--bloc-convener); }
+  ul.who-list > li > .who-name.c-administrator { color: var(--bloc-administrator); }
+  ul.who-list > li > .who-pos { color: #2a2f37; }
+  @media (max-width: 620px) {
+    ul.who-list > li { grid-template-columns: 1fr; }
+  }
+
+  /* Candidate-colour key under the first coloured section */
+  .colour-key {
+    display: flex; flex-wrap: wrap; gap: .4rem 1.1rem;
+    margin: .75rem 0 0; padding: .55rem .8rem;
+    background: var(--bg); border: 1px solid var(--rule); border-radius: 8px;
+    font-size: .82rem; color: var(--muted);
+  }
+  .colour-key .ck { display: inline-flex; align-items: center; gap: .35rem; }
+  .colour-key .ck-dot {
+    width: 10px; height: 10px; border-radius: 50%; display: inline-block;
+    border: 2px solid #fff; box-shadow: 0 0 0 1px var(--rule);
+  }
   .outlier {
     background: var(--amber-soft); border-left: 4px solid var(--amber);
     padding: .6rem .9rem; margin: .75rem 0; border-radius: 0 6px 6px 0;
@@ -430,13 +484,9 @@
       <dt>Format</dt><dd>Moderated debate: opening statements, three thematic rounds of common and individual questions, closing statements on the first 100 days</dd>
     </dl>
     <p style="margin:.85rem 0 0; font-size:.9rem;">
-      <a href="../methodology/sg-townhall-methodology.html">How this was made — methodology</a>
+      <a href="../methodology/sg-townhall-methodology.html">How this was made — sources, transcript accuracy and quote verification</a>
     </p>
   </header>
-
-  <div class="asr-note">
-    <strong>Source note.</strong> This readout is built from the UN transcripts.un.org automatic-speech-recognition (ASR) preview transcript, <em>not</em> an official UN record. The 12 position-critical quotes below were checked against the meeting audio (<a href="https://webtv.un.org/en/asset/k1h/k1hkyf9mo0">UN Web TV recording</a>, English channel) on 27 July 2026; all 12 matched, and <strong>two ASR garbles were corrected against the recording</strong> (a dropped clause in Grossi's AI answer, and a mangled phrase in Grynspan's closing). Other quotations still reproduce the ASR text. Candidate names are badly mangled by the ASR and have been normalised to the official spellings used by the UN — most importantly <strong>Rebeca Grynspan</strong> (rendered "Rebecca Greenspan" throughout) and <strong>Carolyn Rodrigues Birkett</strong> (rendered six different ways). <strong>Macky Sall spoke in French</strong>; his text passed through live interpretation before the ASR, so his wording is directionally reliable rather than verbatim.
-  </div>
 
   <nav id="toc" aria-label="Sections">
     <h2>On this page</h2>
@@ -465,14 +515,54 @@
       <details open>
         <summary>Executive Summary</summary>
         <div class="body">
-          <p>Six candidates to succeed António Guterres took the same stage for ninety minutes of common questions, individual questions and audience questions — the last large public, comparative event before the Security Council's closed-door straw polls. They agreed on the diagnosis almost completely: the UN faces a crisis of trust that shows up as a crisis of cash, reform is imperative, and multilateralism is being eroded by great-power rivalry. A readout organised around who supports what would be a flat field.</p>
-          <p>The real variance is <strong>what each candidate thinks the office can actually do, and how honest they are about what it cannot</strong>. That splits three ways on where they locate the Secretary-General's power:</p>
-          <ul class="tight">
-            <li><strong>The broker</strong> — <strong>Rebeca Grynspan</strong>, <strong>Rafael Mariano Grossi</strong> and <strong>Macky Sall</strong>: the leverage is direct, persistent negotiation with the parties, including hostile ones. All three argue from a worked example — the Black Sea grain deal, the IAEA's presence at Zaporizhzhia, the wartime trips to Sochi and Kyiv — and Grynspan would build machinery for it inside her own office.</li>
-            <li><strong>The convener</strong> — <strong>Michelle Bachelet</strong> and <strong>María Fernanda Espinosa</strong>: the leverage is the UN's unique ability to bring governments, industry, science and civil society to one table and set rules there.</li>
-            <li><strong>The administrator</strong> — <strong>Carolyn Rodrigues Birkett</strong>: the leverage is running the Secretariat well and equipping member states with neutral information so they can make the structural decisions that are theirs to make.</li>
-          </ul>
-          <p>A second divide cuts across the first and is the one most likely to be tested in the straw polls: <strong>how candidly a candidate admits the office is constrained</strong>. Grossi is the outlier here, declining to promise anything and warning that reform talk is cheap — "everybody's a reformer now." Espinosa puts a number on the problem, saying 72 member states had not paid their dues. Bachelet and Rodrigues Birkett answer constraint questions mainly by asserting persistence.</p>
+          <p>Six candidates to succeed António Guterres took the same stage for ninety minutes — the last large public, comparative event before the Security Council's closed-door straw polls. On the diagnosis they agreed almost completely: the UN faces a crisis of trust that shows up as a crisis of cash, reform is imperative, and multilateralism is being eroded by great-power rivalry. Very little separated them on what is wrong.</p>
+          <p>There is significant variance, though, in what each candidate thinks the office can actually do about it, and in how far they concede it cannot. That variance falls into three groups, according to where each locates the Secretary-General's power:</p>
+          <div class="tbl-wrap">
+            <table class="commit">
+              <thead>
+                <tr><th scope="col">Candidate</th><th scope="col">Theory of the office</th><th scope="col">Where they locate the leverage</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="c-broker">Rebeca Grynspan</td>
+                  <td class="c-broker">Broker</td>
+                  <td>Direct negotiation with the parties, including hostile ones. Argues from the Black Sea grain agreement, and would build machinery for it inside her own office.</td>
+                </tr>
+                <tr>
+                  <td class="c-broker">Rafael Mariano Grossi</td>
+                  <td class="c-broker">Broker</td>
+                  <td>The same, from the IAEA's inspector presence at Zaporizhzhia and the ceasefires that sustained it. Credibility comes from arriving with workable solutions.</td>
+                </tr>
+                <tr>
+                  <td class="c-broker">Macky Sall</td>
+                  <td class="c-broker">Broker</td>
+                  <td>The same, from his wartime trips to Sochi and Kyiv as African Union chair: permanent contact must stay open whatever the tension.</td>
+                </tr>
+                <tr>
+                  <td class="c-convener">Michelle Bachelet</td>
+                  <td class="c-convener">Convener</td>
+                  <td>The UN's ability to seat governments, industry, academia and technologists at one table and set rules there.</td>
+                </tr>
+                <tr>
+                  <td class="c-convener">María Fernanda Espinosa</td>
+                  <td class="c-convener">Convener</td>
+                  <td>Convening, partnering and advocacy — with a prevention and early-action hub as the thing she would build first.</td>
+                </tr>
+                <tr>
+                  <td class="c-administrator">Carolyn Rodrigues Birkett</td>
+                  <td class="c-administrator">Administrator</td>
+                  <td>Running the Secretariat well, and equipping member states with neutral information so they can take the structural decisions that are theirs.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="colour-key">
+            <span><strong>Colour key</strong> — each candidate keeps their group colour throughout this readout:</span>
+            <span class="ck"><span class="ck-dot" style="background:var(--bloc-broker)"></span><span class="c-broker"><strong>Broker</strong></span> — Grynspan, Grossi, Sall</span>
+            <span class="ck"><span class="ck-dot" style="background:var(--bloc-convener)"></span><span class="c-convener"><strong>Convener</strong></span> — Bachelet, Espinosa</span>
+            <span class="ck"><span class="ck-dot" style="background:var(--bloc-administrator)"></span><span class="c-administrator"><strong>Administrator</strong></span> — Rodrigues Birkett</span>
+          </div>
+          <p>A second divide cuts across the first, and it is the one most likely to be tested in the straw polls: how candidly a candidate admits the office is constrained. Grossi sits at one end, declining to promise anything and warning that reform talk is cheap — "everybody's a reformer now." Espinosa puts a number on the problem, saying 72 member states had not paid their dues. Bachelet and Rodrigues Birkett answer constraint questions mainly by asserting persistence.</p>
         </div>
       </details>
     </section>
@@ -481,18 +571,140 @@
       <details open>
         <summary>What Was Asked, and the Process Around It</summary>
         <div class="body">
-          <p>The President of the General Assembly, Annalena Baerbock, opened the event by framing the choice as one about the custodianship of the Charter and its three pillars, and said the point of putting all candidates on one stage was to hear how they would define principled leadership, reform the organisation, and represent the world's eight billion people. The moderators, Haslinda Amin and Romaine Bostick of Bloomberg, ran a hard clock: several candidates were cut off mid-sentence, and where a position is truncated in the record this readout says so rather than completing the thought.</p>
+          <p>The President of the General Assembly, Annalena Baerbock, opened by framing the choice as one about custodianship of the Charter and its three pillars, and said the point of one shared stage was to hear how each would define principled leadership, reform the organisation, and represent the world's eight billion people. The moderators, Haslinda Amin and Romaine Bostick of Bloomberg, ran a hard clock: several candidates were cut off mid-sentence, and where a position is truncated in the record this readout says so rather than completing the thought.</p>
 
           <div class="process-note">
-            <strong>Where this sits in the selection.</strong> The Secretary-General is appointed by the 193-member General Assembly on the recommendation of the Security Council, where any permanent member can block a candidate. Security Council straw polls — informal, unrecorded indicative votes marking each candidate as encourage, discourage or no opinion — were expected to begin at the end of July 2026, with a recommendation to the Assembly anticipated in September and the appointment later in the year. The next Secretary-General takes office on 1 January 2027. This town hall is therefore the last major moment when the candidates' positions are on the public record side by side, before the decisive phase moves behind closed doors.
+            <strong>Where this sits in the selection.</strong> The Secretary-General is appointed by the 193-member General Assembly on the Security Council's recommendation, where any permanent member can block a candidate. Straw polls — informal, unrecorded votes marking each candidate as encourage, discourage or no opinion — were expected from the end of July 2026, a recommendation in September, and the appointment later in the year. The next Secretary-General takes office on 1 January 2027. This town hall is therefore the last major moment with the candidates' positions on the public record side by side, before the decisive phase moves behind closed doors.
           </div>
 
-          <p>The questions came in three rounds, each mixing a question put to all six with individually targeted ones:</p>
-          <ul class="tight">
-            <li><strong>Crisis and conflict.</strong> To all: the Strait of Hormuz crisis closed a critical shipping lane and the Security Council could not adopt a resolution — what keeps the UN meaningful when diplomacy inside the Council fails? Individually: Bachelet on Gaza and the limits of moral authority; Sall on what he would champion without Council backing; Rodrigues Birkett on veto paralysis; Espinosa on making climate cross-cutting rather than environmental; Grossi, asked by <strong>Estonia</strong>, on a permanent member waging a war of aggression; Grynspan, asked by an <strong>NGO from Mali</strong>, on the Sahel and locally-rooted peacebuilding.</li>
-            <li><strong>UN reform and leadership.</strong> To all: at the end of a first term, what would the UN do better? Individually: Grossi on influence versus authority; Bachelet on a major donor threatening funding over criticism; Grynspan on what she would protect if forced to cut; Sall on independence from the permanent five; Espinosa, asked by <strong>Sierra Leone</strong>, on Security Council reform; Rodrigues Birkett, asked by a <strong>UN staff member</strong>, on staff morale, managerial efficiency and accountability.</li>
-            <li><strong>Global challenges.</strong> To all: many consequential decisions are now made by private companies rather than governments — what should the Secretary-General do about powerful private actors? Individually: Grynspan on the weaponisation of trade; Grossi on rules for autonomous weapons; Rodrigues Birkett on pandemic preparedness; Espinosa on financing climate adaptation; Sall, asked by <strong>Zimbabwe</strong>, on the global financial architecture and debt; Bachelet, asked by a <strong>civil-society representative</strong>, on the human-rights pillar and its funding.</li>
-          </ul>
+          <p>The questions came in three rounds. Each opened with one question put to all six candidates, then moved to individually targeted questions — some from the moderators, some from the floor.</p>
+
+          <h3 class="sub">Round 1 — Crisis and conflict</h3>
+          <p><strong>To all six:</strong> the Strait of Hormuz crisis closed a critical shipping lane and the Security Council could not adopt a resolution. What keeps the UN meaningful when diplomacy inside the Council fails?</p>
+          <div class="tbl-wrap">
+            <table class="commit">
+              <thead>
+                <tr><th scope="col">Candidate</th><th scope="col">Individual question</th><th scope="col">What they answered</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="c-convener">Michelle Bachelet</td>
+                  <td>Gaza, and what to do when moral authority is not enough</td>
+                  <td>Moral authority is always needed but must be paired with tools. Pressed for a mechanism, she named Article 99, and Uniting for Peace as the Assembly's route when the Council is deadlocked — plus field presence and building allies who can shift an outcome.</td>
+                </tr>
+                <tr>
+                  <td class="c-broker">Macky Sall</td>
+                  <td>What he would champion without Security Council backing</td>
+                  <td>The Charter gives the office a facilitator role and an early-warning function; he would use quiet, preventive diplomacy and speak to belligerents, permanent members included. Asked how, he pointed to meeting Putin and travelling to Sochi and Kyiv as African Union chair when few supported it.</td>
+                </tr>
+                <tr>
+                  <td class="c-administrator">Carolyn Rodrigues Birkett</td>
+                  <td>Making the Council effective when it is paralysed by vetoes</td>
+                  <td>There is always space for the Secretary-General. Drawing on her own Council service, she would use the office's neutrality and the UN's field footprint to put concrete proposals to members: the Council may not act today but may act next week on that recommendation.</td>
+                </tr>
+                <tr>
+                  <td class="c-convener">María Fernanda Espinosa</td>
+                  <td>Reorganising the UN so climate is cross-cutting, not environmental</td>
+                  <td>Noted more than 14 senior officials work on climate without working together. Called climate a symptom of consumption and production patterns, and the core problem one of implementation rather than knowledge — the agreements and technologies already exist. Asked which division she would break first, she named the link between climate, conflict and the human-rights pillar.</td>
+                </tr>
+                <tr>
+                  <td class="c-broker">Rafael Mariano Grossi</td>
+                  <td>First steps when a permanent member wages a war of aggression</td>
+                  <td>Any member starting a war is serious enough for the Secretary-General to step in, permanent member or not. First restore the UN's credibility as a valid interlocutor, then use the Charter's tools — starting with talking and listening, and treating the conflict realistically by examining why force was used.</td>
+                </tr>
+                <tr>
+                  <td class="c-broker">Rebeca Grynspan</td>
+                  <td>The Sahel, climate security and locally-rooted peacebuilding</td>
+                  <td>Climate is becoming a peace and security issue, with most displacement now climate-driven. The UN is unique but not alone: it should partner with regional and local organisations that have people on the ground. On local ownership, the real reform is at country level — the UN is supply-driven when it should be demand-driven.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="sub">Round 2 — UN reform and leadership</h3>
+          <p><strong>To all six:</strong> at the end of a first term, what would governments and people say the UN does better than it does today?</p>
+          <div class="tbl-wrap">
+            <table class="commit">
+              <thead>
+                <tr><th scope="col">Candidate</th><th scope="col">Individual question</th><th scope="col">What they answered</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="c-broker">Rafael Mariano Grossi</td>
+                  <td>Influence versus authority — an example of using persuasion</td>
+                  <td>The IAEA established the only independent multilateral presence in a theatre of war, at Zaporizhzhia, and negotiated six Russia–Ukraine ceasefires to allow essential repairs. His conclusion: that is only possible through credibility, and by arriving at the real table with viable solutions.</td>
+                </tr>
+                <tr>
+                  <td class="c-convener">Michelle Bachelet</td>
+                  <td>A major donor threatening funding over criticism of it</td>
+                  <td>She would speak. At UN Women a donor threatened to pull all its funding; she acted anyway, it did, and she sought funds elsewhere. As High Commissioner she was likewise pressed not to release documents and released them — independence being the only basis on which all 193 members can feel represented.</td>
+                </tr>
+                <tr>
+                  <td class="c-broker">Rebeca Grynspan</td>
+                  <td>What she would protect at all costs under financial pressure</td>
+                  <td>Rejected the premise — opening with what to cut is the worst way to negotiate. Would build on the Assembly's liquidity decision and protect the Charter and three pillars while becoming more agile. Pressed on unprecedented arrears: the priority is a stable financial path, since an organisation that cannot predict its income cannot be strategic.</td>
+                </tr>
+                <tr>
+                  <td class="c-broker">Macky Sall</td>
+                  <td>Preserving independence from the permanent five</td>
+                  <td>His record already shows independence, and his diplomacy excludes no one. The liquidity crisis conceals a crisis of trust for which reform is the pretext; he would open the organisation's accounts and reform proposals to all member states — after which it is for each to meet its obligations.</td>
+                </tr>
+                <tr>
+                  <td class="c-convener">María Fernanda Espinosa</td>
+                  <td>Which Security Council reform she would champion</td>
+                  <td>Better working methods and effectiveness, including a larger role for the Secretary-General as honest broker and provider of options and scenarios. On composition she declined to take a side: reform is entirely in member states' hands and the office's job is secretariat support. Asked directly about an African permanent seat, she said the Secretary-General has no role backing any particular position.</td>
+                </tr>
+                <tr>
+                  <td class="c-administrator">Carolyn Rodrigues Birkett</td>
+                  <td>Staff morale, managerial efficiency and accountability</td>
+                  <td>Would continue the Secretariat reform already begun, using technology. A Secretary-General is only as strong as the team around her; member states want a Secretariat that looks like the world it represents, making under- and unrepresented countries a priority. Change brings trepidation, and she hopes to be a motivator through it.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="sub">Round 3 — Global challenges and opportunities</h3>
+          <p><strong>To all six:</strong> many of the world's most consequential decisions are made by private companies rather than governments. What role should the Secretary-General play toward powerful private actors?</p>
+          <div class="tbl-wrap">
+            <table class="commit">
+              <thead>
+                <tr><th scope="col">Candidate</th><th scope="col">Individual question</th><th scope="col">What they answered</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="c-broker">Rebeca Grynspan</td>
+                  <td>Trade shaped by geopolitics, and economic fragmentation</td>
+                  <td>In a multipolar world without multilateralism, fragmentation follows — she treats multipolarity and multilateralism as one question, not two. Asked what would change powerful states' behaviour, she pointed to trade proving more resilient than predicted, because regional agreements and integration kept setting workable rules even as trade was weaponised globally.</td>
+                </tr>
+                <tr>
+                  <td class="c-broker">Rafael Mariano Grossi</td>
+                  <td>Whether the UN should set global rules for autonomous weapons</td>
+                  <td>Argued against an IAEA-for-AI: frontier models are built diffusely across jurisdictions, making a top-down, over-normative approach extremely difficult. Wants a collaborative platform to agree behavioural rules without stifling innovation, keeping a human in the loop. Nuclear-style verification would be an illusion, since IAEA safeguards rest on the material balance of tangible things.</td>
+                </tr>
+                <tr>
+                  <td class="c-administrator">Carolyn Rodrigues Birkett</td>
+                  <td>The unlearned lesson of COVID-19, and the next pandemic</td>
+                  <td>Stressed preparedness: many countries never recovered, and the pandemic set back the Sustainable Development Goals. Existing mechanisms, the WHO included, leave the world better prepared — but without financing and vaccine access it would again be survival of the fittest. On vaccine hoarding, the Secretary-General would have to use her voice, though this needs all members' cooperation.</td>
+                </tr>
+                <tr>
+                  <td class="c-convener">María Fernanda Espinosa</td>
+                  <td>Selling climate adaptation finance as investment, not aid</td>
+                  <td>Wealthy nations should not need convincing: the evidence already shows adaptation reduces migration and protects livelihoods and prosperity. Called for rebalancing investment between mitigation and adaptation and resilience. The mechanisms exist; what is missing is implementation and political will, which the Secretary-General is well placed to drive for vulnerable countries.</td>
+                </tr>
+                <tr>
+                  <td class="c-broker">Macky Sall</td>
+                  <td>Reforming the global financial architecture and the debt burden</td>
+                  <td>Would launch a global discussion on reforming the international financial architecture. The burden is not the size of developing countries' debt but its terms — borrowing costs five to eight times higher than developed countries pay. Credit rating agencies belong in that discussion alongside member states and the financial institutions, with private finance mobilised and its risks mitigated.</td>
+                </tr>
+                <tr>
+                  <td class="c-convener">Michelle Bachelet</td>
+                  <td>Prioritising and funding the human-rights pillar</td>
+                  <td>Has seen firsthand how central human rights are to preventing conflict and to peacebuilding, and would speak up when appropriate. Would strengthen coordination among agencies working on human rights in the field, resist cuts to a chronically underfunded pillar — she put the High Commissioner's share of the regular budget in the low single digits — and mobilise voluntary contributions.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
           <p>A closing all-candidate question asked for the greatest threat facing the world's peoples, and each candidate then had two minutes on their first hundred days. Those closing lists are specific enough to be checked later, and are set out in <a href="#commitments">the ledger below</a>.</p>
         </div>
       </details>
@@ -505,7 +717,7 @@
           <p>The agreed ground is unusually wide. Everything here was stated by all six candidates or by all but one.</p>
           <ul class="tight">
             <li><strong>Reform is imperative, and the goal is leaner without being weaker.</strong> Bachelet's formulation — a UN that is leaner "but muscled" — is close to what the others describe in their own words.</li>
-            <li><strong>The money crisis is a trust crisis.</strong> Grynspan ties the financial crisis directly to the political crisis of the organisation; Sall says the liquidity crisis conceals a crisis of trust and would open the accounts to every member state in response; Espinosa gives the figure of 72 member states in arrears and reads it as a message about confidence rather than a cash-flow problem alone.</li>
+            <li><strong>The money crisis is a trust crisis.</strong> Grynspan ties the financial crisis directly to the organisation's political one; Sall says it conceals a crisis of trust and would open the accounts to every member state; Espinosa gives the figure of 72 member states in arrears and reads it as a message about confidence, not a cash-flow problem alone.</li>
             <li><strong>A deadlocked Security Council is where the Secretary-General's job begins, not where it ends.</strong> All six answered the Hormuz question this way, with Rodrigues Birkett putting it most bluntly: the office does not have the luxury of not trying.</li>
             <li><strong>Impartiality has to be perceived, not merely asserted.</strong> Espinosa draws the distinction explicitly; Grossi calls impartiality one of the hardest parts of the job and separates it from indifference.</li>
             <li><strong>Security Council reform belongs to member states.</strong> Espinosa refuses to endorse an African permanent seat on the grounds that the Secretary-General has no role taking sides on composition; Rodrigues Birkett draws the same line between Secretariat reform, which is the SG's, and structural reform, which is not.</li>
@@ -522,53 +734,131 @@
       <details>
         <summary>Fault Lines</summary>
         <div class="body">
-          <p>Four divides run through the debate. Because the candidates share a diagnosis, every one of them is about method rather than goal — which is the honest reading of this record. Each names the poles, who anchors them, and what separates the sides. Every candidate's fuller position is in the <a href="#reference">reference grid</a>.</p>
+          <p>Four divides run through the debate. Because the candidates share a diagnosis, every one is about method rather than goal — the honest reading of this record. Each names the poles and who anchors them; fuller positions are in the <a href="#reference">reference grid</a>.</p>
 
           <div class="fault-line">
-            <strong>1. Where the office's power lies</strong> — the defining divide, and the one that predicts what each would build first.
-            <ul class="tight">
-              <li><strong>Brokers</strong> — <strong>Grynspan</strong> anchors this pole and would build machinery for it: a good-offices support unit inside the Executive Office, described as a small, agile team operating at the highest political level. She argues from the Black Sea grain agreement and says the same could have been attempted early at Hormuz. <strong>Grossi</strong> argues from the IAEA's inspector presence at Zaporizhzhia and six negotiated ceasefires there, and insists credibility comes from arriving with viable solutions at what he calls the real table rather than the imaginary one. <strong>Sall</strong> offers his wartime trips to Sochi and Kyiv as chairperson of the African Union as proof that permanent contact must be maintained whatever the tension.</li>
-              <li><strong>Conveners</strong> — <strong>Bachelet</strong> describes the Secretary-General as a convener and the UN as a uniquely suited place to seat governments, industry, academia and technologists together and produce what she calls a smart mix of measures. <strong>Espinosa</strong> uses almost the same verbs — convene, partner, advocate — and would build a prevention and early-action hub rather than a mediation unit.</li>
-              <li><strong>Administrator</strong> — <strong>Rodrigues Birkett</strong> puts the most weight on the Secretariat itself and on supplying member states with neutral information so they can make the structural decisions. She argues for good offices too, but her first-order lever is the institution rather than the negotiating table.</li>
-            </ul>
+            <span class="fl-title"><strong>1. Where the office's power lies</strong> <span class="fl-gloss">— the defining divide, and the one that predicts what each would build first.</span></span>
+
+            <div class="pole p-broker">
+              <div class="pole-label">Brokers</div>
+              <ul class="who-list">
+                <li><span class="who-name c-broker">Grynspan</span><span class="who-pos">Anchors the pole and would build machinery for it: a good-offices support unit inside the Executive Office — a small, agile team at the highest political level. Says the same could have been attempted early at Hormuz.</span></li>
+                <li><span class="who-name c-broker">Grossi</span><span class="who-pos">Insists credibility comes from arriving with viable solutions at what he calls the real table rather than the imaginary one.</span></li>
+                <li><span class="who-name c-broker">Sall</span><span class="who-pos">Offers his wartime travel as African Union chair as proof that permanent contact must be maintained whatever the tension.</span></li>
+              </ul>
+            </div>
+
+            <div class="pole p-convener">
+              <div class="pole-label">Conveners</div>
+              <ul class="who-list">
+                <li><span class="who-name c-convener">Bachelet</span><span class="who-pos">Calls the UN uniquely suited to seat governments, industry, academia and technologists together and produce what she calls a smart mix of measures.</span></li>
+                <li><span class="who-name c-convener">Espinosa</span><span class="who-pos">Almost the same verbs — convene, partner, advocate — but would build a prevention and early-action hub rather than a mediation unit.</span></li>
+              </ul>
+            </div>
+
+            <div class="pole p-administrator">
+              <div class="pole-label">Administrator</div>
+              <ul class="who-list">
+                <li><span class="who-name c-administrator">Rodrigues Birkett</span><span class="who-pos">Puts the weight on the Secretariat itself and on supplying member states with neutral information for the structural decisions. She argues for good offices too, but her first-order lever is the institution, not the negotiating table.</span></li>
+              </ul>
+            </div>
           </div>
 
           <div class="fault-line">
-            <strong>2. What reform means</strong> — a new business model, completing the current one, or a word to distrust.
-            <ul class="tight">
-              <li><strong>Structural</strong> — <strong>Grynspan</strong> is sharpest, arguing that cutting costs without a vision of change only makes the organisation weaker, and would go after the incentives that drive duplication and unhealthy competition, reforming from the top and not only the bottom (full quote below). <strong>Espinosa</strong> wants to move from budget cuts and agency mergers to a new business model built on impact, performance and accountability. <strong>Sall</strong> aims at a different target: member states' own working methods, citing roughly 40,000 active mandates and more than 27,000 annual meetings.</li>
-              <li><strong>Continuity</strong> — <strong>Rodrigues Birkett</strong> would carry the reform already under way through to delivery, using technology, and expects results visible on the ground within a first term. <strong>Bachelet</strong> frames her version as deepening and accelerating reforms that combine efficiency with effectiveness.</li>
-              <li><strong>Sceptical of the word</strong> — <strong>Grossi</strong> alone treats reform rhetoric as the problem, warning that everybody is a reformer now and the test comes on 1 January (full quote below). He calls for brutal honesty and a new deal between the Secretary-General and both the membership and the staff.</li>
-              <li>Worth noting inside the structural camp: Grynspan and Espinosa aim at the Secretariat's incentives, Sall aims at the member states' mandate load. Those are different reforms wearing the same label.</li>
-            </ul>
+            <span class="fl-title"><strong>2. What reform means</strong> <span class="fl-gloss">— a new business model, completing the current one, or a word to distrust.</span></span>
+
+            <div class="pole p-mixed">
+              <div class="pole-label">Structural</div>
+              <ul class="who-list">
+                <li><span class="who-name c-broker">Grynspan</span><span class="who-pos">Sharpest of the three: cutting costs without a vision of change only makes the organisation weaker. Would go after the incentives driving duplication and unhealthy competition, reforming from the top and not only the bottom (full quote below).</span></li>
+                <li><span class="who-name c-convener">Espinosa</span><span class="who-pos">Wants to move from budget cuts and agency mergers to a new business model built on impact, performance and accountability.</span></li>
+                <li><span class="who-name c-broker">Sall</span><span class="who-pos">Aims at a different target: member states' own working methods, citing roughly 40,000 active mandates and more than 27,000 annual meetings.</span></li>
+              </ul>
+            </div>
+
+            <div class="pole p-mixed">
+              <div class="pole-label">Continuity</div>
+              <ul class="who-list">
+                <li><span class="who-name c-administrator">Rodrigues Birkett</span><span class="who-pos">Would carry the reform already under way through to delivery, using technology, and expects results visible on the ground within a first term.</span></li>
+                <li><span class="who-name c-convener">Bachelet</span><span class="who-pos">Frames her version as deepening and accelerating reforms that combine efficiency with effectiveness.</span></li>
+              </ul>
+            </div>
+
+            <div class="pole p-mixed">
+              <div class="pole-label">Sceptical of the word</div>
+              <ul class="who-list">
+                <li><span class="who-name c-broker">Grossi</span><span class="who-pos">Alone treats reform rhetoric as the problem, warning that everybody is a reformer now and the test comes on 1 January (full quote below). He calls for brutal honesty and a new deal between the Secretary-General and both the membership and the staff.</span></li>
+              </ul>
+            </div>
+
+            <p style="margin:.8rem 0 0;font-size:.9rem;color:var(--muted);">Worth noting inside the structural camp: Grynspan and Espinosa aim at the Secretariat's incentives, Sall aims at the member states' mandate load. Those are different reforms wearing the same label.</p>
           </div>
 
           <div class="fault-line">
-            <strong>3. How candid to be about constraint</strong> — the axis member states are most likely to test.
-            <ul class="tight">
-              <li><strong>High candour</strong> — <strong>Grossi</strong> repeatedly separates what falls within the Secretary-General's mandate from what sits with the membership, and says a hundred days may not be enough. <strong>Espinosa</strong> names the arrears figure and states that Security Council reform is entirely in member states' hands. <strong>Sall</strong> says that without member states, reforms will be timid regardless of the Secretary-General's will.</li>
-              <li><strong>Agency-forward</strong> — <strong>Bachelet</strong> and <strong>Rodrigues Birkett</strong> answer constraint questions primarily through persistence and presence: the office cannot give up, must keep trying, must be there. Both are concrete elsewhere, but they lead with will rather than limits.</li>
-              <li><strong>Between the two</strong> — <strong>Grynspan</strong> rejected the moderator's premise that she must choose what to cut, while being precise about the numbers behind the liquidity problem: candid on facts, agency-forward on strategy.</li>
-            </ul>
+            <span class="fl-title"><strong>3. How candid to be about constraint</strong> <span class="fl-gloss">— the axis member states are most likely to test.</span></span>
+
+            <div class="pole p-mixed">
+              <div class="pole-label">High candour</div>
+              <ul class="who-list">
+                <li><span class="who-name c-broker">Grossi</span><span class="who-pos">Repeatedly separates what falls within the Secretary-General's mandate from what sits with the membership, and says a hundred days may not be enough.</span></li>
+                <li><span class="who-name c-convener">Espinosa</span><span class="who-pos">Names the arrears figure and states that Security Council reform is entirely in member states' hands.</span></li>
+                <li><span class="who-name c-broker">Sall</span><span class="who-pos">Says that without member states, reforms will be timid regardless of the Secretary-General's will.</span></li>
+              </ul>
+            </div>
+
+            <div class="pole p-mixed">
+              <div class="pole-label">Between the two</div>
+              <ul class="who-list">
+                <li><span class="who-name c-broker">Grynspan</span><span class="who-pos">Rejected the moderator's premise that she must choose what to cut, while being precise about the numbers behind the liquidity problem: candid on facts, agency-forward on strategy.</span></li>
+              </ul>
+            </div>
+
+            <div class="pole p-mixed">
+              <div class="pole-label">Agency-forward</div>
+              <ul class="who-list">
+                <li><span class="who-name c-convener">Bachelet</span><span class="who-pos">Answers constraint questions primarily through persistence and presence — the office cannot give up, must keep trying. Concrete elsewhere, but leads with will rather than limits.</span></li>
+                <li><span class="who-name c-administrator">Rodrigues Birkett</span><span class="who-pos">The same: the Secretary-General does not have the luxury of not trying. Her realism appears in the reform detail rather than in how she frames the office's limits.</span></li>
+              </ul>
+            </div>
           </div>
 
           <div class="fault-line">
-            <strong>4. How to govern AI</strong> — build an institution or build a platform.
-            <ul class="tight">
-              <li><strong>Against the institutional analogue</strong> — <strong>Grossi</strong> is the only candidate to argue against the obvious model, and he argues against his own agency. Some people say the world needs an IAEA for AI; he says the diffuse, cross-jurisdictional way frontier models are built makes a top-down, over-normative approach extremely difficult, and what is needed instead is a collaborative platform for agreeing behavioural rules while keeping a human in the loop (full quote below). Pressed on whether he would back a verification system for autonomous weapons, he called a nuclear-style regime an illusion, because IAEA verification rests on the material balance of tangible things and this is a different dimension.</li>
-              <li><strong>Multistakeholder convening</strong> — <strong>Grynspan</strong> names the approach polylateralism and would bring technologists, scientists, industry and civil society into the room. <strong>Bachelet</strong> wants clear rules binding governments and industry alike alongside measures that keep innovation moving. <strong>Espinosa</strong> puts it as making human dignity the source code of new technology.</li>
-              <li><strong>Through the membership</strong> — <strong>Rodrigues Birkett</strong> would trust the combined wisdom of the 193 to produce a governance framework, and is the only candidate to frame the risk in terms of what young people fear: that AI takes their jobs and kills their creativity.</li>
-            </ul>
+            <span class="fl-title"><strong>4. How to govern AI</strong> <span class="fl-gloss">— build an institution or build a platform.</span></span>
+
+            <div class="pole p-mixed">
+              <div class="pole-label">Against the institutional analogue</div>
+              <ul class="who-list">
+                <li><span class="who-name c-broker">Grossi</span><span class="who-pos">The only candidate to argue against the obvious model, and he argues against his own agency: a collaborative platform for agreeing behavioural rules, not an IAEA for AI (full quote below). Pressed on verifying autonomous weapons, he called a nuclear-style regime an illusion, because IAEA verification rests on the material balance of tangible things.</span></li>
+              </ul>
+            </div>
+
+            <div class="pole p-mixed">
+              <div class="pole-label">Multistakeholder convening</div>
+              <ul class="who-list">
+                <li><span class="who-name c-broker">Grynspan</span><span class="who-pos">Names the approach polylateralism and would bring technologists, scientists, industry and civil society into the room.</span></li>
+                <li><span class="who-name c-convener">Bachelet</span><span class="who-pos">Wants clear rules binding governments and industry alike, alongside measures that keep innovation moving.</span></li>
+                <li><span class="who-name c-convener">Espinosa</span><span class="who-pos">Puts it as making human dignity the source code of new technology.</span></li>
+              </ul>
+            </div>
+
+            <div class="pole p-mixed">
+              <div class="pole-label">Through the membership</div>
+              <ul class="who-list">
+                <li><span class="who-name c-administrator">Rodrigues Birkett</span><span class="who-pos">Would trust the combined wisdom of the 193 to produce a governance framework, and is the only candidate to frame the risk in terms of what young people fear: that AI takes their jobs and kills their creativity.</span></li>
+              </ul>
+            </div>
           </div>
 
           <div class="outlier">
-            <strong>Outliers and single-candidate items.</strong>
-            <strong>Grossi</strong> — the only candidate who declines to promise, closing on a warning about reform theatre rather than a list of deliverables.
-            <strong>Grynspan</strong> — the only one to refuse a moderator's framing outright, rejecting the premise that she should name what to sacrifice and arguing that a stable financial path is a precondition for strategy at all; also the only one to diagnose the UN as supply-driven rather than demand-driven, with headquarters acting as a wall between the field and member states.
-            <strong>Bachelet</strong> — the only one to answer the donor-pressure question with an instance of having paid the price, recounting that a donor withdrew all funding from UN Women after she acted anyway (full quote below); also the only one to name Article 99 and Uniting for Peace as specific tools for a deadlocked Council.
-            <strong>Espinosa</strong> — the only one to quantify non-payment, and the only one to make the generational gap her headline threat, noting that nearly half of humanity is under 30 while the institutions shaping their future are designed, led and governed by previous generations.
-            <strong>Rodrigues Birkett</strong> — the only one to connect this office to the beyond-GDP agenda, naming the Multidimensional Vulnerability Index as a lever for concessional financing for vulnerable countries; also the only one to raise under- and unrepresented countries in Secretariat staffing, and to say plainly that a woman as Secretary-General can deliver.
-            <strong>Sall</strong> — the only one to put member states' own working methods at the centre of reform, and the only one to close on an extended metaphor, comparing the organisation to an organ whose many pipes need an organist to play in harmony.
+            <span class="fl-title" style="color:var(--amber);border-bottom-color:color-mix(in srgb, var(--amber) 25%, transparent);"><strong style="color:var(--amber);">Outliers and single-candidate items</strong> <span class="fl-gloss">— things only one candidate said.</span></span>
+            <ul class="who-list">
+              <li><span class="who-name c-broker">Grossi</span><span class="who-pos">The only candidate who declines to promise, closing on a warning about reform theatre rather than a list of deliverables.</span></li>
+              <li><span class="who-name c-broker">Grynspan</span><span class="who-pos">The only one to refuse a moderator's framing outright. Also the only one to diagnose the UN as supply-driven rather than demand-driven, with headquarters walling the field off from member states.</span></li>
+              <li><span class="who-name c-convener">Bachelet</span><span class="who-pos">The only one to answer the donor-pressure question with an instance of having paid the price (full quote below), and the only one to name Article 99 and Uniting for Peace as specific tools for a deadlocked Council.</span></li>
+              <li><span class="who-name c-convener">Espinosa</span><span class="who-pos">The only one to quantify non-payment, and the only one to make the generational gap her headline threat: nearly half of humanity is under 30, while the institutions shaping their future are designed, led and governed by previous generations.</span></li>
+              <li><span class="who-name c-administrator">Rodrigues Birkett</span><span class="who-pos">The only one to connect this office to the beyond-GDP agenda, naming the Multidimensional Vulnerability Index as a lever for concessional financing. Also the only one to raise under- and unrepresented countries in staffing, and to say plainly that a woman as Secretary-General can deliver.</span></li>
+              <li><span class="who-name c-broker">Sall</span><span class="who-pos">The only one to put member states' own working methods at the centre of reform, and the only one to close on an extended metaphor, comparing the organisation to an organ whose many pipes need an organist to play in harmony.</span></li>
+            </ul>
           </div>
         </div>
       </details>
@@ -606,7 +896,7 @@
       <details>
         <summary>The First-100-Days Ledger</summary>
         <div class="body">
-          <p>Each candidate was asked to name their priorities for a first hundred days. These answers are the most checkable thing the town hall produced: specific enough that whoever is appointed can be held to them in 2027. Listed in the order they spoke.</p>
+          <p>Each candidate named their priorities for a first hundred days. These answers are the most checkable thing the town hall produced: specific enough that whoever is appointed can be held to them in 2027. Listed in speaking order.</p>
           <div class="tbl-wrap">
             <table class="commit">
               <thead>
@@ -614,27 +904,27 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>Macky Sall</td>
+                  <td class="c-broker">Macky Sall</td>
                   <td>Build a senior team on competence, diversity and geographical balance. Strengthen peace and security capacity through preventive diplomacy, early warning, mediation, good offices and closer cooperation with regional organisations on peace operations. Launch an operational review of structures and mandates, and consultations with member states on reform including the UN80 process. Work on the liquidity crisis alongside accountability and transparency. Begin consultations on the post-2030 agenda with member states, the Bretton Woods institutions, the private sector, civil society and philanthropy.</td>
                 </tr>
                 <tr>
-                  <td>Carolyn Rodrigues Birkett</td>
+                  <td class="c-administrator">Carolyn Rodrigues Birkett</td>
                   <td>Deploy a senior team balanced by geography and gender. Advance Secretariat reform and supply member states with neutral information for the structural decisions that are theirs. Push on conflict prevention and resolution using mediation and good offices. Tackle impediments to humanitarian delivery. Begin work on under- and unrepresented countries in staffing. Open discussions with the international financial institutions on concessional financing, using the Multidimensional Vulnerability Index and beyond-GDP work.</td>
                 </tr>
                 <tr>
-                  <td>Rebeca Grynspan</td>
+                  <td class="c-broker">Rebeca Grynspan</td>
                   <td>Return peacemaking to the centre and establish a good-offices support unit in the Executive Office. Engage member states, the Security Council and conflict parties from day one. Build an integrated planning structure for peace and security, more demand-driven and more partnered with regional organisations. Carry the UN80 process beyond cost-cutting by reforming incentives and reforming from the top as well as the bottom. Put the finances on a stable footing, and treat communication and credibility as part of mandate delivery.</td>
                 </tr>
                 <tr>
-                  <td>Rafael Mariano Grossi</td>
+                  <td class="c-broker">Rafael Mariano Grossi</td>
                   <td>Declines to give a list, arguing a hundred days will show whether the organisation means business rather than deliver everything. Would open a different dialogue — a new deal between the Secretary-General and member states, and between the Secretary-General, the Secretariat and staff — with brutal honesty about what is achievable, separating what falls to the office from what falls to the membership, and testing the membership's real level of ambition.</td>
                 </tr>
                 <tr>
-                  <td>María Fernanda Espinosa</td>
+                  <td class="c-convener">María Fernanda Espinosa</td>
                   <td>Appoint a high-quality cabinet and reformed executive office on competence and integrity. Focus on reform implementation and financial stability, moving the UN80 process from budget cuts and mergers toward a new business model based on impact, performance and accountability. Be visible where crises are, make prevention an operating principle rather than a slogan, and establish a prevention and early-action hub early. Restore dialogue with the organisation's staff.</td>
                 </tr>
                 <tr>
-                  <td>Michelle Bachelet</td>
+                  <td class="c-convener">Michelle Bachelet</td>
                   <td>Appoint senior management on competence and integrity with gender and geographical balance. Engage member states early on management challenges and on deepening and accelerating reform toward a leaner but not weaker UN, working with staff as well as states. Seek financial stability through assessed and voluntary contributions. Review the institutional and financial tools available under Chapter VI to strengthen peacemaking and peacebuilding, and pursue increased finance for development and climate action.</td>
                 </tr>
               </tbody>

@@ -33,11 +33,16 @@ Entry ID from the webtv URL: `webtv.un.org/en/asset/k1w/k1w95ycgte` → drop the
 1. `baseEntry/get` on the live entry → `recordedEntryId` is the VOD
    (e.g. `1_w95ycgte` → VOD `1_c3icpgx0`).
 2. `getPlaybackContext` on the VOD with `flavorTags: "all"` → flavor list.
-3. **Take the `language: English` flavor (`flavorParamsId` 100).** This is the
-   channel the portal ASR transcribes: floor audio when the speaker speaks
-   English, interpreter audio otherwise. Do NOT take "Interlingua" (raw floor,
-   original languages) — it won't match the English ASR text for interpreted
-   speakers.
+3. **Take the flavor whose `language` is `English`.** This is the channel the
+   portal ASR transcribes: floor audio when the speaker speaks English,
+   interpreter audio otherwise. Do NOT take "Interlingua" (raw floor, original
+   languages) — it won't match the English ASR text for interpreted speakers.
+
+   **Select on `language == English`, never on a remembered `flavorParamsId`.**
+   Most entries put English at paramsId 100, but not all: the SG town hall
+   (`1_qth9jlfl`, 2026-07-23) carries its language flavors in the 2732xxx range,
+   with English at **2732162** and no paramsId-100 flavor at all. Always
+   enumerate the flavor list and match on language.
 
 ### 3. Download the audio
 
@@ -129,3 +134,4 @@ front-to-back on the AI-at-UN run (17/17 matched after correction).
 | 2026-07-15 | UN80 WG opening (16 Sep 2025) | `1_64fljgzl` / `1_pvibk8vw` | 6 | 5 matched, 1 ASR garble corrected ("are own" → "Member States own") |
 | 2026-07-16 | SC 10197 Sudan/ICC (15 Jul 2026) | `1_c3icpgx0` / `1_1jj8elbu` | 9 | all matched; France quotes needed wider windows (interpretation drift) |
 | 2026-07-16 | HLPF AI &amp; Sustainable Development side event (15 Jul 2026) | `1_gr3kz7u8` / `1_w51t2aqe` | 17 | all matched, 0 corrections; recording re-cut 1h34m→1h15m required a uniform −1119 s JSON→audio offset (first panel-format entry — flavor layout identical to SC, paramsId 100 present) |
+| 2026-07-27 | SG town hall — candidate debate (23 Jul 2026) | `1_qth9jlfl` / `1_cr68e9m4` | 12 | all matched, **2 ASR garbles corrected**; **no paramsId-100 flavor — English was paramsId 2732162**; no drift and no offset, every quote hit on a ±3 s first-pass slice incl. the interpreted French speaker |
