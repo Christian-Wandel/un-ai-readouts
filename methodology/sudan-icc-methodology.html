@@ -343,6 +343,7 @@
       <li><a href="#stage1">Stage 1 — Discovery</a></li>
       <li><a href="#stage2">Stage 2 — Fetch &amp; Convert</a></li>
       <li><a href="#stage3">Stage 3 — Analysis &amp; Coding</a></li>
+      <li><a href="#scoring">Stage 3b — Position Scoring</a></li>
       <li><a href="#stage4">Stage 4 — Quote Verification</a></li>
       <li><a href="#stage5">Stage 5 — Synthesis</a></li>
       <li><a href="#stage6">Stage 6 — Publication</a></li>
@@ -387,6 +388,7 @@
             <div class="step"><div class="n">Stage 1</div><div class="t">Discover</div><div class="d">Find the meeting on transcripts.un.org</div></div>
             <div class="step"><div class="n">Stage 2</div><div class="t">Fetch + convert</div><div class="d">Portal JSON → attributed markdown</div></div>
             <div class="step"><div class="n">Stage 3</div><div class="t">Analyse</div><div class="d">Extract + code positions on two axes</div></div>
+            <div class="step"><div class="n">Stage 3b</div><div class="t">Score</div><div class="d">Rank intensity within each camp, quote by quote</div></div>
             <div class="step"><div class="n">Stage 4</div><div class="t">Verify quotes</div><div class="d">Audio-check every quote vs. the recording</div></div>
             <div class="step"><div class="n">Stage 5</div><div class="t">Synthesise</div><div class="d">Consensus, fault lines, stance grid</div></div>
             <div class="step"><div class="n">Stage 6</div><div class="t">Publish</div><div class="d">One interactive HTML readout</div></div>
@@ -488,6 +490,57 @@ python pipeline/fetch_un_transcripts.py convert transcripts/security-council/202
             <li><strong>Selectable Y:</strong> <em>mandate scope</em> — widen the ICC remit beyond the 2005 Darfur referral (<code>expand</code>) vs. hold to the 2003 situation (<code>confine</code>) vs. <code>neutral</code>; or <em>enforcement urgency</em> — how hard a delegation presses for arrests and new warrants now (<code>high</code> / <code>mid</code> / <code>low</code>).</li>
           </ul>
           <p>Camps are coloured by stance, not geography: <strong>defender</strong> (Denmark, France, UK, Greece, Latvia, Panama, Colombia), <strong>sovereign</strong> (China, Pakistan, Somalia, Bahrain), <strong>rejector</strong> (United States, Russian Federation), <strong>African / regional</strong> (Liberia, DRC — pro-Court but kept visually distinct from the P3-adjacent cluster), <strong>party</strong> (Sudan), and <strong>ICC / briefer</strong> (Deputy Prosecutor Khan). Where a delegation did not state a position on a dimension in this meeting, it was marked <code>silent</code> rather than assigned a guess; here all 15 members plus Sudan spoke on the record.</p>
+          <p>Camp membership fixes which <em>column</em> a delegation sits in. Where it sits <em>inside</em> that column is a separate, scored judgement — see <a href="#scoring">position scoring</a> below.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="scoring">
+      <details open>
+        <summary>Stage 3b — Position Scoring (how the plot is ordered)</summary>
+        <div class="body">
+          <p>A reader of the first version of this readout pointed out that the cluster map appeared to show the DRC and Liberia as stronger supporters of the ICC than Denmark, France and the United Kingdom — which does not reflect what those delegations actually said. The reader was right, and the cause was structural.</p>
+
+          <div class="warn">
+            <strong>What was wrong.</strong> The plot sorts delegations into three categorical columns. Within a column, each dot's horizontal position was generated from a hash of the delegation's name — decorative jitter whose only job was to stop dots overlapping. But readers reasonably read left-to-right placement as meaning something. Within-camp position was noise being presented as signal.
+          </div>
+
+          <p><strong>The fix.</strong> Within-camp ordering is now part of the analytical claim rather than an accident of layout. Each delegation's full statement was scored against a seven-indicator rubric, and dots are placed inside each cell in ascending score order, weakest to strongest, left to right. Every point awarded cites a verbatim quote from this meeting; the absence of a marker is recorded as <em>not stated</em>, never inferred from bloc membership or from what a delegation said at other meetings. Clicking any two dots in the plot opens the two breakdowns side by side, so the reader can audit the ordering rather than take it on trust.</p>
+
+          <h3 class="sub">The rubric</h3>
+          <p>The scored axis is intensity of support for the ICC — the same defining divide the executive summary names. Opponents of the Court are scored on that one axis through the negative markers, not on a second rubric of their own.</p>
+          <table class="data">
+            <thead><tr><th>Indicator</th><th>Max</th><th>What earns points</th></tr></thead>
+            <tbody>
+              <tr><td>A. Institutional endorsement</td><td><code>20</code></td><td>Emphatic support of the Court as an institution ("unwavering" / "absolute support") 15–20 · formulaic or qualified 8–14 · thanks-only or silent 0–7</td></tr>
+              <tr><td>B. Independence / integrity defense</td><td><code>10</code></td><td>Defends the Court against interference, sanctions or threats 7–10 · generic independence mention 3–6 · silent 0</td></tr>
+              <tr><td>C. Mandate expansion call</td><td><code>15</code></td><td>Explicit call to extend ICC jurisdiction to all of Sudan 15 · silent 0</td></tr>
+              <tr><td>D. Warrant specificity</td><td><code>15</code></td><td>Names suspects plus an arrest/surrender demand 12–15 · generic warrants demand 7–11 · mention without demand 3–6 · silent 0</td></tr>
+              <tr><td>E. Cooperation framing</td><td><code>15</code></td><td>Obligation framing 14–15 · calls on all states to cooperate 11–13 · welcomes / encourages 6–10 · takes note 2–5 · silent or critical 0</td></tr>
+              <tr><td>F. Material commitments</td><td><code>10</code></td><td>Reparations / Trust Fund / prosecutor-resources call 7–10 · welcomes progress on these 3–6 · silent 0</td></tr>
+              <tr><td>G. Speech-act tonality</td><td><code>15</code></td><td>Dominant verb register toward the Court and accountability: demand / urge / must 11–15 · call / ensure 6–10 · welcome / encourage 3–5 · take-note 0–2</td></tr>
+              <tr><td>Negative markers</td><td><code>−</code></td><td>Complementarity- or sovereignty-first framing −5 to −10 · explicit criticism or delegitimisation of the Court −10 to −25 · a call to confine or withdraw the file −10</td></tr>
+            </tbody>
+          </table>
+
+          <h3 class="sub">Two display rules</h3>
+          <ul class="tight">
+            <li><strong>The displayed score floors at 0, the net does not.</strong> Four delegations show 0 while differing widely underneath, so the pre-floor net is kept and used for ordering — which is why Russia (net −45) sits further from the Court than the United States (net −35) in the delegitimise column. Both numbers appear in the readout's "Scores at a Glance" table.</li>
+            <li><strong>The claim is ordinal.</strong> An additive tally of evidence supports "stronger than", not interval precision. Dots are rank-ordered with even spacing; the exact numbers belong in the evidence panel as an audit trail, not as a measurement.</li>
+          </ul>
+
+          <h3 class="sub">Anti-anchoring</h3>
+          <p>Delegations were scored one at a time against the rubric's anchors, without reference to other delegations' totals, to the earlier camp coding, or to any expected ordering. Only afterwards was the result compared with the reader's expectation. Where the two disagree, the disagreement is reported rather than tuned away — and one such disagreement turned out to be the most interesting finding of the exercise (below).</p>
+
+          <h3 class="sub">What the scoring found</h3>
+          <p>The reader's core objection is confirmed with large margins: France 94 and Denmark 92 against Liberia 43 and the DRC 25. The surprise sits elsewhere. <strong>The United Kingdom (43) ties Liberia (43)</strong> — not because either was mis-scored, but because they support the Court in different registers at similar intensity. The UK statement is institutionally warm and procedurally cool: strong support for the Court and its independence, but no expansion call, no named-warrant demand and no material commitment. Liberia carries no institutional layer at all and reaches the same total through enforcement pressure — warrants "cannot remain unenforced indefinitely", the Council "must move beyond expressions of support". A categorical camp map cannot show that; the scored plot can, and the side-by-side comparison view is where it becomes legible.</p>
+
+          <h3 class="sub">The brevity marker</h3>
+          <p>The rubric rewards breadth: a delegation that spoke at length had more opportunities to hit indicators. That is a real bias and it is disclosed rather than corrected, because correcting it would mean inferring what a delegation <em>would</em> have said. Every delegation's statement was measured in words, and any delegation under <strong>70% of this meeting's median</strong> (567 words) carries a <strong>brief</strong> chip beside its name everywhere the name appears. Here that marks the United Kingdom (376 words, 66%), Pakistan (344, 61%) and Bahrain (253, 45%).</p>
+          <p>The chip's claim is about speaker behaviour, not about the quality of our data. At a Security Council briefing every delegation is expected to take a roughly comparable turn, so choosing to say little is itself a finding — the score simply rests on less material. Two rules keep it honest: the threshold is computed for every speaker <em>before</em> any scores are read, so it can never become a hedge deployed only where a result disappoints expectation; and it is relative to each meeting's own median rather than a fixed word count, since a General Assembly debate and a Council briefing have different norms.</p>
+          <p class="note">Word count, not speaking time. Liberia held the floor for 7 minutes 56 seconds — third-longest by the clock — but spoke at about 73 words per minute against a room average near 130, delivering only median words. Measured by duration it would have looked expansive.</p>
+
+          <p>Behind the page sits a full scoring sheet holding the rubric anchors, every delegation's per-indicator evidence with its quotes, a pairwise consistency log comparing each adjacent pair in the largest camp, and the verbatim spot-check results. The scoring procedure itself is written up as a reusable method so later readouts in this series are scored the same way rather than re-argued from scratch. Both are working records kept with the project rather than published documents; the evidence they contain is what the click-to-compare panel exposes on the readout itself.</p>
         </div>
       </details>
     </section>
@@ -515,6 +568,7 @@ python pipeline/fetch_un_transcripts.py convert transcripts/security-council/202
 
           <h3 class="sub">The result: 9 of 9 quotes matched</h3>
           <p>All nine position-critical quotes matched the recording; no corrections were needed. The readout, source notes and silo index were updated from "not yet audio-verified" to verified with timestamps.</p>
+          <div class="note"><strong>Second round, 29 July 2026 — the scoring evidence.</strong> Adding the scored plot put a much larger body of quotes on the page, so the check was run again against the same recording. First a mechanical sweep confirmed that all <strong>114 evidence fragments</strong> behind the 16 scored delegations appear verbatim in the transcript. Then the <strong>20 quotes that carry the ordering claim</strong> — the top-of-scale anchors, both sides of the UK/Liberia tie, the four delegations that outscore the UK, and the negative markers that push Bahrain, Pakistan, China and Somalia to the floor — were audio-checked. <strong>All 20 matched; no corrections.</strong> Sixteen hit on a first-pass slice; two needed a wider window; two needed a long probe. France drifted about 55 seconds from its transcript timestamp, against 10–20 seconds for the same speaker in round one — a reminder that interpretation drift is not a fixed per-speaker offset. Quotes in the evidence panel beyond these 20 remain ASR-verbatim without an individual audio check, which the readout states on the panel itself.</div>
           <table class="data">
             <thead>
               <tr><th>Speaker</th><th>Quote (opening)</th><th>Audio</th><th>Result</th></tr>
@@ -562,7 +616,10 @@ python pipeline/fetch_un_transcripts.py convert transcripts/security-council/202
           <p>The briefing was rendered as a single self-contained HTML page — a static file with inline CSS and JS, no build step, no external dependencies.</p>
           <h3 class="sub">Interactive elements</h3>
           <ul class="tight">
-            <li><strong>Fault-line cluster plot.</strong> A two-axis scatter where the horizontal axis is fixed to stance toward the ICC (defend → delegitimise) and the vertical axis toggles between "mandate scope" and "enforcement urgency." Each dot is one speaker, coloured by stance camp, with the verbatim position on hover. Sudan, off the main axis, is mapped into the defend column via a small <code>X_FOR()</code> function.</li>
+            <li><strong>Fault-line plot.</strong> A two-axis scatter where the horizontal axis is fixed to stance toward the ICC (defend → delegitimise) and the vertical axis toggles between "mandate scope" and "enforcement urgency." Each dot is one speaker, coloured by stance camp, labelled with a fixed country code, and carrying its score and profile on hover. Sudan, off the main axis, is mapped into the defend column via a small <code>X_FOR()</code> function. <strong>Within each cell dots are ordered by evidence score</strong>, weakest to strongest, left to right — a faint gradient bar marks any cell holding more than one dot. Placement is fully deterministic; there is no randomness left in the plot.</li>
+            <li><strong>Click-to-compare evidence panel.</strong> Clicking a dot opens its full scoring breakdown — every indicator, the points awarded and the verbatim quote that earned them, with "not stated" rows shown explicitly rather than hidden. A second click fills the other slot so two delegations sit side by side; the ⇄ control chooses which one the next click replaces.</li>
+            <li><strong>Scores at a Glance.</strong> A collapsible section below the plot ranking every delegation with its score, its pre-floor net, and a one-line profile of what the score is made of. Ties are shown as "7=" rather than broken arbitrarily.</li>
+            <li><strong>Camp colour on every delegation name.</strong> A delegation's camp colour follows its name through the whole page — executive summary, consensus, fault lines, outliers, talking-point attributions and reference cards — and matches its dot in the plot exactly. Readouts are reference documents and get read by scanning rather than straight through, so a reader tracking one delegation, or looking for "who was in the delegitimise camp", can find it by colour without parsing the sentence. A colour key sits under the executive summary, the first block where the colours appear.</li>
             <li><strong>Searchable reference grid.</strong> A card per delegation, filterable by stance camp and free-text-searchable across names and summaries.</li>
             <li><strong>Chip filters.</strong> Camp chips isolate a stance (for example "Delegitimise" isolates the US and Russia).</li>
           </ul>
@@ -614,6 +671,11 @@ python pipeline/fetch_un_transcripts.py convert transcripts/security-council/202
                 <td>Extracted from the transcript; each row anchored to a quote; unstated positions marked, not guessed.</td>
               </tr>
               <tr>
+                <td>Intensity scores and within-camp dot ordering</td>
+                <td><code>research/sudan-icc-position-scores-2026-07.md</code></td>
+                <td>Each indicator's points cite a verbatim fragment from the transcript; "not stated" is recorded rather than inferred. The sheet also carries the pairwise consistency log and the word counts behind the <strong>brief</strong> marker.</td>
+              </tr>
+              <tr>
                 <td>Consensus points, fault lines, outliers, stance grid</td>
                 <td><code>sudan-icc-briefing-2026-07-source.md</code></td>
                 <td>Synthesis of the coded positions into a structured briefing.</td>
@@ -640,6 +702,9 @@ python pipeline/fetch_un_transcripts.py convert transcripts/security-council/202
             <li><strong>Speaker attribution is the portal's.</strong> It is cross-read against the President's handover cues but not independently re-derived from the audio. The chair made a couple of on-record self-corrections (a misread resolution number, a misread date), noted in the source file.</li>
             <li><strong>Summarisation can flatten nuance.</strong> Reducing a multi-minute statement to one line drops detail. The verbatim quotes are retained alongside the summaries so a reader can go back to the wording.</li>
             <li><strong>Coding is interpretive, not official.</strong> The stance / scope / urgency axes are an analytical reading, disclosed in the <a href="#framing">frame note</a>, not a UN classification. Positions not stated are marked, not inferred.</li>
+            <li><strong>The scores are ordinal, and they carry a length bias.</strong> The intensity scores that order the dots support "stronger than", not interval precision, and a delegation that spoke longer had more chances to hit an indicator. Neither is corrected: the numbers are shown as an audit trail rather than a measurement, and short statements carry the <strong>brief</strong> marker. See <a href="#scoring">position scoring</a>.</li>
+            <li><strong>Not every scored quote has been audio-verified.</strong> Twenty-nine quotes have been checked against the recording — the nine in the readout body and the twenty behind the ordering claim. The evidence panel holds more than that, and those remaining quotes are confirmed verbatim against the transcript but not individually against the audio. Since the transcript is machine ASR, a quote in that remainder could in principle carry an ASR error.</li>
+            <li><strong>The camp palette carries meaning, so it was checked under colour-vision deficiency.</strong> Because a delegation's colour now follows its name through the prose as well as the plot, the palette was simulated under deuteranopia and protanopia on 29 July 2026 and two colours were changed: African / regional moved from amber to teal, which had been too close to the sovereignty gold once both appeared as running text, and the ICC briefer's purple was shifted away from the defenders' blue, the pair that separated worst under simulation. The closest remaining pair sits at roughly twice the separation of the worst pair in the original palette. Colour is never the only carrier in any case — every dot prints its country code, camp is also column position, and the colour key names each group in words.</li>
           </ul>
           <h3 class="sub">What was automated versus human-checked</h3>
           <ul class="tight">
@@ -697,7 +762,7 @@ python pipeline/fetch_un_transcripts.py convert transcripts/security-council/&lt
     </section>
 
     <footer class="page">
-      Methodology record for the Sudan / ICC Security Council readout, 15 July 2026 (S/PV.10197). Source: the UN transcripts portal ASR transcript (asset sc/10197), with the nine position-critical quotes audio-verified against the Kaltura English-audio VOD (recorded entry 1_c3icpgx0, flavor 1_1jj8elbu / paramsId 100) on 16 July 2026 — all nine matched. Analysis grounded in that transcript only. Analysed, verified and built with Claude Code (Opus 4.8). Silo: security-council (institutional), readout 1.
+      Methodology record for the Sudan / ICC Security Council readout, 15 July 2026 (S/PV.10197). Source: the UN transcripts portal ASR transcript (asset sc/10197), with 29 position-critical quotes audio-verified against the Kaltura English-audio VOD (recorded entry 1_c3icpgx0, flavor 1_1jj8elbu / paramsId 100) — nine on 16 July 2026 and a further 20 covering the plot’s scoring evidence on 29 July 2026; all 29 matched. Analysis grounded in that transcript only. Analysed, verified and built with Claude Code (Opus 4.8). Security Council series, readout 1.
     </footer>
 
   </main>

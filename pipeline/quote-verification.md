@@ -113,6 +113,40 @@ front-to-back on the AI-at-UN run (17/17 matched after correction).
 - The interpreter channel carries faint courtesy fills ("Thank you.") that
   whisper picks up — sparse output means a misaligned window, not a missing quote.
 
+### 7b. Matching gotchas (added 2026-07-28, natural-resources run)
+
+Two false signals cost time on that run. Both are in the comparison step, not the audio.
+
+- **Compounding differences are not mismatches.** Whisper writes "peace building"
+  where the portal ASR writes "peacebuilding"; the same happens with other
+  compounds. This is transcription style, not different words. **Compare on a
+  whitespace-stripped, punctuation-stripped form** before declaring a miss. A
+  naive substring test reports a MISS and sends you probing a 100 s window for a
+  quote that was sitting at the first-pass timestamp.
+- **A coherent-but-wrong 100 s probe result means the window is wrong, not the
+  quote.** Already documented for the re-cut case; it also occurs with ordinary
+  ±3 s misses. Before escalating further, re-slice a tight window directly at the
+  JSON timestamp and read the output — the quote is often there verbatim.
+- **A near-identical earlier sentence can sit inside the widened window** (added 2026-07-29,
+  Sudan/ICC round 2). Delegations often state a point loosely and then restate it precisely a
+  few sentences later. China's ±18 s window returned "the court should respect the judicial
+  sovereignty of the states concerned" — coherent, same speaker, same topic, and *not* the
+  quoted sentence, which adds "fully" and "and jurisdiction" and arrives ~20 s later. The
+  failure mode is subtle because the near-match reads like a mismatch on wording and invites a
+  bogus "correction". **Rule: when the window returns a paraphrase of your target rather than
+  garble, probe wider before touching the quote** — the exact sentence is usually still ahead.
+- **When whisper is unstable on one word, quote around it.** On faint audio
+  whisper returned two different readings of the same word on two runs
+  ("far"/"small" where the ASR had "power"). Neither contradicts the ASR
+  consistently, so per step 7 the ASR reading stands — but the safe move for the
+  readout is to **quote only the portion that verified stably** and elide the
+  rest, noting the elision in the footer. Do not "correct" an ASR word from a
+  whisper reading that changes between runs.
+
+**Entry-ID shortcut.** Don't derive the Kaltura id from the webtv URL by hand —
+the transcript JSON already carries it at `video.kaltura_id` (and the asset path
+at `video.id`). Read it from there; the URL-derivation regex is a fallback.
+
 ### 8. Record the result in all four places
 
 1. **Readout `asr-note`** — "The N position-critical quotes below were checked
@@ -135,3 +169,5 @@ front-to-back on the AI-at-UN run (17/17 matched after correction).
 | 2026-07-16 | SC 10197 Sudan/ICC (15 Jul 2026) | `1_c3icpgx0` / `1_1jj8elbu` | 9 | all matched; France quotes needed wider windows (interpretation drift) |
 | 2026-07-16 | HLPF AI &amp; Sustainable Development side event (15 Jul 2026) | `1_gr3kz7u8` / `1_w51t2aqe` | 17 | all matched, 0 corrections; recording re-cut 1h34m→1h15m required a uniform −1119 s JSON→audio offset (first panel-format entry — flavor layout identical to SC, paramsId 100 present) |
 | 2026-07-27 | SG town hall — candidate debate (23 Jul 2026) | `1_qth9jlfl` / `1_cr68e9m4` | 12 | all matched, **2 ASR garbles corrected**; **no paramsId-100 flavor — English was paramsId 2732162**; no drift and no offset, every quote hit on a ±3 s first-pass slice incl. the interpreted French speaker |
+| 2026-07-28 | SC 10200 Natural resources governance (22 Jul 2026) | `1_4t3uh64n` / `1_4rh4nfqf` | 15 | all matched, 0 corrections. 13/15 on ±3 s; 1 at ±18 s; 1 re-sliced. **Two new lessons — see "Matching gotchas" below.** Live entry id came from the transcript JSON's `video.kaltura_id`, not URL derivation |
+| 2026-07-29 | SC 10197 Sudan/ICC — **scoring-evidence round 2** (15 Jul 2026) | `1_c3icpgx0` / `1_1jj8elbu` | 20 | all matched, 0 corrections. 16/20 on ±3 s; 2 at ±18 s; 2 needed a 100–110 s probe. France drifted **~55 s** (round 1 saw 10–20 s on the same speaker — drift is not a fixed per-speaker constant, so escalate on the window, never on a remembered offset). **New gotcha: a near-identical earlier sentence can occupy the ±18 s window** (China said "the court should respect the judicial sovereignty of the states concerned" ~20 s before the quoted "…fully respect the judicial sovereignty **and jurisdiction** of the states concerned"); the wide probe is what disambiguates. Preceded by a mechanical pass confirming all 114 evidence fragments appear verbatim in the attributed transcript |

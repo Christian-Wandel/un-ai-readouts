@@ -20,13 +20,20 @@
     --grey:  #6a727b;
     --grey-soft: #ecedef;
 
-    /* Security Council camp palette (stance toward the ICC) */
+    /* Security Council camp palette (stance toward the ICC).
+       Every camp colour is used in three places and must stay identical across
+       them: the plot dots, the delegation names in prose, and the colour key.
+       Checked under deuteranopia and protanopia simulation (2026-07-29); the
+       closest pair is defender/ICC at dE 11.5 protan. Two colours were changed
+       from the original palette: african was #b27406, too close to the
+       sovereignty gold (dE 20.2) once both appeared as text; icc was #6a4ba8,
+       which collapsed against defender blue under CVD (dE 5.2 protan). */
     --bloc-defender:   #1f5fb0;  /* Defend the Court */
     --bloc-rejector:   #b03333;  /* Dismantle / withdraw the file */
     --bloc-sovereign:  #8a6d1c;  /* Sovereignty / complementarity middle */
-    --bloc-african:    #b27406;  /* African / regional */
+    --bloc-african:    #2a7f8f;  /* African / regional */
     --bloc-party:      #197b5a;  /* Sudan (invited party) */
-    --bloc-icc:        #6a4ba8;  /* ICC / briefer */
+    --bloc-icc:        #8a3d8f;  /* ICC / briefer */
     --bloc-other:      #6a727b;
 
     --focus: #ffbf47;
@@ -190,6 +197,13 @@
     font-size: .85rem;
     color: var(--muted);
   }
+  /* the attribution's colour must beat the footer's muted grey */
+  blockquote.tp footer .c-defender  { color: var(--bloc-defender); }
+  blockquote.tp footer .c-rejector  { color: var(--bloc-rejector); }
+  blockquote.tp footer .c-sovereign { color: var(--bloc-sovereign); }
+  blockquote.tp footer .c-african   { color: var(--bloc-african); }
+  blockquote.tp footer .c-party     { color: var(--bloc-party); }
+  blockquote.tp footer .c-icc       { color: var(--bloc-icc); }
 
   .controls {
     display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
@@ -277,11 +291,42 @@
     font-style: italic; font-size: .9rem;
   }
 
+  /* ---- Camp colour on delegation names, everywhere a name appears ----
+     The same colour a delegation carries in the plot follows its name through
+     the executive summary, consensus, fault lines, outliers and talking points,
+     so a reader can track one delegation down the page by colour alone.
+     Colour key ships under the executive summary, the first coloured block. */
+  .c-defender  { color: var(--bloc-defender); }
+  .c-rejector  { color: var(--bloc-rejector); }
+  .c-sovereign { color: var(--bloc-sovereign); }
+  .c-african   { color: var(--bloc-african); }
+  .c-party     { color: var(--bloc-party); }
+  .c-icc       { color: var(--bloc-icc); }
+  strong.c-defender, strong.c-rejector, strong.c-sovereign,
+  strong.c-african, strong.c-party, strong.c-icc { font-weight: 700; }
+
+  .camp-key {
+    display: flex; flex-wrap: wrap; gap: .4rem 1.1rem;
+    margin: .9rem 0 .25rem; padding: .6rem .8rem;
+    background: var(--bg); border: 1px solid var(--rule); border-radius: 8px;
+    font-size: .8rem; color: var(--muted);
+  }
+  .camp-key .ck-lead { font-weight: 600; color: var(--ink); }
+  .camp-key b { font-weight: 700; }
+
   .fault-line {
     background: var(--bg); border-left: 4px solid var(--accent-default);
     padding: .6rem .9rem; margin: .5rem 0; border-radius: 0 6px 6px 0;
   }
+  /* a bare .c-* class must win over this generic rule (specificity note,
+     CLAUDE.md rendering rules) — hence the explicit overrides below */
   .fault-line strong { color: var(--ink); }
+  .fault-line strong.c-defender  { color: var(--bloc-defender); }
+  .fault-line strong.c-rejector  { color: var(--bloc-rejector); }
+  .fault-line strong.c-sovereign { color: var(--bloc-sovereign); }
+  .fault-line strong.c-african   { color: var(--bloc-african); }
+  .fault-line strong.c-party     { color: var(--bloc-party); }
+  .fault-line strong.c-icc       { color: var(--bloc-icc); }
   .outlier {
     background: var(--amber-soft); border-left: 4px solid var(--amber);
     padding: .6rem .9rem; margin: .75rem 0; border-radius: 0 6px 6px 0;
@@ -329,15 +374,20 @@
   }
   .plot .cell-inner { position: absolute; inset: 18px; }
   .plot .cell:hover { background: color-mix(in srgb, var(--accent-default) 5%, white); }
+  .plot .cell.has-order::after {
+    content: ""; position: absolute; left: 10%; right: 10%; bottom: 6px; height: 3px; border-radius: 2px;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--muted) 18%, transparent), color-mix(in srgb, var(--muted) 55%, transparent));
+  }
   .dot {
     position: absolute; width: 26px; height: 26px; border-radius: 50%;
     background: var(--dot, var(--grey)); color: #fff;
     font-size: .62rem; font-weight: 700;
-    display: flex; align-items: center; justify-content: center; cursor: default;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
     box-shadow: 0 1px 3px rgba(0,0,0,.18);
     transform: translate(-50%, -50%); border: 2px solid #fff;
     transition: transform .12s ease, z-index 0s;
   }
+  .dot.unscored { border-style: dashed; border-color: #fff; opacity: .85; }
   .dot:hover, .dot:focus { transform: translate(-50%, -50%) scale(1.5); z-index: 10; outline: none; }
   .dot[data-bloc="defender"]  { --dot: var(--bloc-defender); }
   .dot[data-bloc="rejector"]  { --dot: var(--bloc-rejector); }
@@ -355,6 +405,26 @@
     pointer-events: none; z-index: 9999; opacity: 0; transition: opacity .12s ease;
   }
   #dot-float-tip strong { display: block; margin-bottom: .15rem; font-size: .72rem; }
+  #dot-float-tip .tip-score { color: #ffd27a; font-weight: 700; }
+  #dot-float-tip .tip-head { display: flex; align-items: center; gap: .4rem; margin-bottom: .15rem; flex-wrap: wrap; }
+  #dot-float-tip .tip-head strong { margin: 0; }
+
+  /* ---- Brevity marker (`brief` chip) — see pipeline/position-scoring.md Step 4.5 ---- */
+  .brief-chip {
+    display: inline-flex; align-items: center; gap: .28rem;
+    font-size: .68rem; line-height: 1; color: #5b6470;
+    background: #f2f1ec; border: 1px solid #ddd9d0; border-radius: 999px;
+    padding: .18rem .5rem .18rem .38rem; vertical-align: middle;
+    white-space: nowrap; font-weight: 500;
+  }
+  .brief-chip svg { flex: none; display: block; }
+  #dot-float-tip .brief-chip {
+    background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.28); color: #f0ece6;
+  }
+  .brief-legend {
+    margin: 0 1.25rem 1rem; font-size: .8rem; color: var(--muted); line-height: 1.5;
+    display: flex; align-items: baseline; gap: .45rem; flex-wrap: wrap;
+  }
 
   .plot-legend {
     display: flex; flex-wrap: wrap; gap: .75rem 1.25rem;
@@ -387,6 +457,85 @@
   .axis-explainer .ae-row-label { font-weight: 600; min-width: 150px; color: var(--ink); flex-shrink: 0; }
   .axis-explainer .ae-row-desc { color: var(--muted); }
 
+  /* ---- Evidence panel — two-slot breakdown comparison ---- */
+  #evidence { display: none; margin: .25rem 1.25rem 1.25rem; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--bg); }
+  #evidence.open { display: block; }
+  .ep-top {
+    display: flex; align-items: center; justify-content: space-between; gap: .75rem;
+    padding: .65rem .9rem; border-bottom: 1px solid var(--rule); background: var(--surface);
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .ep-top-hint { font-size: .78rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .ep-close {
+    background: none; border: 1px solid var(--rule); border-radius: 6px;
+    font-size: .9rem; cursor: pointer; color: var(--muted); padding: .15rem .55rem;
+  }
+  .ep-close:hover { color: var(--ink); }
+  .ep-compare { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; padding: .9rem; align-items: start; }
+  .ep-slot {
+    border: 1px solid var(--rule); border-left: 5px solid var(--ep-accent, var(--rule));
+    border-radius: 8px; background: var(--surface); min-width: 0;
+  }
+  .ep-slot.empty {
+    border: 2px dashed var(--rule); border-left-width: 2px; background: transparent;
+    min-height: 260px; display: flex; align-items: center; justify-content: center; align-self: stretch;
+  }
+  .ep-empty { text-align: center; color: var(--muted); font-size: .88rem; padding: 1rem; }
+  .ep-empty p { margin: 0; }
+  .ep-empty-icon {
+    width: 40px; height: 40px; margin: 0 auto .5rem; border: 2px dashed var(--rule); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: var(--muted);
+  }
+  .ep-head {
+    display: flex; align-items: baseline; gap: .4rem .75rem; flex-wrap: wrap;
+    padding: .75rem .9rem; border-bottom: 1px solid var(--rule);
+  }
+  .ep-head h3 { margin: 0; font-size: 1rem; flex: 1; display: inline-flex; align-items: center; gap: .45rem; flex-wrap: wrap; }
+  .swap-chip {
+    background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; cursor: pointer;
+    font-size: .85rem; line-height: 1; padding: .15rem .4rem; color: var(--muted);
+  }
+  .swap-chip.armed { background: var(--amber-soft); border-color: var(--amber); color: #7a5004; }
+  .swap-chip:hover { border-color: var(--amber); }
+  .ep-score { font-size: 1.25rem; font-weight: 800; color: var(--ep-accent, var(--accent-default)); font-variant-numeric: tabular-nums; }
+  .ep-rank { font-size: .75rem; color: var(--muted); }
+  .ep-body { padding: .75rem .9rem; display: grid; gap: .5rem; }
+  .ep-ind { display: grid; grid-template-columns: 1fr auto; gap: .3rem .75rem; align-items: baseline;
+    padding: .5rem .6rem; background: var(--bg); border-radius: 7px; font-size: .82rem; }
+  .ep-ind .ei-label { font-weight: 600; }
+  .ep-ind .ei-pts { font-variant-numeric: tabular-nums; color: var(--accent-default); font-weight: 700; white-space: nowrap; }
+  .ep-ind .ei-pts .max { color: var(--muted); font-weight: 400; }
+  .ep-ind .ei-quote { grid-column: 1 / -1; font-style: italic; color: #343a42; }
+  .ep-ind .ei-quote .ns { font-style: normal; color: var(--muted); }
+  .ep-ind.neg { background: color-mix(in srgb, var(--bloc-rejector) 6%, white); }
+  .ep-ind.neg .ei-pts { color: var(--bloc-rejector); }
+  .ep-bar { grid-column: 1 / -1; height: 5px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+  .ep-bar i { display: block; height: 100%; background: var(--accent-default); border-radius: 3px; }
+  .ep-note { padding: .1rem .9rem .8rem; font-size: .78rem; color: var(--muted); }
+
+  /* ---- Scores at a glance ---- */
+  .tablewrap { overflow-x: auto; }
+  table.ranked { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .5rem 0 .75rem; }
+  table.ranked th, table.ranked td {
+    border: 1px solid var(--rule); padding: .45rem .6rem; text-align: left; vertical-align: top;
+  }
+  table.ranked th { background: var(--bg); font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  table.ranked td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.ranked tr.unscored-row td { border-style: dashed; color: var(--muted); }
+  table.ranked .swatch {
+    display: inline-block; width: 12px; height: 12px; border-radius: 50%;
+    vertical-align: middle; margin-right: .4rem; border: 2px solid #fff;
+    box-shadow: 0 0 0 1px var(--rule);
+  }
+  table.ranked td:nth-child(2) { min-width: 13rem; }
+  table.ranked .name-cell { display: inline; }
+  table.ranked .name-cell .brief-chip { margin-left: .35rem; }
+
+  @media (max-width: 860px) {
+    .ep-compare { grid-template-columns: 1fr; }
+    .ep-slot.empty { min-height: 120px; }
+  }
+
   @media (max-width: 720px) {
     .plot { --cell: 110px; grid-template-columns: 32px 90px repeat(3, var(--cell)); min-width: calc(32px + 90px + 3 * var(--cell)); }
     .dot { width: 22px; height: 22px; font-size: .58rem; }
@@ -406,6 +555,29 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <!-- Brevity marker glyph: solid left-facing speaking head. viewBox 0 0 20 20 -->
+  <path id="head" d="M9.05 1.6
+    C5.35 1.6 2.5 4.35 2.5 7.75
+    c0 1.55 0.5 2.85 1.35 3.95
+    c0.35 0.45 0.5 0.85 0.5 1.4
+    L4.35 18.4
+    L7.6 18.4
+    L7.6 15.5
+    c0 -0.45 0.35 -0.8 0.8 -0.8
+    L10.6 14.7
+    c0.5 0 0.85 -0.35 0.85 -0.85
+    L11.45 12.6
+    l1.15 -0.35
+    c0.45 -0.15 0.55 -0.6 0.2 -0.9
+    L11.5 10.2
+    l0 -1.25
+    c0 -0.35 0.2 -0.6 0.5 -0.75
+    l1.15 -0.5
+    C12.55 4.2 11.1 1.6 9.05 1.6 Z"/>
+  <g id="wv"><path d="M15.2 6.9 L18.1 5.5 M15.8 9.8 L19.0 9.8 M15.2 12.7 L18.1 14.1"/></g>
+</defs></svg>
+
 <div class="shell">
 
   <header class="page">
@@ -422,7 +594,7 @@
   </header>
 
   <div class="asr-note">
-    <strong>Source note.</strong> This readout is built from the UN transcripts.un.org automatic-speech-recognition (ASR) preview transcript, <em>not</em> an official UN record. The 9 position-critical quotes below were checked against the meeting audio (<a href="https://webtv.un.org/en/asset/k1w/k1w95ycgte">UN Web TV recording</a>, English channel) on 16 July 2026 and match the recording; other quotations still reproduce the ASR text. Sudanese place names (El&nbsp;Fasher, El&nbsp;Geneina, El&nbsp;Obeid) and personal names have been normalised to standard English spellings; the ASR mangles them.
+    <strong>Source note.</strong> This readout is built from the UN transcripts.un.org automatic-speech-recognition (ASR) preview transcript, <em>not</em> an official UN record. The 9 position-critical quotes below were checked against the meeting audio (<a href="https://webtv.un.org/en/asset/k1w/k1w95ycgte">UN Web TV recording</a>, English channel) on 16 July 2026, and a further 20 quotes from the scoring evidence behind the fault-line plot were checked on 29 July 2026; all 29 match the recording. Every remaining quote in the evidence panel is verbatim from the ASR transcript but has not been individually audio-checked. Sudanese place names (El&nbsp;Fasher, El&nbsp;Geneina, El&nbsp;Obeid) and personal names have been normalised to standard English spellings; the ASR mangles them.
   </div>
 
   <nav id="toc" aria-label="Sections">
@@ -433,6 +605,7 @@
       <li><a href="#consensus">Areas of Consensus</a></li>
       <li><a href="#implications">Fault Lines</a></li>
       <li><a href="#plot">Fault-Line Plot</a></li>
+      <li><a href="#glance">Scores at a Glance</a></li>
       <li><a href="#talking">Talking Points</a></li>
       <li><a href="#reference">Reference: Stances by Delegation</a></li>
     </ol>
@@ -452,7 +625,24 @@
         <summary>Executive Summary</summary>
         <div class="body">
           <p>ICC Deputy Prosecutor Najat Shamim Khan briefed the Council remotely on the Office of the Prosecutor's 43rd report under Resolution 1593, reporting a <strong>"paradigm shift"</strong> in the Darfur investigation: interviews of key witnesses now draw a direct link between recent crimes in El Fasher and El Geneina and high-level perpetrators, and the Office warns — jointly with the UN human-rights office — that the "most serious international crimes may be about to take place" in El Obeid. Nominally a report on Darfur atrocities, the meeting's real fault line was <strong>the legitimacy of the International Criminal Court itself</strong>.</p>
-          <p>The defining divide is <strong>whether the ICC should be defended and expanded, or delegitimised and removed from Sudan</strong> — a divide that splits roughly along Council defenders vs. two permanent-member rejectionists, with a sovereignty-minded middle and an invited party (Sudan) that inverts the usual host-state line. Full camp breakdown, anchors and quotes are in <a href="#implications">Fault Lines</a> below.</p>
+          <p>The defining divide is <strong>whether the ICC should be defended and expanded, or delegitimised and removed from Sudan</strong>. In practice it breaks down like this:</p>
+          <ul class="tight">
+            <li><strong class="c-defender">Defend the Court</strong> — <strong class="c-defender">Denmark</strong>, <strong class="c-defender">France</strong>, <strong class="c-defender">UK</strong>, <strong class="c-defender">Greece</strong>, <strong class="c-defender">Latvia</strong>, <strong class="c-defender">Panama</strong>, <strong class="c-defender">Colombia</strong>, <strong class="c-african">Liberia</strong> + the chair (<strong class="c-african">DRC</strong>): cooperation is "an obligation, not an option"; several (<strong class="c-defender">Denmark</strong>, <strong class="c-defender">France</strong>) want the ICC mandate <em>expanded to all of Sudan</em>.</li>
+            <li><strong class="c-rejector">Delegitimise / withdraw the file</strong> — the <strong class="c-rejector">United States</strong> and <strong class="c-rejector">Russia</strong>: the US calls the ICC an "intolerable threat" it is running a campaign to "dismantle"; Russia calls it a "Hague pseudo-court" and demands the Darfur (and Libya) files be withdrawn.</li>
+            <li><strong class="c-sovereign">Sovereignty middle</strong> — <strong class="c-sovereign">China</strong>, <strong class="c-sovereign">Pakistan</strong>, <strong class="c-sovereign">Bahrain</strong>, <strong class="c-sovereign">Somalia</strong>: back accountability but stress Sudanese-led justice, complementarity and "no undue expansion" of the mandate.</li>
+            <li><strong class="c-party">The invited party (Sudan)</strong> — inverts the usual host-state stance: presses the ICC to move <em>faster</em>, issue RSF arrest warrants, and extend investigations to the UAE ("Abu Dhabi regime") as financier.</li>
+          </ul>
+
+          <p class="camp-key">
+            <span class="ck-lead">Colour key —</span>
+            <span>a delegation's colour follows its name through the whole page and matches its dot in the plot:</span>
+            <span><b class="c-defender">Defend the Court</b></span>
+            <span><b class="c-sovereign">Sovereignty middle</b></span>
+            <span><b class="c-rejector">Delegitimise</b></span>
+            <span><b class="c-african">African / regional</b></span>
+            <span><b class="c-party">Sudan (invited party)</b></span>
+            <span><b class="c-icc">ICC / briefer</b></span>
+          </p>
         </div>
       </details>
     </section>
@@ -481,11 +671,11 @@
         <div class="body">
           <p>Cutting across the camps — including several who otherwise clash sharply over the Court:</p>
           <ul class="tight">
-            <li><strong>El Obeid must not become another El Fasher.</strong> Near-universal — Denmark, UK ("on the precipice of an atrocity"), France, Greece, Pakistan, Somalia, Sudan and the briefer all name the imminent risk and demand civilian protection and safe passage.</li>
+            <li><strong>El Obeid must not become another El Fasher.</strong> Near-universal — <strong class="c-defender">Denmark</strong>, <strong class="c-defender">UK</strong> ("on the precipice of an atrocity"), <strong class="c-defender">France</strong>, <strong class="c-defender">Greece</strong>, <strong class="c-sovereign">Pakistan</strong>, <strong class="c-sovereign">Somalia</strong>, <strong class="c-party">Sudan</strong> and the <strong class="c-icc">briefer</strong> all name the imminent risk and demand civilian protection and safe passage.</li>
             <li><strong>Sexual and gender-based violence and crimes against children must be prioritised.</strong> Named by almost every delegation as a specific investigative and prosecutorial focus.</li>
             <li><strong>The Ali Kushayb conviction is a milestone; reparations must follow.</strong> Broad support for the Trust Fund for Victims, including from states that referred the situation in 2005.</li>
             <li><strong>The RSF's total non-cooperation violates Resolution 1593.</strong> Stated across camps; even sovereignty-minded delegations single out the RSF.</li>
-            <li><strong>External support is prolonging the war and must stop.</strong> Widely shared in the abstract (US, France, Denmark, Pakistan) — though who is named breaks along a fault line (below).</li>
+            <li><strong>External support is prolonging the war and must stop.</strong> Widely shared in the abstract (<strong class="c-rejector">US</strong>, <strong class="c-defender">France</strong>, <strong class="c-defender">Denmark</strong>, <strong class="c-sovereign">Pakistan</strong>) — though who is named breaks along a fault line (below).</li>
             <li><strong>The enforcement record is thin.</strong> Universally acknowledged: in 20 years, one conviction and unexecuted warrants (al-Bashir, Haroun, Hussein) — though defenders, rejectionists and Sudan draw opposite conclusions from it.</li>
           </ul>
         </div>
@@ -501,34 +691,34 @@
           <div class="fault-line">
             <strong>1. Defend the Court vs. delegitimise it</strong> — the defining divide.
             <ul class="tight">
-              <li><strong>Defenders</strong> — <strong>France</strong> ("cooperation with the Court is an obligation, it's not an option"), <strong>Denmark</strong>, <strong>UK</strong>, <strong>Greece</strong>, <strong>Latvia</strong>, <strong>Panama</strong> and <strong>Colombia</strong>, several reaffirming "unwavering support" for the Court's independence and rejecting sanctions against its officials.</li>
-              <li><strong>Rejectionists</strong> — the <strong>United States</strong>, which calls the ICC "a power-hungry institution," urges "all current states parties to the Rome Statute to withdraw," and says it is working "to dismantle the capabilities of the ICC"; and <strong>Russia</strong>, which calls it "the Hague pseudo-court," cites the Karim Khan harassment scandal, and demands withdrawal of the Darfur and Libya files.</li>
-              <li><strong>The middle</strong> — <strong>China, Pakistan, Bahrain, Somalia</strong>: support accountability but subordinate it to Sudanese-led justice and "judicial sovereignty," warning against politicisation and "selective justice."</li>
+              <li><strong class="c-defender">Defenders</strong> — <strong class="c-defender">France</strong> ("cooperation with the Court is an obligation, it's not an option"), <strong class="c-defender">Denmark</strong>, <strong class="c-defender">UK</strong>, <strong class="c-defender">Greece</strong>, <strong class="c-defender">Latvia</strong>, <strong class="c-defender">Panama</strong> and <strong class="c-defender">Colombia</strong>, several reaffirming "unwavering support" for the Court's independence and rejecting sanctions against its officials.</li>
+              <li><strong class="c-rejector">Rejectionists</strong> — the <strong class="c-rejector">United States</strong>, which calls the ICC "a power-hungry institution," urges "all current states parties to the Rome Statute to withdraw," and says it is working "to dismantle the capabilities of the ICC"; and <strong class="c-rejector">Russia</strong>, which calls it "the Hague pseudo-court," cites the Karim Khan harassment scandal, and demands withdrawal of the Darfur and Libya files.</li>
+              <li><strong class="c-sovereign">The middle</strong> — <strong class="c-sovereign">China</strong>, <strong class="c-sovereign">Pakistan</strong>, <strong class="c-sovereign">Bahrain</strong>, <strong class="c-sovereign">Somalia</strong>: support accountability but subordinate it to Sudanese-led justice and "judicial sovereignty," warning against politicisation and "selective justice."</li>
             </ul>
           </div>
 
           <div class="fault-line">
             <strong>2. Scope of the mandate</strong> — expand or confine.
             <ul class="tight">
-              <li><strong>Expand to all Sudan:</strong> <strong>Denmark</strong> and <strong>France</strong> explicitly call on the Council to extend ICC jurisdiction beyond the 2005 Darfur referral to the entire territory; France adds an arms-embargo extension.</li>
-              <li><strong>Confine to the original referral:</strong> <strong>Russia</strong> insists the mandate covers only "the situation as it existed" in 2003 and accuses the Court of "arbitrarily" taking up events 20 years later; <strong>China</strong> warns against "undue expansion" of the investigation's scope and timeframe.</li>
+              <li><strong>Expand to all Sudan:</strong> <strong class="c-defender">Denmark</strong> and <strong class="c-defender">France</strong> explicitly call on the Council to extend ICC jurisdiction beyond the 2005 Darfur referral to the entire territory; France adds an arms-embargo extension.</li>
+              <li><strong>Confine to the original referral:</strong> <strong class="c-rejector">Russia</strong> insists the mandate covers only "the situation as it existed" in 2003 and accuses the Court of "arbitrarily" taking up events 20 years later; <strong class="c-sovereign">China</strong> warns against "undue expansion" of the investigation's scope and timeframe.</li>
             </ul>
           </div>
 
           <div class="fault-line">
             <strong>3. Who is arming the war</strong> — generic vs. named.
             <ul class="tight">
-              <li><strong>Generic "foreign actors must cease":</strong> France, Denmark and the US all condemn external support in the abstract; the US says pressure is being applied "at the highest levels" (Secretary Rubio) on unnamed "relevant parties."</li>
-              <li><strong>Named adversaries:</strong> <strong>Sudan</strong> names the <strong>UAE ("Abu Dhabi regime")</strong> as the RSF's financier and welcomes a European Parliament condemnation; and rebuts the <strong>US</strong> allegation that the Sudanese Armed Forces used <strong>chemical weapons</strong>, invoking the 1998 Al-Shifa factory strike and the Iraq-WMD precedent.</li>
+              <li><strong>Generic "foreign actors must cease":</strong> <strong class="c-defender">France</strong>, <strong class="c-defender">Denmark</strong> and the <strong class="c-rejector">US</strong> all condemn external support in the abstract; the US says pressure is being applied "at the highest levels" (Secretary Rubio) on unnamed "relevant parties."</li>
+              <li><strong>Named adversaries:</strong> <strong class="c-party">Sudan</strong> names the <strong>UAE ("Abu Dhabi regime")</strong> as the RSF's financier and welcomes a European Parliament condemnation; and rebuts the <strong class="c-rejector">US</strong> allegation that the Sudanese Armed Forces used <strong>chemical weapons</strong>, invoking the 1998 Al-Shifa factory strike and the Iraq-WMD precedent.</li>
             </ul>
           </div>
 
           <div class="fault-line">
-            <strong>4. What the thin enforcement record means</strong> — the same fact, opposite conclusions. All sides note one conviction in 20 years and three unexecuted warrants. <strong>Defenders and Sudan</strong> conclude the Court must go <em>faster</em> — Sudan: "justice delayed is justice denied," demanding RSF warrants now. <strong>Russia</strong> concludes the Court has "failed its original assignment" and the file should be withdrawn. This is the debate's sharpest irony: Sudan (the situation's home state) and its usual protector Russia agree the record is poor but split on the remedy.
+            <strong>4. What the thin enforcement record means</strong> — the same fact, opposite conclusions. All sides note one conviction in 20 years and three unexecuted warrants. <strong class="c-defender">Defenders</strong> and <strong class="c-party">Sudan</strong> conclude the Court must go <em>faster</em> — Sudan: "justice delayed is justice denied," demanding RSF warrants now. <strong class="c-rejector">Russia</strong> concludes the Court has "failed its original assignment" and the file should be withdrawn. This is the debate's sharpest irony: <strong class="c-party">Sudan</strong> (the situation's home state) and its usual protector <strong class="c-rejector">Russia</strong> agree the record is poor but split on the remedy.
           </div>
 
           <div class="outlier">
-            <strong>Outliers to monitor.</strong> <strong>United States</strong> — the only speaker to make attacking the ICC its headline and to explicitly exclude the Court from the peace effort ("importantly exclusive of the ICC"). <strong>Russia</strong> — uniquely raises the suspended prosecutor Karim Khan harassment scandal (citing the Times and New York Times) as evidence of ICC dysfunction. <strong>France</strong> — the only delegation tying the session to the Franco-Mexican veto-restraint initiative (now 120 states; Jamaica and Suriname just joined) and to Special Envoy Haavisto / the Quad and Quintet tracks. <strong>Sudan</strong> — the invited party runs an inverted host-state line: not shielding sovereignty from the Court but demanding the Court act faster against the RSF and its foreign backers.
+            <strong>Outliers to monitor.</strong> <strong class="c-rejector">United States</strong> — the only speaker to make attacking the ICC its headline and to explicitly exclude the Court from the peace effort ("importantly exclusive of the ICC"). <strong class="c-rejector">Russia</strong> — uniquely raises the suspended prosecutor Karim Khan harassment scandal (citing the Times and New York Times) as evidence of ICC dysfunction. <strong class="c-defender">France</strong> — the only delegation tying the session to the Franco-Mexican veto-restraint initiative (now 120 states; Jamaica and Suriname just joined) and to Special Envoy Haavisto / the Quad and Quintet tracks. <strong class="c-party">Sudan</strong> — the invited party runs an inverted host-state line: not shielding sovereignty from the Court but demanding the Court act faster against the RSF and its foreign backers.</li>
           </div>
         </div>
       </details>
@@ -539,7 +729,7 @@
         <summary>Fault-Line Plot — Cluster Map</summary>
 
         <div class="plot-guide">
-          <p><strong>How to read this plot.</strong> The X-axis is fixed to the defining divide — stance toward the ICC (defend → conditional → delegitimise). Choose a fault-line dimension below for the Y-axis. Each dot is one delegation; colour shows its camp. "Silent" = no explicit position recorded in this meeting. Hover a dot for the verbatim stance. Positions reflect the 15 July 2026 meeting only.</p>
+          <p><strong>How to read this plot.</strong> The X-axis is fixed to the defining divide — stance toward the ICC (defend → conditional → delegitimise). Choose a fault-line dimension below for the Y-axis. Each dot is one delegation; colour shows its camp. <strong>Inside every column dots run left → right, weakest → strongest</strong>, ordered by an evidence score in which each point cites a verbatim quote from this meeting (the faint gradient bar under a cell is the reminder). Vertical position only prevents overlap and carries no meaning. Hover a dot for its score and stance; click one dot for its per-quote breakdown and a second dot to compare two delegations side by side. The rubric and its caveats are on the <a href="../methodology/sudan-icc-methodology.html#scoring">methodology page</a>. Positions reflect the 15 July 2026 meeting only.</p>
         </div>
 
         <div class="plot-controls">
@@ -555,10 +745,43 @@
         <div class="axis-explainer" id="axis-explainer" aria-live="polite"></div>
 
         <div class="plot-wrap">
-          <div class="plot" id="plot-grid" role="img" aria-label="Two-axis scatter of delegation positions"></div>
+          <div class="plot" id="plot-grid" role="img" aria-label="Two-axis scatter of delegation positions, ordered by ICC-support score within each column"></div>
         </div>
 
         <div class="plot-legend" id="plot-legend"></div>
+
+        <p class="brief-legend">
+          <span class="brief-chip"><svg width="12" height="12" viewBox="0 0 20 20"><use href="#head" fill="#5b6470"/><use href="#wv" fill="none" stroke="#5b6470" stroke-width="1.6" stroke-linecap="round"/></svg>brief</span>
+          <span>this delegation spoke well below the meeting median, so fewer indicators had the chance to appear.</span>
+        </p>
+
+        <div id="evidence" aria-live="polite">
+          <div class="ep-top">
+            <span class="ep-top-hint">Breakdown comparison — click dots to fill the two slots</span>
+            <button class="ep-close" id="ep-close" type="button" aria-label="Close evidence panel">✕ close</button>
+          </div>
+          <div class="ep-compare">
+            <div class="ep-slot" id="ep-slot-A"></div>
+            <div class="ep-slot" id="ep-slot-B"></div>
+          </div>
+          <div class="ep-note">Every quote is verbatim from the ASR transcript, and 20 of the quotes that carry the ordering claim were checked against the meeting audio on 29 July 2026; the rest are ASR-verbatim but not individually audio-checked. Grey parenthetical rows are analyst summaries of absence, not quotes. Scores are ordinal evidence tallies, not measurements. The ⇄ marker shows which delegation the next dot-click will replace — click the other slot's ⇄ to swap that one instead.</div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="glance">
+      <details>
+        <summary>Scores at a Glance</summary>
+        <div class="body">
+          <p>Every delegation ranked by the same evidence score that orders the dots in the plot above. <strong>Score</strong> is the displayed total, floored at 0; <strong>net</strong> is the pre-floor sum, which is what keeps the bottom of the scale ordered (Russia at −45 sits further from the Court than the United States at −35). The claim is ordinal — read it as "stronger than", not as a measurement. Full rubric, per-quote evidence and caveats are on the <a href="../methodology/sudan-icc-methodology.html#scoring">methodology page</a>.</p>
+          <div class="tablewrap">
+            <table class="ranked" id="ranked-table">
+              <thead><tr><th>#</th><th>Delegation</th><th class="num">Score</th><th class="num">Net</th><th>Profile in one line</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p style="font-size:.8rem;color:var(--muted);">Ties are shown as "7=" and are a finding, not an error: the United Kingdom and Liberia reach the same total in different registers — institutional warmth with soft verbs on one side, enforcement demands with no institutional layer on the other. Click both dots in the plot to compare the breakdowns.</p>
+        </div>
       </details>
     </section>
 
@@ -567,12 +790,12 @@
         <summary>Talking Points</summary>
         <div class="body">
           <p style="font-size:.85rem;color:var(--muted);margin-top:0;">These quotes were checked against the meeting audio (English channel) on 16 July 2026 and match the recording. Still an ASR transcript, not an official UN record.</p>
-          <blockquote class="tp">"The Office of the Prosecutor is united with the Office of the High Commissioner for Human Rights in a collective view that the most serious international crimes may be about to take place in El Obeid. We cannot say we did not know. We cannot say it could not be expected."<footer>— Deputy Prosecutor Najat Shamim Khan, the meeting's core early warning</footer></blockquote>
-          <blockquote class="tp">"This is a paradigm shift. It is a breakthrough. And it sends a clear message to those who lead these attacks… you are mistaken."<footer>— Deputy Prosecutor Khan, on witness evidence now linking recent crimes to high-level perpetrators</footer></blockquote>
-          <blockquote class="tp">"We encourage all current states parties to the Rome Statute to withdraw from this power-hungry institution, which has grossly exceeded its legal authority."<footer>— United States, the clearest anti-ICC position; adds the peace effort is being pursued "importantly exclusive of the ICC"</footer></blockquote>
-          <blockquote class="tp">"We call on our colleagues on the Council to consider the withdrawal of the Darfur file, as well as the Libyan file, from the ICC… for such a dialogue, the Hague pseudo-court is merely an obvious obstacle."<footer>— Russian Federation, pairing the ICC-dismissal with the Karim Khan scandal</footer></blockquote>
-          <blockquote class="tp">"Cooperation with the Court is an obligation. It's not an option… We call on the United Nations Security Council to extend the jurisdiction of the ICC to the entire territory of Sudan."<footer>— France, anchoring the defend-and-expand pole (echoed on expansion by Denmark)</footer></blockquote>
-          <blockquote class="tp">"Justice delayed is justice denied… expediting accountability procedures and issuing arrest warrants against those responsible for these crimes has become a necessity."<footer>— Sudan (invited party), pressing the Court to move faster and to investigate the UAE as the RSF's financier</footer></blockquote>
+          <blockquote class="tp">"The Office of the Prosecutor is united with the Office of the High Commissioner for Human Rights in a collective view that the most serious international crimes may be about to take place in El Obeid. We cannot say we did not know. We cannot say it could not be expected."<footer>— <span class="c-icc">Deputy Prosecutor Najat Shamim Khan</span>, the meeting's core early warning</footer></blockquote>
+          <blockquote class="tp">"This is a paradigm shift. It is a breakthrough. And it sends a clear message to those who lead these attacks… you are mistaken."<footer>— <span class="c-icc">Deputy Prosecutor Khan</span>, on witness evidence now linking recent crimes to high-level perpetrators</footer></blockquote>
+          <blockquote class="tp">"We encourage all current states parties to the Rome Statute to withdraw from this power-hungry institution, which has grossly exceeded its legal authority."<footer>— <span class="c-rejector">United States</span>, the clearest anti-ICC position; adds the peace effort is being pursued "importantly exclusive of the ICC"</footer></blockquote>
+          <blockquote class="tp">"We call on our colleagues on the Council to consider the withdrawal of the Darfur file, as well as the Libyan file, from the ICC… for such a dialogue, the Hague pseudo-court is merely an obvious obstacle."<footer>— <span class="c-rejector">Russian Federation</span>, pairing the ICC-dismissal with the Karim Khan scandal</footer></blockquote>
+          <blockquote class="tp">"Cooperation with the Court is an obligation. It's not an option… We call on the United Nations Security Council to extend the jurisdiction of the ICC to the entire territory of Sudan."<footer>— <span class="c-defender">France</span>, anchoring the defend-and-expand pole (echoed on expansion by <span class="c-defender">Denmark</span>)</footer></blockquote>
+          <blockquote class="tp">"Justice delayed is justice denied… expediting accountability procedures and issuing arrest warrants against those responsible for these crimes has become a necessity."<footer>— <span class="c-party">Sudan (invited party)</span>, pressing the Court to move faster and to investigate the UAE as the RSF's financier</footer></blockquote>
         </div>
       </details>
     </section>
@@ -600,103 +823,103 @@
         <div class="grid" id="country-grid">
 
           <article class="card" data-icc="defender" data-scope="expand" data-bloc="icc">
-            <h4>ICC — Deputy Prosecutor Khan</h4>
+            <h4 class="c-icc">ICC — Deputy Prosecutor Khan</h4>
             <div class="badge-row"><span class="badge">Briefer · ICC / OTP</span></div>
             <p>Reports a "paradigm shift": witness evidence links recent Darfur crimes to high-level perpetrators. Joint OHCHR warning of imminent crimes in El Obeid. 130+ interviews; RSF non-cooperation a 1593 violation; "coercive actions" against the Court impede operations.</p>
           </article>
 
           <article class="card" data-icc="defender" data-scope="expand" data-bloc="defender">
-            <h4>Denmark</h4>
+            <h4 class="c-defender">Denmark</h4>
             <div class="badge-row"><span class="badge">Defend the Court · Expand</span></div>
             <p>"El Obeid must not become another El Fasher." Calls to expand the ICC mandate to all of Sudan; arrest and surrender of al-Bashir, Hussein, Haroun; cease weapons supply; "unwavering support" for the Court's independence.</p>
           </article>
 
           <article class="card" data-icc="defender" data-scope="expand" data-bloc="defender">
-            <h4>France</h4>
+            <h4 class="c-defender">France</h4>
             <div class="badge-row"><span class="badge">Defend the Court · Expand</span></div>
             <p>"Cooperation is an obligation, not an option." Extend ICC jurisdiction to all Sudan; extend the arms embargo; backs Special Envoy Haavisto, the Quad/Quintet, and the Franco-Mexican veto-restraint initiative (now 120 states).</p>
           </article>
 
           <article class="card" data-icc="defender" data-scope="neutral" data-bloc="defender">
-            <h4>United Kingdom</h4>
+            <h4 class="c-defender">United Kingdom</h4>
             <div class="badge-row"><span class="badge">Defend the Court · Confine</span></div>
             <p>El Obeid "on the precipice of an atrocity"; recalls the 20 June Council demand to the RSF. Welcomes Sudanese cooperation and Port Sudan deployment; RSF non-cooperation regretted; "strong support for the ICC and its independence."</p>
           </article>
 
           <article class="card" data-icc="defender" data-scope="neutral" data-bloc="defender">
-            <h4>Greece</h4>
+            <h4 class="c-defender">Greece</h4>
             <div class="badge-row"><span class="badge">Defend the Court · Confine</span></div>
             <p>"All eyes must now turn to El Obeid." Priority to gender-based crimes and crimes against children; urges cooperation from non-States-Parties under 1593; reparations in the Al-Rahman case; "defend the Rome Statute" against threats to the Court.</p>
           </article>
 
           <article class="card" data-icc="defender" data-scope="neutral" data-bloc="defender">
-            <h4>Latvia</h4>
+            <h4 class="c-defender">Latvia</h4>
             <div class="badge-row"><span class="badge">Defend the Court · Confine</span></div>
             <p>"Atrocities in Darfur are not a matter of the past." Cooperation is a "legal obligation" under 1593 extending to all parties; calls to arrest and surrender all suspects and for the RSF to engage; victims and reparations at the centre.</p>
           </article>
 
           <article class="card" data-icc="defender" data-scope="neutral" data-bloc="defender">
-            <h4>Panama</h4>
+            <h4 class="c-defender">Panama</h4>
             <div class="badge-row"><span class="badge">Defend the Court · Confine</span></div>
             <p>State party to the Rome Statute; regrets the Prosecutor could not appear in person; four pending arrest warrants must be fulfilled; rejects "any coercive measure or retaliation" against the Court or those cooperating with it.</p>
           </article>
 
           <article class="card" data-icc="defender" data-scope="neutral" data-bloc="defender">
-            <h4>Colombia</h4>
+            <h4 class="c-defender">Colombia</h4>
             <div class="badge-row"><span class="badge">Defend the Court · Confine</span></div>
             <p>"Absolute support" for the ICC; regrets sanctions against the Court, its judges and officials; invites Sudan to guarantee prosecutor access on the ground; welcomes cooperation with civil society and the diaspora.</p>
           </article>
 
           <article class="card" data-icc="defender" data-scope="neutral" data-bloc="african">
-            <h4>Liberia</h4>
+            <h4 class="c-african">Liberia</h4>
             <div class="badge-row"><span class="badge">Defend the Court · Confine</span></div>
             <p>"Accountability cannot be measured solely by investigations and indictments — it must be reflected in arrests." Protection of women and children; attacks on schools "rob a state of its future"; calls for verifiable benchmarks and full ICC cooperation.</p>
           </article>
 
           <article class="card" data-icc="defender" data-scope="neutral" data-bloc="african">
-            <h4>Democratic Republic of the Congo</h4>
+            <h4 class="c-african">Democratic Republic of the Congo</h4>
             <div class="badge-row"><span class="badge">Defend the Court (chair) · Confine</span></div>
             <p>Speaking in national capacity: strongly condemns sexual violence "as methods of warfare"; alarmed by drone escalation and IHL breaches; welcomes the Al-Rahman judgment, appeals and reparations; "fight against impunity is an essential element" of prevention.</p>
           </article>
 
           <article class="card" data-icc="sovereign" data-scope="confine" data-bloc="sovereign">
-            <h4>China</h4>
+            <h4 class="c-sovereign">China</h4>
             <div class="badge-row"><span class="badge">Sovereignty middle · Confine</span></div>
             <p>The Court must be "objective and impartial," avoid "politicisation and selective justice," respect judicial sovereignty and complementarity, and "prevent undue expansion" of the investigation's scope and timeframe; "countries outside the region" should cease interference.</p>
           </article>
 
           <article class="card" data-icc="sovereign" data-scope="neutral" data-bloc="sovereign">
-            <h4>Pakistan</h4>
+            <h4 class="c-sovereign">Pakistan</h4>
             <div class="badge-row"><span class="badge">Sovereignty middle · Confine</span></div>
             <p>Condemns RSF abuses; alarmed by a possible offensive on El Obeid. Accountability must respect complementarity, national sovereignty and "Sudanese ownership," pursued "without selectivity or double standards"; reaffirms Sudan's territorial integrity.</p>
           </article>
 
           <article class="card" data-icc="sovereign" data-scope="neutral" data-bloc="sovereign">
-            <h4>Somalia</h4>
+            <h4 class="c-sovereign">Somalia</h4>
             <div class="badge-row"><span class="badge">Sovereignty middle · Confine</span></div>
             <p>Justice "sustainable when rooted in Sudanese efforts"; strengthen national justice institutions; concerned by RSF impunity in El Geneina and El Fasher; welcomes Sudanese cooperation while respecting sovereignty and complementarity.</p>
           </article>
 
           <article class="card" data-icc="sovereign" data-scope="neutral" data-bloc="sovereign">
-            <h4>Bahrain</h4>
+            <h4 class="c-sovereign">Bahrain</h4>
             <div class="badge-row"><span class="badge">Sovereignty middle · Confine</span></div>
             <p>Emphasises complementarity — "the primary role of national judicial authorities," ICC "supportive and complementary." Backs a Sudanese-owned, Sudanese-led political process preserving sovereignty, unity and territorial integrity.</p>
           </article>
 
           <article class="card" data-icc="rejector" data-scope="neutral" data-bloc="rejector">
-            <h4>United States of America</h4>
+            <h4 class="c-rejector">United States of America</h4>
             <div class="badge-row"><span class="badge">Delegitimise · Confine</span></div>
             <p>ICC "an intolerable threat" and "power-hungry institution"; running a campaign "to dismantle" it; urges Rome Statute parties to withdraw. Separately: RSF genocide, SAF "chemical weapons," drone warfare; peace pursued "exclusive of the ICC."</p>
           </article>
 
           <article class="card" data-icc="rejector" data-scope="confine" data-bloc="rejector">
-            <h4>Russian Federation</h4>
+            <h4 class="c-rejector">Russian Federation</h4>
             <div class="badge-row"><span class="badge">Delegitimise · Confine</span></div>
             <p>"Hague pseudo-court" that "failed its original assignment"; mandate covers only the 2003 situation; cites the Karim Khan harassment scandal; demands withdrawal of the Darfur and Libya files in favour of Sudanese-led, AU-supported justice.</p>
           </article>
 
           <article class="card" data-icc="party" data-scope="expand" data-bloc="party">
-            <h4>Sudan (invited, Rule 37)</h4>
+            <h4 class="c-party">Sudan (invited, Rule 37)</h4>
             <div class="badge-row"><span class="badge">Invited party · Faster / expand</span></div>
             <p>Presses the ICC to move faster and issue RSF arrest warrants — "justice delayed is justice denied." Demands investigations reach the UAE ("Abu Dhabi regime") as financier; rebuts the US chemical-weapons claim (1998 Al-Shifa, Iraq WMD precedent); reaffirms cooperation under the 2021 MoU.</p>
           </article>
@@ -706,7 +929,7 @@
     </section>
 
     <footer class="page">
-      Briefing based solely on analysis of the transcripts.un.org ASR transcript of the Security Council's 10,197th meeting (S/PV.10197), 15 July 2026. Not an official UN record; position-critical quotes audio-verified 16 July 2026. Silo: security-council (institutional), readout 1.
+      Briefing based solely on analysis of the transcripts.un.org ASR transcript of the Security Council's 10,197th meeting (S/PV.10197), 15 July 2026. Not an official UN record; 29 position-critical quotes audio-verified against the meeting recording (9 on 16 July 2026, a further 20 covering the scoring evidence on 29 July 2026). Security Council series, readout 1.
     </footer>
 
   </main>
@@ -768,25 +991,196 @@
   // icc:     defender | sovereign | rejector | party            (X for stance toward the ICC)
   // scope:   expand | neutral | confine                          (Y for "Mandate scope")
   // urgency: high | mid | low                                    (Y for "Enforcement urgency")
-  const data = [
-    { name:"ICC — Deputy Prosecutor Khan", bloc:"icc",       icc:"defender",  scope:"expand",  urgency:"high" },
-    { name:"Denmark",                      bloc:"defender",  icc:"defender",  scope:"expand",  urgency:"high" },
-    { name:"France",                       bloc:"defender",  icc:"defender",  scope:"expand",  urgency:"high" },
-    { name:"United Kingdom",               bloc:"defender",  icc:"defender",  scope:"neutral", urgency:"high" },
-    { name:"Greece",                       bloc:"defender",  icc:"defender",  scope:"neutral", urgency:"high" },
-    { name:"Latvia",                       bloc:"defender",  icc:"defender",  scope:"neutral", urgency:"high" },
-    { name:"Panama",                       bloc:"defender",  icc:"defender",  scope:"neutral", urgency:"high" },
-    { name:"Colombia",                     bloc:"defender",  icc:"defender",  scope:"neutral", urgency:"mid" },
-    { name:"Liberia",                      bloc:"african",   icc:"defender",  scope:"neutral", urgency:"high" },
-    { name:"Democratic Republic of the Congo", bloc:"african", icc:"defender", scope:"neutral", urgency:"mid" },
-    { name:"China",                        bloc:"sovereign", icc:"sovereign", scope:"confine", urgency:"low" },
-    { name:"Pakistan",                     bloc:"sovereign", icc:"sovereign", scope:"neutral", urgency:"mid" },
-    { name:"Somalia",                      bloc:"sovereign", icc:"sovereign", scope:"neutral", urgency:"mid" },
-    { name:"Bahrain",                      bloc:"sovereign", icc:"sovereign", scope:"neutral", urgency:"low" },
-    { name:"United States of America",     bloc:"rejector",  icc:"rejector",  scope:"neutral", urgency:"mid" },
-    { name:"Russian Federation",           bloc:"rejector",  icc:"rejector",  scope:"confine", urgency:"low" },
-    { name:"Sudan (invited, Rule 37)",     bloc:"party",     icc:"party",     scope:"expand",  urgency:"high" }
+  //
+  // score = displayed total (floored at 0); net = pre-floor sum, used for within-cell
+  // ordering. ev holds one verbatim quote per rubric indicator; q:null = not stated,
+  // a quote in parentheses is an analyst summary of absence, not a quotation.
+  // brief = spoke under 70% of the meeting's median word count (see the scoring sheet).
+  // Source of every number and quote: research/sudan-icc-position-scores-2026-07.md
+  const IND = [
+    { k:"A", label:"A. Institutional endorsement",        max:20 },
+    { k:"B", label:"B. Independence / integrity defense", max:10 },
+    { k:"C", label:"C. Mandate expansion call",           max:15 },
+    { k:"D", label:"D. Warrant specificity",              max:15 },
+    { k:"E", label:"E. Cooperation framing",              max:15 },
+    { k:"F", label:"F. Material commitments",             max:10 },
+    { k:"G", label:"G. Speech-act tonality",              max:15 }
   ];
+
+  const data = [
+    { name:"ICC — Deputy Prosecutor Khan", code:"ICC", bloc:"icc", icc:"defender", scope:"expand", urgency:"high",
+      score:null, net:null, unscored:true, words:null, ev:null, neg:[] },
+    { name:"Denmark", code:"DK", bloc:"defender", icc:"defender", scope:"expand", urgency:"high", score:92, net:92, words:765,
+      ev:{ A:{p:19,q:"Denmark reiterates its unwavering support for the Court as an independent judicial institution"},
+           B:{p:9,q:"Our commitment to defend the Court and the principles and values enshrined in the Rome Statute remains resolute"},
+           C:{p:15,q:"Denmark reiterates its call for the mandate of the ICC to be expanded to all of Sudan"},
+           D:{p:15,q:"the arrest and surrender of the outstanding ICC arrest warrants, namely those regarding Mrs. al-Bashir, Hussein, and Haroun"},
+           E:{p:13,q:"in accordance with Sudan's obligations under Resolution 1593"},
+           F:{p:9,q:"We call on all States… to offer their assistance in securing reparations for the victims and survivors"},
+           G:{p:12,q:"we must ensure · We call on all parties · call on all relevant states to cease the supply of weapons"} },
+      neg:[] },
+    { name:"France", code:"FR", bloc:"defender", icc:"defender", scope:"expand", urgency:"high", score:94, net:94, words:969,
+      ev:{ A:{p:18,q:"it merits our full support, including— as does the ICC's integrity and independence"},
+           B:{p:8,q:"as does the ICC's integrity and independence"},
+           C:{p:15,q:"We call on the United Nations Security Council to extend the jurisdiction of the ICC to the entire territory of Sudan"},
+           D:{p:15,q:"we also reiterate our call for the arrest arrest and transfer to the court of those who are still under arrest warrants, including Omar al-Bashir, Abdelrahim Hussein, and Ahmad Haroun"},
+           E:{p:15,q:"cooperation with the Court is an obligation. It's not an option"},
+           F:{p:10,q:"we call on states, including members of the Council, to support the Court's Trust Fund for Victims"},
+           G:{p:13,q:"France urges the RSF to immediately cease · We urge the UN Security Council · this persistent refusal to cooperate… is unacceptable"} },
+      neg:[] },
+    { name:"United Kingdom", code:"UK", bloc:"defender", icc:"defender", scope:"neutral", urgency:"high", score:43, net:43, words:376, brief:true,
+      ev:{ A:{p:16,q:"reiterating the United Kingdom's strong support for the ICC"},
+           B:{p:4,q:"and for its independence"},
+           C:{p:0,q:null},
+           D:{p:7,q:"We encourage the authorities to continue cooperating with the Court, including in relation to outstanding arrest warrants"},
+           E:{p:10,q:"we welcome the continued improvements in cooperation between the Sudanese authorities and the Office of the Prosecutor · all parties must cooperate with efforts to secure accountability"},
+           F:{p:0,q:null},
+           G:{p:6,q:"welcome (×3) · encourage · must not allow"} },
+      neg:[] },
+    { name:"Greece", code:"GR", bloc:"defender", icc:"defender", scope:"neutral", urgency:"high", score:68, net:68, words:545,
+      ev:{ A:{p:17,q:"we reaffirm our commitment to respect and defend the Rome Statutes and preserve its integrity"},
+           B:{p:9,q:"preserve its integrity in the face of threats and actions against the court and its officials"},
+           C:{p:0,q:null},
+           D:{p:13,q:"meaningful progress in the Darfur cases depends largely on the execution of the Court's arrest warrants in the cases of al-Bashir, Haroun, and Hussein"},
+           E:{p:13,q:"Security Council Resolution 1593 urges all States, both parties and non-parties to the Rome Statute, to fully cooperate with the Court"},
+           F:{p:5,q:"Greece notes that proceedings on reparations in the Al-Rahman case have started"},
+           G:{p:11,q:"we urgently need enhanced cooperation · we call for vigilance · must be held accountable"} },
+      neg:[] },
+    { name:"Latvia", code:"LV", bloc:"defender", icc:"defender", scope:"neutral", urgency:"high", score:50, net:50, words:558,
+      ev:{ A:{p:5,q:"Latvia will continue to stand with the victims and survivors of atrocities in Darfur"},
+           B:{p:0,q:null},
+           C:{p:0,q:null},
+           D:{p:11,q:"we call on the Sudanese authorities to intensify efforts to locate, arrest, and surrender all suspects subject to the ICC arrest warrants without delay"},
+           E:{p:14,q:"cooperation with the ICC is a legal obligation under Security Council Resolution 1593"},
+           F:{p:8,q:"Justice for victims requires more than convictions. It requires reparations. It requires witness protection."},
+           G:{p:12,q:"without delay · we call on States and parties to cooperate fully · immediately cease hostilities"} },
+      neg:[] },
+    { name:"Panama", code:"PA", bloc:"defender", icc:"defender", scope:"neutral", urgency:"high", score:49, net:49, words:644,
+      ev:{ A:{p:16,q:"Panama reaffirms its support to the work of the International Criminal Court · we firmly support the independence of the International Criminal Court"},
+           B:{p:10,q:"reject any coercive measure or retaliation that could affect the mandate of the court, including those directed against its personnel"},
+           C:{p:0,q:null},
+           D:{p:8,q:"we recall that there are still 4 pending arrest warrants issued by the court… and fulfilling these remains essential"},
+           E:{p:6,q:"(welcomes OTP–mission cooperation; notes \"insufficient cooperation on the part of relevant actors\"; no direct call on states)"},
+           F:{p:0,q:null},
+           G:{p:9,q:"we firmly support · reject any coercive measure · We cannot allow"} },
+      neg:[] },
+    { name:"Colombia", code:"CO", bloc:"defender", icc:"defender", scope:"neutral", urgency:"mid", score:63, net:63, words:592,
+      ev:{ A:{p:18,q:"we reiterate our absolute support to the International Criminal Court"},
+           B:{p:10,q:"Colombia regrets interference in its work by way of sanctions against the court or against its judges or officials"},
+           C:{p:0,q:null},
+           D:{p:7,q:"to ramp up efforts to address arrests"},
+           E:{p:12,q:"Colombia reiterates its appeal to the authorities of Sudan and to all neighboring countries to continue to cooperate with the Office"},
+           F:{p:7,q:"it needs to have all of the support necessary in order to gather the respective evidence and to ensure the protection of witnesses"},
+           G:{p:9,q:"reiterates its appeal · invites · it's more urgent than ever"} },
+      neg:[] },
+    { name:"Liberia", code:"LI", bloc:"african", icc:"defender", scope:"neutral", urgency:"high", score:43, net:43, words:576,
+      ev:{ A:{p:8,q:"you continue to have Liberia's support, and we thank you again for your work and your service"},
+           B:{p:0,q:null},
+           C:{p:0,q:null},
+           D:{p:10,q:"Outstanding arrest warrants cannot remain unenforced indefinitely"},
+           E:{p:13,q:"Liberia, therefore, calls on all States to cooperate fully with the International Criminal Court including in the execution of outstanding arrest warrants"},
+           F:{p:0,q:null},
+           G:{p:12,q:"The Security Council must move beyond expressions of support · must compel this Council to act · perpetrators must face the consequences"} },
+      neg:[] },
+    { name:"Democratic Republic of the Congo", code:"DRC", bloc:"african", icc:"defender", scope:"neutral", urgency:"mid", score:25, net:25, words:786,
+      ev:{ A:{p:2,q:"thanks the Deputy Prosecutor… for the presentation of the 43rd Report"},
+           B:{p:3,q:"in accordance with the requirements of independence, impartiality, and rigor that must guide the action of international criminal justice"},
+           C:{p:0,q:null},
+           D:{p:0,q:null},
+           E:{p:11,q:"calls on all parties concerned to cooperate with the court. This is in accordance with the Security Council Resolution 1593"},
+           F:{p:5,q:"The issue of reparations is of particular importance here to the individuals and communities"},
+           G:{p:4,q:"takes note of the progress · takes note of the judgment · encourages further investigations"} },
+      neg:[] },
+    { name:"China", code:"CN", bloc:"sovereign", icc:"sovereign", scope:"confine", urgency:"low", score:0, net:-11, words:490,
+      ev:{ A:{p:3,q:"China supports the international community in combating and punishing the most serious international crimes in accordance with the law"},
+           B:{p:0,q:null},
+           C:{p:0,q:null},
+           D:{p:0,q:null},
+           E:{p:6,q:"China welcomes the report's mentioning of the Sudanese government's positive attitude towards cooperating"},
+           F:{p:0,q:null},
+           G:{p:3,q:"takes note · welcomes · hopes"} },
+      neg:[{p:-10,q:"prevent undue expansion · strictly adhere to the mandate"},
+           {p:-8,q:"fully respect the judicial sovereignty and jurisdiction of the states concerned"},
+           {p:-5,q:"avoid politicization and selective justice"}] },
+    { name:"Pakistan", code:"PK", bloc:"sovereign", icc:"sovereign", scope:"neutral", urgency:"mid", score:1, net:1, words:344, brief:true,
+      ev:{ A:{p:2,q:"(thanks the Deputy Prosecutor; no endorsement of the Court on record)"},
+           B:{p:0,q:null},
+           C:{p:0,q:null},
+           D:{p:0,q:null},
+           E:{p:6,q:"Pakistan appreciates the cooperation extended by the Government of Sudan to the Office of the Prosecutor"},
+           F:{p:0,q:null},
+           G:{p:3,q:"appreciates · has taken note"} },
+      neg:[{p:-7,q:"accountability must respect the principles of complementarity, national sovereignty, Sudanese Ownership"},
+           {p:-3,q:"without selectivity or double standards in all situations"}] },
+    { name:"Somalia", code:"SO", bloc:"sovereign", icc:"sovereign", scope:"neutral", urgency:"mid", score:17, net:17, words:474,
+      ev:{ A:{p:2,q:"took note of the 43rd report"},
+           B:{p:0,q:null},
+           C:{p:0,q:null},
+           D:{p:9,q:"meaningful progress ultimately depends upon the execution of outstanding arrest warrants"},
+           E:{p:7,q:"cooperation between Sudanese authorities and the ICC, as outlined in Security Council Resolution 1593, is encouraged"},
+           F:{p:0,q:null},
+           G:{p:6,q:"must remain vigilant · we must not tolerate another El Jinina · is encouraged"} },
+      neg:[{p:-7,q:"Sudanese leadership in addressing justice must take precedence · fully respecting Sudan's sovereignty, territorial integrity, and political independence"}] },
+    { name:"Bahrain", code:"BH", bloc:"sovereign", icc:"sovereign", scope:"neutral", urgency:"low", score:0, net:-3, words:253, brief:true,
+      ev:{ A:{p:2,q:"has taken note of the 43rd report"},
+           B:{p:0,q:null},
+           C:{p:0,q:null},
+           D:{p:0,q:null},
+           E:{p:2,q:"(take-note register only)"},
+           F:{p:0,q:null},
+           G:{p:1,q:"taken note · renews its support for all efforts aimed at achieving a just, comprehensive, and sustainable peace"} },
+      neg:[{p:-8,q:"the primary role of national judicial authorities… while the ICC plays a supportive and complementary role · requires respect for national judicial sovereignty"}] },
+    { name:"United States of America", code:"US", bloc:"rejector", icc:"rejector", scope:"neutral", urgency:"mid", score:0, net:-35, words:533,
+      ev:{ A:{p:0,q:null}, B:{p:0,q:null}, C:{p:0,q:null}, D:{p:0,q:null},
+           E:{p:0,q:"(explicitly negative: \"importantly exclusive of the ICC\")"},
+           F:{p:0,q:null}, G:{p:0,q:null} },
+      neg:[{p:-25,q:"dismantle the capabilities of the ICC until it is completely incapable · withdraw from this power-hungry institution"},
+           {p:-10,q:"perverse attempts to encroach on the sovereignty of states… must be defeated"}] },
+    { name:"Russian Federation", code:"RU", bloc:"rejector", icc:"rejector", scope:"confine", urgency:"low", score:0, net:-45, words:1124,
+      ev:{ A:{p:0,q:"(\"the so-called Prosecutor's Office\")"}, B:{p:0,q:null}, C:{p:0,q:null}, D:{p:0,q:null},
+           E:{p:0,q:null}, F:{p:0,q:null}, G:{p:0,q:null} },
+      neg:[{p:-25,q:"the Hague pseudo-court · ceased to have anything in common with genuine justice"},
+           {p:-10,q:"consider the withdrawal of the Darfur file, as well as the Libyan file"},
+           {p:-10,q:"resolved by the Sudanese themselves within the framework of national proceedings"}] },
+    { name:"Sudan (invited, Rule 37)", code:"SD", bloc:"party", icc:"party", scope:"expand", urgency:"high", score:38, net:38, words:1564,
+      ev:{ A:{p:4,q:"preserve the credibility of the International Criminal Court, a credibility that is now being put to the test"},
+           B:{p:0,q:null},
+           C:{p:0,q:"(asserts existing reach instead: \"these crimes fall squarely and entirely within the subjective and territorial jurisdiction of the ICC\")"},
+           D:{p:9,q:"expediting accountability procedures and issuing arrest warrants against those responsible for these crimes has become a necessity"},
+           E:{p:11,q:"the Government of Sudan continues its cooperation with the ICC in accordance with Resolution 1593 and the Memorandum of Understanding"},
+           F:{p:5,q:"providing redress to victims, ensuring reparations… fundamental pillars"},
+           G:{p:13,q:"Justice delayed is justice denied · has become an urgent matter · requires expediting"} },
+      neg:[{p:-4,q:"This delay causes serious concern and sends a negative message to the victims"}] }
+  ];
+
+  const scored = data.filter(d => !d.unscored);
+  const rankOf = d => 1 + scored.filter(o => o.net > d.net).length;
+  const tied   = d => scored.filter(o => o.net === d.net).length > 1;
+
+  const BRIEF_CHIP = `<span class="brief-chip"><svg width="12" height="12" viewBox="0 0 20 20" aria-hidden="true"><use href="#head" fill="currentColor"/><use href="#wv" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>brief</span>`;
+  const briefFor = d => d.brief ? BRIEF_CHIP : '';
+
+  // One-line profile of each delegation *against the scored axis* — what the score is
+  // made of. Distinct from the reference-card blurbs, which summarise the whole statement.
+  const PROFILE = {
+    "France": "Every indicator hit: full support including the Court's integrity, cooperation as \"an obligation, not an option\", expansion to all of Sudan, all three fugitives named, Trust Fund call.",
+    "Denmark": "\"Unwavering support… defend the Court\", mandate expanded to all of Sudan, arrest and surrender of al-Bashir, Hussein and Haroun, reparations assistance.",
+    "Greece": "Defends the Rome Statute against threats to the Court and its officials; names all three suspects; invokes 1593 on all states — but no expansion call.",
+    "Colombia": "\"Absolute support\"; the sharpest line against sanctions on the Court's judges and officials; invites all states to cooperate; evidence and witness-protection resources.",
+    "Latvia": "Cooperation is \"a legal obligation\"; locate, arrest and surrender all suspects without delay; reparations and witness protection — but no institutional-endorsement layer.",
+    "Panama": "Institutional support and a firm rejection of coercive measures against the Court's personnel; recalls the four pending warrants; no cooperation demand on states.",
+    "United Kingdom": "Institutional warmth in a welcome-register: \"strong support for the ICC and its independence\", but no expansion call, no named-warrant demand, no material commitment.",
+    "Liberia": "Enforcement-first and no institutional layer: warrants \"cannot remain unenforced indefinitely\", the Council \"must move beyond expressions of support\".",
+    "Sudan (invited, Rule 37)": "The invited party demands new RSF warrants now — \"justice delayed is justice denied\" — and details its own cooperation, while staying silent on surrendering al-Bashir, Hussein and Haroun.",
+    "Democratic Republic of the Congo": "Procedural register: \"takes note\" three times, \"encourages\"; calls on parties to cooperate under 1593; no endorsement of the Court itself on record.",
+    "Somalia": "Warm on enforcement timeliness, but Sudanese leadership \"must take precedence\" and sovereignty framing caps the total.",
+    "Pakistan": "Strong condemnations, aimed at the RSF rather than at supporting the Court; complementarity, national sovereignty and an anti-selectivity line pull the total to the floor.",
+    "Bahrain": "Take-note register throughout; national judicial authorities hold \"the primary role\", the ICC a \"supportive and complementary\" one.",
+    "China": "Complementarity and judicial sovereignty first; \"prevent undue expansion\"; warns the Court against politicisation and selective justice.",
+    "United States of America": "Attacking the Court is the headline: \"dismantle the capabilities of the ICC\", a call for Rome Statute withdrawal, and a peace effort \"importantly exclusive of the ICC\".",
+    "Russian Federation": "\"The Hague pseudo-court\"; withdraw the Darfur and Libya files; national proceedings instead; the Karim Khan scandal offered as evidence of dysfunction.",
+    "ICC — Deputy Prosecutor Khan": "Briefer, not a delegation — the axis measures support for her own Office, so she is definitionally maximal and is left unscored."
+  };
 
   // Pull verbatim stance line from card paragraphs
   const stanceMap = {};
@@ -848,12 +1242,23 @@
   floatTip.id = 'dot-float-tip';
   document.body.appendChild(floatTip);
 
-  function showTip(dot, name, stanceText) {
+  function showTip(dot, d, stanceText) {
     floatTip.innerHTML = '';
+    const head = document.createElement('div');
+    head.className = 'tip-head';
     const strong = document.createElement('strong');
-    strong.textContent = name;
-    floatTip.appendChild(strong);
-    floatTip.appendChild(document.createTextNode(stanceText));
+    strong.textContent = d.name;
+    head.appendChild(strong);
+    if (d.brief) head.insertAdjacentHTML('beforeend', BRIEF_CHIP);
+    floatTip.appendChild(head);
+    const sc = document.createElement('span');
+    sc.className = 'tip-score';
+    sc.textContent = d.unscored ? 'Briefer — not scored' : `Score ${d.score}/100`;
+    floatTip.appendChild(sc);
+    floatTip.appendChild(document.createElement('br'));
+    floatTip.appendChild(document.createTextNode(
+      stanceText + (d.unscored ? '' : ' Click for the evidence breakdown; click a second dot to compare.')
+    ));
     floatTip.style.opacity = '1';
     moveTip(dot);
   }
@@ -869,12 +1274,32 @@
   }
   function hideTip() { floatTip.style.opacity = '0'; }
 
-  function hash(str) { let h = 2166136261; for (let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619);} return (h >>> 0); }
-  const jitter = {};
-  data.forEach(d => {
-    const h = hash(d.name);
-    jitter[d.name] = { x: 15 + (h % 70), y: 15 + ((h >>> 8) % 70) };
-  });
+  // Deterministic score-ordered placement (replaces the old hash jitter):
+  // per cell, ascending net; ties alphabetical; the unscored briefer pinned
+  // rightmost; zigzag rows only when a cell holds 5+ dots. No randomness.
+  function orderedPositions(yKey) {
+    const groups = {};
+    data.forEach(d => {
+      const key = X_FOR(d) + '|' + d[yKey];
+      (groups[key] = groups[key] || []).push(d);
+    });
+    const pos = {};
+    Object.values(groups).forEach(g => {
+      g.sort((a, b) => {
+        if (!!a.unscored !== !!b.unscored) return a.unscored ? 1 : -1;
+        if (a.net !== b.net) return a.net - b.net;
+        return a.name.localeCompare(b.name);
+      });
+      const n = g.length;
+      g.forEach((d, i) => {
+        pos[d.name] = {
+          x: n === 1 ? 50 : 6 + 88 * i / (n - 1),
+          y: n <= 4 ? 50 : (i % 2 === 0 ? 32 : 68)
+        };
+      });
+    });
+    return pos;
+  }
 
   function renderLegend() {
     const items = [
@@ -883,9 +1308,9 @@
       ["var(--bloc-rejector)","Delegitimise"],
       ["var(--bloc-african)","African / regional"],
       ["var(--bloc-party)","Sudan (invited party)"],
-      ["var(--bloc-icc)","ICC / briefer"]
+      ["var(--bloc-icc)","ICC / briefer (not scored)"]
     ];
-    legendEl.innerHTML = items.map(([c, label]) => `<span><span class="swatch" style="background:${c}"></span>${label}</span>`).join('');
+    legendEl.innerHTML = items.map(([c, label]) => `<span><span class="swatch" style="background:${c}"></span><b style="color:${c}">${label}</b></span>`).join('');
   }
 
   function render() {
@@ -894,7 +1319,9 @@
     plot.innerHTML = '';
 
     const yLab = document.createElement('div'); yLab.className = 'axis-label y'; yLab.textContent = yAxis.label; plot.appendChild(yLab);
-    const xLab = document.createElement('div'); xLab.className = 'axis-label x'; xLab.textContent = xAxis.label; plot.appendChild(xLab);
+    const xLab = document.createElement('div'); xLab.className = 'axis-label x';
+    xLab.textContent = xAxis.label + '  ·  within each column: weak → strong';
+    plot.appendChild(xLab);
 
     xAxis.labels.forEach((lab, i) => {
       const h = document.createElement('div'); h.className = 'col-head';
@@ -924,30 +1351,139 @@
       }
     }
 
+    const pos = orderedPositions(yKey);
     data.forEach(d => {
       const xb = X_FOR(d), yb = d[yKey];
       const cell = cells[xb + '|' + yb];
       if (!cell) return;
       const dot = document.createElement('div');
-      dot.className = 'dot';
+      dot.className = 'dot' + (d.unscored ? ' unscored' : '');
       dot.tabIndex = 0;
       dot.dataset.bloc = d.bloc;
-      const initials = d.name.split(/[\s()/-]+/).filter(Boolean).slice(0,2).map(w => w[0]).join('').toUpperCase();
-      dot.textContent = initials;
-      dot.setAttribute('aria-label', d.name);
-      const j = jitter[d.name];
-      dot.style.left = j.x + '%';
-      dot.style.top  = j.y + '%';
-      const name = d.name, stanceText = stanceMap[d.name] || '';
-      dot.addEventListener('mouseenter', () => showTip(dot, name, stanceText));
+      dot.textContent = d.code;
+      dot.setAttribute('aria-label', d.name + (d.unscored ? ' (briefer, not scored)' : `, score ${d.score} of 100`) + (d.brief ? ', spoke well below the meeting median' : ''));
+      const p = pos[d.name];
+      dot.style.left = p.x + '%';
+      dot.style.top  = p.y + '%';
+      const stanceText = PROFILE[d.name] || stanceMap[d.name] || '';
+      dot.addEventListener('mouseenter', () => showTip(dot, d, stanceText));
       dot.addEventListener('mouseleave', hideTip);
-      dot.addEventListener('focus',      () => showTip(dot, name, stanceText));
+      dot.addEventListener('focus',      () => showTip(dot, d, stanceText));
       dot.addEventListener('blur',       hideTip);
+      dot.addEventListener('click',      () => openEvidence(d));
+      dot.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEvidence(d); }
+      });
       cell.appendChild(dot);
+    });
+
+    Object.values(cells).forEach(inner => {
+      if (inner.querySelectorAll('.dot').length >= 2) inner.parentElement.classList.add('has-order');
     });
 
     renderLegend();
   }
+
+  // ---------- Evidence panel — two-slot breakdown comparison ----------
+  // First click fills slot A, the second fills slot B; after that the ⇄-armed
+  // slot is replaced (oldest first), and clicking a slot's ⇄ re-arms that slot.
+  const ep = document.getElementById('evidence');
+  const slotEls = { A: document.getElementById('ep-slot-A'), B: document.getElementById('ep-slot-B') };
+  const slots = { A: null, B: null };
+  let armed = 'A';
+
+  function esc(s) { const el = document.createElement('span'); el.textContent = s; return el.innerHTML; }
+
+  function slotBody(d) {
+    if (d.unscored) {
+      return `<div class="ep-body"><div class="ep-ind"><span class="ei-quote">${esc(PROFILE[d.name] || '')}</span></div></div>`;
+    }
+    let html = IND.map(ind => {
+      const e = d.ev[ind.k];
+      const q = e.q === null
+        ? '<span class="ns">not stated in this meeting</span>'
+        : (e.q.startsWith('(') ? `<span class="ns">${esc(e.q)}</span>` : `“${esc(e.q)}”`);
+      const w = Math.round(100 * e.p / ind.max);
+      return `<div class="ep-ind">
+        <span class="ei-label">${ind.label}</span>
+        <span class="ei-pts">${e.p} <span class="max">/ ${ind.max}</span></span>
+        <span class="ei-quote">${q}</span>
+        <span class="ep-bar"><i style="width:${w}%"></i></span>
+      </div>`;
+    }).join('');
+    if (d.neg.length) {
+      html += d.neg.map(n => `<div class="ep-ind neg">
+        <span class="ei-label">Negative marker</span>
+        <span class="ei-pts">${n.p}</span>
+        <span class="ei-quote">“${esc(n.q)}”</span>
+      </div>`).join('');
+    }
+    return `<div class="ep-body">${html}</div>`;
+  }
+
+  function renderSlots() {
+    const bothFilled = !!(slots.A && slots.B);
+    ['A', 'B'].forEach(key => {
+      const el = slotEls[key], d = slots[key];
+      if (!d) {
+        el.className = 'ep-slot empty';
+        el.style.removeProperty('--ep-accent');
+        el.innerHTML = `<div class="ep-empty"><div class="ep-empty-icon">+</div>
+          <p><strong>Choose another delegation</strong><br>Click any dot in the plot to compare its breakdown side by side.</p></div>`;
+        return;
+      }
+      el.className = 'ep-slot';
+      el.style.setProperty('--ep-accent', `var(--bloc-${d.bloc})`);
+      const chip = bothFilled
+        ? `<button class="swap-chip${armed === key ? ' armed' : ''}" type="button" data-slot="${key}"
+             title="${armed === key ? 'The next clicked dot replaces this delegation' : 'Click so the next dot replaces this delegation instead'}"
+             aria-label="Next clicked dot replaces ${esc(d.name)}">⇄</button>`
+        : '';
+      const scoreTxt = d.unscored ? 'not scored' : d.score + ' / 100';
+      const rankTxt = d.unscored ? 'briefer'
+        : `rank ${rankOf(d)}${tied(d) ? '=' : ''} of ${scored.length}` + (d.net !== d.score ? ` · net before floor: ${d.net}` : '');
+      el.innerHTML = `<div class="ep-head"><h3>${esc(d.name)}${briefFor(d)}${chip}</h3>
+        <span class="ep-score">${scoreTxt}</span><span class="ep-rank">${rankTxt}</span></div>` + slotBody(d);
+    });
+    ep.querySelectorAll('.swap-chip').forEach(btn => {
+      btn.addEventListener('click', () => { armed = btn.dataset.slot; renderSlots(); });
+    });
+  }
+
+  function openEvidence(d) {
+    const already = (slots.A && slots.A.name === d.name) || (slots.B && slots.B.name === d.name);
+    if (!already) {
+      if (!slots.A) { slots.A = d; }
+      else if (!slots.B) { slots.B = d; armed = 'A'; }
+      else { slots[armed] = d; armed = armed === 'A' ? 'B' : 'A'; }
+    }
+    ep.classList.add('open');
+    renderSlots();
+    ep.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  document.getElementById('ep-close').addEventListener('click', () => ep.classList.remove('open'));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') ep.classList.remove('open'); });
+
+  // ---------- Scores at a glance ----------
+  const rtBody = document.querySelector('#ranked-table tbody');
+  [...scored].sort((a, b) => b.net - a.net).forEach(d => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="num">${rankOf(d)}${tied(d) ? '=' : ''}</td>
+      <td><span class="name-cell"><span class="swatch" style="background:var(--bloc-${d.bloc})"></span>${esc(d.name)}${briefFor(d)}</span></td>
+      <td class="num"><strong>${d.score}</strong></td>
+      <td class="num">${d.net}</td>
+      <td>${esc(PROFILE[d.name] || '')}</td>`;
+    rtBody.appendChild(tr);
+  });
+  data.filter(d => d.unscored).forEach(d => {
+    const tr = document.createElement('tr');
+    tr.className = 'unscored-row';
+    tr.innerHTML = `<td class="num">—</td>
+      <td><span class="name-cell"><span class="swatch" style="background:var(--bloc-${d.bloc})"></span>${esc(d.name)}</span></td>
+      <td class="num">—</td><td class="num">—</td>
+      <td>${esc(PROFILE[d.name] || '')}</td>`;
+    rtBody.appendChild(tr);
+  });
 
   ySel.addEventListener('change', () => { render(); renderExplainer(); });
   render();
