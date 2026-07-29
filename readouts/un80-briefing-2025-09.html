@@ -1,0 +1,1158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UN80 Working Group — First Meeting, 16 Sep 2025</title>
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --ink: #1a1c20;
+    --muted: #5b6470;
+    --rule: #e3e1da;
+    --accent-default: #2e4a86;
+
+    --green: #2f7a4d;
+    --amber: #b27406;
+    --amber-soft: #fbf1dc;
+    --red:   #b03333;
+    --grey:  #6a727b;
+    --grey-soft: #ecedef;
+
+    /* UN80 bloc palette */
+    --bloc-g77:           #6a4ba8;
+    --bloc-eu:            #1f5fb0;
+    --bloc-african:       #b27406;
+    --bloc-aosis:         #1c8a8a;
+    --bloc-canz:          #c45a13;
+    --bloc-arab:          #197b5a;
+    --bloc-gcc:           #8a6d1c;
+    --bloc-nordic-baltic: #3a6ea5;
+    --bloc-caricom:       #b03377;
+    --bloc-ldc:           #a8434b;
+    --bloc-lldc:          #7a5230;
+    --bloc-small-states:  #2f7a4d;
+    --bloc-latam:         #c98a1a;
+    --bloc-other:         #6a727b;
+
+    --focus: #ffbf47;
+    --radius: 10px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+  }
+  a { color: var(--accent-default); }
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .skip {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--ink); color: #fff; padding: .6rem 1rem;
+    z-index: 100;
+  }
+  .skip:focus { left: 0; }
+
+  .shell {
+    display: grid;
+    grid-template-columns: 240px minmax(0,1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    nav#toc { position: static !important; max-height: none !important; }
+  }
+
+  header.page {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  header.page h1 {
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    margin: 0 0 .5rem;
+    line-height: 1.2;
+  }
+  header.page dl.meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .15rem 1rem;
+    margin: .75rem 0 0;
+    color: var(--muted);
+    font-size: .92rem;
+  }
+  header.page dt { font-weight: 600; color: var(--ink); }
+  header.page dd { margin: 0; }
+
+  .asr-note {
+    grid-column: 1 / -1;
+    background: var(--amber-soft);
+    border: 1px solid color-mix(in srgb, var(--amber) 30%, var(--rule));
+    border-left: 4px solid var(--amber);
+    border-radius: var(--radius);
+    padding: .7rem 1rem;
+    margin-bottom: 1.25rem;
+    font-size: .86rem;
+    color: #4a3d1a;
+  }
+  .asr-note strong { color: var(--amber); }
+
+  nav#toc {
+    position: sticky;
+    top: 1rem;
+    align-self: start;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    padding: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    font-size: .92rem;
+  }
+  nav#toc h2 {
+    margin: 0 0 .5rem;
+    font-size: .78rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  nav#toc ol { list-style: none; padding: 0; margin: 0; }
+  nav#toc li { margin: .15rem 0; }
+  nav#toc a {
+    display: block;
+    padding: .35rem .5rem;
+    border-radius: 6px;
+    color: var(--ink);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+  }
+  nav#toc a:hover { background: var(--bg); }
+  nav#toc a[aria-current="location"] {
+    background: var(--bg);
+    border-left-color: var(--accent-default);
+    font-weight: 600;
+  }
+
+  main { min-width: 0; }
+  section.block {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+  section.block > details > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    user-select: none;
+  }
+  section.block > details > summary::-webkit-details-marker { display: none; }
+  section.block > details > summary::before {
+    content: "▸";
+    color: var(--muted);
+    transition: transform .15s ease;
+    display: inline-block;
+    width: 1ch;
+  }
+  section.block > details[open] > summary::before { transform: rotate(90deg); }
+  .body { padding: 0 1.25rem 1.25rem; }
+  .body > :first-child { margin-top: 0; }
+
+  h3.sub { font-size: 1rem; margin: 1.25rem 0 .5rem; color: var(--ink); }
+  ul.tight { margin: .25rem 0 .75rem; padding-left: 1.25rem; }
+  ul.tight li { margin: .25rem 0; }
+
+  blockquote.tp {
+    border-left: 4px solid var(--accent-default);
+    background: var(--bg);
+    margin: .75rem 0;
+    padding: .75rem 1rem;
+    font-style: italic;
+    color: #2a2f37;
+    border-radius: 0 6px 6px 0;
+  }
+  blockquote.tp footer {
+    margin-top: .45rem;
+    font-style: normal;
+    font-size: .85rem;
+    color: var(--muted);
+  }
+
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    padding: 1rem 1.25rem; border-bottom: 1px solid var(--rule);
+    background: linear-gradient(180deg, #fbfaf6 0%, var(--surface) 100%);
+  }
+  .control-group { display: flex; align-items: center; gap: .5rem; }
+  .control-group .label {
+    font-size: .78rem; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--muted); font-weight: 600;
+  }
+  .search {
+    flex: 1 1 220px; min-width: 180px;
+    padding: .5rem .75rem; border: 1px solid var(--rule); border-radius: 8px;
+    font: inherit; background: var(--surface);
+  }
+
+  .chips {
+    display: flex; flex-wrap: wrap; gap: .4rem;
+    padding: .75rem 1.25rem; border-bottom: 1px solid var(--rule);
+    background: var(--surface);
+  }
+  .chip {
+    border: 1px solid var(--rule); background: var(--surface);
+    border-radius: 999px; padding: .3rem .7rem;
+    font: inherit; font-size: .85rem; cursor: pointer; color: var(--ink);
+  }
+  .chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .chip[data-filter="pace-caution"][aria-pressed="true"] { background: var(--bloc-g77); border-color: var(--bloc-g77); }
+  .chip[data-filter="pace-drive"][aria-pressed="true"]   { background: var(--bloc-canz); border-color: var(--bloc-canz); }
+  .chip[data-filter="broad"][aria-pressed="true"]        { background: var(--accent-default); border-color: var(--accent-default); }
+  .chip[data-filter="narrow"][aria-pressed="true"]       { background: var(--bloc-arab); border-color: var(--bloc-arab); }
+
+  .result-count { font-size: .85rem; color: var(--muted); padding: 0 1.25rem .5rem; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: .85rem; padding: 1rem 1.25rem 1.25rem;
+  }
+  .card {
+    --accent: var(--grey); --accent-bg: var(--grey-soft);
+    background: var(--surface); border: 1px solid var(--rule);
+    border-left: 5px solid var(--accent); border-radius: 8px;
+    padding: .75rem .9rem; box-shadow: var(--shadow);
+    transition: border-color .15s ease;
+  }
+  .card h4 { margin: 0 0 .25rem; font-size: 1rem; }
+  .card .badge-row { display: flex; flex-wrap: wrap; gap: .3rem; margin: .25rem 0 .5rem; }
+  .badge {
+    display: inline-block; font-size: .72rem; font-weight: 600;
+    padding: .15rem .5rem; border-radius: 999px;
+    background: var(--accent-bg); color: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    letter-spacing: .02em;
+  }
+  .card p { margin: .25rem 0 0; font-size: .92rem; color: #2a2f37; }
+  .card[hidden] { display: none; }
+
+  .card[data-bloc="g77"]           { --accent: var(--bloc-g77);           --accent-bg: color-mix(in srgb, var(--bloc-g77) 12%, white); }
+  .card[data-bloc="eu"]            { --accent: var(--bloc-eu);            --accent-bg: color-mix(in srgb, var(--bloc-eu) 12%, white); }
+  .card[data-bloc="african"]       { --accent: var(--bloc-african);       --accent-bg: color-mix(in srgb, var(--bloc-african) 12%, white); }
+  .card[data-bloc="aosis"]         { --accent: var(--bloc-aosis);         --accent-bg: color-mix(in srgb, var(--bloc-aosis) 12%, white); }
+  .card[data-bloc="canz"]          { --accent: var(--bloc-canz);          --accent-bg: color-mix(in srgb, var(--bloc-canz) 12%, white); }
+  .card[data-bloc="arab"]          { --accent: var(--bloc-arab);          --accent-bg: color-mix(in srgb, var(--bloc-arab) 12%, white); }
+  .card[data-bloc="gcc"]           { --accent: var(--bloc-gcc);           --accent-bg: color-mix(in srgb, var(--bloc-gcc) 12%, white); }
+  .card[data-bloc="nordic-baltic"] { --accent: var(--bloc-nordic-baltic); --accent-bg: color-mix(in srgb, var(--bloc-nordic-baltic) 12%, white); }
+  .card[data-bloc="caricom"]       { --accent: var(--bloc-caricom);       --accent-bg: color-mix(in srgb, var(--bloc-caricom) 12%, white); }
+  .card[data-bloc="ldc"]           { --accent: var(--bloc-ldc);           --accent-bg: color-mix(in srgb, var(--bloc-ldc) 12%, white); }
+  .card[data-bloc="lldc"]          { --accent: var(--bloc-lldc);          --accent-bg: color-mix(in srgb, var(--bloc-lldc) 12%, white); }
+  .card[data-bloc="small-states"]  { --accent: var(--bloc-small-states);  --accent-bg: color-mix(in srgb, var(--bloc-small-states) 12%, white); }
+  .card[data-bloc="latam"]         { --accent: var(--bloc-latam);         --accent-bg: color-mix(in srgb, var(--bloc-latam) 12%, white); }
+  .card[data-bloc="other"]         { --accent: var(--bloc-other);         --accent-bg: var(--grey-soft); }
+
+  .global-toolbar {
+    grid-column: 1 / -1;
+    display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    justify-content: space-between;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: var(--radius); padding: .75rem 1rem; margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+  .btn {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 8px; padding: .4rem .75rem;
+    font: inherit; font-size: .88rem; cursor: pointer; color: var(--ink);
+  }
+  .btn:hover { background: var(--bg); }
+
+  footer.page {
+    grid-column: 1 / -1; margin-top: 1.5rem; padding-top: 1rem;
+    border-top: 1px solid var(--rule); color: var(--muted);
+    font-style: italic; font-size: .9rem;
+  }
+
+  .fault-line {
+    background: var(--bg); border-left: 4px solid var(--accent-default);
+    padding: .6rem .9rem; margin: .5rem 0; border-radius: 0 6px 6px 0;
+  }
+  .fault-line strong { color: var(--ink); }
+  .outlier {
+    background: var(--amber-soft); border-left: 4px solid var(--amber);
+    padding: .6rem .9rem; margin: .75rem 0; border-radius: 0 6px 6px 0;
+  }
+
+  .plot-controls {
+    display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    padding: 1rem 1.25rem; border-bottom: 1px solid var(--rule);
+    background: linear-gradient(180deg, #fbfaf6 0%, var(--surface) 100%);
+  }
+  .plot-controls select {
+    font: inherit; padding: .4rem .55rem;
+    border: 1px solid var(--rule); border-radius: 8px; background: var(--surface);
+  }
+  .plot-wrap { padding: 1rem 1.25rem 1.5rem; overflow-x: auto; }
+  .plot {
+    --cell: 200px;
+    position: relative; display: grid;
+    grid-template-columns: 32px 130px repeat(3, var(--cell));
+    grid-template-rows: repeat(3, var(--cell)) 28px 28px;
+    gap: 0; min-width: calc(32px + 130px + 3 * var(--cell)); margin: 0 auto;
+  }
+  .plot .axis-label {
+    font-size: .78rem; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .06em;
+    display: flex; align-items: center; justify-content: center; padding: .25rem;
+  }
+  .plot .axis-label.x { grid-row: 5; grid-column: 3 / span 3; border-top: 1px solid var(--rule); }
+  .plot .axis-label.y {
+    grid-row: 1 / span 3; grid-column: 1;
+    writing-mode: vertical-rl; transform: rotate(180deg);
+  }
+  .plot .col-head {
+    grid-row: 4; font-size: .8rem; font-weight: 600; color: var(--ink);
+    text-align: center; padding: .3rem .25rem; border-top: 1px solid var(--rule);
+  }
+  .plot .row-head {
+    grid-column: 2; font-size: .78rem; color: var(--ink); font-weight: 600;
+    display: flex; align-items: center; justify-content: flex-end;
+    padding: .25rem .5rem; text-align: right; border-right: 1px solid var(--rule);
+  }
+  .plot .cell {
+    position: relative; border: 1px dashed var(--rule);
+    background: color-mix(in srgb, var(--bg) 60%, white); min-height: var(--cell);
+  }
+  .plot .cell-inner { position: absolute; inset: 18px; }
+  .plot .cell:hover { background: color-mix(in srgb, var(--accent-default) 5%, white); }
+  .dot {
+    position: absolute; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--dot, var(--grey)); color: #fff;
+    font-size: .62rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; cursor: default;
+    box-shadow: 0 1px 3px rgba(0,0,0,.18);
+    transform: translate(-50%, -50%); border: 2px solid #fff;
+    transition: transform .12s ease, z-index 0s;
+  }
+  .dot:hover, .dot:focus { transform: translate(-50%, -50%) scale(1.5); z-index: 10; outline: none; }
+  .dot[data-bloc="g77"]           { --dot: var(--bloc-g77); }
+  .dot[data-bloc="eu"]            { --dot: var(--bloc-eu); }
+  .dot[data-bloc="african"]       { --dot: var(--bloc-african); }
+  .dot[data-bloc="aosis"]         { --dot: var(--bloc-aosis); }
+  .dot[data-bloc="canz"]          { --dot: var(--bloc-canz); }
+  .dot[data-bloc="arab"]          { --dot: var(--bloc-arab); }
+  .dot[data-bloc="gcc"]           { --dot: var(--bloc-gcc); }
+  .dot[data-bloc="nordic-baltic"] { --dot: var(--bloc-nordic-baltic); }
+  .dot[data-bloc="caricom"]       { --dot: var(--bloc-caricom); }
+  .dot[data-bloc="ldc"]           { --dot: var(--bloc-ldc); }
+  .dot[data-bloc="lldc"]          { --dot: var(--bloc-lldc); }
+  .dot[data-bloc="small-states"]  { --dot: var(--bloc-small-states); }
+  .dot[data-bloc="latam"]         { --dot: var(--bloc-latam); }
+  .dot[data-bloc="other"]         { --dot: var(--bloc-other); }
+
+  #dot-float-tip {
+    position: fixed; background: var(--ink); color: #fff;
+    padding: .45rem .6rem; border-radius: 6px;
+    font-size: .68rem; line-height: 1.35; font-weight: 400;
+    width: 250px; white-space: normal; text-align: left;
+    pointer-events: none; z-index: 9999; opacity: 0; transition: opacity .12s ease;
+  }
+  #dot-float-tip strong { display: block; margin-bottom: .15rem; font-size: .72rem; }
+
+  .plot-legend {
+    display: flex; flex-wrap: wrap; gap: .75rem 1.25rem;
+    padding: .75rem 1.25rem 1rem; font-size: .82rem; color: var(--muted);
+  }
+  .plot-legend .swatch {
+    display: inline-block; width: 12px; height: 12px; border-radius: 50%;
+    vertical-align: middle; margin-right: .35rem; border: 2px solid #fff;
+    box-shadow: 0 0 0 1px var(--rule);
+  }
+  .plot-guide {
+    margin: 0 1.25rem .75rem; padding: .65rem .9rem;
+    background: color-mix(in srgb, var(--accent-default) 7%, white);
+    border-left: 3px solid var(--accent-default); border-radius: 6px;
+    font-size: .83rem; color: var(--muted); line-height: 1.5;
+  }
+  .plot-guide p { margin: 0; }
+
+  .axis-explainer {
+    margin: .5rem 1.25rem .75rem; padding: .75rem 1rem;
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+    font-size: .83rem; line-height: 1.55;
+  }
+  .axis-explainer .ae-header { display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; }
+  .axis-explainer .ae-icon { flex-shrink: 0; color: var(--accent-default); }
+  .axis-explainer .ae-title { font-weight: 700; font-size: .88rem; color: var(--ink); }
+  .axis-explainer .ae-def { color: var(--muted); margin-bottom: .6rem; }
+  .axis-explainer .ae-rows { display: flex; flex-direction: column; gap: .3rem; }
+  .axis-explainer .ae-row { display: flex; gap: .6rem; align-items: baseline; }
+  .axis-explainer .ae-row-label { font-weight: 600; min-width: 150px; color: var(--ink); flex-shrink: 0; }
+  .axis-explainer .ae-row-desc { color: var(--muted); }
+
+  @media (max-width: 720px) {
+    .plot { --cell: 110px; grid-template-columns: 32px 90px repeat(3, var(--cell)); min-width: calc(32px + 90px + 3 * var(--cell)); }
+    .dot { width: 22px; height: 22px; font-size: .58rem; }
+  }
+
+  @media print {
+    body { background: #fff; color: #000; }
+    .shell { grid-template-columns: 1fr; max-width: none; padding: 0; gap: 0; }
+    nav#toc, .global-toolbar, .controls, .chips, .result-count { display: none !important; }
+    section.block { box-shadow: none; border: none; page-break-inside: avoid; }
+    section.block > details > summary { font-size: 1.2rem; }
+    .card { box-shadow: none; }
+    .grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .seq-banner {
+    grid-column: 1 / -1;
+    display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem;
+    background: color-mix(in srgb, var(--accent-default) 7%, white);
+    border: 1px solid color-mix(in srgb, var(--accent-default) 20%, var(--rule));
+    border-radius: var(--radius); padding: .7rem 1rem; margin-bottom: 1.25rem;
+    font-size: .88rem; color: var(--muted);
+  }
+  .seq-banner .seq-step {
+    display: inline-flex; align-items: center; gap: .35rem;
+    padding: .2rem .6rem; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--rule);
+  }
+  .seq-banner .seq-step.current { background: var(--accent-default); color: #fff; border-color: var(--accent-default); font-weight: 600; }
+  .seq-banner .seq-step a { color: inherit; text-decoration: none; }
+  .seq-banner .seq-arrow { color: var(--muted); }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="shell">
+
+  <header class="page">
+    <h1>UN80 Working Group — First Meeting</h1>
+    <dl class="meta">
+      <dt>Subject</dt><dd>First meeting of the Informal Ad Hoc Working Group on Mandate Implementation Review (UN80 Workstream 2), GA 80th session</dd>
+      <dt>Date</dt><dd>16 September 2025</dd>
+      <dt>Co-Chairs</dt><dd>New Zealand (Amb. Carolyn Schwalger) &amp; Jamaica (Amb. Brian Wallace)</dd>
+      <dt>Speakers</dt><dd>36 delegations / blocs (+ PGA Baerbock, USG Guy Ryder)</dd>
+    </dl>
+    <p style="margin:.85rem 0 0; font-size:.9rem;">
+      <a href="../methodology/un80-methodology.html">How this was made — methodology</a>
+    </p>
+  </header>
+
+  <div class="asr-note">
+    <strong>Source note.</strong> This readout is built from the UN transcripts-portal automatic-speech-recognition (ASR) preview transcript, <em>not</em> an official UN record. The position-critical quotes below were checked against the meeting audio on 15 July 2026 and match the recording; other quotations still reproduce the ASR text. Names, figures and dates outside the verified quotes should be confirmed against the recording.
+  </div>
+
+  <div class="seq-banner" aria-label="Meeting sequence">
+    <span>UN80 sequence:</span>
+    <span class="seq-step"><a href="un80-briefing-2025-05.html">1 · 12 May 2025 — SG Launch Briefing</a></span>
+    <span class="seq-arrow">→</span>
+    <span class="seq-step current">2 · 16 Sep 2025 — Working Group opens</span>
+    <span class="seq-arrow">→</span>
+    <span class="seq-step">3 · 19 Jan 2026 — Zero Draft feedback</span>
+    <span class="seq-arrow">→</span>
+    <span class="seq-step">4 · 29 Jun 2026 — Latest plenary</span>
+  </div>
+
+  <nav id="toc" aria-label="Sections">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#summary">Executive Summary</a></li>
+      <li><a href="#principals">What the Chairs &amp; Principals Proposed</a></li>
+      <li><a href="#consensus">Areas of Consensus</a></li>
+      <li><a href="#implications">Fault Lines</a></li>
+      <li><a href="#plot">Fault-Line Plot</a></li>
+      <li><a href="#talking">Talking Points</a></li>
+      <li><a href="#reference">Reference: Stances by Delegation</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+
+    <div class="global-toolbar" role="group" aria-label="Document controls">
+      <div class="control-group">
+        <button class="btn" id="expand-all" type="button">Expand all</button>
+        <button class="btn" id="collapse-all" type="button">Collapse all</button>
+      </div>
+    </div>
+
+    <section class="block" id="summary">
+      <details open>
+        <summary>Executive Summary</summary>
+        <div class="body">
+          <p>The Working Group that <a href="un80-briefing-2025-05.html">round 1</a> created held its first meeting. Where the May launch was about <em>who controls the reform</em>, this session was a procedural kickoff: co-chairs New Zealand and Jamaica posed three guiding questions — all about <strong>how to run the process</strong>, not what to decide — and 36 delegations answered almost entirely on method. <strong>No delegation opposed the exercise</strong>, and the Secretariat has shifted from driver to support role. The debate is now about <em>pace, scope, and how tightly to follow the SG's report</em>.</p>
+          <p>The defining divide is <strong>timeline ambition versus flexibility</strong>. In practice it breaks down like this:</p>
+          <ul class="tight">
+            <li><strong>Drive the pace</strong> — US, UK, Thailand, Liechtenstein: honour the fast track, find "quick wins," "failure cannot be an option."</li>
+            <li><strong>Slow / flex the schedule</strong> — G77+China, AOSIS, CARICOM, Pakistan, Brazil, African Group: a flexible, deconflicted calendar; defer substantive negotiation to 2026 given the Committee-season burden on small missions.</li>
+            <li><strong>Widen the scope</strong> — India, Mexico, Switzerland: extend beyond GA mandates to the Security Council, ECOSOC and HRC, and the whole system.</li>
+            <li><strong>Hold the boundary</strong> — Pakistan, Liechtenstein: "your mandate is Work Stream 2"; don't import Workstream 3 proposals.</li>
+            <li><strong>Sunset-clause split</strong> — Thailand, India, US (for) vs. Argentina, Uruguay (against default sunsets): the first substantive fault line to surface.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="principals">
+      <details open>
+        <summary>What the Chairs &amp; Principals Proposed</summary>
+        <div class="body">
+          <p>This meeting's substance came from the chairs and the two principals, not the floor. Their framing is the anchor for everything below:</p>
+
+          <h3 class="sub">Co-Chairs (New Zealand / Jamaica)</h3>
+          <ul class="tight">
+            <li><strong>A two-phase plan.</strong> A <strong>Discovery Phase</strong> of wide, inclusive consultation "sensitive to the competing demands on delegations' time," producing a <strong>package of principles and follow-up actions</strong>; report to the membership by <strong>15 December 2025</strong>; then a <strong>production phase to finalise outcomes by March 2026</strong>.</li>
+            <li><strong>System-level only.</strong> Learning from the failed review ~20 years ago: <em>"We will not be considering individual mandates in this Working Group"</em> (full quote below). Focus on the future, not re-litigating the past.</li>
+            <li><strong>Member-State-driven</strong> — welcome outside ideas while "preserving the Member State driven nature of our discussions."</li>
+          </ul>
+
+          <h3 class="sub">PGA Annalena Baerbock</h3>
+          <ul class="tight">
+            <li>Framed the review within UN80's three themes (efficiency / mandate review / system-as-a-whole); called it a <strong>"make it or break it moment"</strong> and stressed UN80 is "not a cost-cutting exercise for just cutting cost."</li>
+            <li>Gave a worked example of embedded inefficiency — a resolution forcing "16 speakers in one hour" she "cannot do anything about"; committed OPGA transparency support; asked delegations to brief <strong>every head of state and minister</strong> on UN80 at High-Level Week.</li>
+          </ul>
+
+          <h3 class="sub">USG Guy Ryder (Secretariat)</h3>
+          <ul class="tight">
+            <li><strong>Two tracks in the SG report.</strong> <em>Internal (SG's own authority):</em> accelerate mandate registries, shorter/combined reports, new formats, publish download statistics, strengthen oversight, apply Funding Compact commitments — a UN-system roadmap "if the Working Group requires it."</li>
+            <li><em>For Member States to consider:</em> reduce mandate-text length, allow the SG flexibility, don't mandate new tasks without resources, prioritise requests, include <strong>expiry/sunset clauses</strong>, introduce collective reviews.</li>
+            <li>Repeated the ownership boundary: "<strong>Member States... own the mandates</strong>... we are here to be of assistance" (full quote below).</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="consensus">
+      <details>
+        <summary>Areas of Consensus</summary>
+        <div class="body">
+          <p>Cutting across nearly every speaker — from the fastest-track voices to the most cautious:</p>
+          <ul class="tight">
+            <li><strong>The process must be Member-State-driven, consensus-based, open and transparent</strong> — the strongest and most universal line in the room.</li>
+            <li><strong>Learn from the failed review ~20 years ago</strong> — the shared lesson: don't review individual mandates one by one (co-chairs, G77, CANZ, Liechtenstein, Brazil, Indonesia, India).</li>
+            <li><strong>Preserve the three pillars in balance; protect the development pillar</strong> — sharpest from the Global South and SIDS (G77, African Group, AOSIS, CARICOM, PIF, Bangladesh, India).</li>
+            <li><strong>The schedule must accommodate small delegations</strong> — deconflict with the main-committee season, schedule early and predictably, circulate documents in advance.</li>
+            <li><strong>Member States are part of the problem too</strong> — too many resolutions, reports and overlapping mandates; reform can't target only the Secretariat (Argentina, Thailand, El Salvador, China, PGA).</li>
+            <li><strong>Welcome the Secretariat's data and the mandate registry</strong> — as an evidence base for the work (Switzerland, Pakistan, UK, Australia, India).</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="implications">
+      <details>
+        <summary>Fault Lines</summary>
+        <div class="body">
+          <p>Four fault lines run through a meeting that was otherwise strikingly harmonious. Each names the poles, who anchors them, and the line that captures each side. (Every delegation's full stance is in the <a href="#reference">reference grid</a>.)</p>
+
+          <div class="fault-line">
+            <strong>1. Timeline ambition vs. flexibility</strong> — the defining divide of a kickoff.
+            <ul class="tight">
+              <li><strong>Drive-the-pace pole</strong> — the <strong>United States</strong> ("an ambitious set of principles"), <strong>UK</strong> ("tangible early progress"), <strong>Thailand</strong> (frames the 6-month clock as a discipline; find "quick wins"), <strong>Liechtenstein</strong> ("failure here cannot be an option"). The chairs and PGA ("make it or break it") anchor this side.</li>
+              <li><strong>Flexibility pole</strong> — <strong>G77+China</strong> ("a flexible timeline"), <strong>AOSIS</strong> and <strong>Brazil</strong> (do the substantive work after the main session / after December), <strong>Pakistan</strong> ("substantive negotiations should commence in the next year"), joined by CARICOM, the African Group, Paraguay and Ecuador — all citing the burden on small missions during Committee season.</li>
+              <li><strong>The middle</strong> endorses the ambition <em>and</em> flags the constraint — most of the room, including the EU, Norway, France and Romania.</li>
+            </ul>
+          </div>
+
+          <div class="fault-line">
+            <strong>2. Scope</strong> — GA-only vs. whole-system.
+            <ul class="tight">
+              <li><strong>Widen it:</strong> <strong>India</strong> wants "all mandates emanating from General Assembly, Security Council, ECOSOC and Human Rights Council" and the full lifecycle across all three work streams; <strong>Mexico</strong> and <strong>Switzerland</strong> want coherence across "the entire United Nations system," beyond the Secretariat.</li>
+              <li><strong>Hold the boundary:</strong> <strong>Pakistan</strong> would not favour importing Workstream 3 proposals "unless the timeframe is reconsidered"; <strong>Liechtenstein</strong> is emphatic that "your mandate is Work Stream 2." <strong>Zambia</strong> asks the open question directly — is ECOSOC/Security Council in or out? The chairs anchor the practical limit: system-level, <em>not</em> individual mandates.</li>
+            </ul>
+          </div>
+
+          <div class="fault-line">
+            <strong>3. Report anchoring vs. going beyond it.</strong> <strong>Chile</strong> ("remain firmly guided by the report"), Brazil, Argentina, Mexico and Norway want work organised around the SG report's three-stage lifecycle. The <strong>African Group</strong> ("a broader array of ideas beyond those outlined in the... Report"), <strong>Algeria</strong> ("not solely from SG reports") and <strong>China</strong> ("ideas of their own") want to range wider. <strong>Russia</strong> contests the report's <em>internal</em> sorting — see outliers.
+          </div>
+
+          <div class="fault-line">
+            <strong>4. Sunset / expiry clauses</strong> — the first concrete substantive seam. <strong>For:</strong> Thailand (pilot them on a trial basis), India (build them into mandate creation/renewal), Zimbabwe, and the US (which regrets the sunset language "did not make it into the final text" of the revitalization resolution). <strong>Against default sunsets:</strong> <strong>Argentina</strong> (GA resolutions "remain valid until they are fully implemented and not be undermined by sunset clause") and <strong>Uruguay</strong> (human rights and sensitive political files "cannot simply have a sunset clause... no automatisms").
+          </div>
+
+          <div class="outlier">
+            <strong>Outliers to monitor.</strong> <strong>Russia</strong> — the only delegation contesting the report's internal sorting: the establishing resolution "is not differentiating the proposals," so items the SG marked as his own prerogative should <em>also</em> be open to Member-State consideration. <strong>Argentina</strong> — the lone explicit defender of the no-default-sunset rule, the sharpest substantive disagreement in an otherwise process-only meeting. <strong>India / Mexico / Switzerland</strong> — the maximal-scope push (SC + ECOSOC + HRC + whole system). <strong>Translation failure</strong> — the meeting ran without interpretation; Kuwait (GCC) deferred its statement and delivered in English, and both Kuwait and Algeria formally regretted the absence of multilingualism — a live inclusivity grievance for the chairs.
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="plot">
+      <details>
+        <summary>Fault-Line Plot — Cluster Map</summary>
+
+        <div class="plot-guide">
+          <p><strong>How to read this plot.</strong> The X-axis is fixed to the <em>process-pace</em> divide (flexibility → both → drive the pace). Choose a fault-line dimension below for the Y-axis. Each dot is one delegation; colour shows regional bloc. "Mid" = endorsed both sides or took no explicit position on that axis. Hover a dot for the verbatim stance. Positions reflect the 16 Sep kickoff only — the longitudinal layer tracks how they move. The <a href="un80-briefing-2025-05.html">round-1 sovereignty axis</a> does not carry here: the Secretariat is a support actor now, not a contested driver (see the methodology frame note).</p>
+        </div>
+
+        <div class="plot-controls">
+          <div class="control-group">
+            <label class="label" for="axis-y">Y axis — fault-line dimension</label>
+            <select id="axis-y">
+              <option value="scope" selected>Scope breadth</option>
+              <option value="report">Report anchoring</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="axis-explainer" id="axis-explainer" aria-live="polite"></div>
+
+        <div class="plot-wrap">
+          <div class="plot" id="plot-grid" role="img" aria-label="Two-axis scatter of delegation positions"></div>
+        </div>
+
+        <div class="plot-legend" id="plot-legend"></div>
+      </details>
+    </section>
+
+    <section class="block" id="talking">
+      <details>
+        <summary>Talking Points</summary>
+        <div class="body">
+          <p style="font-size:.85rem;color:var(--muted);margin-top:0;">These quotes were checked against the meeting audio on 15 July 2026 and match the recording. Still an ASR transcript, not an official UN record.</p>
+          <blockquote class="tp">"As Co Chairs, we intend to focus our attention at the system level. We will not be considering individual mandates in this Working Group."<footer>— Co-Chair Carolyn Schwalger (New Zealand), setting the scope limit drawn from the failed ~20-year-ago review</footer></blockquote>
+          <blockquote class="tp">"Ultimately, Member States own the mandates that they give to the UN system and... Member States also decide on next steps. We are here to be of assistance."<footer>— USG Guy Ryder, placing the Secretariat in a support role</footer></blockquote>
+          <blockquote class="tp">"So colleagues, in my opening address I spoke explicitly about this make it or break it moment, that this mandate review process is part of it."<footer>— PGA Annalena Baerbock, raising the stakes of the timeline</footer></blockquote>
+          <blockquote class="tp">"Substantive negotiations, in our view, should commence in the next year."<footer>— Pakistan; the flexibility camp's clearest line on pace, echoed by the G77, AOSIS and Brazil</footer></blockquote>
+          <blockquote class="tp">"We wish to preserve the General Rule that General Assembly resolutions remain valid until they are fully implemented and not be undermined by sunset clause."<footer>— Argentina, opening the sunset-clause fault line against Thailand, India and the US</footer></blockquote>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="reference">
+      <details>
+        <summary>Reference: Stances by Delegation</summary>
+
+        <div class="controls" role="search">
+          <div class="control-group" style="flex:1 1 220px;">
+            <label for="country-search" class="label" style="white-space:nowrap;">Search</label>
+            <input id="country-search" class="search" type="search" placeholder="Filter by name or stance text…" aria-controls="country-grid">
+          </div>
+        </div>
+
+        <div class="chips" role="group" aria-label="Filter by category">
+          <button class="chip" data-filter="all"          aria-pressed="true">All</button>
+          <button class="chip" data-filter="pace-caution" aria-pressed="false">Flexibility</button>
+          <button class="chip" data-filter="pace-drive"   aria-pressed="false">Drive the pace</button>
+          <button class="chip" data-filter="broad"        aria-pressed="false">Broad scope</button>
+          <button class="chip" data-filter="narrow"       aria-pressed="false">Narrow scope</button>
+        </div>
+
+        <div class="result-count" id="result-count" aria-live="polite">Showing 36 of 36</div>
+
+        <div class="grid" id="country-grid">
+
+          <article class="card" data-pace="pace-caution" data-scope="mid" data-bloc="g77">
+            <h4>G77 and China</h4>
+            <div class="badge-row"><span class="badge">Flexibility · G77/China</span></div>
+            <p>Supports "a flexible timeline"; three principles — consensus, Member-State-driven, three-pillar balance "with development as a parity"; will submit written responses.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="broad" data-bloc="small-states">
+            <h4>Small States Group</h4>
+            <div class="badge-row"><span class="badge">Both · Small States (50 countries)</span></div>
+            <p>"Keep an open mind, not rule anything out"; avoid an "all or nothing approach"; incremental, pragmatic, data-based; success affects the other two work streams.</p>
+          </article>
+
+          <article class="card" data-pace="pace-caution" data-scope="mid" data-bloc="african">
+            <h4>African Group</h4>
+            <div class="badge-row"><span class="badge">Flexibility · Africa Group</span></div>
+            <p>Preserve core mandates "particularly the Development Pillar"; "open and receptive to a broader array of ideas beyond... the Secretary General's Report"; phased approach, realistic timeframes.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="broad" data-bloc="eu">
+            <h4>EU</h4>
+            <div class="badge-row"><span class="badge">Both · EU</span></div>
+            <p>"Listening widely, consulting deeply" before "text based negotiations"; thematic clusters; reach out to UN hubs outside New York; "the Pact should be our what and the UN80 our how."</p>
+          </article>
+
+          <article class="card" data-pace="pace-caution" data-scope="narrow" data-bloc="aosis">
+            <h4>AOSIS</h4>
+            <div class="badge-row"><span class="badge">Flexibility · AOSIS (aligns G77)</span></div>
+            <p>Do "most of the substantive work after the conclusion of the main session"; development mandates, incl. the Antigua &amp; Barbuda agenda, "should not be deprioritized under the guise of restructuring."</p>
+          </article>
+
+          <article class="card" data-pace="pace-caution" data-scope="mid" data-bloc="caricom">
+            <h4>CARICOM</h4>
+            <div class="badge-row"><span class="badge">Flexibility · CARICOM (aligns G77, AOSIS)</span></div>
+            <p>"Avoidance of overlaps with main committees"; early mapping of SG recommendations; efficiency "must never come at the expense of impact or equity" for SIDS.</p>
+          </article>
+
+          <article class="card" data-pace="pace-drive" data-scope="mid" data-bloc="canz">
+            <h4>Australia (CANZ)</h4>
+            <div class="badge-row"><span class="badge">Drive the pace · CANZ</span></div>
+            <p>Mandate-by-mandate "is simply not feasible"; encourage the SG to use his own authorities now; "terminate mandates that we agree have become obsolete"; strengthen monitoring.</p>
+          </article>
+
+          <article class="card" data-pace="pace-caution" data-scope="mid" data-bloc="other">
+            <h4>Pacific Islands Forum</h4>
+            <div class="badge-row"><span class="badge">Flexibility · PIF</span></div>
+            <p>"Cautiously optimistic"; UN must retain "adequate and effective presence in the region"; welcomes the discovery-then-production phasing for small delegations.</p>
+          </article>
+
+          <article class="card" data-pace="pace-caution" data-scope="narrow" data-bloc="gcc">
+            <h4>GCC</h4>
+            <div class="badge-row"><span class="badge">Flexibility · GCC (aligns G77)</span></div>
+            <p>Subject of each meeting "clearly specified in advance"; ample time and means for participation; supports the G77 proposal for a detailed work plan.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="mid" data-bloc="eu">
+            <h4>Romania</h4>
+            <div class="badge-row"><span class="badge">Both · EU (national capacity)</span></div>
+            <p>"A truth test... how we can create more efficiency"; sees "merits in opening up the Secretary General report for consultation"; links to the revitalization process.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="broad" data-bloc="eu">
+            <h4>Switzerland</h4>
+            <div class="badge-row"><span class="badge">Both · Switzerland (national capacity)</span></div>
+            <p>Four principles: combat duplication, build on what works (QCPR), forward-looking mandates, Member-State responsibility; review "must... cover the entire United Nations system."</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="narrow" data-bloc="latam">
+            <h4>Argentina</h4>
+            <div class="badge-row"><span class="badge">Both · Latin America (aligns G77)</span></div>
+            <p>"Certain agendas had been oversized"; against sunset clauses — resolutions "remain valid until... fully implemented"; focus on creation + execution stages first.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="mid" data-bloc="other">
+            <h4>Bangladesh</h4>
+            <div class="badge-row"><span class="badge">Both · Other</span></div>
+            <p>Reform must "retain a clear focus on those left farthest behind"; peacekeeping, peacebuilding, climate resilience, sustainable development as core priorities; objectivity and impartiality.</p>
+          </article>
+
+          <article class="card" data-pace="pace-caution" data-scope="mid" data-bloc="latam">
+            <h4>Paraguay</h4>
+            <div class="badge-row"><span class="badge">Flexibility · Latin America (aligns G77)</span></div>
+            <p>Strengthen the development pillar; sequence "from the general to specific"; a roadmap "so that the debate does not remain purely conceptual"; supports AI to identify redundancies.</p>
+          </article>
+
+          <article class="card" data-pace="pace-caution" data-scope="broad" data-bloc="african">
+            <h4>Zambia</h4>
+            <div class="badge-row"><span class="badge">Flexibility · Africa Group (aligns G77, SSG)</span></div>
+            <p>Asks whether the review covers only GA mandates "or... ECOSOC and the Security Council"; wants clarity on a preliminary/zero-draft report before submission.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="mid" data-bloc="g77">
+            <h4>China</h4>
+            <div class="badge-row"><span class="badge">Both · G77/China</span></div>
+            <p>Five suggestions; "principles alone cannot be enough... matched with concrete, actionable measures"; ~4,000 resolutions burden the system; members have "ideas of their own."</p>
+          </article>
+
+          <article class="card" data-pace="pace-drive" data-scope="mid" data-bloc="other">
+            <h4>United States</h4>
+            <div class="badge-row"><span class="badge">Drive the pace · Other</span></div>
+            <p>"An ambitious set of principles"; regrets sunset-clause language "did not make it into the final text"; UN80 should "build on and strengthen" the revitalization proposals.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="broad" data-bloc="other">
+            <h4>Indonesia</h4>
+            <div class="badge-row"><span class="badge">Both · Other</span></div>
+            <p>Align with GA revitalization, ECOSOC reform and Security Council reform to avoid duplication; "outcomes that make a difference, not just more paper"; asks how the chairs envision the final product.</p>
+          </article>
+
+          <article class="card" data-pace="pace-caution" data-scope="narrow" data-bloc="latam">
+            <h4>El Salvador</h4>
+            <div class="badge-row"><span class="badge">Flexibility · Latin America (aligns G77)</span></div>
+            <p>Refrain from "tabling resolutions... that add volume without impact"; "none of this is near the other working group" — build on revitalization, don't reinvent; realism in scheduling.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="mid" data-bloc="latam">
+            <h4>Ecuador</h4>
+            <div class="badge-row"><span class="badge">Both · Latin America (aligns G77)</span></div>
+            <p>Ready "to engage at the political level"; smaller delegations "ready to be at the table"; UN80 an instrument to strengthen a multilateralism "being questioned often with good reasons."</p>
+          </article>
+
+          <article class="card" data-pace="pace-caution" data-scope="mid" data-bloc="latam">
+            <h4>Brazil</h4>
+            <div class="badge-row"><span class="badge">Flexibility · Latin America (aligns G77)</span></div>
+            <p>"Time is the scarcest resource"; dedicate "these initial months to listening and reflecting" and leave outputs for after the December progress report; careful scheduling ensures inclusivity.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="mid" data-bloc="eu">
+            <h4>France</h4>
+            <div class="badge-row"><span class="badge">Both · EU (national capacity)</span></div>
+            <p>Stresses multilingualism; a "sound and rigorous assessment of the current landscape"; document overlaps and duplications; the SG report "an excellent foundation for work."</p>
+          </article>
+
+          <article class="card" data-pace="pace-caution" data-scope="mid" data-bloc="other">
+            <h4>Russian Federation</h4>
+            <div class="badge-row"><span class="badge">Flexibility · Other</span></div>
+            <p>"Step by step approach" — least-controversial issues first; the resolution "is not differentiating the proposals," so recommendations marked SG-prerogative "deserve consideration by the Member States."</p>
+          </article>
+
+          <article class="card" data-pace="pace-caution" data-scope="broad" data-bloc="other">
+            <h4>Algeria</h4>
+            <div class="badge-row"><span class="badge">Flexibility · Other</span></div>
+            <p>Member-State-driven and consensus-based; "creative and innovative, drawing on ideas... not solely from SG reports"; WS2 "must also speak to" the other work streams; regrets no translation.</p>
+          </article>
+
+          <article class="card" data-pace="pace-drive" data-scope="mid" data-bloc="other">
+            <h4>Thailand</h4>
+            <div class="badge-row"><span class="badge">Drive the pace · Other (aligns G77)</span></div>
+            <p>"Only six months to deliver... be pragmatic"; identify "quick wins" (streamline reports, pilot sunset clauses on a trial basis); "reform will not succeed if... directed only at the Secretariat."</p>
+          </article>
+
+          <article class="card" data-pace="pace-caution" data-scope="narrow" data-bloc="other">
+            <h4>Pakistan</h4>
+            <div class="badge-row"><span class="badge">Flexibility · Other (aligns G77)</span></div>
+            <p>"One meeting per month"; substantive negotiations "should commence in the next year"; would <strong>not</strong> favour WS3 proposals "unless the timeframe... is reconsidered"; upload all written submissions.</p>
+          </article>
+
+          <article class="card" data-pace="pace-drive" data-scope="narrow" data-bloc="other">
+            <h4>Liechtenstein</h4>
+            <div class="badge-row"><span class="badge">Drive the pace · Other</span></div>
+            <p>"Failure here cannot be an option"; "your mandate is Work Stream 2"; use High-Level Week to raise UN80 with principals; leaner, stronger, three-pillar-balanced organisation.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="broad" data-bloc="other">
+            <h4>India</h4>
+            <div class="badge-row"><span class="badge">Both · Other (aligns G77)</span></div>
+            <p>Scope "should cover the entire life cycle... across all three work streams" — "all mandates... GA, Security Council, ECOSOC and Human Rights Council"; sunset clauses; use AI tools; protect Global-South expertise.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="mid" data-bloc="eu">
+            <h4>Portugal</h4>
+            <div class="badge-row"><span class="badge">Both · EU (national capacity)</span></div>
+            <p>A "more coherent and predictable mandate cycle"; WS1 and WS2 "mutually reinforce"; "efficiency gains cannot be a substitute for adequate resources"; balance ambition and affordability.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="broad" data-bloc="latam">
+            <h4>Mexico</h4>
+            <div class="badge-row"><span class="badge">Both · Latin America</span></div>
+            <p>Coherence "across the whole entire UN system, including... funds, programs, specialized agencies"; a systemic (not gradual) reform; shift to biennial/triennial review cycles; proactive Secretariat.</p>
+          </article>
+
+          <article class="card" data-pace="pace-drive" data-scope="mid" data-bloc="other">
+            <h4>United Kingdom</h4>
+            <div class="badge-row"><span class="badge">Drive the pace · Other</span></div>
+            <p>Develop principles for future mandates; use the "UN Mandate Source Registry" to categorise by pillar / authorizing body / funding; "tangible early progress" on duplication and reports.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="mid" data-bloc="nordic-baltic">
+            <h4>Norway</h4>
+            <div class="badge-row"><span class="badge">Both · Nordic-Baltic</span></div>
+            <p>SG report "a very helpful entry point"; agree "guiding principles" for the whole lifecycle; deep thematic discussion "before going into the nitty gritty details of text based negotiations"; no pillar cherry-picking.</p>
+          </article>
+
+          <article class="card" data-pace="pace-caution" data-scope="mid" data-bloc="african">
+            <h4>Zimbabwe</h4>
+            <div class="badge-row"><span class="badge">Flexibility · Africa Group (aligns G77)</span></div>
+            <p>Thematic approach on the three lifecycle areas; a co-chairs' "elements paper" + zero draft before 15 Dec; three interactive dialogues Jan–March 2026; a resolution endorsing the outcome.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="mid" data-bloc="caricom">
+            <h4>Trinidad and Tobago</h4>
+            <div class="badge-row"><span class="badge">Both · CARICOM (aligns G77, AOSIS)</span></div>
+            <p>"What gets measured gets done"; primacy, recency, accessibility and transparency of all documents; reconcile and consolidate mandates, matched to resources; track and measure outcomes.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="narrow" data-bloc="latam">
+            <h4>Uruguay</h4>
+            <div class="badge-row"><span class="badge">Both · Latin America (aligns G77, SSG)</span></div>
+            <p>Avoid "cherry picking" the three pillars; human rights and sensitive political issues "cannot... have a sunset clause... no automatisms are needed"; value evidence-based decisions.</p>
+          </article>
+
+          <article class="card" data-pace="mid" data-scope="narrow" data-bloc="latam">
+            <h4>Chile</h4>
+            <div class="badge-row"><span class="badge">Both · Latin America (aligns G77)</span></div>
+            <p>Work "remain firmly guided by the report of the Secretary General"; organise around the three-stage lifecycle (creation / delivery / review); space for new proposals from members.</p>
+          </article>
+
+        </div>
+      </details>
+    </section>
+
+    <footer class="page">
+      Briefing based solely on analysis of the UN transcripts-portal ASR transcript of the first meeting of the Informal Ad Hoc Working Group on the UN80 initiative (Mandate Implementation Review, Workstream 2), 16 September 2025. Not an official UN record; position-critical quotes audio-verified 15 July 2026. Silo C (UN80), readout 2 of 4.
+    </footer>
+
+  </main>
+</div>
+
+<script>
+(function () {
+  const allDetails = () => document.querySelectorAll('section.block > details');
+  document.getElementById('expand-all').addEventListener('click', () => allDetails().forEach(d => d.open = true));
+  document.getElementById('collapse-all').addEventListener('click', () => allDetails().forEach(d => d.open = false));
+
+  // Search + chip filter
+  const search = document.getElementById('country-search');
+  const grid = document.getElementById('country-grid');
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  const chips = Array.from(document.querySelectorAll('.chip'));
+  const count = document.getElementById('result-count');
+  let activeFilter = 'all';
+
+  function apply() {
+    const q = search.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach(card => {
+      const text = (card.querySelector('h4').textContent + ' ' + card.querySelector('p').textContent).toLowerCase();
+      const matchesText = !q || text.includes(q);
+      let matchesChip = true;
+      if (activeFilter !== 'all') {
+        if (['pace-caution','pace-drive'].includes(activeFilter)) {
+          matchesChip = card.dataset.pace === activeFilter;
+        } else if (['broad','narrow'].includes(activeFilter)) {
+          matchesChip = card.dataset.scope === activeFilter;
+        }
+      }
+      const show = matchesText && matchesChip;
+      card.hidden = !show;
+      if (show) visible++;
+    });
+    count.textContent = 'Showing ' + visible + ' of ' + cards.length;
+  }
+  search.addEventListener('input', apply);
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      activeFilter = chip.dataset.filter;
+      chips.forEach(c => c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'));
+      apply();
+    });
+  });
+
+  // Scroll-spy
+  const tocLinks = Array.from(document.querySelectorAll('nav#toc a'));
+  const sections = tocLinks.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    const setCurrent = id => tocLinks.forEach(a => {
+      if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setCurrent(visible[0].target.id);
+    }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+    sections.forEach(s => io.observe(s));
+  }
+
+  // ---------- Fault-line plot ----------
+  // Coding strictly from source text. "mid" = both sides endorsed or no explicit position.
+  // pace:   pace-caution | mid | pace-drive           (X, fixed)
+  // scope:  narrow | mid | broad                       (Y for "Scope breadth")
+  // report: anchor | mid | beyond                      (Y for "Report anchoring")
+  const data = [
+    { name:"G77 and China",        bloc:"g77",          pace:"pace-caution", scope:"mid",    report:"mid"    },
+    { name:"Small States Group",   bloc:"small-states", pace:"mid",          scope:"broad",  report:"anchor" },
+    { name:"African Group",        bloc:"african",      pace:"pace-caution", scope:"mid",    report:"beyond" },
+    { name:"EU",                   bloc:"eu",           pace:"mid",          scope:"broad",  report:"anchor" },
+    { name:"AOSIS",                bloc:"aosis",        pace:"pace-caution", scope:"narrow", report:"anchor" },
+    { name:"CARICOM",              bloc:"caricom",      pace:"pace-caution", scope:"mid",    report:"anchor" },
+    { name:"Australia (CANZ)",     bloc:"canz",         pace:"pace-drive",   scope:"mid",    report:"anchor" },
+    { name:"Pacific Islands Forum",bloc:"other",        pace:"pace-caution", scope:"mid",    report:"mid"    },
+    { name:"GCC",                  bloc:"gcc",          pace:"pace-caution", scope:"narrow", report:"anchor" },
+    { name:"Romania",              bloc:"eu",           pace:"mid",          scope:"mid",    report:"anchor" },
+    { name:"Switzerland",          bloc:"eu",           pace:"mid",          scope:"broad",  report:"anchor" },
+    { name:"Argentina",            bloc:"latam",        pace:"mid",          scope:"narrow", report:"anchor" },
+    { name:"Bangladesh",           bloc:"other",        pace:"mid",          scope:"mid",    report:"mid"    },
+    { name:"Paraguay",             bloc:"latam",        pace:"pace-caution", scope:"mid",    report:"anchor" },
+    { name:"Zambia",               bloc:"african",      pace:"pace-caution", scope:"broad",  report:"anchor" },
+    { name:"China",                bloc:"g77",          pace:"mid",          scope:"mid",    report:"beyond" },
+    { name:"United States",        bloc:"other",        pace:"pace-drive",   scope:"mid",    report:"anchor" },
+    { name:"Indonesia",            bloc:"other",        pace:"mid",          scope:"broad",  report:"mid"    },
+    { name:"El Salvador",          bloc:"latam",        pace:"pace-caution", scope:"narrow", report:"anchor" },
+    { name:"Ecuador",              bloc:"latam",        pace:"mid",          scope:"mid",    report:"mid"    },
+    { name:"Brazil",               bloc:"latam",        pace:"pace-caution", scope:"mid",    report:"anchor" },
+    { name:"France",               bloc:"eu",           pace:"mid",          scope:"mid",    report:"anchor" },
+    { name:"Russian Federation",   bloc:"other",        pace:"pace-caution", scope:"mid",    report:"beyond" },
+    { name:"Algeria",              bloc:"other",        pace:"pace-caution", scope:"broad",  report:"beyond" },
+    { name:"Thailand",             bloc:"other",        pace:"pace-drive",   scope:"mid",    report:"anchor" },
+    { name:"Pakistan",             bloc:"other",        pace:"pace-caution", scope:"narrow", report:"mid"    },
+    { name:"Liechtenstein",        bloc:"other",        pace:"pace-drive",   scope:"narrow", report:"anchor" },
+    { name:"India",                bloc:"other",        pace:"mid",          scope:"broad",  report:"mid"    },
+    { name:"Portugal",             bloc:"eu",           pace:"mid",          scope:"mid",    report:"anchor" },
+    { name:"Mexico",               bloc:"latam",        pace:"mid",          scope:"broad",  report:"mid"    },
+    { name:"United Kingdom",       bloc:"other",        pace:"pace-drive",   scope:"mid",    report:"anchor" },
+    { name:"Norway",               bloc:"nordic-baltic",pace:"mid",          scope:"mid",    report:"anchor" },
+    { name:"Zimbabwe",             bloc:"african",      pace:"pace-caution", scope:"mid",    report:"anchor" },
+    { name:"Trinidad and Tobago",  bloc:"caricom",      pace:"mid",          scope:"mid",    report:"mid"    },
+    { name:"Uruguay",              bloc:"latam",        pace:"mid",          scope:"narrow", report:"mid"    },
+    { name:"Chile",                bloc:"latam",        pace:"mid",          scope:"narrow", report:"anchor" }
+  ];
+
+  // Pull verbatim stance line from card paragraphs
+  const stanceMap = {};
+  document.querySelectorAll('#country-grid .card').forEach(c => {
+    stanceMap[c.querySelector('h4').textContent.trim()] = c.querySelector('p').textContent.trim();
+  });
+
+  const AXES = {
+    pace:   { label:"Process pace", buckets:["pace-caution","mid","pace-drive"], labels:["Flexibility","Both / mixed","Drive the pace"] },
+    scope:  { label:"Scope breadth", buckets:["narrow","mid","broad"], labels:["Narrow (WS2/GA)","Mid","Broad (whole system)"] },
+    report: { label:"Report anchoring", buckets:["beyond","mid","anchor"], labels:["Beyond the report","Mid","Anchor to report"] }
+  };
+  // Map the select's value to a data key
+  const Y_KEY = { scope:"scope", report:"report" };
+
+  const plot = document.getElementById('plot-grid');
+  const ySel = document.getElementById('axis-y');
+  const legendEl = document.getElementById('plot-legend');
+  const explainerEl = document.getElementById('axis-explainer');
+
+  const EYE_SVG = `<svg class="ae-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+
+  const AXIS_INFO = {
+    scope: {
+      title: "Scope breadth",
+      def: "How wide a delegation wants the Working Group's remit to reach — held to GA / Workstream-2 mandates, or extended across the whole UN system (Security Council, ECOSOC, HRC, funds and agencies) and the other work streams.",
+      rows: [
+        { label: "Broad (top)", desc: "Extend beyond GA mandates to SC/ECOSOC/HRC and the whole system, or link Workstream 3 (India, Mexico, Switzerland, EU, Indonesia, Algeria)." },
+        { label: "Mid", desc: "No explicit scope-widening or -narrowing — engages within the process as framed." },
+        { label: "Narrow (bottom)", desc: "Keep it to Workstream 2 / the SG report / GA mandates; don't import other streams (Pakistan, Liechtenstein, GCC, AOSIS)." }
+      ]
+    },
+    report: {
+      title: "Report anchoring",
+      def: "How tightly a delegation wants the work tied to the Secretary-General's Mandate Implementation Review report as its starting point, versus ranging to member-generated ideas beyond it.",
+      rows: [
+        { label: "Anchor (top)", desc: "The report is the foundation; organise the work around its three-stage lifecycle (Chile, Brazil, Argentina, Norway, EU)." },
+        { label: "Mid", desc: "The report is useful input, neither foregrounded nor contested." },
+        { label: "Beyond (bottom)", desc: "Push for member ideas beyond the report, or contest its internal sorting (African Group, Algeria, China, Russia)." }
+      ]
+    }
+  };
+
+  function renderExplainer() {
+    const info = AXIS_INFO[ySel.value];
+    if (!info) { explainerEl.innerHTML = ''; return; }
+    explainerEl.innerHTML = `
+      <div class="ae-header">${EYE_SVG}<span class="ae-title">${info.title} — what this dimension measures</span></div>
+      <p class="ae-def">${info.def}</p>
+      <div class="ae-rows">
+        ${info.rows.map(r => `<div class="ae-row"><span class="ae-row-label">${r.label}</span><span class="ae-row-desc">${r.desc}</span></div>`).join('')}
+      </div>`;
+  }
+
+  const floatTip = document.createElement('div');
+  floatTip.id = 'dot-float-tip';
+  document.body.appendChild(floatTip);
+
+  function showTip(dot, name, stanceText) {
+    floatTip.innerHTML = '';
+    const strong = document.createElement('strong');
+    strong.textContent = name;
+    floatTip.appendChild(strong);
+    floatTip.appendChild(document.createTextNode(stanceText));
+    floatTip.style.opacity = '1';
+    moveTip(dot);
+  }
+  function moveTip(dot) {
+    const r = dot.getBoundingClientRect();
+    const tw = 250, th = floatTip.offsetHeight || 60;
+    let left = r.left + r.width / 2 - tw / 2;
+    let top  = r.top - th - 8;
+    if (top < 8) top = r.bottom + 8;
+    left = Math.max(8, Math.min(left, window.innerWidth - tw - 8));
+    floatTip.style.left = left + 'px';
+    floatTip.style.top  = top  + 'px';
+  }
+  function hideTip() { floatTip.style.opacity = '0'; }
+
+  function hash(str) { let h = 2166136261; for (let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619);} return (h >>> 0); }
+  const jitter = {};
+  data.forEach(d => {
+    const h = hash(d.name);
+    jitter[d.name] = { x: 15 + (h % 70), y: 15 + ((h >>> 8) % 70) };
+  });
+
+  function renderLegend() {
+    const items = [
+      ["var(--bloc-g77)","G77 / China"],["var(--bloc-eu)","EU / European"],["var(--bloc-african)","Africa Group"],
+      ["var(--bloc-aosis)","AOSIS"],["var(--bloc-canz)","CANZ"],["var(--bloc-arab)","Arab / GCC"],
+      ["var(--bloc-nordic-baltic)","Nordic-Baltic"],["var(--bloc-caricom)","CARICOM"],["var(--bloc-ldc)","LDCs"],
+      ["var(--bloc-lldc)","LLDCs"],["var(--bloc-small-states)","Small States"],["var(--bloc-latam)","Latin America"],
+      ["var(--bloc-other)","Other"]
+    ];
+    legendEl.innerHTML = items.map(([c, label]) => `<span><span class="swatch" style="background:${c}"></span>${label}</span>`).join('');
+  }
+
+  function render() {
+    const xAxis = AXES['pace'], yAxis = AXES[ySel.value];
+    const yKey = Y_KEY[ySel.value];
+    plot.innerHTML = '';
+
+    const yLab = document.createElement('div'); yLab.className = 'axis-label y'; yLab.textContent = yAxis.label; plot.appendChild(yLab);
+    const xLab = document.createElement('div'); xLab.className = 'axis-label x'; xLab.textContent = xAxis.label; plot.appendChild(xLab);
+
+    xAxis.labels.forEach((lab, i) => {
+      const h = document.createElement('div'); h.className = 'col-head';
+      h.style.gridColumn = String(i + 3); h.style.gridRow = '4';
+      h.textContent = lab; plot.appendChild(h);
+    });
+    yAxis.labels.slice().reverse().forEach((lab, i) => {
+      const h = document.createElement('div'); h.className = 'row-head';
+      h.style.gridColumn = '2'; h.style.gridRow = String(i + 1);
+      h.textContent = lab; plot.appendChild(h);
+    });
+
+    const cells = {};
+    for (let yi = 0; yi < 3; yi++) {
+      for (let xi = 0; xi < 3; xi++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.style.gridColumn = String(xi + 3);
+        cell.style.gridRow = String(yi + 1);
+        const inner = document.createElement('div');
+        inner.className = 'cell-inner';
+        cell.appendChild(inner);
+        plot.appendChild(cell);
+        const yBucket = yAxis.buckets[2 - yi];
+        const xBucket = xAxis.buckets[xi];
+        cells[xBucket + '|' + yBucket] = inner;
+      }
+    }
+
+    data.forEach(d => {
+      const xb = d.pace, yb = d[yKey];
+      const cell = cells[xb + '|' + yb];
+      if (!cell) return;
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      dot.tabIndex = 0;
+      dot.dataset.bloc = d.bloc;
+      const initials = d.name.split(/[\s()/-]+/).filter(Boolean).slice(0,2).map(w => w[0]).join('').toUpperCase();
+      dot.textContent = initials;
+      dot.setAttribute('aria-label', d.name);
+      const j = jitter[d.name];
+      dot.style.left = j.x + '%';
+      dot.style.top  = j.y + '%';
+      const name = d.name, stanceText = stanceMap[d.name] || '';
+      dot.addEventListener('mouseenter', () => showTip(dot, name, stanceText));
+      dot.addEventListener('mouseleave', hideTip);
+      dot.addEventListener('focus',      () => showTip(dot, name, stanceText));
+      dot.addEventListener('blur',       hideTip);
+      cell.appendChild(dot);
+    });
+
+    renderLegend();
+  }
+
+  ySel.addEventListener('change', () => { render(); renderExplainer(); });
+  render();
+  renderExplainer();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Methodology — How the UN80 Briefing Readout Was Produced</title>
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --ink: #1a1c20;
+    --muted: #5b6470;
+    --rule: #e3e1da;
+    --accent-default: #2e4a86;
+
+    --green: #2f7a4d;
+    --green-soft: #e6f1ea;
+    --amber: #b27406;
+    --amber-soft: #fbf1dc;
+    --red:   #b03333;
+    --red-soft: #f7e3e3;
+    --blue:  #1f5fb0;
+    --blue-soft: #e2ecf8;
+    --grey:  #6a727b;
+    --grey-soft: #ecedef;
+
+    --focus: #ffbf47;
+    --radius: 10px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+  }
+  a { color: var(--accent-default); }
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .skip {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--ink); color: #fff; padding: .6rem 1rem;
+    z-index: 100;
+  }
+  .skip:focus { left: 0; }
+
+  .shell {
+    display: grid;
+    grid-template-columns: 240px minmax(0,1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    nav#toc { position: static !important; max-height: none !important; }
+  }
+
+  header.page {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  header.page h1 {
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    margin: 0 0 .5rem;
+    line-height: 1.2;
+  }
+  header.page dl.meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .15rem 1rem;
+    margin: .75rem 0 0;
+    color: var(--muted);
+    font-size: .92rem;
+  }
+  header.page dt { font-weight: 600; color: var(--ink); }
+  header.page dd { margin: 0; }
+  header.page .crosslink { margin-top: .85rem; font-size: .9rem; }
+  header.page .crosslink a { margin-right: 1rem; }
+
+  nav#toc {
+    position: sticky;
+    top: 1rem;
+    align-self: start;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    padding: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    font-size: .92rem;
+  }
+  nav#toc h2 {
+    margin: 0 0 .5rem;
+    font-size: .78rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  nav#toc ol { list-style: none; padding: 0; margin: 0; }
+  nav#toc li { margin: .15rem 0; }
+  nav#toc a {
+    display: block;
+    padding: .35rem .5rem;
+    border-radius: 6px;
+    color: var(--ink);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+  }
+  nav#toc a:hover { background: var(--bg); }
+  nav#toc a[aria-current="location"] {
+    background: var(--bg);
+    border-left-color: var(--accent-default);
+    font-weight: 600;
+  }
+
+  main { min-width: 0; }
+  section.block {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+  section.block > details > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    user-select: none;
+  }
+  section.block > details > summary::-webkit-details-marker { display: none; }
+  section.block > details > summary::before {
+    content: "▸";
+    color: var(--muted);
+    transition: transform .15s ease;
+    display: inline-block;
+    width: 1ch;
+  }
+  section.block > details[open] > summary::before { transform: rotate(90deg); }
+  .body { padding: 0 1.25rem 1.25rem; }
+  .body > :first-child { margin-top: 0; }
+
+  h3.sub { font-size: 1rem; margin: 1.25rem 0 .5rem; color: var(--ink); }
+  ul.tight { margin: .25rem 0 .75rem; padding-left: 1.25rem; }
+  ul.tight li { margin: .25rem 0; }
+  ol.tight { margin: .25rem 0 .75rem; padding-left: 1.25rem; }
+  ol.tight li { margin: .35rem 0; }
+
+  code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: .86em;
+    background: var(--grey-soft);
+    padding: .1rem .35rem;
+    border-radius: 4px;
+  }
+  pre {
+    background: #1f2127;
+    color: #e8e6df;
+    padding: .9rem 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: .82rem;
+    line-height: 1.5;
+    margin: .6rem 0 1rem;
+  }
+  pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+
+  .note {
+    background: var(--bg);
+    border-left: 4px solid var(--accent-default);
+    padding: .6rem .9rem;
+    margin: .75rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .note strong { color: var(--ink); }
+  .warn {
+    background: var(--amber-soft);
+    border-left: 4px solid var(--amber);
+    padding: .6rem .9rem;
+    margin: .75rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .pipeline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    align-items: stretch;
+    margin: .5rem 0 1rem;
+  }
+  .pipeline .step {
+    flex: 1 1 140px;
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--accent-default);
+    border-radius: 8px;
+    background: var(--surface);
+    padding: .65rem .75rem;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .pipeline .step .n {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--accent-default);
+  }
+  .pipeline .step .t { font-weight: 600; margin: .1rem 0 .25rem; }
+  .pipeline .step .d { font-size: .82rem; color: var(--muted); }
+
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    margin: .6rem 0 1rem;
+    font-size: .9rem;
+  }
+  table.data th, table.data td {
+    text-align: left;
+    padding: .5rem .6rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  table.data th {
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    border-bottom: 2px solid var(--rule);
+  }
+  table.data tr:last-child td { border-bottom: none; }
+  table.data code { white-space: nowrap; }
+
+  .tag {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 600;
+    padding: .12rem .5rem;
+    border-radius: 999px;
+    letter-spacing: .02em;
+  }
+  .tag.auto  { background: var(--blue-soft);  color: var(--blue);  border: 1px solid color-mix(in srgb, var(--blue) 25%, transparent); }
+  .tag.human { background: var(--green-soft); color: var(--green); border: 1px solid color-mix(in srgb, var(--green) 25%, transparent); }
+
+  .global-toolbar {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: .75rem 1rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+  .control-group { display: flex; align-items: center; gap: .5rem; }
+  .btn {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: .4rem .75rem;
+    font: inherit;
+    font-size: .88rem;
+    cursor: pointer;
+    color: var(--ink);
+  }
+  .btn:hover { background: var(--bg); }
+
+  footer.page {
+    grid-column: 1 / -1;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    font-style: italic;
+    font-size: .9rem;
+  }
+
+  @media print {
+    body { background: #fff; color: #000; }
+    .shell { grid-template-columns: 1fr; max-width: none; padding: 0; gap: 0; }
+    nav#toc, .global-toolbar { display: none !important; }
+    section.block { box-shadow: none; border: none; page-break-inside: avoid; }
+    section.block > details > summary { font-size: 1.2rem; }
+    pre { white-space: pre-wrap; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="shell">
+
+  <header class="page">
+    <h1>Methodology: How the UN80 Briefing Readout Was Produced</h1>
+    <dl class="meta">
+      <dt>Subject</dt><dd>Method behind the readout of the SG's briefing on the UN80 Initiative</dd>
+      <dt>Source event</dt><dd>Informal GA plenary briefing, 12 May 2025 (79th session)</dd>
+      <dt>Purpose</dt><dd>A reproducible record of how the source transcript was obtained, treated, analysed, and published</dd>
+    </dl>
+    <p class="crosslink">
+      See also:
+      <a href="../readouts/un80-briefing-2025-05.html">The readout</a>
+    </p>
+  </header>
+
+  <div class="warn" style="grid-column:1/-1;margin-bottom:1.25rem;">
+    <strong>Source is UN ASR, not an official record.</strong> This readout is built from the automatic-speech-recognition (ASR) transcript published on the UN transcripts portal (<a href="https://transcripts.un.org/en" target="_blank" rel="noopener">transcripts.un.org</a>). ASR transcripts are not official UN records. Every verbatim quote used in the readout is flagged for a final audio check against the UN Web TV recording before external publication; names, figures and dates are treated as provisional until confirmed.
+  </div>
+
+  <nav id="toc" aria-label="Sections">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#overview">Overview &amp; Purpose</a></li>
+      <li><a href="#glance">Pipeline at a Glance</a></li>
+      <li><a href="#tooling">Tools Used</a></li>
+      <li><a href="#stage1">Stage 1 — Discovery</a></li>
+      <li><a href="#stage2">Stage 2 — Fetch &amp; Convert</a></li>
+      <li><a href="#stage3">Stage 3 — Verification</a></li>
+      <li><a href="#stage4">Stage 4 — Analysis &amp; Coding</a></li>
+      <li><a href="#stage5">Stage 5 — Synthesis</a></li>
+      <li><a href="#stage6">Stage 6 — Publication</a></li>
+      <li><a href="#framing">A Note on the Analytical Frame</a></li>
+      <li><a href="#provenance">Provenance &amp; Traceability</a></li>
+      <li><a href="#limits">Limitations &amp; Honesty Notes</a></li>
+      <li><a href="#runbook">Replication Runbook</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+
+    <div class="global-toolbar" role="group" aria-label="Document controls">
+      <div class="control-group">
+        <button class="btn" id="expand-all" type="button">Expand all</button>
+        <button class="btn" id="collapse-all" type="button">Collapse all</button>
+      </div>
+    </div>
+
+    <section class="block" id="overview">
+      <details open>
+        <summary>Overview &amp; Purpose</summary>
+        <div class="body">
+          <p>This document records how the <a href="../readouts/un80-briefing-2025-05.html">UN80 briefing readout</a> was produced. The readout summarises the Secretary-General's informal briefing to the General Assembly on the UN80 Initiative, held on 12 May 2025.</p>
+          <p>It exists for two reasons:</p>
+          <ul class="tight">
+            <li><strong>Replication.</strong> This readout is the first in a four-meeting longitudinal arc tracking the UN80 negotiation. The same treatment will be applied to the later rounds, so this is a concrete runbook.</li>
+            <li><strong>Provenance.</strong> If a reader asks how the conclusions were reached and where the information came from, this document answers that directly.</li>
+          </ul>
+          <p>The pipeline differs from earlier readouts in one important respect: the source transcript was <strong>obtained from the UN transcripts portal</strong> rather than captured and transcribed locally. The portal supplies a speaker-attributed ASR transcript, which removes the recording and speech-to-text stages but adds a dependency on machine transcription that must be verified before quotes are trusted.</p>
+          <p>The work moved through six stages: the meeting was discovered on the portal, its transcript fetched and converted to attributed markdown, verified against the source, analysed into delegation positions, synthesised into a structured briefing, and published as a single interactive HTML page with a companion methodology record. Every stance on the readout traces to a verbatim passage in the transcript. Where a delegation did not state a position on a coded dimension, it is marked silent rather than guessed (the project's no-fabrication rule).</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="glance">
+      <details open>
+        <summary>Pipeline at a Glance</summary>
+        <div class="body">
+          <div class="pipeline">
+            <div class="step"><div class="n">Stage 1</div><div class="t">Discover</div><div class="d">Find the meeting on transcripts.un.org</div></div>
+            <div class="step"><div class="n">Stage 2</div><div class="t">Fetch + convert</div><div class="d">Portal JSON → attributed markdown</div></div>
+            <div class="step"><div class="n">Stage 3</div><div class="t">Verify</div><div class="d">Read transcript; flag quotes for audio check</div></div>
+            <div class="step"><div class="n">Stage 4</div><div class="t">Analyse</div><div class="d">Extract + code positions on two axes</div></div>
+            <div class="step"><div class="n">Stage 5</div><div class="t">Synthesise</div><div class="d">Consensus, fault lines, stance table</div></div>
+            <div class="step"><div class="n">Stage 6</div><div class="t">Publish</div><div class="d">One interactive HTML readout</div></div>
+          </div>
+          <p class="note">Each stage produces a named file on disk, so any claim on the readout can be walked back to its source. The transcript, the source-analysis notes, and the HTML all live under the project's <code>transcripts/un80/</code> and <code>readouts/</code> folders.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="tooling">
+      <details open>
+        <summary>Tools Used</summary>
+        <div class="body">
+          <p>Because the transcript came from the UN's own portal, this readout needed no recording or speech-to-text tooling. The source is a public UN transcript; the fetch and conversion are handled by a small purpose-built script, and the analysis and build were orchestrated with an AI assistant, named openly below.</p>
+
+          <table class="data">
+            <thead>
+              <tr><th>Stage</th><th>Tool</th><th>What it is</th><th>Role here</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Discover / fetch / convert</td>
+                <td><strong>fetch_un_transcripts.py</strong></td>
+                <td>Purpose-built Python script (stdlib only)</td>
+                <td>Queried the portal, downloaded the meeting JSON, and converted it to speaker-attributed markdown.</td>
+              </tr>
+              <tr>
+                <td>Source</td>
+                <td><strong>transcripts.un.org</strong></td>
+                <td>Official UN transcripts portal (ASR)</td>
+                <td>Supplied the raw transcript with built-in speaker attribution (name, country, function, bloc) and statement timestamps.</td>
+              </tr>
+              <tr>
+                <td>Cross-check</td>
+                <td><strong>UN Web TV</strong></td>
+                <td>Official UN video archive</td>
+                <td>The recording against which flagged quotes are audio-verified.</td>
+              </tr>
+              <tr>
+                <td>Analyse + orchestrate + build</td>
+                <td><strong>Claude Code (Opus 4.8)</strong></td>
+                <td>AI analysis and coding assistant</td>
+                <td>Extracted and coded positions from the transcript, drafted the briefing, and rendered the HTML.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 class="sub">How Claude Code was used</h3>
+          <p>Claude Code read the full attributed transcript, extracted each delegation's stated position verbatim, coded those positions consistently on the readout's two axes, drafted the structured briefing, and rendered it into the interactive HTML page — reusing the design system established by earlier readouts. Opus 4.8 was chosen over the standard model because this is a dense multi-bloc session (30 speakers) where attribution and nuance matter. The substantive judgements — what each delegation meant, where it sits on each axis, the briefing wording — are the analyst's; the assistant did the extraction, consolidation and build. The automated-versus-checked split is in the <a href="#limits">limitations section</a>.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage1">
+      <details open>
+        <summary>Stage 1 — Discovery</summary>
+        <div class="body">
+          <p>The UN transcripts portal carries ASR transcripts for the preceding 365 days. The full UN80 series was located with a title-scoped query:</p>
+          <pre><code>python pipeline/fetch_un_transcripts.py discover --q "UN80" --transcribed-only</code></pre>
+          <p>This returned an unbroken series of transcribed UN80 meetings from May 2025 onward — the plenary briefings plus the Working Group negotiation. From that series, four in-format rounds were selected for the longitudinal arc; this readout covers the first, the 12 May 2025 SG launch briefing (portal asset <code>k1n/k1nnav1rew</code>).</p>
+          <div class="note"><strong>Why title-scoped, not full-text.</strong> Full-text keyword search over-returns badly — it matches any meeting where a phrase was merely uttered in passing. Date-range discovery and title-scoped queries surface a coherent meeting series; full-text search is used only to confirm a theme's presence.</div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage2">
+      <details open>
+        <summary>Stage 2 — Fetch &amp; Convert</summary>
+        <div class="body">
+          <p>The selected meeting was fetched and converted to attributed markdown:</p>
+          <pre><code>python pipeline/fetch_un_transcripts.py fetch k1n/k1nnav1rew --silo un80
+python pipeline/fetch_un_transcripts.py convert transcripts/un80/2025-05-12_k1nnav1rew.json</code></pre>
+          <p>The portal's JSON nests the useful fields — title and summary under <code>metadata</code>, the statements under <code>transcript.data</code>, and the topic taxonomy under <code>transcript.topics</code>. The conversion script reads those and emits <code>2025-05-12_k1nnav1rew_attributed.md</code>: one heading per speaker turn, each carrying the portal's attribution (name, function, country or bloc) and a timestamp, followed by that speaker's text.</p>
+          <p>For this meeting the conversion produced 54 statements across 30 speakers. The portal also carries a UN-provided summary and a ten-topic taxonomy, which were used as orienting context but not as a substitute for reading the statements themselves.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage3">
+      <details open>
+        <summary>Stage 3 — Verification</summary>
+        <div class="body">
+          <p>The attributed transcript was read end to end. Because the text is machine-generated ASR, this stage has two jobs:</p>
+          <ul class="tight">
+            <li><strong>Read for meaning.</strong> Confirm that each delegation's position is legible in the ASR text despite transcription noise, and that the speaker attribution the portal assigned is internally consistent with the chair's handover lines in the transcript.</li>
+            <li><strong>Flag every quote for audio check.</strong> Any verbatim line destined for the readout — talking points, tooltips, the executive summary — is marked for a final check against the UN Web TV recording before the readout is published externally. This readout carries that flag prominently; the quotes reproduce the ASR text and are provisional until that check is done.</li>
+          </ul>
+          <div class="warn">
+            <strong>Why the flag matters.</strong> ASR mishears names, acronyms and figures, and struggles where live interpretation overlays the original speaker. The portal transcript is a strong draft, but a position-critical quote (for example the SG's "eliminate 20% of the posts" figure, or the ">90% of arrears" line) must be confirmed by ear before it is attributed in print. Until then, the readout treats such quotes as reported-from-ASR, not verified.
+          </div>
+          <p>The ASR portal's accuracy was previously benchmarked against an independently verified transcript of a different meeting, with matching results on position-critical passages — which is why the portal is trusted as a drafting source. It does not remove the per-quote audio check.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage4">
+      <details open>
+        <summary>Stage 4 — Analysis &amp; Coding</summary>
+        <div class="body">
+          <p>With the attributed transcript in hand, each delegation's stated position was extracted verbatim and sorted into comparable positions. The working notes are kept in <code>readouts/un80-briefing-2025-05-source.md</code>, which records the consensus points, the fault lines, and a per-delegation coding table, each row anchored to a quote.</p>
+          <h3 class="sub">How positions were coded</h3>
+          <p>Each delegation was placed on two axes drawn directly from what it said (see <a href="#framing">the note on the analytical frame</a> for why these axes and not a support spectrum):</p>
+          <ul class="tight">
+            <li><strong>Sovereignty insistence (X):</strong> how strongly the delegation insists the process stay Member-State-led and routed through the Fifth Committee / ACABQ — <code>ms-led</code>, <code>mid</code> (endorses both process and SG action), or <code>sg-latitude</code>.</li>
+            <li><strong>Safeguard vs. cut-appetite (Y):</strong> whether the delegation foregrounds protecting development mandates and the vulnerable — <code>safeguard</code>, <code>neutral</code>, or <code>cut-appetite</code>. A second Y view, <strong>cut appetite</strong> (low / moderate / high), surfaces the same tension directly.</li>
+          </ul>
+          <p>Where a delegation did not state a position on a dimension in this meeting, it was marked accordingly rather than assigned a guess. Individual states that spoke in national capacity (Austria, Switzerland, Romania, Morocco, Egypt, Mexico) are coloured by regional affinity and flagged as national-capacity statements in the reference cards.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage5">
+      <details open>
+        <summary>Stage 5 — Synthesis &amp; Briefing</summary>
+        <div class="body">
+          <p>The coded positions were collapsed into a single structured briefing, organised into:</p>
+          <ul class="tight">
+            <li><strong>Executive summary</strong> — what happened plus the defining divide, broken into a skimmable bullet list of poles so the two-minute reader gets the whole map.</li>
+            <li><strong>What the SG proposed</strong> — the three workstreams and the concrete early moves, since this meeting is a briefing, not only a debate.</li>
+            <li><strong>Areas of consensus</strong> — the points cutting across all blocs.</li>
+            <li><strong>Fault lines</strong> — the single analytical home of every position. Each fault line names its poles, who anchors them, and one anchor quote per side; camp detail lives inside the relevant fault line rather than in separate camp sections.</li>
+            <li><strong>A stance table</strong> covering every delegation that spoke, each with a one-line summary — the per-delegation detail layer.</li>
+            <li><strong>Talking points</strong> drawn from verbatim statements, each flagged for audio verification — the single verbatim home of the key quotes; body prose paraphrases them.</li>
+          </ul>
+          <p>This briefing maps directly onto the sections of the final HTML. Two structural rules keep it brief: <strong>each position appears once in prose</strong> (a delegation is named at most once in the fault-lines section, with full detail only in the reference cards), and the page opens with only the executive summary and the proposal section expanded — a two-to-five-minute read for a high-level reader, with everything deeper collapsed behind an expand-all control for analysts.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="stage6">
+      <details open>
+        <summary>Stage 6 — Publication (HTML)</summary>
+        <div class="body">
+          <p>The briefing was rendered as a single self-contained HTML page — a static file with inline CSS and JS, no build step, no external dependencies.</p>
+          <h3 class="sub">Interactive elements</h3>
+          <ul class="tight">
+            <li><strong>Fault-line cluster plot.</strong> A two-axis scatter where the horizontal axis is fixed to sovereignty insistence (Member-State-led → SG-latitude) and the vertical axis switches between "safeguard vs. cut-appetite" and "cut appetite." Each dot is one delegation, coloured by regional bloc, with the verbatim position on hover.</li>
+            <li><strong>Searchable reference grid.</strong> A card per delegation, filterable by sovereignty camp and by safeguard/cut position, with free-text search across names and summaries.</li>
+            <li><strong>Sequence banner.</strong> A four-step marker placing this readout as round 1 of the UN80 arc, so a reader can see where it sits in the negotiation.</li>
+          </ul>
+          <h3 class="sub">Accessibility choices</h3>
+          <ul class="tight">
+            <li>A skip-to-content link and visible keyboard focus outlines.</li>
+            <li>Collapsible sections with an expand-all / collapse-all control.</li>
+            <li>A sticky table of contents that tracks the reader's position.</li>
+          </ul>
+          <p>This methodology page reuses the same design system, so the readout and its method read as one family.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="framing">
+      <details open>
+        <summary>A Note on the Analytical Frame</summary>
+        <div class="body">
+          <p>Earlier readouts coded delegations on a support / cautious / skeptical spectrum, which suited a policy consultation where states genuinely divided over whether to back a proposal. This meeting is different: <strong>every delegation on the record welcomed the UN80 Initiative in principle.</strong> There was no blocking bloc. Coding "do you support UN80" would have produced a near-uniform field with no signal.</p>
+          <p>So the axes were chosen to capture the tensions that were actually live — <em>who controls the reform</em> (the sovereignty axis) and <em>what must be protected from it</em> (the safeguard axis). This choice is itself an analytical judgement, disclosed here so a reader can weigh it. The coding table in the source notes shows the quote behind each placement. A different analyst might draw the axes differently; the underlying transcript is the check.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="provenance">
+      <details open>
+        <summary>Provenance &amp; Traceability</summary>
+        <div class="body">
+          <p>This is the short answer to "how do you know?" Each type of claim on the readout traces to a specific source.</p>
+          <table class="data">
+            <thead>
+              <tr><th>Claim type</th><th>Traces to</th><th>How</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Verbatim quotes in talking points and tooltips</td>
+                <td>Portal ASR transcript (<code>..._attributed.md</code>)</td>
+                <td>Reproduced from the ASR text; flagged for a final audio check against the UN Web TV recording before external publication.</td>
+              </tr>
+              <tr>
+                <td>Who said what (speaker attribution)</td>
+                <td>Portal metadata + chair handover cues</td>
+                <td>Attribution supplied by the portal, cross-read against the chair's handover lines in the transcript.</td>
+              </tr>
+              <tr>
+                <td>Sovereignty / safeguard coding per delegation</td>
+                <td><code>un80-briefing-2025-05-source.md</code></td>
+                <td>Extracted from the transcript; each row anchored to a quote; unstated positions marked, not guessed.</td>
+              </tr>
+              <tr>
+                <td>Consensus points, fault lines, stance table</td>
+                <td><code>un80-briefing-2025-05-source.md</code></td>
+                <td>Synthesis of the coded positions into a structured briefing.</td>
+              </tr>
+              <tr>
+                <td>Section text and visualisations on the page</td>
+                <td>The readout HTML file</td>
+                <td>Rendered directly from the briefing; no new facts introduced at this stage.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="limits">
+      <details open>
+        <summary>Limitations &amp; Honesty Notes</summary>
+        <div class="body">
+          <p>The method is transparent about where error can enter. None of the steps below were hidden; each was managed.</p>
+          <ul class="tight">
+            <li><strong>The transcript is machine ASR, not an official record.</strong> This is the single biggest caveat. Portal ASR mishears names, acronyms and figures, especially where live interpretation overlays the original speaker. The mitigation is the per-quote audio check (Stage 3); until that check is done for a given quote, it is provisional. The readout carries this flag prominently rather than presenting ASR text as verified.</li>
+            <li><strong>Speaker attribution is the portal's.</strong> It is cross-read against the chair's handover cues but not independently re-derived from the audio. One turn in the transcript was tagged "unidentified speaker" by the portal and is treated as such.</li>
+            <li><strong>Summarisation can flatten nuance.</strong> Reducing a multi-minute statement to one line drops detail. The verbatim quotes are retained alongside the summaries so a reader can go back to the wording.</li>
+            <li><strong>Coding is interpretive, not official.</strong> The sovereignty and safeguard axes are an analytical reading, disclosed in the <a href="#framing">frame note</a>, not a UN classification. Positions not stated are marked, not inferred.</li>
+          </ul>
+          <h3 class="sub">What was automated versus human-checked</h3>
+          <ul class="tight">
+            <li><span class="tag auto">Automated</span> Portal discovery, transcript fetch, JSON-to-markdown conversion, first-pass position extraction.</li>
+            <li><span class="tag human">Human-checked</span> The reading of the transcript for meaning; the coding judgements; the briefing wording; the published page. Per-quote audio verification against the recording is the outstanding pre-publication step.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="runbook">
+      <details open>
+        <summary>Replication Runbook</summary>
+        <div class="body">
+          <p>To repeat this for the next round in the UN80 arc (16 Sep 2025, 19 Jan 2026, 29 Jun 2026) or any other portal-sourced meeting. All commands run from the project folder so the relative <code>transcripts/</code> paths resolve. See <code>pipeline/un-transcripts.md</code> for the fetcher guide.</p>
+
+          <h3 class="sub">1. Discover the meeting</h3>
+          <pre><code>python pipeline/fetch_un_transcripts.py discover --q "UN80" --transcribed-only</code></pre>
+          <p>Use a title-scoped <code>--q</code> or a date range; avoid full-text keyword search for finding a series. Pick the asset slug for the round you want.</p>
+
+          <h3 class="sub">2. Fetch and convert</h3>
+          <pre><code>python pipeline/fetch_un_transcripts.py fetch &lt;slug&gt; --silo un80
+python pipeline/fetch_un_transcripts.py convert transcripts/un80/&lt;file&gt;.json</code></pre>
+          <p>Produces <code>&lt;date&gt;_&lt;slug&gt;_attributed.md</code> and updates <code>transcripts/un80/INDEX.md</code>.</p>
+
+          <h3 class="sub">3. Verify (do not skip)</h3>
+          <p>Read the attributed markdown end to end. Confirm each position is legible in the ASR text and the portal's attribution is consistent with the chair's handovers. Flag every quote you intend to use for a final audio check against the UN Web TV recording. This is a manual step with no command.</p>
+
+          <h3 class="sub">4. Analyse and code</h3>
+          <ol class="tight">
+            <li>Extract each delegation's stated position verbatim.</li>
+            <li>Code each on the two axes (sovereignty; safeguard / cut-appetite); mark unstated positions.</li>
+            <li>Save the working notes as <code>&lt;readout-slug&gt;-source.md</code>, one coding row per delegation with an anchor quote.</li>
+          </ol>
+
+          <h3 class="sub">5. Synthesise the briefing</h3>
+          <p>Collapse the coded positions into the seven-section structure: executive summary (headline paragraph plus a bullet breakdown of the defining divide), what the SG (or principals) proposed, areas of consensus, fault lines (poles + anchors + one quote per side; camp detail folded in, not in separate sections), the fault-line plot, audio-flagged talking points, and the full stance reference grid.</p>
+          <p>Three rules keep the readout brief. <strong>One prose home per position:</strong> a delegation is named at most once in the fault-lines section; anything more belongs in its reference card. <strong>Quotes live once:</strong> talking points hold the verbatim text; body prose paraphrases with a pointer. <strong>Tiered opening:</strong> only the executive summary and the proposal section are expanded on load — the two-to-five-minute path; everything else starts collapsed.</p>
+
+          <h3 class="sub">6. Publish</h3>
+          <p>Render the briefing into one HTML page, reusing the design system and the fault-line plot data structure (one entry per delegation with sovereignty, safeguard, cut, and bloc fields). Name it <code>un80-briefing-&lt;YYYY-MM&gt;.html</code> and cross-link it with this methodology page. The canonical structural example is <code>readouts/un80-briefing-2025-05.html</code>.</p>
+
+          <div class="note">
+            <strong>File-naming chain.</strong>
+            portal <code>&lt;slug&gt;.json</code> → <code>&lt;date&gt;_&lt;slug&gt;_attributed.md</code> → <code>&lt;readout-slug&gt;-source.md</code> → the readout HTML page.
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <footer class="page">
+      Methodology record for the UN80 briefing readout, 12 May 2025. Source: the UN transcripts portal ASR transcript (asset k1n/k1nnav1rew), cross-checked against UN Web TV. Analysis grounded in that transcript only; quotes provisional pending audio verification. Analysed and built with Claude Code (Opus 4.8). Silo C (UN80), readout 1 of 4.
+    </footer>
+
+  </main>
+</div>
+
+<script>
+(function () {
+  const allDetails = () => document.querySelectorAll('section.block > details');
+  document.getElementById('expand-all').addEventListener('click', () => allDetails().forEach(d => d.open = true));
+  document.getElementById('collapse-all').addEventListener('click', () => allDetails().forEach(d => d.open = false));
+
+  const tocLinks = Array.from(document.querySelectorAll('nav#toc a'));
+  const sections = tocLinks.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    const setCurrent = id => tocLinks.forEach(a => {
+      if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setCurrent(visible[0].target.id);
+    }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+    sections.forEach(s => io.observe(s));
+  }
+})();
+</script>
+</body>
+</html>
