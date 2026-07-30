@@ -331,7 +331,7 @@
   </header>
 
   <div class="warn" style="grid-column:1/-1;margin-bottom:1.25rem;">
-    <strong>Source is UN ASR, not an official record.</strong> This readout is built from the automatic-speech-recognition (ASR) transcript published on the UN transcripts portal (<a href="https://transcripts.un.org/en" target="_blank" rel="noopener">transcripts.un.org</a>). ASR transcripts are not official UN records. Unlike earlier readouts, every position-critical quote here was <strong>audio-verified against the meeting recording before publication</strong> (see <a href="#stage4">Stage 4</a>); names, figures and dates elsewhere are still treated as provisional against the ASR text.
+    <strong>Source is UN ASR, not an official record.</strong> This readout is built from the automatic-speech-recognition (ASR) transcript published on the UN transcripts portal (<a href="https://transcripts.un.org/en" target="_blank" rel="noopener">transcripts.un.org</a>). ASR transcripts are not official UN records. Unlike earlier readouts, every position-critical quote here was <strong>audio-verified against the meeting recording before publication</strong> — 29 quotes in total, checked against the <a href="https://webtv.un.org/en/asset/k1w/k1w95ycgte" target="_blank" rel="noopener">UN Web TV recording</a> (English channel): nine on 16 July 2026 and a further 20 covering the fault-line plot's scoring evidence on 29 July 2026, all matching. Quotes in the evidence panel beyond those 29 are verbatim from the ASR transcript but have not been individually audio-checked (see <a href="#stage4">Stage 4</a>). Names, figures and dates elsewhere are treated as provisional against the ASR text; Sudanese place names (El&nbsp;Fasher, El&nbsp;Geneina, El&nbsp;Obeid) and personal names have been normalised to standard English spellings, which the ASR mangles.
   </div>
 
   <nav id="toc" aria-label="Sections">
@@ -370,7 +370,7 @@
           <p>This document records how the <a href="../readouts/sudan-icc-briefing-2026-07.html">Sudan / ICC Security Council readout</a> was produced. The readout summarises the Security Council's 10,197th meeting of 15 July 2026, at which the ICC Deputy Prosecutor delivered the Office of the Prosecutor's 43rd report on the Darfur situation under Resolution 1593.</p>
           <p>It exists for two reasons:</p>
           <ul class="tight">
-            <li><strong>Replication.</strong> This is the first delivered readout in the <code>security-council</code> silo, and the Sudan/Darfur thread within it is expected to recur. The same treatment will be applied to later Sudan sessions, so this is a concrete runbook.</li>
+            <li><strong>Replication.</strong> This is the first delivered readout in the <code>security-council</code> track, and the Sudan/Darfur thread within it is expected to recur. The same treatment will be applied to later Sudan sessions, so this is a concrete runbook.</li>
             <li><strong>Provenance.</strong> If a reader asks how the conclusions were reached and where the information came from, this document answers that directly.</li>
           </ul>
           <p>Like the UN80 readouts, the source transcript was <strong>obtained from the UN transcripts portal</strong> rather than captured and transcribed locally. The portal supplies a speaker-attributed ASR transcript, which removes the recording and speech-to-text stages but adds a dependency on machine transcription.</p>
@@ -468,7 +468,7 @@
       <details open>
         <summary>Stage 2 — Fetch &amp; Convert</summary>
         <div class="body">
-          <p>The meeting was fetched into the <code>security-council</code> silo and converted to attributed markdown:</p>
+          <p>The meeting was fetched into the <code>security-council</code> track and converted to attributed markdown:</p>
           <pre><code>python pipeline/fetch_un_transcripts.py fetch sc/10197 --silo security-council
 python pipeline/fetch_un_transcripts.py convert transcripts/security-council/2026-07-15_10197.json</code></pre>
           <p>The portal's JSON nests the useful fields — title and summary under <code>metadata</code>, the statements under <code>transcript.data</code>, and per-sentence word timestamps under each statement's <code>paragraphs[].sentences[]</code>. The conversion script reads those and emits <code>2026-07-15_10197_attributed.md</code>: one heading per speaker turn, each carrying the portal's attribution and a timestamp, followed by that speaker's text.</p>
@@ -567,7 +567,7 @@ python pipeline/fetch_un_transcripts.py convert transcripts/security-council/202
           <p>The English audio flavor (paramsId 100) is always the verification target. It is the channel the portal ASR actually transcribes — floor audio for English speakers, the English interpreter for everyone else — so it is the like-for-like comparison. Using raw floor / original-language audio would not match the ASR text for a non-English speaker.</p>
 
           <h3 class="sub">The result: 9 of 9 quotes matched</h3>
-          <p>All nine position-critical quotes matched the recording; no corrections were needed. The readout, source notes and silo index were updated from "not yet audio-verified" to verified with timestamps.</p>
+          <p>All nine position-critical quotes matched the recording; no corrections were needed. The readout, source notes and track index were updated from "not yet audio-verified" to verified with timestamps.</p>
           <div class="note"><strong>Second round, 29 July 2026 — the scoring evidence.</strong> Adding the scored plot put a much larger body of quotes on the page, so the check was run again against the same recording. First a mechanical sweep confirmed that all <strong>114 evidence fragments</strong> behind the 16 scored delegations appear verbatim in the transcript. Then the <strong>20 quotes that carry the ordering claim</strong> — the top-of-scale anchors, both sides of the UK/Liberia tie, the four delegations that outscore the UK, and the negative markers that push Bahrain, Pakistan, China and Somalia to the floor — were audio-checked. <strong>All 20 matched; no corrections.</strong> Sixteen hit on a first-pass slice; two needed a wider window; two needed a long probe. France drifted about 55 seconds from its transcript timestamp, against 10–20 seconds for the same speaker in round one — a reminder that interpretation drift is not a fixed per-speaker offset. Quotes in the evidence panel beyond these 20 remain ASR-verbatim without an individual audio check, which the readout states on the panel itself.</div>
           <table class="data">
             <thead>
@@ -719,7 +719,7 @@ python pipeline/fetch_un_transcripts.py convert transcripts/security-council/202
       <details open>
         <summary>Replication Runbook</summary>
         <div class="body">
-          <p>To repeat this for the next Sudan session in the <code>security-council</code> silo, or any other portal-sourced chaired meeting. All commands run from the project folder so the relative <code>transcripts/</code> paths resolve. See <code>pipeline/un-transcripts.md</code> for the fetcher guide and <code>pipeline/quote-verification.md</code> for the full verification method.</p>
+          <p>To repeat this for the next Sudan session in the <code>security-council</code> track, or any other portal-sourced chaired meeting. All commands run from the project folder so the relative <code>transcripts/</code> paths resolve. See <code>pipeline/un-transcripts.md</code> for the fetcher guide and <code>pipeline/quote-verification.md</code> for the full verification method.</p>
 
           <h3 class="sub">1. Discover the meeting</h3>
           <p>Find the session on the portal by its meeting record (S/PV number) or a date-range query; avoid full-text keyword search for finding a specific session. Note both the transcript asset slug (<code>sc/&lt;n&gt;</code>) and the UN Web TV / Kaltura asset for later verification.</p>
