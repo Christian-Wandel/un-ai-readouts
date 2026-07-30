@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Methodology &mdash; UN80 Initiative Readout, 29 July 2026</title>
+<style>
+  :root {
+    --bg: #f7f6f2; --surface: #ffffff; --ink: #1a1c20; --muted: #5b6470;
+    --rule: #e3e1da; --accent-default: #2e4a86;
+    --green: #2f7a4d; --green-soft: #e6f1ea;
+    --amber: #b27406; --amber-soft: #fbf1dc;
+    --red: #b03333; --red-soft: #f7e3e3;
+    --blue: #1f5fb0; --blue-soft: #e2ecf8;
+    --grey: #6a727b; --grey-soft: #ecedef;
+    --camp-donor: #1f5fb0; --camp-canzpif: #197b5a; --camp-g77: #8a6d1c;
+    --camp-sceptic: #b03333; --camp-un: #8a3d8f;
+    --focus: #ffbf47; --radius: 10px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin:0; font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color:var(--ink); background:var(--bg); }
+  a { color: var(--accent-default); }
+  a:focus-visible, summary:focus-visible { outline:3px solid var(--focus); outline-offset:2px; }
+  .skip { position:absolute; left:-9999px; top:0; background:var(--ink); color:#fff; padding:.6rem 1rem; z-index:100; }
+  .skip:focus { left:0; }
+  .shell { display:grid; grid-template-columns:240px minmax(0,1fr); gap:2rem; max-width:1200px; margin:0 auto; padding:2rem 1.25rem 4rem; }
+  @media (max-width:900px){ .shell{grid-template-columns:1fr;} nav#toc{position:static !important;max-height:none !important;} }
+  header.page { grid-column:1/-1; border-bottom:1px solid var(--rule); padding-bottom:1rem; margin-bottom:1rem; }
+  header.page h1 { font-size:clamp(1.5rem,2.4vw,2.1rem); margin:0 0 .5rem; line-height:1.2; }
+  header.page p.sub { margin:.4rem 0 0; color:var(--muted); }
+  nav#toc { position:sticky; top:1rem; align-self:start; max-height:calc(100vh - 2rem); overflow-y:auto; padding:1rem; background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius); font-size:.92rem; }
+  nav#toc h2 { margin:0 0 .5rem; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+  nav#toc ol { list-style:none; padding:0; margin:0; }
+  nav#toc li { margin:.15rem 0; }
+  nav#toc a { text-decoration:none; display:block; padding:.2rem .3rem; border-radius:5px; }
+  nav#toc a:hover { background:var(--bg); }
+  main { min-width:0; }
+  section { background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius); box-shadow:var(--shadow); margin-bottom:1.25rem; padding:1.1rem 1.35rem 1.35rem; }
+  section > h2 { margin:0 0 .6rem; font-size:1.15rem; color:var(--accent-default); }
+  h3 { font-size:1rem; margin:1.2rem 0 .45rem; }
+  ul.tight { margin:.3rem 0 .8rem; padding-left:1.25rem; }
+  ul.tight li { margin:.3rem 0; }
+  code { background:var(--grey-soft); padding:.1rem .35rem; border-radius:4px; font-size:.86em; }
+  pre { background:#1f2127; color:#e8e6df; padding:.9rem 1rem; border-radius:8px; overflow-x:auto; font-size:.82rem; line-height:1.5; margin:.6rem 0 1rem; }
+  pre code { background:none; padding:0; color:inherit; font-size:1em; }
+  .note { background:var(--bg); border-left:4px solid var(--accent-default); padding:.6rem .9rem; margin:.75rem 0; border-radius:0 6px 6px 0; }
+  .warn { background:var(--amber-soft); border-left:4px solid var(--amber); padding:.6rem .9rem; margin:.75rem 0; border-radius:0 6px 6px 0; }
+  .ok { background:var(--green-soft); border-left:4px solid var(--green); padding:.6rem .9rem; margin:.75rem 0; border-radius:0 6px 6px 0; }
+  table { width:100%; border-collapse:collapse; font-size:.88rem; margin:.7rem 0 1rem; }
+  th, td { text-align:left; padding:.4rem .55rem; border-bottom:1px solid var(--rule); vertical-align:top; }
+  thead th { font-size:.74rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+  td.num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .tbl-scroll { overflow-x:auto; }
+  .swatch { display:inline-block; width:12px; height:12px; border-radius:50%; vertical-align:middle; margin-right:.35rem; border:2px solid #fff; box-shadow:0 0 0 1px var(--rule); }
+  .pipeline { display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 1rem; }
+  .pipeline .step { flex:1 1 150px; border:1px solid var(--rule); border-top:4px solid var(--accent-default); border-radius:8px; background:var(--surface); padding:.65rem .75rem; box-shadow:var(--shadow); }
+  .pipeline .step b { display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:.2rem; }
+  .pipeline .step span { font-size:.88rem; }
+  footer.page { grid-column:1/-1; margin-top:1rem; padding-top:1rem; border-top:1px solid var(--rule); color:var(--muted); font-size:.9rem; font-style:italic; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+
+  <header class="page">
+    <h1>Methodology &mdash; UN80 Initiative Readout, 29 July 2026</h1>
+    <p class="sub">How the readout on work packages 18, 21 and 22 was produced: sources, transcript
+    accuracy, how positions were scored, what was verified against the audio, and what the method
+    cannot tell you.</p>
+    <p style="margin:.7rem 0 0"><a href="../readouts/un80-briefing-2026-07.html">&larr; Back to the readout</a></p>
+  </header>
+
+  <nav id="toc" aria-label="Sections">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#source">The source, and its status</a></li>
+      <li><a href="#pipeline">The pipeline</a></li>
+      <li><a href="#three">Why three separate analyses</a></li>
+      <li><a href="#scoring">How positions were scored</a></li>
+      <li><a href="#rubric">The rubric</a></li>
+      <li><a href="#plot">How to read the plots</a></li>
+      <li><a href="#audio">Quote verification</a></li>
+      <li><a href="#limits">Limitations</a></li>
+      <li><a href="#files">Underlying files</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+
+    <section id="source">
+      <h2>The source, and its status</h2>
+      <p>The readout is built from one source: the official UN transcript of the meeting, obtained
+      from the UN's transcripts portal.</p>
+      <table>
+        <tr><th style="width:11rem">Meeting</th><td>Informal meeting of the plenary to hear a briefing on the UN80 Initiative &mdash; General Assembly, 80th session</td></tr>
+        <tr><th>Date and length</th><td>29 July 2026, 2 hours 52 minutes 44 seconds</td></tr>
+        <tr><th>Transcript</th><td><a href="https://transcripts.un.org/en/asset/k1u/k1ujz9s3tb">transcripts.un.org/en/asset/k1u/k1ujz9s3tb</a></td></tr>
+        <tr><th>Video</th><td><a href="https://webtv.un.org/en/asset/k1u/k1ujz9s3tb">webtv.un.org/en/asset/k1u/k1ujz9s3tb</a></td></tr>
+        <tr><th>Speakers</th><td>3 Secretariat briefers, 34 delegations (4 speaking for groups), 81 statements</td></tr>
+      </table>
+
+      <div class="warn">
+        <p><strong>The transcript is automatic speech recognition, not an official record.</strong>
+        The UN transcripts portal produces machine transcription with speaker attribution. It is
+        labelled a preview tool by the UN and is not a verbatim record. For an informal plenary like
+        this one there is no verbatim record (PV) to check it against.</p>
+        <p style="margin-bottom:0">This matters in two ways, both handled below: individual words can
+        be misheard by the machine (so every quote that carries weight was re-checked against the
+        meeting audio), and interpreted speech reaches the transcript through an interpreter's word
+        choices rather than the speaker's.</p>
+      </div>
+
+      <p>Known transcription artefacts in this meeting, left uncorrected in the underlying transcript
+      but not carried into the readout: the initiative's name is repeatedly rendered
+      &ldquo;UNAT&rdquo;, &ldquo;UNAD&rdquo; or &ldquo;UNHCR&rdquo; instead of &ldquo;UN80&rdquo;;
+      Jens Wandel is introduced once as &ldquo;James Wondal&rdquo;; Elizabeth Spehar appears as
+      &ldquo;Speja&rdquo;, &ldquo;Sbar&rdquo; and &ldquo;Bihar&rdquo;; the Peacebuilding and Peace
+      Support Office appears as &ldquo;PBPSO&rdquo;, &ldquo;PPPSO&rdquo; and &ldquo;PBBSO&rdquo;.
+      Names and acronyms in the readout are normalised to their correct forms.</p>
+    </section>
+
+    <section id="pipeline">
+      <h2>The pipeline</h2>
+      <div class="pipeline">
+        <div class="step"><b>1 Collect</b><span>Fetch the speaker-attributed transcript (JSON + text) from the UN portal.</span></div>
+        <div class="step"><b>2 Convert</b><span>Produce attributed markdown; spot-check speaker attribution against the video.</span></div>
+        <div class="step"><b>3 Analyse</b><span>Code consensus, fault lines and per-delegation positions &mdash; separately per work package.</span></div>
+        <div class="step"><b>4 Score</b><span>Apply the evidence rubric to each delegation on each package's axis.</span></div>
+        <div class="step"><b>5 Verify</b><span>Check every position-critical quote against the meeting audio.</span></div>
+        <div class="step"><b>6 Render</b><span>Build the single-file page; verify plot geometry in a browser.</span></div>
+      </div>
+
+      <div class="note">
+        <p style="margin:0"><strong>The rule that governs all of it: no fabrication.</strong> Every
+        position stated in the readout is verbatim or close paraphrase from the transcript. Where a
+        delegation did not address a question, it is recorded as <em>silent</em> &mdash; never
+        inferred from its bloc, its usual policy, or what it said in other meetings. Five delegations
+        are silent on package 18, five on package 21 and five on package 22; they are excluded from
+        those plots rather than given a default position.</p>
+      </div>
+    </section>
+
+    <section id="three">
+      <h2>Why three separate analyses of one meeting</h2>
+      <p>The meeting covered three reform packages on a single speakers' list. Each delegation had one
+      three-minute turn and most used it to address all three. The readout could have treated this as
+      one debate. It does not, for two reasons.</p>
+      <ul class="tight">
+        <li><strong>The packages will diverge.</strong> The Secretariat committed on the record to
+        separate consultation tracks for packages 18 and 21, and a separate September deliverable for
+        22. Future meetings will be package-specific, so each analysis is built to anchor its own
+        sequence over time.</li>
+        <li><strong>The three axes measure different things.</strong> A delegation pushing hard on
+        funding reform is not thereby pushing hard on a new results mechanism. Scoring them together
+        would average away the distinction.</li>
+      </ul>
+      <p>Because the packages <em>were</em> debated together, the readout also carries a cross-package
+      comparison the separate analyses cannot produce &mdash; which delegations change posture between
+      packages. Twenty of thirty-four do.</p>
+      <div class="warn">
+        <p style="margin:0"><strong>Scores are not comparable across packages as numbers.</strong>
+        Each package's scale is instantiated separately from its own debate, and package 22's top end
+        is compressed because its office already existed, leaving delegations less to ask for. Compare
+        <em>bands</em> (low / medium / high) and <em>direction of movement</em>, never point
+        differences between one package and another.</p>
+      </div>
+    </section>
+
+    <section id="scoring">
+      <h2>How positions were scored</h2>
+      <p>The plots place each delegation by a score, so the horizontal position has to mean something
+      defensible. It is produced by a fixed rubric applied to each delegation's own words.</p>
+
+      <h3>The three axes</h3>
+      <p>Each package has one scored axis, always &ldquo;how hard did this delegation push toward one
+      named pole of the package's central disagreement&rdquo;. The pole is chosen before any
+      delegation is scored.</p>
+      <table>
+        <thead><tr><th>Package</th><th>Higher score means</th></tr></thead>
+        <tbody>
+          <tr><td><strong>18 &mdash; Funding</strong></td><td>a harder push for structural change to the funding architecture (rather than better transparency with donor discretion preserved)</td></tr>
+          <tr><td><strong>21 &mdash; Results</strong></td><td>a harder push for a genuinely new system-wide mechanism (rather than absorbing the aim into existing reporting and governance)</td></tr>
+          <tr><td><strong>22 &mdash; Peace</strong></td><td>a harder push for consolidated, cross-pillar peacebuilding capacity (rather than guarding pillar boundaries and mandate integrity)</td></tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        <p style="margin:0"><strong>Note on package 21's axis.</strong> Nearly every delegation used a
+        supportive verb and then attached a condition. Scoring stated support would have put almost
+        the whole room in one band and hidden the politics. The axis therefore measures <em>how much
+        new machinery a delegation is willing to authorise</em> &mdash; which is where the conditions
+        do their work.</p>
+      </div>
+
+      <h3>Order of operations</h3>
+      <ul class="tight">
+        <li>The normal analysis is done first &mdash; consensus, fault lines, poles. Scoring
+        decomposes an existing claim; it never substitutes for the analysis.</li>
+        <li>The rubric is instantiated from this transcript, with anchor quotes for each band, before
+        any delegation receives a single point.</li>
+        <li>Each delegation is then scored against those anchors only, reading its full statement,
+        without looking at other delegations' totals or any expected ordering.</li>
+      </ul>
+    </section>
+
+    <section id="rubric">
+      <h2>The rubric</h2>
+      <p>Seven positive indicators totalling 100 points, plus negative markers subtracted. The
+      indicators are categories of speech behaviour, which is what lets the same rubric work for a
+      funding debate and a peacebuilding debate.</p>
+      <div class="tbl-scroll">
+      <table>
+        <thead><tr><th style="width:2rem"></th><th>Indicator</th><th class="num">Max</th><th>What earns points</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A</strong></td><td>Endorsement of the proposal</td><td class="num">20</td><td>How emphatically the delegation embraces the package. &ldquo;We see merit in all proposals&rdquo; scores above &ldquo;takes note of&rdquo;.</td></tr>
+          <tr><td><strong>B</strong></td><td>Defence against dilution</td><td class="num">10</td><td>Spending capital defending the proposal against objections, non-payment or the status quo &mdash; distinct from merely endorsing it.</td></tr>
+          <tr><td><strong>C</strong></td><td>Maximal ask</td><td class="num">15</td><td>Making the strongest concrete demand present anywhere in that debate. The ceiling is found empirically from the most forward-leaning speaker.</td></tr>
+          <tr><td><strong>D</strong></td><td>Specificity</td><td class="num">15</td><td>Named recommendations, named instruments, numbers, named institutions &mdash; against generic support.</td></tr>
+          <tr><td><strong>E</strong></td><td>Obligation framing</td><td class="num">15</td><td>A ladder: <em>must / obligation</em> &gt; <em>calls on</em> &gt; <em>welcomes / encourages</em> &gt; <em>takes note</em> &gt; silent.</td></tr>
+          <tr><td><strong>F</strong></td><td>Material commitment</td><td class="num">10</td><td>Money, staffing or concrete instruments offered or demanded.</td></tr>
+          <tr><td><strong>G</strong></td><td>Verb register</td><td class="num">15</td><td>The dominant verbs across the whole statement: <em>demand / must</em> &gt; <em>call / ensure</em> &gt; <em>welcome</em> &gt; <em>take note</em>.</td></tr>
+          <tr><td><strong>N</strong></td><td>Negative markers</td><td class="num">&minus;</td><td>Boundary conditions on the proposal, challenges to its premise, or demands that it be halted or absorbed into existing machinery.</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="note">
+        <p style="margin:0"><strong>One weight was adjusted.</strong> On package 21, indicator F has
+        almost no expression &mdash; no delegation offered money for a results mechanism. Rather than
+        drop it, F was re-instantiated for that package as <em>engagement with the mechanism's cost
+        and implementation</em>, keeping seven indicators and a total of 100. F scores are therefore
+        not comparable between package 21 and the other two.</p>
+      </div>
+
+      <h3>Reading the numbers</h3>
+      <ul class="tight">
+        <li><strong>Score</strong> is the displayed total out of 100, floored at zero.
+        <strong>Net</strong> is the pre-floor sum including negatives, and is what orders the dots.
+        Both are shown in the &ldquo;Scores at a glance&rdquo; table.</li>
+        <li><strong>The scale is ordinal, not interval.</strong> It supports &ldquo;argued harder
+        than&rdquo;. A 76 is not twice a 38. Dots are spaced by rank, not by score value.</li>
+        <li><strong>Ties are kept</strong> and marked with <code>=</code>. A tie between delegations
+        with very different profiles is a finding, not an error &mdash; El Salvador and Russia tie at
+        the bottom of package 21 by entirely different routes.</li>
+        <li><strong>Briefers are not scored.</strong> The three Secretariat officials authored the
+        proposals, so their support is definitionally maximal. They appear as dashed, dotted-outline
+        dots pinned to the right.</li>
+      </ul>
+
+      <h3>Verification of the scores</h3>
+      <div class="ok">
+        <p style="margin:0">All 89 scored rows across the three packages were machine-checked for
+        indicator sums, the floor rule, band assignment and per-indicator caps: <strong>31/31, 29/29
+        and 29/29 rows clean</strong>. All <strong>673 evidence quotes</strong> in the plots' evidence
+        panels were checked to appear exactly once, verbatim, in the transcript. The cross-package
+        comparison table was regenerated from the scoring sheets and matched on all 34 rows.</p>
+      </div>
+    </section>
+
+    <section id="plot">
+      <h2>How to read the plots</h2>
+      <ul class="tight">
+        <li><strong>Left to right is the score</strong>, banded into three fixed thirds &mdash; low
+        (0&ndash;39), medium (40&ndash;66), high (67&ndash;100). Left is weakest, right is strongest,
+        and this means the same thing on all three plots. Cut points are fixed thirds of the scale
+        rather than quantiles, so a lopsided split is a finding about the debate rather than an
+        artefact of the method.</li>
+        <li><strong>Colour is the grouping</strong>, and nothing else. Grouping and intensity are
+        different questions and they frequently disagree, which is the point of separating them.</li>
+        <li><strong>Up and down is whichever dimension is selected</strong> in the dropdown. A
+        delegation's column never changes when the vertical dimension changes &mdash; the column comes
+        from its score.</li>
+        <li><strong>Click a dot</strong> to see every indicator, its points and the verbatim quote
+        that earned them, including indicators recorded as &ldquo;not stated&rdquo;. Click a second to
+        compare two delegations side by side.</li>
+      </ul>
+
+      <h3>The groupings</h3>
+      <p>Five groups, coloured consistently across the prose, tables and all three plots so a reader
+      can follow one delegation through the page.</p>
+      <ul class="tight">
+        <li><span class="swatch" style="background:var(--camp-donor)"></span><strong>Western donors</strong> &mdash; EU member states, the UK, Switzerland, Japan, Republic of Korea</li>
+        <li><span class="swatch" style="background:var(--camp-canzpif)"></span><strong>CANZ and Pacific Islands Forum</strong></li>
+        <li><span class="swatch" style="background:var(--camp-g77)"></span><strong>G77 and China members</strong> speaking nationally</li>
+        <li><span class="swatch" style="background:var(--camp-sceptic)"></span><strong>Structural sceptics</strong> &mdash; Russia, Iran, Cuba, China, who challenged the design of the proposals themselves</li>
+        <li><span class="swatch" style="background:var(--camp-un)"></span><strong>Secretariat briefers</strong> &mdash; unscored</li>
+      </ul>
+      <p>Groupings reflect how a delegation positioned itself <em>in this meeting</em>, not formal
+      membership alone. The palette was checked under simulated deuteranopia and protanopia; the
+      closest pair separates at &Delta;E 10.4. Colour is never the only carrier &mdash; dots print
+      country codes and the legend names every group in words.</p>
+
+      <h3>The brevity marker</h3>
+      <p>A delegation whose statement fell below 70% of the meeting's median length carries a
+      <em>brief</em> chip beside its name. The median was 369 words; the threshold 258. Two
+      delegations qualify: Brazil (248 words) and Ethiopia (242). A short statement has fewer chances
+      to trigger indicators, so the marker is a caveat on the score &mdash; but it is a fact about
+      speaker behaviour, not a defect in the data. Ethiopia scored in the high band on package 18
+      precisely because it spent its whole short turn on one package.</p>
+    </section>
+
+    <section id="audio">
+      <h2>Quote verification against the meeting audio</h2>
+      <p>Because the transcript is machine-produced, every quote that carries analytical weight was
+      checked against the recording rather than trusted.</p>
+      <p><strong>Method.</strong> The English-language audio track was downloaded from the UN Web TV
+      video platform. For each quote, the word-level timestamps in the transcript JSON gave a time
+      window; that window was sliced out with <code>ffmpeg</code> and independently re-transcribed
+      with a local speech model (<code>whisper.cpp</code>, <code>large-v3-turbo</code>, with
+      anti-hallucination settings). The two texts were then compared.</p>
+
+      <div class="ok">
+        <p style="margin:0"><strong>Result: 21 of 21 position-critical quotes confirmed against the
+        audio.</strong> These are every quote in the Talking Points section plus every quote anchoring
+        a fault line. One correction was applied.</p>
+      </div>
+
+      <h3>The correction</h3>
+      <p>The portal transcript rendered the Special Adviser's closing line on package 21 as
+      &ldquo;because the concept is It&rsquo;s only generated as a concept&rdquo; &mdash; a machine
+      garble. The audio is unambiguous: &ldquo;<strong>the concept is only generated as a
+      concept</strong>&rdquo;. The readout quotes the corrected wording. The claim it supports is
+      unchanged.</p>
+
+      <h3>What the near-misses were</h3>
+      <p>Six quotes failed an initial automated pass and all six resolved as method artefacts rather
+      than substantive errors: two were spelling conventions (the speech model writes
+      &ldquo;programs&rdquo; and &ldquo;Recommendation 5&rdquo; where the portal wrote
+      &ldquo;programmes&rdquo; and &ldquo;recommendation five&rdquo;), two were windows that cut the
+      phrase at the slice boundary, and two sat 10&ndash;30 seconds away from their recorded
+      timestamp and were found with a wider probe.</p>
+
+      <div class="warn">
+        <p style="margin:0"><strong>Scope of this check.</strong> The 21 quotes above are
+        audio-verified. The 673 evidence quotes inside the plots' click-through panels are verified to
+        be verbatim-exact against the transcript, but are ASR-sourced rather than audio-confirmed. An
+        error there would move a dot within its band rather than change a stated claim.</p>
+      </div>
+    </section>
+
+    <section id="limits">
+      <h2>Limitations</h2>
+      <ul class="tight">
+        <li><strong>Interpretation.</strong> Cuba, Mexico, France, Switzerland, China and Senegal
+        spoke through interpretation. Indicators E and G judge verb strength, which for those
+        delegations reflects the interpreter's word choice as much as the speaker's.</li>
+        <li><strong>Statement length.</strong> Speaking time was capped at three minutes (five for
+        groups) and enforced with an automatic microphone cut-off &mdash; Angola, Senegal and Pakistan
+        were cut off mid-sentence. Group statements had the longer slot and a structural advantage on
+        the specificity and material-commitment indicators. Flagged rather than corrected, because
+        correcting would mean inferring what a delegation would have said.</li>
+        <li><strong>Package 22's compressed ceiling.</strong> The office being scored already existed,
+        so the strongest available ask is smaller than in the other two packages.</li>
+        <li><strong>One meeting.</strong> This is a first waypoint for all three packages. It
+        establishes a baseline; it does not show movement. Positions here are a reading of one
+        session, not of a delegation's settled policy.</li>
+        <li><strong>No verbatim record.</strong> Informal plenaries produce none, so there is no
+        official text to check the ASR against. The audio is the highest authority available, which is
+        why quotes were checked against it directly.</li>
+        <li><strong>Not an official document.</strong> This is an independent analysis. It is not
+        produced by, endorsed by, or affiliated with the United Nations.</li>
+      </ul>
+    </section>
+
+    <section id="files">
+      <h2>Underlying files</h2>
+      <p>The analysis behind the readout, for anyone who wants to check it:</p>
+      <table>
+        <thead><tr><th>Document</th><th>Contents</th></tr></thead>
+        <tbody>
+          <tr><td>Package 18 source analysis</td><td>Consensus, four fault lines, per-delegation positions, what the Secretariat answered and did not</td></tr>
+          <tr><td>Package 21 source analysis</td><td>As above for the results mechanism, including the conditional-support finding</td></tr>
+          <tr><td>Package 22 source analysis</td><td>As above for peacebuilding, including the Secretariat's fuller reply</td></tr>
+          <tr><td>Three scoring sheets</td><td>Axis declaration, instantiated rubric with anchors, full score tables, per-delegation evidence, pairwise consistency log, spot-check results, limitations</td></tr>
+          <tr><td>Cross-package divergence note</td><td>The band matrix and what the divergence shows</td></tr>
+          <tr><td>Quote verification log</td><td>All 21 windows, results, escalation steps and the correction</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.9rem;color:var(--muted)">The pipeline method itself is documented in the
+      project's <code>position-scoring</code> and <code>quote-verification</code> guides, which govern
+      every readout in this series.</p>
+    </section>
+
+  </main>
+
+  <footer class="page">
+    Methodology for the political readout of the informal meeting of the plenary on the UN80
+    Initiative, 29 July 2026. Independent analysis, not a United Nations document.
+    <a href="../readouts/un80-briefing-2026-07.html">Back to the readout</a>.
+  </footer>
+
+</div>
+</body>
+</html>
