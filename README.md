@@ -4,7 +4,7 @@ AI-assisted briefings that turn UN meeting transcripts into short, interactive H
 
 **→ Live index: https://christian-wandel.github.io/un-ai-readouts/**
 
-Open the index and pick a readout. Each is a single self-contained HTML page grouped by silo (the speaking body or the theme), with its own source note and a linked methodology page.
+Open the index and pick a readout. Each is a single self-contained HTML page grouped by track (the speaking body or the theme), with its own source note and a linked methodology page.
 
 ## What's here
 

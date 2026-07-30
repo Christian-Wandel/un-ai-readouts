@@ -369,7 +369,7 @@
           <p>This document records how the <a href="../readouts/ai-sustdev-panel-public-2026-07.html">AI &amp; Sustainable Development readout</a> was produced. The readout summarises a side event held at the margins of the High-level Political Forum on Sustainable Development (HLPF) 2026 on 15 July 2026, co-hosted by the Permanent Missions of Pakistan and Tajikistan with Pakistan's Prime Minister's Youth Program, on how artificial intelligence can advance the Sustainable Development Goals.</p>
           <p>It exists for two reasons:</p>
           <ul class="tight">
-            <li><strong>Replication.</strong> This is the first readout in the <code>ai-at-un</code> thematic silo, and it is the first the pipeline has run on a <strong>panel / side-event format</strong> sourced from the transcripts portal (earlier panel readouts were captured and transcribed locally). It is a concrete runbook for the next AI-at-the-UN session.</li>
+            <li><strong>Replication.</strong> This is the first readout in the <code>ai-at-un</code> thematic track, and it is the first the pipeline has run on a <strong>panel / side-event format</strong> sourced from the transcripts portal (earlier panel readouts were captured and transcribed locally). It is a concrete runbook for the next AI-at-the-UN session.</li>
             <li><strong>Provenance.</strong> If a reader asks how the conclusions were reached and where the information came from, this document answers that directly.</li>
           </ul>
           <p>The source transcript was <strong>obtained from the UN transcripts portal</strong> rather than captured and transcribed locally. The portal supplies a speaker-attributed ASR transcript, which removes the recording and speech-to-text stages but adds a dependency on machine transcription — and, in this case, surfaced a timing quirk (the transcript was made against a longer cut of the recording than the one now published) that had to be corrected before verification. That is written up in full at <a href="#stage4">Stage 4</a>.</p>
@@ -465,7 +465,7 @@
       <details open>
         <summary>Stage 2 — Fetch &amp; Convert</summary>
         <div class="body">
-          <p>The meeting was fetched into the <code>ai-at-un</code> silo and converted to attributed markdown:</p>
+          <p>The meeting was fetched into the <code>ai-at-un</code> track and converted to attributed markdown:</p>
           <pre><code>python pipeline/fetch_un_transcripts.py fetch k1q/k1qcq6j7ul --silo ai-at-un
 python pipeline/fetch_un_transcripts.py convert transcripts/ai-at-un/2026-07-15_k1qcq6j7ul.json</code></pre>
           <p>The portal's JSON nests the useful fields — title and summary under <code>metadata</code>, the statements under <code>transcript.data</code>, and per-sentence word timestamps under each statement's <code>paragraphs[].sentences[]</code>. The conversion produced 52 statements across 15 substantive speakers: a moderator, two keynote speakers (Tajikistan, Pakistan), a three-person panel (UNDP, Google, a youth delegate), floor interventions from Kazakhstan, China and Azerbaijan, four audience questioners, and Pakistan's Permanent Representative closing.</p>
@@ -515,7 +515,7 @@ python pipeline/fetch_un_transcripts.py convert transcripts/ai-at-un/2026-07-15_
           <p>The English audio flavor (paramsId 100) is always the verification target. It is the channel the portal ASR actually transcribes — floor audio for English speakers, the English interpreter for everyone else — so it is the like-for-like comparison. This event ran mostly in English on the floor, so drift <em>within</em> the audio was negligible; the only timing issue was the global re-cut offset above.</p>
 
           <h3 class="sub">The result: 17 of 17 quotes matched</h3>
-          <p>After the offset correction, all 17 position-critical quotes matched the recording; no corrections were needed. One non-correcting artifact was noted and left as-is: the audio has the Google speaker say "intelligent for the many" (a slight slur of delivery) where both the readout and the ASR read the intended "intelligence for the many." The readout, source notes and silo index were updated to verified with timestamps.</p>
+          <p>After the offset correction, all 17 position-critical quotes matched the recording; no corrections were needed. One non-correcting artifact was noted and left as-is: the audio has the Google speaker say "intelligent for the many" (a slight slur of delivery) where both the readout and the ASR read the intended "intelligence for the many." The readout, source notes and track index were updated to verified with timestamps.</p>
           <table class="data">
             <thead>
               <tr><th>Speaker</th><th>Quote (opening)</th><th>Audio pos.</th><th>Result</th></tr>
@@ -560,7 +560,7 @@ python pipeline/fetch_un_transcripts.py convert transcripts/ai-at-un/2026-07-15_
             <li><strong>Talking points</strong> — the single verbatim home of the key quotes, all audio-verified; body prose paraphrases them.</li>
           </ul>
           <p>Two structural rules keep it brief: <strong>each position appears once in prose</strong>, with full detail only in the participant cards; and the page opens with the reader-facing sections expanded and the deeper layers collapsed behind an expand-all control — a two-to-five-minute read for a high-level reader.</p>
-          <div class="note"><strong>No time-series layer.</strong> Because the <code>ai-at-un</code> silo is thematic with time-series intent "none" (retrieval + optional summary, not a tracked negotiation), this readout ships as a <em>standalone</em>: no sequence banner and no topic-persistence table. Those elements belong to active-sequence silos such as Beyond GDP.</div>
+          <div class="note"><strong>No time-series layer.</strong> Because the <code>ai-at-un</code> track is thematic with time-series intent "none" (retrieval + optional summary, not a tracked negotiation), this readout ships as a <em>standalone</em>: no sequence banner and no topic-persistence table. Those elements belong to active-sequence tracks such as Beyond GDP.</div>
         </div>
       </details>
     </section>
@@ -670,7 +670,7 @@ python pipeline/fetch_un_transcripts.py convert transcripts/ai-at-un/2026-07-15_
       <details open>
         <summary>Replication Runbook</summary>
         <div class="body">
-          <p>To repeat this for the next AI-at-the-UN session in the <code>ai-at-un</code> silo, or any other portal-sourced panel / side event. All commands run from the project folder so the relative <code>transcripts/</code> paths resolve. See <code>pipeline/un-transcripts.md</code> for the fetcher guide and <code>pipeline/quote-verification.md</code> for the full verification method.</p>
+          <p>To repeat this for the next AI-at-the-UN session in the <code>ai-at-un</code> track, or any other portal-sourced panel / side event. All commands run from the project folder so the relative <code>transcripts/</code> paths resolve. See <code>pipeline/un-transcripts.md</code> for the fetcher guide and <code>pipeline/quote-verification.md</code> for the full verification method.</p>
 
           <h3 class="sub">1. Discover the meeting</h3>
           <p>Find the session on the portal by its title / asset slug (side events have no document symbol). Record both the transcript asset slug (<code>k…/k…</code>) and the UN Web TV / Kaltura live entry for later verification.</p>
@@ -698,7 +698,7 @@ python pipeline/fetch_un_transcripts.py convert transcripts/ai-at-un/&lt;file&gt
           <p class="note">Full step-by-step method, escalation ladder and run log: <a href="../pipeline/quote-verification.md"><code>pipeline/quote-verification.md</code></a>.</p>
 
           <h3 class="sub">5. Synthesise the briefing</h3>
-          <p>Collapse the coded, verified positions into the panel house structure: executive summary (headline + shared commitments + the counter-current callout), governing frame / process box, areas of consensus, participant cards, tensions of emphasis, outliers box, and audio-verified talking points. For a thematic "none" silo, ship standalone — no sequence banner, no time-series table.</p>
+          <p>Collapse the coded, verified positions into the panel house structure: executive summary (headline + shared commitments + the counter-current callout), governing frame / process box, areas of consensus, participant cards, tensions of emphasis, outliers box, and audio-verified talking points. For a thematic "none" track, ship standalone — no sequence banner, no time-series table.</p>
           <p>Two rules keep it brief. <strong>One prose home per position:</strong> a speaker is named once in the prose; anything more belongs in its card. <strong>Quotes live once:</strong> talking points hold the verbatim text; body prose paraphrases with a pointer.</p>
 
           <h3 class="sub">6. Publish</h3>
@@ -713,7 +713,7 @@ python pipeline/fetch_un_transcripts.py convert transcripts/ai-at-un/&lt;file&gt
     </section>
 
     <footer class="page">
-      Methodology record for the AI &amp; Sustainable Development readout — HLPF 2026 side event, 15 July 2026. Source: the UN transcripts portal ASR transcript (asset k1q/k1qcq6j7ul), with the 17 position-critical quotes audio-verified against the Kaltura English-audio VOD (recorded entry 1_gr3kz7u8, flavor 1_w51t2aqe / paramsId 100) on 16 July 2026, after correcting a −1119s recording-cut timestamp offset — all 17 matched. Analysis grounded in that transcript only. Analysed, verified and built with Claude Code (Opus 4.8). Silo: ai-at-un (thematic), readout 1.
+      Methodology record for the AI &amp; Sustainable Development readout — HLPF 2026 side event, 15 July 2026. Source: the UN transcripts portal ASR transcript (asset k1q/k1qcq6j7ul), with the 17 position-critical quotes audio-verified against the Kaltura English-audio VOD (recorded entry 1_gr3kz7u8, flavor 1_w51t2aqe / paramsId 100) on 16 July 2026, after correcting a −1119s recording-cut timestamp offset — all 17 matched. Analysis grounded in that transcript only. Analysed, verified and built with Claude Code (Opus 4.8). Track: ai-at-un (thematic), readout 1.
     </footer>
 
   </main>
