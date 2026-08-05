@@ -1,0 +1,1783 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Regional Dialogue on the Future Leadership of the United Nations — 3 August 2026</title>
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --ink: #1a1c20;
+    --muted: #5b6470;
+    --rule: #e3e1da;
+    --accent-default: #2e4a86;
+
+    --green: #2f7a4d;
+    --amber: #b27406;
+    --amber-soft: #fbf1dc;
+    --red:   #b03333;
+    --grey:  #6a727b;
+    --grey-soft: #ecedef;
+
+    /* What-they-would-build palette (live candidates) + non-live + states */
+    --bloc-convener:      #1f5fb0;  /* Build new machinery: early-warning/action hub */
+    --bloc-broker:        #197b5a;  /* Build new machinery: good-offices unit */
+    --bloc-administrator: #8a6d1c;  /* Reorganise what exists, build nothing new */
+    --bloc-nonlive:       #5f2d6e;  /* Video message / letter — did not take questions */
+    --bloc-state:         #3d7d86;  /* CELAC states — not candidates */
+
+    --focus: #ffbf47;
+    --radius: 10px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+  }
+  a { color: var(--accent-default); }
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .skip {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--ink); color: #fff; padding: .6rem 1rem;
+    z-index: 100;
+  }
+  .skip:focus { left: 0; }
+
+  .shell {
+    display: grid;
+    grid-template-columns: 240px minmax(0,1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    nav#toc { position: static !important; max-height: none !important; }
+  }
+
+  header.page {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  header.page h1 {
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    margin: 0 0 .5rem;
+    line-height: 1.2;
+  }
+  header.page dl.meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .15rem 1rem;
+    margin: .75rem 0 0;
+    color: var(--muted);
+    font-size: .92rem;
+  }
+  header.page dt { font-weight: 600; color: var(--ink); }
+  header.page dd { margin: 0; }
+
+  nav#toc {
+    position: sticky;
+    top: 1rem;
+    align-self: start;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    padding: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    font-size: .92rem;
+  }
+  nav#toc h2 {
+    margin: 0 0 .5rem;
+    font-size: .78rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  nav#toc ol { list-style: none; padding: 0; margin: 0; }
+  nav#toc li { margin: .15rem 0; }
+  nav#toc a {
+    display: block;
+    padding: .35rem .5rem;
+    border-radius: 6px;
+    color: var(--ink);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+  }
+  nav#toc a:hover { background: var(--bg); }
+  nav#toc a[aria-current="location"] {
+    background: var(--bg);
+    border-left-color: var(--accent-default);
+    font-weight: 600;
+  }
+
+  main { min-width: 0; }
+  section.block {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+  section.block > details > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    user-select: none;
+  }
+  section.block > details > summary::-webkit-details-marker { display: none; }
+  section.block > details > summary::before {
+    content: "▸";
+    color: var(--muted);
+    transition: transform .15s ease;
+    display: inline-block;
+    width: 1ch;
+  }
+  section.block > details[open] > summary::before { transform: rotate(90deg); }
+  .body { padding: 0 1.25rem 1.25rem; }
+  .body > :first-child { margin-top: 0; }
+
+  h3.sub { font-size: 1rem; margin: 1.25rem 0 .5rem; color: var(--ink); }
+  ul.tight { margin: .25rem 0 .75rem; padding-left: 1.25rem; }
+  ul.tight li { margin: .25rem 0; }
+
+  blockquote.tp {
+    border-left: 4px solid var(--accent-default);
+    background: var(--bg);
+    margin: .75rem 0;
+    padding: .75rem 1rem;
+    font-style: italic;
+    color: #2a2f37;
+    border-radius: 0 6px 6px 0;
+  }
+  blockquote.tp footer {
+    margin-top: .45rem;
+    font-style: normal;
+    font-size: .85rem;
+    color: var(--muted);
+  }
+
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    padding: 1rem 1.25rem; border-bottom: 1px solid var(--rule);
+    background: linear-gradient(180deg, #fbfaf6 0%, var(--surface) 100%);
+  }
+  .control-group { display: flex; align-items: center; gap: .5rem; }
+  .control-group .label {
+    font-size: .78rem; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--muted); font-weight: 600;
+  }
+  .search {
+    flex: 1 1 220px; min-width: 180px;
+    padding: .5rem .75rem; border: 1px solid var(--rule); border-radius: 8px;
+    font: inherit; background: var(--surface);
+  }
+
+  .chips {
+    display: flex; flex-wrap: wrap; gap: .4rem;
+    padding: .75rem 1.25rem; border-bottom: 1px solid var(--rule);
+    background: var(--surface);
+  }
+  .chip {
+    border: 1px solid var(--rule); background: var(--surface);
+    border-radius: 999px; padding: .3rem .7rem;
+    font: inherit; font-size: .85rem; cursor: pointer; color: var(--ink);
+  }
+  .chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .chip[data-filter="convener"][aria-pressed="true"]      { background: var(--bloc-convener);      border-color: var(--bloc-convener); }
+  .chip[data-filter="broker"][aria-pressed="true"]        { background: var(--bloc-broker);        border-color: var(--bloc-broker); }
+  .chip[data-filter="administrator"][aria-pressed="true"] { background: var(--bloc-administrator); border-color: var(--bloc-administrator); }
+
+  .result-count { font-size: .85rem; color: var(--muted); padding: 0 1.25rem .5rem; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: .85rem; padding: 1rem 1.25rem 1.25rem;
+  }
+  .card {
+    --accent: var(--grey); --accent-bg: var(--grey-soft);
+    background: var(--surface); border: 1px solid var(--rule);
+    border-left: 5px solid var(--accent); border-radius: 8px;
+    padding: .75rem .9rem; box-shadow: var(--shadow);
+    transition: border-color .15s ease;
+  }
+  .card h4 { margin: 0 0 .1rem; font-size: 1rem; }
+  .card .who { font-size: .8rem; color: var(--muted); margin: 0 0 .35rem; }
+  .card .badge-row { display: flex; flex-wrap: wrap; gap: .3rem; margin: .25rem 0 .5rem; }
+  .badge {
+    display: inline-block; font-size: .72rem; font-weight: 600;
+    padding: .15rem .5rem; border-radius: 999px;
+    background: var(--accent-bg); color: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    letter-spacing: .02em;
+  }
+  .card p { margin: .25rem 0 0; font-size: .92rem; color: #2a2f37; }
+  .card[hidden] { display: none; }
+
+  .card[data-bloc="convener"]      { --accent: var(--bloc-convener);      --accent-bg: color-mix(in srgb, var(--bloc-convener) 12%, white); }
+  .card[data-bloc="broker"]        { --accent: var(--bloc-broker);        --accent-bg: color-mix(in srgb, var(--bloc-broker) 12%, white); }
+  .card[data-bloc="administrator"] { --accent: var(--bloc-administrator); --accent-bg: color-mix(in srgb, var(--bloc-administrator) 12%, white); }
+
+  .global-toolbar {
+    grid-column: 1 / -1;
+    display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    justify-content: space-between;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: var(--radius); padding: .75rem 1rem; margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+  .btn {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 8px; padding: .4rem .75rem;
+    font: inherit; font-size: .88rem; cursor: pointer; color: var(--ink);
+  }
+  .btn:hover { background: var(--bg); }
+
+  footer.page {
+    grid-column: 1 / -1; margin-top: 1.5rem; padding-top: 1rem;
+    border-top: 1px solid var(--rule); color: var(--muted);
+    font-style: italic; font-size: .9rem;
+  }
+
+  .fault-line {
+    background: var(--bg); border-left: 4px solid var(--accent-default);
+    padding: .6rem .9rem; margin: .9rem 0; border-radius: 0 6px 6px 0;
+  }
+  .fault-line strong { color: var(--ink); }
+  .fl-title {
+    display: block;
+    color: var(--accent-default);
+    font-size: 1rem;
+    margin-bottom: .5rem;
+    padding-bottom: .35rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent-default) 22%, transparent);
+  }
+  .fl-title strong { color: var(--accent-default); }
+  .fl-title .fl-gloss { font-weight: 400; color: var(--muted); font-size: .9rem; }
+
+  /* Candidate name colour = theory-of-the-office group, matching the plot.
+     Applied everywhere a candidate is named so a reader can track one person
+     through the page by colour alone. */
+  .c-broker        { color: var(--bloc-broker); }
+  .c-convener      { color: var(--bloc-convener); }
+  .c-administrator { color: var(--bloc-administrator); }
+  strong.c-broker, strong.c-convener, strong.c-administrator { font-weight: 700; }
+
+  /* Pole groups inside a fault line: coloured label + one row per candidate */
+  .pole { margin: 1.1rem 0 0; }
+  .pole:first-of-type { margin-top: .5rem; }
+  .pole > .pole-label {
+    font-weight: 700; font-size: .8rem; text-transform: uppercase;
+    letter-spacing: .06em; margin-bottom: .1rem;
+    padding: .28rem .6rem;
+    border-radius: 5px;
+    display: inline-block;
+    color: var(--pole-ink, var(--ink));
+    background: var(--pole-bg, var(--grey-soft));
+    border: 1px solid color-mix(in srgb, var(--pole-ink, var(--ink)) 25%, transparent);
+  }
+  .pole.p-broker        { --pole-ink: var(--bloc-broker);        --pole-bg: color-mix(in srgb, var(--bloc-broker) 12%, white); }
+  .pole.p-convener      { --pole-ink: var(--bloc-convener);      --pole-bg: color-mix(in srgb, var(--bloc-convener) 12%, white); }
+  .pole.p-administrator { --pole-ink: var(--bloc-administrator); --pole-bg: color-mix(in srgb, var(--bloc-administrator) 12%, white); }
+  .pole.p-mixed         { --pole-ink: var(--muted);              --pole-bg: var(--grey-soft); }
+  ul.who-list { list-style: none; margin: 0; padding: 0; }
+  ul.who-list > li {
+    display: grid;
+    grid-template-columns: 150px minmax(0,1fr);
+    gap: .2rem .9rem;
+    padding: .38rem 0;
+    border-top: 1px solid var(--rule);
+    font-size: .92rem;
+  }
+  ul.who-list > li > .who-name { font-weight: 700; color: var(--ink); }
+  /* group colour must win over the generic .who-name rule above */
+  ul.who-list > li > .who-name.c-broker        { color: var(--bloc-broker); }
+  ul.who-list > li > .who-name.c-convener      { color: var(--bloc-convener); }
+  ul.who-list > li > .who-name.c-administrator { color: var(--bloc-administrator); }
+  ul.who-list > li > .who-pos { color: #2a2f37; }
+  @media (max-width: 620px) {
+    ul.who-list > li { grid-template-columns: 1fr; }
+  }
+
+  /* Candidate-colour key under the first coloured section */
+  .colour-key {
+    display: flex; flex-wrap: wrap; gap: .4rem 1.1rem;
+    margin: .75rem 0 0; padding: .55rem .8rem;
+    background: var(--bg); border: 1px solid var(--rule); border-radius: 8px;
+    font-size: .82rem; color: var(--muted);
+  }
+  .colour-key .ck { display: inline-flex; align-items: center; gap: .35rem; }
+  .colour-key .ck-dot {
+    width: 10px; height: 10px; border-radius: 50%; display: inline-block;
+    border: 2px solid #fff; box-shadow: 0 0 0 1px var(--rule);
+  }
+  .outlier {
+    background: var(--amber-soft); border-left: 4px solid var(--amber);
+    padding: .6rem .9rem; margin: .75rem 0; border-radius: 0 6px 6px 0;
+  }
+
+  .plot-controls {
+    display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    padding: 1rem 1.25rem; border-bottom: 1px solid var(--rule);
+    background: linear-gradient(180deg, #fbfaf6 0%, var(--surface) 100%);
+  }
+  .plot-controls select {
+    font: inherit; padding: .4rem .55rem;
+    border: 1px solid var(--rule); border-radius: 8px; background: var(--surface);
+  }
+  .plot-wrap { padding: 1rem 1.25rem 1.5rem; overflow-x: auto; }
+  .plot {
+    --cell: 200px;
+    position: relative; display: grid;
+    grid-template-columns: 32px 130px repeat(3, var(--cell));
+    grid-template-rows: repeat(3, var(--cell)) 28px 28px;
+    gap: 0; min-width: calc(32px + 130px + 3 * var(--cell)); margin: 0 auto;
+  }
+  .plot .axis-label {
+    font-size: .78rem; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .06em;
+    display: flex; align-items: center; justify-content: center; padding: .25rem;
+  }
+  .plot .axis-label.x { grid-row: 5; grid-column: 3 / span 3; border-top: 1px solid var(--rule); }
+  .plot .axis-label.y {
+    grid-row: 1 / span 3; grid-column: 1;
+    writing-mode: vertical-rl; transform: rotate(180deg);
+  }
+  .plot .col-head {
+    grid-row: 4; font-size: .8rem; font-weight: 600; color: var(--ink);
+    text-align: center; padding: .3rem .25rem; border-top: 1px solid var(--rule);
+  }
+  .plot .row-head {
+    grid-column: 2; font-size: .78rem; color: var(--ink); font-weight: 600;
+    display: flex; align-items: center; justify-content: flex-end;
+    padding: .25rem .5rem; text-align: right; border-right: 1px solid var(--rule);
+  }
+  .plot .cell {
+    position: relative; border: 1px dashed var(--rule);
+    background: color-mix(in srgb, var(--bg) 60%, white); min-height: var(--cell);
+  }
+  .plot .cell-inner { position: absolute; inset: 18px; }
+  .plot .cell:hover { background: color-mix(in srgb, var(--accent-default) 5%, white); }
+  .dot {
+    position: absolute; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--dot, var(--grey)); color: #fff;
+    font-size: .62rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; cursor: default;
+    box-shadow: 0 1px 3px rgba(0,0,0,.18);
+    transform: translate(-50%, -50%); border: 2px solid #fff;
+    transition: transform .12s ease, z-index 0s;
+  }
+  .dot:hover, .dot:focus { transform: translate(-50%, -50%) scale(1.5); z-index: 10; outline: none; }
+  .dot[data-bloc="convener"]      { --dot: var(--bloc-convener); }
+  .dot[data-bloc="broker"]        { --dot: var(--bloc-broker); }
+  .dot[data-bloc="administrator"] { --dot: var(--bloc-administrator); }
+
+  #dot-float-tip {
+    position: fixed; background: var(--ink); color: #fff;
+    padding: .45rem .6rem; border-radius: 6px;
+    font-size: .68rem; line-height: 1.35; font-weight: 400;
+    width: 250px; white-space: normal; text-align: left;
+    pointer-events: none; z-index: 9999; opacity: 0; transition: opacity .12s ease;
+  }
+  #dot-float-tip strong { display: block; margin-bottom: .15rem; font-size: .72rem; }
+
+  .plot-legend {
+    display: flex; flex-wrap: wrap; gap: .75rem 1.25rem;
+    padding: .75rem 1.25rem 1rem; font-size: .82rem; color: var(--muted);
+  }
+  .plot-legend .swatch {
+    display: inline-block; width: 12px; height: 12px; border-radius: 50%;
+    vertical-align: middle; margin-right: .35rem; border: 2px solid #fff;
+    box-shadow: 0 0 0 1px var(--rule);
+  }
+  .plot-guide {
+    margin: 0 1.25rem .75rem; padding: .65rem .9rem;
+    background: color-mix(in srgb, var(--accent-default) 7%, white);
+    border-left: 3px solid var(--accent-default); border-radius: 6px;
+    font-size: .83rem; color: var(--muted); line-height: 1.5;
+  }
+  .plot-guide p { margin: 0; }
+
+  .axis-explainer {
+    margin: .5rem 1.25rem .75rem; padding: .75rem 1rem;
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+    font-size: .83rem; line-height: 1.55;
+  }
+  .axis-explainer .ae-header { display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; }
+  .axis-explainer .ae-icon { flex-shrink: 0; color: var(--accent-default); }
+  .axis-explainer .ae-title { font-weight: 700; font-size: .88rem; color: var(--ink); }
+  .axis-explainer .ae-def { color: var(--muted); margin-bottom: .6rem; }
+  .axis-explainer .ae-rows { display: flex; flex-direction: column; gap: .3rem; }
+  .axis-explainer .ae-row { display: flex; gap: .6rem; align-items: baseline; }
+  .axis-explainer .ae-row-label { font-weight: 600; min-width: 150px; color: var(--ink); flex-shrink: 0; }
+  .axis-explainer .ae-row-desc { color: var(--muted); }
+
+  .process-note {
+    background: color-mix(in srgb, var(--accent-default) 7%, white);
+    border-left: 4px solid var(--accent-default);
+    border-radius: 0 6px 6px 0;
+    padding: .7rem .9rem; margin: .75rem 0;
+    font-size: .9rem;
+  }
+  .process-note strong { color: var(--ink); }
+
+  .tbl-wrap { overflow-x: auto; margin: .75rem 0; }
+  table.commit {
+    border-collapse: collapse; width: 100%; font-size: .88rem; min-width: 560px;
+  }
+  table.commit th, table.commit td {
+    text-align: left; vertical-align: top;
+    padding: .5rem .6rem; border-bottom: 1px solid var(--rule);
+  }
+  table.commit th {
+    font-size: .76rem; text-transform: uppercase; letter-spacing: .05em;
+    color: var(--muted); background: var(--bg);
+  }
+  table.commit td:first-child { font-weight: 600; white-space: nowrap; }
+
+  @media (max-width: 720px) {
+    .plot { --cell: 110px; grid-template-columns: 32px 90px repeat(3, var(--cell)); min-width: calc(32px + 90px + 3 * var(--cell)); }
+    .dot { width: 22px; height: 22px; font-size: .58rem; }
+  }
+
+  @media print {
+    body { background: #fff; color: #000; }
+    .shell { grid-template-columns: 1fr; max-width: none; padding: 0; gap: 0; }
+    nav#toc, .global-toolbar, .controls, .chips, .result-count { display: none !important; }
+    section.block { box-shadow: none; border: none; page-break-inside: avoid; }
+    section.block > details > summary { font-size: 1.2rem; }
+    .card { box-shadow: none; }
+    .grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+<style>
+  /* --- additions for this readout --- */
+  .c-nonlive { color: var(--bloc-nonlive); }
+  .c-state   { color: var(--bloc-state); }
+  strong.c-nonlive, strong.c-state { font-weight: 700; }
+  ul.who-list > li > .who-name.c-nonlive { color: var(--bloc-nonlive); }
+  ul.who-list > li > .who-name.c-state   { color: var(--bloc-state); }
+  .pole.p-nonlive { --pole-ink: var(--bloc-nonlive); --pole-bg: color-mix(in srgb, var(--bloc-nonlive) 12%, white); }
+  .pole.p-state   { --pole-ink: var(--bloc-state);   --pole-bg: color-mix(in srgb, var(--bloc-state) 12%, white); }
+  .card[data-bloc="nonlive"] { --accent: var(--bloc-nonlive); --accent-bg: color-mix(in srgb, var(--bloc-nonlive) 12%, white); }
+  .card[data-bloc="state"]   { --accent: var(--bloc-state);   --accent-bg: color-mix(in srgb, var(--bloc-state) 12%, white); }
+  .chip[data-filter="nonlive"][aria-pressed="true"] { background: var(--bloc-nonlive); border-color: var(--bloc-nonlive); }
+  .chip[data-filter="state"][aria-pressed="true"]   { background: var(--bloc-state);   border-color: var(--bloc-state); }
+  .dot[data-bloc="nonlive"] { --dot: var(--bloc-nonlive); }
+  /* Unscored (did not take questions): keep a clean circle, mark it with a ring gap
+     rather than a dashed border — a dashed 2px border on a 26px dot renders as a cog. */
+  .dot.unscored {
+    border-color: #fff;
+    box-shadow: 0 0 0 2px var(--bloc-nonlive), 0 1px 3px rgba(0,0,0,.18);
+    background: color-mix(in srgb, var(--bloc-nonlive) 62%, white);
+  }
+
+  .first-airing {
+    background: color-mix(in srgb, var(--bloc-state) 9%, white);
+    border-left: 4px solid var(--bloc-state);
+    border-radius: 0 6px 6px 0;
+    padding: .7rem .9rem; margin: 0 0 .9rem;
+    font-size: .92rem;
+  }
+  .first-airing strong { color: var(--ink); }
+
+  blockquote.tp .orig {
+    display: block; margin-top: .4rem; font-style: normal;
+    font-size: .85rem; color: var(--muted);
+  }
+  .mode-tag {
+    display: inline-block; font-size: .68rem; font-weight: 600;
+    padding: .1rem .45rem; border-radius: 999px; margin-left: .4rem;
+    background: color-mix(in srgb, var(--bloc-nonlive) 12%, white);
+    color: var(--bloc-nonlive);
+    border: 1px solid color-mix(in srgb, var(--bloc-nonlive) 30%, transparent);
+    vertical-align: middle; letter-spacing: .02em;
+  }
+  table.commit td.mode-cell { white-space: normal; font-weight: 400; }
+
+  /* ---- Edit mode: "Prepare your version" ---- HOUSE COMPONENT, copy verbatim.
+     Requires: --accent-default, --ink, --radius. Provides its own --edit-danger so it
+     does not depend on any readout's camp palette (the UN80 pilot borrowed
+     --camp-sceptic, which does not exist in most readouts). ---- */
+  :root { --edit-danger: #b03333; }
+  #edit-toggle { border-color:var(--accent-default); color:var(--accent-default); font-weight:600; }
+  body[data-edit-mode] #edit-toggle { background:var(--accent-default); color:#fff; }
+  #edit-controls { display:none; gap:.5rem; flex-wrap:wrap; align-items:center; }
+  body[data-edit-mode] #edit-controls { display:flex; }
+  #edit-controls .btn[disabled] { opacity:.45; cursor:default; }
+  #edit-banner { display:none; grid-column:1/-1; align-items:baseline; gap:.5rem; flex-wrap:wrap; background:color-mix(in srgb,var(--accent-default) 8%,white); border:1px solid color-mix(in srgb,var(--accent-default) 30%,transparent); border-radius:var(--radius); padding:.6rem 1rem; margin:-.5rem 0 1.25rem; font-size:.88rem; }
+  body[data-edit-mode] #edit-banner { display:flex; }
+  #edit-toast { position:fixed; left:50%; bottom:2rem; transform:translateX(-50%); background:var(--ink); color:#fff; padding:.55rem 1rem; border-radius:8px; font-size:.88rem; z-index:9999; opacity:0; transition:opacity .2s ease; pointer-events:none; }
+  body[data-edit-mode] .editable:hover { outline:1px dashed var(--accent-default); outline-offset:2px; cursor:text; }
+  body[data-edit-mode] .editable:focus { outline:2px solid var(--accent-default); outline-offset:2px; background:color-mix(in srgb,var(--accent-default) 5%,transparent); }
+  .del-target { outline:2px solid var(--edit-danger) !important; outline-offset:2px; }
+  #del-float { position:fixed; z-index:9998; display:none; width:24px; height:24px; align-items:center; justify-content:center; border-radius:50%; background:var(--edit-danger); color:#fff; border:2px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.3); cursor:pointer; font-size:.72rem; line-height:1; padding:0; }
+  .sec-del { margin-left:auto; border:1px solid var(--edit-danger); background:transparent; color:var(--edit-danger); border-radius:999px; font:inherit; font-size:.72rem; font-weight:600; padding:.2rem .6rem; cursor:pointer; }
+  .sec-del:hover { background:var(--edit-danger); color:#fff; }
+
+  /* ---- Print / save-as-PDF ---- */
+  .print-only { display:none; }
+  @media print {
+    body { background:#fff; }
+    .skip, nav#toc, .global-toolbar, #edit-banner, #del-float, #edit-toast, .sec-del, .controls, .result-count, #dot-float-tip, .ev-panel, .ev-note { display:none !important; }
+    .shell { display:block; max-width:none; padding:0 .25in; }
+    section.block { box-shadow:none; border-color:#ccc; }
+    section.block > details > summary::before { content:""; width:0; }
+    .card, blockquote.tp, .fault-line, .keybox { break-inside:avoid; page-break-inside:avoid; }
+    .plot-scroll, .plot-wrap { overflow:visible; }
+    .print-only { display:block !important; }
+  }
+
+  /* how-to-read box: it is a key, so the label column must read as a label.
+     The base .ae-row flex rule is scoped to .axis-explainer and does not reach here,
+     so the layout has to be declared again rather than inherited. */
+  .plot-guide .ae-rows { display: flex; flex-direction: column; gap: .35rem; }
+  .plot-guide .ae-row { display: flex; gap: .6rem; align-items: baseline; }
+  .plot-guide .ae-row-label {
+    min-width: 118px; flex: none; font-weight: 700;
+    color: var(--accent-default); letter-spacing: .04em; font-size: .72rem;
+    text-transform: uppercase;
+  }
+  .plot-guide .ae-row-desc { color: var(--muted); }
+  .plot-guide > p:first-child { margin-bottom: .3rem; }
+</style>
+</head>
+<body data-live-url="https://christian-wandel.github.io/un-ai-readouts/readouts/sg-regional-dialogue-2026-08.html"
+      data-edit-slug="sg-regional-dialogue-2026-08">
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="shell">
+
+  <header class="page">
+    <h1>Regional Dialogue on the Future Leadership of the United Nations</h1>
+    <dl class="meta">
+      <dt>Subject</dt><dd>The first regional forum to hear the Latin American and Caribbean candidates for Secretary-General, convened by Uruguay as CELAC Pro Tempore President with GQUAL and CEPEI</dd>
+      <dt>Date</dt><dd>3 August 2026 — Montevideo, Uruguay, hybrid (2h 51m)</dd>
+      <dt>Speakers</dt><dd>3 candidates live, 2 represented by video message and letter; 14 CELAC states through ministers, vice-ministers and permanent secretaries; a student questioner; moderated by journalist Carmen Aristegui</dd>
+      <dt>Format</dt><dd>Informal dialogue: opening reflections, five thematic rounds of 90 seconds on a rotating order set by notarised draw, a youth question, a ministerial segment, and closing reflections</dd>
+      <dt>Language</dt><dd>Substantially Spanish, with English from the Guyanese candidate and some delegations</dd>
+    </dl>
+    <p style="margin:.85rem 0 0; font-size:.9rem;">
+      <a href="../methodology/sg-regional-dialogue-methodology.html">How this was made — sources, transcript accuracy and quote verification</a>
+    </p>
+  </header>
+
+  <nav id="toc" aria-label="Sections">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#summary">Executive Summary</a></li>
+      <li><a href="#brief">What Was Asked, and Who Answered</a></li>
+      <li><a href="#consensus">Areas of Consensus</a></li>
+      <li><a href="#implications">Open Questions</a></li>
+      <li><a href="#plot">Engagement Plot</a></li>
+      <li><a href="#commitments">What Each Would Build</a></li>
+      <li><a href="#talking">Talking Points</a></li>
+      <li><a href="#reference">Reference: Speakers at a Glance</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+
+    <div class="global-toolbar" role="group" aria-label="Document controls">
+      <div class="control-group">
+        <button class="btn" id="expand-all" type="button">Expand all</button>
+        <button class="btn" id="collapse-all" type="button">Collapse all</button>
+      </div>
+      <div class="control-group" id="edit-controls" role="group" aria-label="Edit and export controls">
+        <button class="btn" id="edit-undo" type="button" disabled>Undo remove</button>
+        <button class="btn" id="edit-redo" type="button" disabled>Redo</button>
+        <button class="btn" id="edit-download" type="button">Download HTML</button>
+        <button class="btn" id="edit-pdf" type="button">Save as PDF</button>
+        <button class="btn" id="edit-copy" type="button">Copy for Word</button>
+      </div>
+      <div class="control-group">
+        <button class="btn" id="edit-toggle" type="button">Prepare your version</button>
+      </div>
+    </div>
+
+    <div id="edit-banner" role="status">
+      <strong>Edit mode.</strong>
+      <span>Click any paragraph to edit its text. Hover over an item and use the red &#10005; to remove it, or use
+      &ldquo;Remove section&rdquo; in a section title. Changes stay in your browser until you download, print or copy
+      your version &mdash; the published readout is not affected.</span>
+    </div>
+
+    <section class="block" id="summary">
+      <details open>
+        <summary>Executive Summary</summary>
+        <div class="body">
+
+          <div class="first-airing">
+            <strong>What kind of meeting this was.</strong> Not a negotiation and not a formal debate. Uruguay, holding the CELAC Pro Tempore Presidency, convened the region's own candidates for the first time in the history of a Secretary-General selection, and asked them questions its foreign ministers wrote. Nothing was being decided in the room, so the useful question is not who won an argument but <strong>where the region converged</strong> — which ideas have backing, and who a delegation would approach to build on them.
+          </div>
+
+          <p>The convergence is close to complete, and it runs through states and candidates alike. Every delegation that spoke endorsed the same proposition: after 35 years, the next Secretary-General should come from Latin America and the Caribbean, and after 80 years it should be a woman. What makes the session worth reading is that the region corrected its own argument in real time. The claim of a turn owed was raised and then set aside in favour of a claim about experience — a shift the moderator opened, <span class="c-broker"><strong>Grinspan</strong></span> named, and <span class="c-convener"><strong>Espinosa</strong></span> endorsed in the next answer.</p>
+
+          <p>Three candidates took the five rounds of questions live. Two did not appear in a form that allowed any questions to reach them, which shapes what this record can and cannot say about them:</p>
+
+          <div class="tbl-wrap">
+            <table class="commit">
+              <thead>
+                <tr><th scope="col">Candidate</th><th scope="col">How they took part</th><th scope="col">What they would build</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="c-convener">María Fernanda Espinosa</td>
+                  <td class="mode-cell">In the room, all five rounds</td>
+                  <td>An early-warning and early-action hub, and a shift of the UN80 reform from budget cuts to institutional culture — accountability and impact rather than the count of reports and meetings.</td>
+                </tr>
+                <tr>
+                  <td class="c-broker">Rebeca Grinspan</td>
+                  <td class="mode-cell">In the room, all five rounds</td>
+                  <td>A good-offices office inside the Secretariat, which she says does not currently exist, so that mediation carries the Secretary-General's own legitimacy.</td>
+                </tr>
+                <tr>
+                  <td class="c-administrator">Carolyn Rodrigues-Birkett</td>
+                  <td class="mode-cell">Online, live, all five rounds</td>
+                  <td>Nothing new by design. Reorganise how the existing tools respond, appoint mediators the parties actually trust, and supply member states with objective information for the decisions that are theirs.</td>
+                </tr>
+                <tr>
+                  <td class="c-nonlive">Rafael Mariano Grossi</td>
+                  <td class="mode-cell">Pre-recorded video message <span class="mode-tag">no questions</span></td>
+                  <td>No proposal on the record here. His message is a single argument: that the concrete conflict-resolution role Javier Pérez de Cuéllar exercised is what the office has lost.</td>
+                </tr>
+                <tr>
+                  <td class="c-nonlive">Michelle Bachelet</td>
+                  <td class="mode-cell">Letter read aloud by the moderator <span class="mode-tag">no questions</span></td>
+                  <td>No machinery named. The letter's argument is about conduct rather than structures — independence, impartiality and the refusal of double standards.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="colour-key">
+            <span><strong>Colour key</strong> — each speaker keeps their group colour throughout this readout:</span>
+            <span class="ck"><span class="ck-dot" style="background:var(--bloc-broker)"></span><span class="c-broker"><strong>Build a mediation unit</strong></span> — Grinspan</span>
+            <span class="ck"><span class="ck-dot" style="background:var(--bloc-convener)"></span><span class="c-convener"><strong>Build a prevention hub</strong></span> — Espinosa</span>
+            <span class="ck"><span class="ck-dot" style="background:var(--bloc-administrator)"></span><span class="c-administrator"><strong>Reorganise, build nothing new</strong></span> — Rodrigues-Birkett</span>
+            <span class="ck"><span class="ck-dot" style="background:var(--bloc-nonlive)"></span><span class="c-nonlive"><strong>Did not take questions</strong></span> — Grossi, Bachelet</span>
+            <span class="ck"><span class="ck-dot" style="background:var(--bloc-state)"></span><span class="c-state"><strong>CELAC states</strong></span> — not candidates</span>
+          </div>
+
+          <p style="margin-top:1rem;">Two groupings that political distance would not predict are worth naming, because they are where the regional position is actually load-bearing. <span class="c-state"><strong>Argentina</strong></span> under Milei and <span class="c-state"><strong>Venezuela</strong></span> under Rodríguez arrive at the same rotation claim from opposite directions — Argentina framing it as a duty to supply the best-qualified individual, Venezuela as the region's collective political voice. And on whether the region should consolidate behind one candidate, <span class="c-state"><strong>Uruguay</strong></span> and <span class="c-state"><strong>Venezuela</strong></span> give the same answer against the conventional wisdom: multiple candidacies are normal UN practice, not a regional failure.</p>
+
+          <p>The single substantive place where a candidate steps away from the room is <span class="c-administrator"><strong>Rodrigues-Birkett</strong></span> on energy, saying fossil fuels will remain in use for some time and industry has to be engaged to find the balance. Nobody contradicted her, and nobody else said it.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="brief">
+      <details open>
+        <summary>What Was Asked, and Who Answered</summary>
+        <div class="body">
+          <p>Foreign Minister Mario Lubetkin opened by grounding the event in the CELAC heads-of-state consensus agreed in Colombia, and pre-empted the criticism the format invites — that the region has not consolidated behind one name. He answered it with precedent: six Asia-Pacific candidates preceded Ban Ki-moon's selection in 2006, and the European field was not small in 2016.</p>
+
+          <div class="process-note">
+            <strong>Where this sits in the selection.</strong> The Secretary-General is appointed by the 193-member General Assembly on the Security Council's recommendation, where any permanent member can block a candidate. Security Council straw polls began on 30 July 2026 — four days before this dialogue — with a recommendation anticipated in September and the appointment later in the year. Guyana told the room that early indications from the Council already point toward a woman from the region. This session is therefore the region's own hearing, held after the decisive phase had already moved behind closed doors in New York.
+          </div>
+
+          <p>The moderator put five thematic questions to the three live candidates, 90 seconds each, in an order rotating by notarised draw. A sixth was asked by <strong>Alexander Acevedo</strong>, a law student at the Universidad de la República, on how to win back a generation's trust.</p>
+
+          <h3 class="sub">The five rounds</h3>
+          <ol class="tight">
+            <li><strong>Legitimacy, reform and leadership.</strong> Where would you concentrate the UN's political capital, and what structures or practices would you revise?</li>
+            <li><strong>Peace and security beyond interstate war.</strong> If peace also means institutions that protect people and resist capture by violent actors, what changes?</li>
+            <li><strong>Youth.</strong> How to recover the trust of a generation growing up with authoritarianism, disinformation and polarisation — and what role should young people play?</li>
+            <li><strong>Human rights, international law and equality.</strong> How would the region's experience become a priority of the office?</li>
+            <li><strong>Financing the transition.</strong> How to reconcile climate action, inequality and the development aspirations of the Global South?</li>
+          </ol>
+
+          <h3 class="sub">The ministerial segment: seven questions from the floor</h3>
+          <p>Fourteen CELAC states intervened. Seven put direct questions to the candidates, which is what makes this session different from the July town hall — the questions came from the states that will have to live with the answers.</p>
+
+          <div class="tbl-wrap">
+            <table class="commit">
+              <thead>
+                <tr><th scope="col">Asked by</th><th scope="col">The question</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="c-state">Brazil</td><td>How can the UN and its Security Council recover their role in preventing and mediating conflict?</td></tr>
+                <tr><td class="c-state">Guatemala</td><td>What initiatives would strengthen prevention, peaceful settlement, and the authority of international law in the UN's work?</td></tr>
+                <tr><td class="c-state">Honduras</td><td>What concrete measures would guarantee equitable geographic distribution in senior Secretariat appointments?</td></tr>
+                <tr><td class="c-state">Panama</td><td>What will you do to make the organisation once again the main negotiating space between those who no longer talk to each other?</td></tr>
+                <tr><td class="c-state">Colombia</td><td>How would you strengthen good offices, preventive diplomacy and mediation — including on transnational crime — and what role for the regional economic commissions?</td></tr>
+                <tr><td class="c-state">Paraguay</td><td>How would you ensure implementation of Security Council resolution 2793 on Haiti, and strengthen cooperation with Mercosur, the OAS and CELAC?</td></tr>
+                <tr><td class="c-state">Suriname</td><td>How will developing-country priorities be reflected in the organisation's work, and how would you deploy and advocate for resources given declining finance and earmarking?</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="sub">Who answered whom</h3>
+          <p>All three live candidates addressed the ministerial questions, in noticeably different registers. No question was left unaddressed by all three.</p>
+          <div class="tbl-wrap">
+            <table class="commit">
+              <thead>
+                <tr><th scope="col">Candidate</th><th scope="col">How they handled the floor's questions</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="c-administrator">Carolyn Rodrigues-Birkett</td>
+                  <td>Worked through them one by one by name — Brazil, Guatemala, Panama, Colombia, Paraguay on Haiti, Suriname — the most systematic response to the room in the record, drawing on two years on the Security Council and her chairmanship of the Haiti Sanctions Committee.</td>
+                </tr>
+                <tr>
+                  <td class="c-convener">María Fernanda Espinosa</td>
+                  <td>Answered Brazil, Honduras, Paraguay on Haiti, Suriname and Bolivia by name, and said she had written every question down for the transition plan she is preparing with her team.</td>
+                </tr>
+                <tr>
+                  <td class="c-broker">Rebeca Grinspan</td>
+                  <td>Declined the itemised approach explicitly, going instead to what she called the most political point the ministers had made — that the world and the organisation are both at a crossroads, and a crossroads implies a choice.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p style="font-size:.9rem;color:var(--muted);">Also speaking: <strong>Enrique Iglesias</strong>, the Uruguayan elder statesman, on the UN as a form of coexistence that survives disagreement; and <strong>Carolina Cosse</strong>, Vice-President of Uruguay, present in the room.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="consensus">
+      <details>
+        <summary>Areas of Consensus</summary>
+        <div class="body">
+          <p>The agreed ground here is wider than in any readout in this series. Everything below was stated by all three live candidates, or by the great majority of the states that spoke.</p>
+          <ul class="tight">
+            <li><strong>The post should go to Latin America and the Caribbean.</strong> Stated by Uruguay, Argentina, Brazil, Mexico, Guyana, Antigua and Barbuda, Costa Rica, Venezuela, Guatemala, Panama, Colombia, Honduras, Paraguay, Suriname and Bolivia. The grounds are geographic rotation and the 35 years since Javier Pérez de Cuéllar.</li>
+            <li><strong>It should be a woman.</strong> Brazil, Mexico, Colombia, Costa Rica and Guyana say so directly, usually as 80 years without one. Mexico quotes President Sheinbaum: it is time for women.</li>
+            <li><strong>Turn alone is not the argument.</strong> The region declines to rest on rotation and argues from experience instead — a nuclear-weapon-free zone, a tradition of peaceful settlement, and a developed regional human-rights system.</li>
+            <li><strong>The three pillars are a package, not a menu.</strong> Peace and security, development, and human rights must be worked together. Named by all three live candidates and by Guatemala and Bolivia.</li>
+            <li><strong>Prevention and mediation have to come back to the centre.</strong> The shared diagnosis is that people in conflict zones ask where the UN is. Brazil, Guatemala, Colombia and Bolivia all press it; every candidate accepts it.</li>
+            <li><strong>Reform means culture, not only budget.</strong> UN80 sets a direction but cutting budgets and staff is not a transformation. Espinosa and Grinspan both target duplication and unhealthy inter-agency competition.</li>
+            <li><strong>The Secretary-General must be perceived as impartial, not merely claim it.</strong> Bachelet's letter, Espinosa and Grinspan all make the perception the operative test, and all three tie it to the absence of double standards.</li>
+            <li><strong>Debt and the cost of capital are development blockers.</strong> Grinspan, Espinosa and Rodrigues-Birkett all name access to concessional finance; Suriname and Colombia press it from the floor.</li>
+            <li><strong>Young people belong inside the institution, not in consultations about it.</strong> All three live candidates reject a consultative role as sufficient.</li>
+            <li><strong>Regional organisations are partners, not audiences.</strong> Cooperation with CELAC, CARICOM, Mercosur, the OAS and ECLAC is endorsed by every candidate and requested by Paraguay and Colombia.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="implications">
+      <details>
+        <summary>Open Questions</summary>
+        <div class="body">
+          <p>Because this was a dialogue rather than a negotiation, the items below are things still to be worked out, not boundaries between camps. Each names who said what; fuller positions are in the <a href="#reference">reference grid</a>.</p>
+
+          <div class="fault-line">
+            <span class="fl-title"><strong>1. Does the region want one candidate, or five?</strong> <span class="fl-gloss">— everyone agrees plurality is legitimate; nobody says how a common message is produced without it.</span></span>
+
+            <div class="pole p-state">
+              <div class="pole-label">Plurality is normal</div>
+              <ul class="who-list">
+                <li><span class="who-name c-state">Uruguay</span><span class="who-pos">Answers the criticism with precedent and says no consolidating mechanism is required: UN practice asks a region for a diversity of candidacies, not a single one (full quote below).</span></li>
+                <li><span class="who-name c-state">Venezuela</span><span class="who-pos">Agrees, and moves the target: the aim is not one candidacy but one political message about the region's claim (full quote below).</span></li>
+              </ul>
+            </div>
+
+            <div class="pole p-state">
+              <div class="pole-label">Asks for unity without naming an instrument</div>
+              <ul class="who-list">
+                <li><span class="who-name c-state">Guatemala</span><span class="who-pos">Asks the region to show unity and determination to secure the post, without proposing how that would be organised.</span></li>
+              </ul>
+            </div>
+
+            <p style="margin:.8rem 0 0;font-size:.9rem;color:var(--muted);">Nobody proposed a consolidation mechanism, and the straw polls that began on 30 July will settle the question before the region does.</p>
+          </div>
+
+          <div class="fault-line">
+            <span class="fl-title"><strong>2. What actually restores the Secretary-General's mediation role?</strong> <span class="fl-gloss">— all three want it back; the machinery is where they separate.</span></span>
+
+            <div class="pole p-broker">
+              <div class="pole-label">Build a unit for it</div>
+              <ul class="who-list">
+                <li><span class="who-name c-broker">Grinspan</span><span class="who-pos">Says the Secretariat has no good-offices office and would create one, so that mediation, prevention and diplomatic action carry the Secretary-General's own legitimacy. Argues from the Black Sea grain agreement: the UN did not stop the war but restored trade and averted a food crisis, and she negotiated with Russia to do it.</span></li>
+              </ul>
+            </div>
+
+            <div class="pole p-convener">
+              <div class="pole-label">Build an earlier tripwire</div>
+              <ul class="who-list">
+                <li><span class="who-name c-convener">Espinosa</span><span class="who-pos">Puts the emphasis one step earlier, on prevention as an operating principle rather than a slogan, and would establish an early-warning and early-action hub at member states' disposal.</span></li>
+              </ul>
+            </div>
+
+            <div class="pole p-administrator">
+              <div class="pole-label">Build nothing; reorganise</div>
+              <ul class="who-list">
+                <li><span class="who-name c-administrator">Rodrigues-Birkett</span><span class="who-pos">Declines new initiatives on principle and would reorganise the response instead, appointing envoys the conflict parties trust and having the Secretary-General pick up the phone directly (full quote below).</span></li>
+              </ul>
+            </div>
+
+            <div class="pole p-nonlive">
+              <div class="pole-label">Diagnosis without a proposal</div>
+              <ul class="who-list">
+                <li><span class="who-name c-nonlive">Grossi</span><span class="who-pos">His video reaches the loss but not a remedy: Pérez de Cuéllar acting concretely on the Iran–Iraq ceasefire, Afghanistan, Namibia's independence and demilitarisation in Angola and Cambodia is what the office no longer does (full quote below). The format gave him no opportunity to be asked what he would do about it.</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="fault-line">
+            <span class="fl-title"><strong>3. Geographic representation in senior posts got one number and no mechanism</strong> <span class="fl-gloss">— Honduras asked for concrete measures.</span></span>
+
+            <div class="pole p-mixed">
+              <div class="pole-label">Where the answers landed</div>
+              <ul class="who-list">
+                <li><span class="who-name c-convener">Espinosa</span><span class="who-pos">Supplies the figure — Latin America and the Caribbean hold under 7% of UN posts — and commits to work on equity and parity, treating representation as a management necessity rather than an ornament.</span></li>
+                <li><span class="who-name c-broker">Grinspan</span><span class="who-pos">Goes at an adjacent lever: entry-level P2 posts have gone unfunded through the liquidity crisis and the examinations that let unrepresented countries bring people in have lapsed for years. Notes 3% of UN staff are under 30.</span></li>
+                <li><span class="who-name c-administrator">Rodrigues-Birkett</span><span class="who-pos">Addresses staffing here mainly through resourcing the system to member states' needs; she had raised under- and unrepresented countries directly at the July town hall.</span></li>
+              </ul>
+            </div>
+
+            <p style="margin:.8rem 0 0;font-size:.9rem;color:var(--muted);">No candidate named a target, a timeline or an appointment procedure. This is the clearest gap between a question asked and an answer given.</p>
+          </div>
+
+          <div class="fault-line">
+            <span class="fl-title"><strong>4. Haiti has support and no costed plan</strong> <span class="fl-gloss">— Paraguay asked how resolution 2793 gets implemented.</span></span>
+
+            <div class="pole p-mixed">
+              <div class="pole-label">Where the answers landed</div>
+              <ul class="who-list">
+                <li><span class="who-name c-administrator">Rodrigues-Birkett</span><span class="who-pos">Gives the fullest answer, and it is largely a list of unfunded problems: she negotiated the resolution and chaired the Sanctions Committee, and names that more than half of gang members are children, that the economy needs rebuilding, that reforestation bears on disaster resilience — and that raising the funds will be extremely important.</span></li>
+                <li><span class="who-name c-convener">Espinosa</span><span class="who-pos">Commits firmly to implementing the gang-suppression force and pairs it with a broader development and opportunity approach for the country.</span></li>
+              </ul>
+            </div>
+
+            <p style="margin:.8rem 0 0;font-size:.9rem;color:var(--muted);">Neither named a funding source, which is the part Paraguay's question was pointing at.</p>
+          </div>
+
+          <div class="fault-line">
+            <span class="fl-title"><strong>5. Financing: a shared diagnosis and an unspecified ask</strong> <span class="fl-gloss">— and the session's one real divergence, on energy.</span></span>
+
+            <div class="pole p-mixed">
+              <div class="pole-label">The shared diagnosis</div>
+              <ul class="who-list">
+                <li><span class="who-name c-broker">Grinspan</span><span class="who-pos">Brings the numbers: 3.4 billion people live in countries spending more on debt service than on education or health (full quote below); developing countries pay four to eight times the interest rates; all of Africa receives 2% of renewable-energy foreign investment. Locates the fix in development banks taking more risk to crowd in private capital.</span></li>
+                <li><span class="who-name c-convener">Espinosa</span><span class="who-pos">Asks for deep debt restructuring — regional debt is 45% of GDP — and for vulnerability to be counted alongside per-capita income, with the Multidimensional Vulnerability Index as the instrument.</span></li>
+              </ul>
+            </div>
+
+            <div class="pole p-administrator">
+              <div class="pole-label">The one substantive step away from the room</div>
+              <ul class="who-list">
+                <li><span class="who-name c-administrator">Rodrigues-Birkett</span><span class="who-pos">States a caveat no one else states: fossil fuels will continue to be used for some time given where the transition stands, and member states, agencies and industry have to engage to find the right balance (full quote below). She frames it against 650 million people without electricity, two billion cooking on polluting fuels, and rising AI data-centre demand.</span></li>
+              </ul>
+            </div>
+
+            <p style="margin:.8rem 0 0;font-size:.9rem;color:var(--muted);">Nobody contradicted her and nobody echoed her. In a session this convergent, an uncontested outlier is worth flagging rather than smoothing over.</p>
+          </div>
+
+          <div class="outlier">
+            <strong>Only one of them said it</strong>
+            <ul class="who-list" style="margin-top:.4rem;">
+              <li><span class="who-name c-broker">Grinspan</span><span class="who-pos">The only speaker to argue the organisation has become too conservative and must accept the cost of rejection and try again — the UN can fail fifteen times and continue, where a government cannot (full quote below). Also the only one to read the Charter as a bargain in which the 1945 victors accepted restraint on their own power.</span></li>
+              <li><span class="who-name c-administrator">Rodrigues-Birkett</span><span class="who-pos">The only candidate to draw the line between Secretariat reform, which is the Secretary-General's own authority, and structural reform, which is not — and to note that if the structural work is unfinished by January she would be implementing decisions rather than designing them.</span></li>
+              <li><span class="who-name c-convener">Espinosa</span><span class="who-pos">The only one to quantify the meeting load, at more than 2,500 meetings a year, and the only one to offer the UN's relationship with the African Union as the working model for a UN–CELAC relationship.</span></li>
+              <li><span class="who-name c-state">Argentina</span><span class="who-pos">The only delegation backing the sole male candidate, and it still states the rotation claim as plainly as anyone in the room (full quote below).</span></li>
+              <li><span class="who-name c-state">Venezuela</span><span class="who-pos">The only delegation to open by thanking the region for earthquake solidarity, and the only one to name unity in diversity as the frame for a plural field.</span></li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="plot">
+      <details>
+        <summary>Engagement Plot — Cluster Map</summary>
+
+        <div class="plot-guide">
+          <p><strong>How to read this plot.</strong></p>
+          <div class="ae-rows" style="margin-top:.4rem;">
+            <div class="ae-row"><span class="ae-row-label">LEFT → RIGHT</span><span class="ae-row-desc">How concrete the answers were — named instruments, figures and mechanisms rather than direction of travel. Directional → mixed → concrete.</span></div>
+            <div class="ae-row"><span class="ae-row-label">COLOUR</span><span class="ae-row-desc">What they would build. A separate question from how concretely they argued it.</span></div>
+            <div class="ae-row"><span class="ae-row-label">UP / DOWN</span><span class="ae-row-desc">Whatever you pick in the dropdown.</span></div>
+            <div class="ae-row"><span class="ae-row-label">HOVER A DOT</span><span class="ae-row-desc">That speaker's summary line.</span></div>
+          </div>
+          <div class="first-airing" style="margin:.7rem 0 0;">
+            <strong>The cluster to look for:</strong> all three live candidates sit in the same top band on prevention — they want the same thing and reach for different machinery. <span class="c-broker"><strong>Grinspan</strong></span> and <span class="c-convener"><strong>Espinosa</strong></span> would each build something new; <span class="c-administrator"><strong>Rodrigues-Birkett</strong></span> would build nothing and reorganise instead. That is the practical choice facing the region, and it is not a disagreement about goals.
+          </div>
+          <p style="margin-top:.5rem;font-size:.8rem;">Concreteness is an ordinal reading of this session only, not a score of merit or support. <span class="c-nonlive"><strong>Grossi</strong></span> and <span class="c-nonlive"><strong>Bachelet</strong></span> are shown as ringed, paler dots and are <strong>not placed on the concreteness axis</strong>: a video message and a read letter never met a question, so there is nothing comparable to read. See the <a href="../methodology/sg-regional-dialogue-methodology.html">methodology page</a>.</p>
+        </div>
+
+        <div class="plot-controls">
+          <div class="control-group">
+            <label class="label" for="axis-y">Y axis — dimension</label>
+            <select id="axis-y">
+              <option value="build" selected>What they would build</option>
+              <option value="regional">How they use regional institutions</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="axis-explainer" id="axis-explainer" aria-live="polite"></div>
+
+        <div class="plot-wrap">
+          <div class="plot" id="plot-grid" role="img" aria-label="Two-axis cluster map of speaker positions"></div>
+        </div>
+
+        <div class="plot-legend" id="plot-legend"></div>
+      </details>
+    </section>
+
+    <section class="block" id="commitments">
+      <details>
+        <summary>What Each Would Build</summary>
+        <div class="body">
+          <p>The most checkable thing this dialogue produced. Each live candidate was asked where they would put the office's political capital, and each named something specific enough to be held to in 2027. Listed in the order they first spoke.</p>
+          <div class="tbl-wrap">
+            <table class="commit">
+              <thead>
+                <tr><th scope="col">Candidate</th><th scope="col">Stated intentions</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="c-administrator">Carolyn Rodrigues-Birkett</td>
+                  <td>Continuous Secretariat reform under the Secretary-General's own authority, bringing the Secretariat closer to member states, while supplying objective information for the structural decisions that belong to states — expecting to implement rather than design them if the process runs past January. Increase the use of the peace and security tools without creating new initiatives: reorganise the response, appoint mediators and envoys the conflict parties trust, work with regional organisations and act before conflicts break out. Implement resolution 2793 on Haiti, accompanying the country for years. Advocate the Paris Agreement commitments and climate finance for the most vulnerable, and partner with the international financial institutions on concessional access. Prudent management of resources and engagement with member states in arrears. Strengthen the Youth Office's communication with young people.</td>
+                </tr>
+                <tr>
+                  <td class="c-broker">Rebeca Grinspan</td>
+                  <td>Return peace and security to the centre and create a good-offices office inside the Secretariat, which she says does not exist, so mediation, prevention and diplomatic action carry the Secretary-General's legitimacy directly. Take reform past what UN80 has touched, attacking duplication and unhealthy inter-agency competition. Restore entry-level access for young people by funding P2 posts and restarting the examinations that let unrepresented countries bring people in. Work outward to civil society and regional organisations rather than expecting everything to be resolved inside the UN. Press development banks to take more risk so private capital reaches developing countries, and put debt and the cost of capital at the top of the development agenda.</td>
+                </tr>
+                <tr>
+                  <td class="c-convener">María Fernanda Espinosa</td>
+                  <td>Reinstate prevention as an operating principle and build an early-warning and early-action hub for member states. Move the UN80 reform from budget and staff cuts to institutional culture — accountability, results and impact rather than the volume of reports and meetings. Recover the Secretary-General's mediating role in person, with the independence and perceived impartiality to take real risks. Connect the three pillars as a continuum. Push debt restructuring and vulnerability-weighted criteria alongside per-capita income, using the Multidimensional Vulnerability Index. Work toward equity and parity in staffing, from a base under 7% for the region. Build a UN–CELAC relationship on the model of the UN–African Union one.</td>
+                </tr>
+                <tr>
+                  <td class="c-nonlive">Rafael Mariano Grossi <span class="mode-tag">video</span></td>
+                  <td>No commitments given. The message is a historical argument that the Secretary-General has lost the concrete conflict-resolution role Pérez de Cuéllar exercised. Argentina's foreign minister made the fuller case on his behalf, on four decades of multilateral service, independence, and crisis management at the IAEA.</td>
+                </tr>
+                <tr>
+                  <td class="c-nonlive">Michelle Bachelet <span class="mode-tag">letter</span></td>
+                  <td>No machinery named. The letter commits to how the office would be exercised: independence, impartiality, judgement and courage; listening to all without becoming anyone's instrument; building agreements without abandoning Charter principles; and acting with the same firmness against any violation of rights or international law, without double standards. Brazil and Mexico set out the fuller case as co-sponsors.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="talking">
+      <details>
+        <summary>Talking Points</summary>
+        <div class="body">
+          <p style="font-size:.85rem;color:var(--muted);margin-top:0;">All 15 quotes below were <strong>checked against the meeting audio on 5 August 2026 and match the recording</strong>; one ASR garble was corrected to the audio reading (Grinspan: &ldquo;traemos&rdquo; &rarr; &ldquo;tenemos&rdquo;). Still an ASR transcript, not an official UN record. Most of the session was in Spanish; English renderings below are translations made for this readout, with the original underneath. They are not the interpreter's words.</p>
+
+          <blockquote class="tp">"UN practice does not require a region to back a single candidacy — it requires each region to contribute a diversity of candidacies to the process."<span class="orig">Original: “La práctica de las Naciones Unidas no exige que una región respalde una candidatura única… Sino que cada región aporte diversidad de candidaturas al proceso.”</span><footer>— Mario Lubetkin, Foreign Minister of Uruguay, answering the criticism that the region has not consolidated</footer></blockquote>
+
+          <blockquote class="tp">"It is not about converging on a single candidacy, but about projecting to the world a common political message."<span class="orig">Original: “No se trata de converger en torno a una candidatura única, sino proyectar al mundo un mensaje político común.”</span><footer>— Venezuela, Minister of Foreign Affairs, reframing what regional unity has to mean</footer></blockquote>
+
+          <blockquote class="tp">"We are not here because it is our turn, we are here because we have experience."<span class="orig">Original: “no estamos aquí por nuestro turno, estamos aquí porque tenemos una experiencia”</span><footer>— Rebeca Grinspan, taking the moderator's phrase and making it the frame; Espinosa endorsed it in the next answer</footer></blockquote>
+
+          <blockquote class="tp">"It is our turn, and we have largely upheld this rotation."<footer>— Carolyn Rodrigues-Birkett, giving the plain version of the claim the others moved away from</footer></blockquote>
+
+          <blockquote class="tp">"The Charter of the United Nations is not a menu, it is a package."<span class="orig">Original: “La Carta de Naciones Unidas no es un menú, es un paquete.”</span><footer>— Rebeca Grinspan, on why the three pillars cannot be selected among</footer></blockquote>
+
+          <blockquote class="tp">"The only ones who can try fifteen times and keep trying are us."<span class="orig">Original: “Los únicos que pueden tratar 15 veces y seguir tratando somos nosotros.”</span><footer>— Rebeca Grinspan, closing, on an organisation she says has become too conservative and must accept the cost of rejection</footer></blockquote>
+
+          <blockquote class="tp">"Fewer meetings, more impact that touches and transforms people's lives."<span class="orig">Original: “Menos reuniones, más impacto que toque y transforme la vida de la gente.”</span><footer>— María Fernanda Espinosa, on what reform should mean beyond cutting budgets; she puts the meeting load above 2,500 a year</footer></blockquote>
+
+          <blockquote class="tp">"A Secretary-General has to have her hands free… partial only to the Charter and to international law."<span class="orig">Original: “una secretaria general tiene que tener las manos libres… solamente parcial a la Carta y al Derecho Internacional”</span><footer>— María Fernanda Espinosa, on impartiality as something exercised and perceived, not asserted</footer></blockquote>
+
+          <blockquote class="tp">"I would not want to create new initiatives, but certainly a reorganization of how we respond."<footer>— Carolyn Rodrigues-Birkett, answering Guatemala on prevention; the clearest statement of the build-nothing position</footer></blockquote>
+
+          <blockquote class="tp">"Fossil fuels, given where we are with the transition to clean energy will continue to be used for some time."<footer>— Carolyn Rodrigues-Birkett, the session's one substantive step away from the room; she asks for industry to be engaged to find the balance</footer></blockquote>
+
+          <blockquote class="tp">"Whoever leads it will be permanently subject to pressure from governments, powers and different interests. They will therefore have to listen to everyone, but be no one's instrument."<span class="orig">Original: “Quien la encabece estará sometido o sometida permanentemente a presiones de gobiernos, potencias y distintos intereses. Por eso deberá escuchar a todos, pero no ser un instrumento de nadie.”</span><footer>— Michelle Bachelet, from the letter read aloud in her absence; her argument is about conduct rather than structures</footer></blockquote>
+
+          <blockquote class="tp">"What we have lost."<span class="orig">Original: “Lo que hemos perdido.” — closing his account of Pérez de Cuéllar acting concretely on the Iran–Iraq ceasefire, Afghanistan, Namibia and demilitarisation in Angola and Cambodia.</span><footer>— Rafael Mariano Grossi, from the pre-recorded video message; the whole of his intervention is this diagnosis</footer></blockquote>
+
+          <blockquote class="tp">"We recognise the value of geographic rotation and, consequently, we believe the next Secretary-General should be from Latin America and the Caribbean."<span class="orig">Original: “Reconocemos el valor de la rotación geográfica y, en consecuencia, creemos que el próximo Secretario General debe ser de América Latina y el Caribe.”</span><footer>— Pablo Quirno, Foreign Minister of Argentina — the delegation backing the field's only man, stating the regional claim as plainly as anyone</footer></blockquote>
+
+          <blockquote class="tp">"3.4 billion people in the world live in countries that today spend more on debt service than on education or health."<span class="orig">Original: “3.4 billones de personas en el mundo viven en países que hoy en día gastan más en el servicio de la deuda que en educación o salud.”</span><footer>— Rebeca Grinspan, on why the cost of capital is the development question. Rendered as 3.4 billion: the Spanish <em>billones</em> here follows the figure's English-language source, not the long scale</footer></blockquote>
+
+          <blockquote class="tp">"I want to be that Secretary-General that is present, that is proactive, that picks up the phone and calls."<footer>— Carolyn Rodrigues-Birkett, answering Panama on recovering the UN as a negotiating space</footer></blockquote>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="reference">
+      <details>
+        <summary>Reference: Speakers at a Glance</summary>
+
+        <div class="controls" role="search">
+          <div class="control-group" style="flex:1 1 220px;">
+            <label for="country-search" class="label" style="white-space:nowrap;">Search</label>
+            <input id="country-search" class="search" type="search" placeholder="Filter by name or position text…" aria-controls="country-grid">
+          </div>
+        </div>
+
+        <div class="chips" role="group" aria-label="Filter by group">
+          <button class="chip" data-filter="all"           aria-pressed="true">All</button>
+          <button class="chip" data-filter="broker"        aria-pressed="false">Build a mediation unit</button>
+          <button class="chip" data-filter="convener"      aria-pressed="false">Build a prevention hub</button>
+          <button class="chip" data-filter="administrator" aria-pressed="false">Reorganise, build nothing</button>
+          <button class="chip" data-filter="nonlive"       aria-pressed="false">Did not take questions</button>
+          <button class="chip" data-filter="state"         aria-pressed="false">CELAC states</button>
+        </div>
+
+        <div class="result-count" id="result-count" aria-live="polite">Showing 20 of 20</div>
+
+        <div class="grid" id="country-grid">
+
+          <article class="card" data-group="convener" data-build="new" data-regional="deep" data-bloc="convener">
+            <h4>María Fernanda Espinosa</h4>
+            <p class="who">Antigua and Barbuda · Former President of the UN General Assembly; former Minister of Foreign Affairs and of Defence · <strong>in the room</strong></p>
+            <div class="badge-row"><span class="badge">Build a prevention hub</span></div>
+            <p>Frames the task as recovering the Charter's original role — prevent conflict, build peace, protect people — and says prevention has been crowded out by emergencies, so she would build an early-warning and early-action hub. On reform: UN80 sets the direction but cutting budgets and staff is not transformation; the target is institutional culture, with accountability and impact replacing the count of reports and the 2,500-plus meetings a year. Wants a Secretary-General with free hands, partial only to the Charter and international law, without double standards. Cites the region as a laboratory of international law — the Tlatelolco Treaty, the Inter-American human rights system. On development, the paradox framing: 40% of biodiversity, 30% of fresh water, half the lithium reserves, and the most unequal region after sub-Saharan Africa, with organised crime costing around 15% of GDP and debt at 45%. Puts the region under 7% of UN posts and commits to parity. Offers the UN–African Union relationship as the CELAC model.</p>
+          </article>
+
+          <article class="card" data-group="broker" data-build="new" data-regional="deep" data-bloc="broker">
+            <h4>Rebeca Grinspan</h4>
+            <p class="who">Costa Rica · Secretary-General of UNCTAD (on leave for the campaign); former Vice-President of Costa Rica · <strong>in the room</strong></p>
+            <div class="badge-row"><span class="badge">Build a mediation unit</span></div>
+            <p>Opens by rejecting the turn framing and substituting experience. Three priorities: peace and security first, because the Secretariat has no good-offices office and mediation must carry the Secretary-General's own legitimacy; reform beyond what UN80 has touched, against duplication and unhealthy competition; and cooperation on the future. Argues from the Black Sea grain agreement — the UN did not stop the war but restored trade and averted a food crisis, and she negotiated with Russia to do it. Reads the Charter as a package rather than a menu, and as a 1945 bargain in which the victors accepted restraint on their own power. On youth: 3% of UN staff are under 30 and P2 entry examinations have lapsed, so open the doors and go out to civil society, because the UN is unique but not alone. On finance: 3.4 billion people in countries spending more on debt service than health or education, developing countries paying four to eight times the interest rates, and 2% of renewable-energy investment reaching Africa. Closes that the organisation has become too conservative and must accept rejection and try again. Daughter of Second World War refugees.</p>
+          </article>
+
+          <article class="card" data-group="administrator" data-build="reorganise" data-regional="deep" data-bloc="administrator">
+            <h4>Carolyn Rodrigues-Birkett</h4>
+            <p class="who">Guyana · Permanent Representative of Guyana to the United Nations; former Minister · <strong>online, live</strong></p>
+            <div class="badge-row"><span class="badge">Reorganise, build nothing new</span></div>
+            <p>The most systematic answerer of the ministers, working through their questions one by one by name. States the turn argument plainly and pairs it with competence and the CARICOM endorsement. Draws the line between Secretariat reform, which is the Secretary-General's authority and would be continuous, and structural reform, which belongs to member states — her job there is supplying objective information, and she expects to be implementing rather than designing if the process runs past January. Declines to create new initiatives, preferring reorganisation, trusted mediators and envoys the parties accept, and a Secretary-General who picks up the phone. Describes her leadership as practical, inclusive and pragmatic, but always principled. Cites the region's first international court, the 1948 Pact of Bogotá, and use of the ICJ, CARICOM and the OAS. Two years on the Security Council; led its delegation to Colombia; negotiated resolution 2793 and chaired the Haiti Sanctions Committee. On climate: 650 million without electricity, two billion cooking on polluting fuels, AI data-centre demand — and the session's one dissent, that fossil fuels will be used for some time.</p>
+          </article>
+
+          <article class="card" data-group="nonlive" data-build="none" data-regional="none" data-bloc="nonlive">
+            <h4>Rafael Mariano Grossi</h4>
+            <p class="who">Argentina · Director General, International Atomic Energy Agency · <strong>pre-recorded video message; took no questions</strong></p>
+            <div class="badge-row"><span class="badge">Did not take questions</span></div>
+            <p>Appeared only through a short video message after a flight change; the host said he would connect live if he landed in time, and he did not. The message is a single reflection rather than a programme. He recalls Javier Pérez de Cuéllar as the region's only Secretary-General and argues that what he demonstrated has been lost: an office acting concretely on war and peace — the ceasefire after the Iran–Iraq war, Afghanistan, Namibia's emergence as an independent nation, demilitarisation in Angola and Cambodia. No reform proposal and no answer to any ministerial question is on this record, because the format put none to him. Argentina's foreign minister made the substantive case for him in the ministerial segment.</p>
+          </article>
+
+          <article class="card" data-group="nonlive" data-build="none" data-regional="none" data-bloc="nonlive">
+            <h4>Michelle Bachelet</h4>
+            <p class="who">Chile · Former President of Chile; former UN High Commissioner for Human Rights; former Executive Director of UN Women · <strong>letter read aloud; took no questions</strong></p>
+            <div class="badge-row"><span class="badge">Did not take questions</span></div>
+            <p>Absent with an acute viral illness that cost her her voice, with medical advice against flying; her letter was read out by the moderator at the opening. It endorses the regional claim and the case for a woman after 80 years, then makes its real argument about how the office is exercised rather than who holds it: the Secretariat requires independence, impartiality, judgement and courage, and whoever leads it will face permanent pressure from governments, powers and interests — so they must listen to everyone but be no one's instrument, build agreements without abandoning Charter principles, and act with the same firmness against any violation of rights or international law, without double standards. Brazil and Mexico co-sponsor her candidacy and made the fuller case in the ministerial segment.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Uruguay</h4>
+            <p class="who">Mario Lubetkin, Minister of Foreign Affairs · host, CELAC Pro Tempore President</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Convened the dialogue as an implementation of the CELAC heads-of-state consensus reached in Colombia, and says Uruguay does not treat that consensus as ceremonial. Pre-empts the criticism that the region is divided, citing at least six Asia-Pacific candidates before Ban Ki-moon in 2006 and a substantial European field in 2016: UN practice asks a region for a diversity of candidacies, not a single one. Argues the region brings more than rotation — a consistent defence of international law and peaceful settlement, and the only region at peace and denuclearised. Notes more than 15 foreign ministers following the session.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Argentina</h4>
+            <p class="who">Pablo Quirno, Minister of Foreign Affairs, International Trade and Worship</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Nominates Grossi and states the regional rotation claim as plainly as any delegation in the room, despite backing the field's only man. Invokes President Milei on the organisation needing to recover its capacity to act, its credibility and its efficiency, and says administering consensus and preserving bureaucratic inertia is no longer enough. Argues the region's opportunity is also a responsibility: it should field leadership recognised for trajectory, independence and the capacity to mediate. Makes the case on four decades of multilateral service, presence in the most sensitive theatres while channels closed elsewhere, and IAEA technical cooperation for the region in health, agriculture, food security and water.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Brazil</h4>
+            <p class="who">Mauro Vieira, Minister of Foreign Affairs</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Co-sponsors Bachelet with Mexico. Says the world faces the highest number of armed conflicts since the Second World War alongside a worrying idea that international law is selective, optional or irrelevant — while the great majority of states remain committed to the Charter and reject that force makes right. Argues 35 years after the region's only Secretary-General it is time for a woman from the region. Asked the candidates how the UN and its Security Council can recover their role in prevention and mediation.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Mexico</h4>
+            <p class="who">Enrique Ochoa, Vice-Minister of Foreign Affairs</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Co-sponsors Bachelet with Brazil. Treats rotation as an agreement the region has honoured and that lends stability in an uncertain moment, and says the region has a proven record of multilateralism as method and international law as principle, consolidating its territory as a zone of peace. Argues that after 80 years it is time for a woman, quoting President Sheinbaum that today is the time of women. Makes the case for Bachelet on two terms as head of state, her defence background, her medical training, and her UN roles at the Human Rights Office and UN Women.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Guyana</h4>
+            <p class="who">Delivered on behalf of Hugh Todd, Minister of Foreign Affairs and International Cooperation</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Nominated Rodrigues-Birkett, in whom it says Guyana and CARICOM have the fullest confidence, describing her as at once principled and practical, a problem solver and consensus builder. Sets out the incoming Secretary-General's inheritance: the highest number of conflict situations since the Second World War, rising geopolitical tension, multilateralism under stress, the SDGs falling behind and the climate crisis unmitigated. Reports that early indications from the Security Council point toward a woman from Latin America and the Caribbean, in keeping with the community's advocacy. Commends all the other candidates.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Antigua and Barbuda</h4>
+            <p class="who">Paul Chet Greene, Minister of Foreign Affairs</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Nominated Espinosa, and is explicit that the nomination rests neither on her being highly qualified nor on her being Antiguan, but on her representing the best the Americas can offer. Frames the selection as deciding the kind of United Nations wanted for the next decade rather than choosing an individual: restoring confidence, building consensus, delivering results through principled and patient diplomacy. Acknowledges that many delegations are still weighing their position, and asks them to consider who is best placed to build confidence across the whole system, work with the Security Council while keeping the General Assembly's trust, and advance reform without creating unnecessary division.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Costa Rica</h4>
+            <p class="who">Adriana Bolaños Argueta, Vice-Minister for Multilateral Affairs</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Presents Grinspan as Costa Rica's candidate, citing vision, experience and diplomatic judgement, and a proven capacity to build bridges, generate dialogue and reach agreements. Summarises her programme as rebuilding trust in the United Nations, strengthening preventive diplomacy, improving the organisation's effectiveness, advancing sustainable development, promoting respect for international law and ensuring tangible results for member states and their peoples. Endorses the concept note's framing that the time has come for the region, and that after 80 years a woman should lead.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Venezuela</h4>
+            <p class="who">Minister of Foreign Affairs and International Trade</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Opens by thanking the region for solidarity after two earthquakes. Calls the moment a historic opportunity after 35 years, consistent with rotation, and a chance to strengthen the organisation's credibility. Does not endorse a candidate: the best will be whoever shows firm commitment to the Charter, the courage to defend its purposes and principles, and above all the capacity to build bridges and consensus. Argues for unity in diversity — the aim is not a single candidacy but a common political message about the legitimacy of the region's aspiration, because when the region acts together it strengthens multilateralism as well as its own voice.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Guatemala</h4>
+            <p class="who">Carlos Ramiro Martínez Alvarado, Minister of Foreign Affairs</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Describes the next Secretary-General as the Charter's custodian across all three pillars, inheriting persistent wars in Ukraine, Sudan and the Middle East, widening economic gaps, the rapid advance of artificial intelligence and intensifying competition between the major powers. Argues the region should show unity and determination to secure the post and help recover public confidence in the institution and the rules-based order, without proposing how that unity would be organised. Asked the candidates what initiatives they would advance to strengthen prevention, peaceful settlement and the authority of international law.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Panama</h4>
+            <p class="who">Javier Eduardo Martínez-Acha Vásquez, Minister of Foreign Affairs</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Frames the regional claim as equity rather than privilege: a genuinely universal organisation should reflect the diversity of the regions it represents. Wants a leader with international credibility who can sit with the major powers and still generate trust between deeply divided states — a respected interlocutor in Washington and Beijing, Moscow and Brussels, north and south alike — and says moral authority is built rather than proclaimed. Argues the region arrives without hegemonic pretensions, with a tradition of listening before imposing and mediating before confronting. Asked what the candidates would do to make the organisation once again the main negotiating space between those who no longer talk to each other.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Colombia</h4>
+            <p class="who">Mauricio Jaramillo, Vice-Minister for Multilateral Affairs</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Backs the region's return to the post after more than 35 years and a first woman in more than 80 years, arguing both strengthen the organisation's legitimacy and representativeness. Put two concrete questions: how the Secretary-General should strengthen good offices, preventive diplomacy and mediation — and specifically what the organisation's role should be for peace and security in Latin America and the Caribbean against challenges such as transnational crime; and how the regional economic commissions should be strengthened as instruments for sustainable development and reducing inequality.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Honduras</h4>
+            <p class="who">Mireya Agüero, Minister of Foreign Affairs</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Frames the guarantee of political dialogue as a process of democratisation within the UN's own organs, against a backdrop of proliferating armed conflict, rising geopolitical tension and growing polarisation between states. Asked the single most concrete question of the ministerial segment: what specific measures would a candidate advance to guarantee equitable geographic distribution in the appointment of senior and high-responsibility posts within the Secretariat. No candidate answered it with a target, a timeline or a procedure.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Paraguay</h4>
+            <p class="who">Víctor Verdún, Vice-Minister of Foreign Affairs</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Does not endorse a candidate and says Paraguay will support whoever is elected. Raises Haiti as a constant regional concern and asked what policies would guarantee successful implementation of Security Council resolution 2793, which converts the multinational security support mission into a new gang-suppression force. Also asked how cooperation between the United Nations and regional bodies such as Mercosur, the OAS and CELAC would be strengthened.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Suriname</h4>
+            <p class="who">Miriam MacIntosh, Permanent Secretary for Foreign Affairs</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Speaking for the Minister of Foreign Affairs, International Business and Cooperation. Calls the dialogue timely and appropriate after 80 years, and reaffirms the importance of a united regional voice for a more representative, inclusive, transparent, accountable and effective organisation. Asked two questions: how the candidates intend to ensure developing-country concerns and priorities, including the region's, are adequately reflected in the organisation's work; and how they would deploy resources and advocate for more of them given declining finances and earmarking. Closes by wishing all candidates success and naming the CARICOM-endorsed candidate.</p>
+          </article>
+
+          <article class="card" data-group="state" data-bloc="state">
+            <h4>Bolivia</h4>
+            <p class="who">Carlos Paz, Vice-Minister of Foreign Affairs</p>
+            <div class="badge-row"><span class="badge">CELAC state</span></div>
+            <p>Argues the selection defines the political and moral leadership of the organisation rather than filling a senior administrative post. Wants independent leadership of integrity, deeply committed to the Charter, able to generate trust between states, facilitate dialogue and act with the moral authority to preserve peace and defend multilateralism. For the region and the Global South, says success will depend on building a more representative, democratic and equitable international system that corrects the asymmetries still limiting global governance. Presses preventive diplomacy, and argues peace cannot be reduced to the absence of armed confrontation — it requires legitimate institutions, cooperation and a commitment to international justice.</p>
+          </article>
+
+        </div>
+      </details>
+    </section>
+
+    <footer class="page">
+      Readout based solely on analysis of the transcripts.un.org ASR transcript of the Regional Dialogue on the Future Leadership of the United Nations, Montevideo, 3 August 2026 (asset k1z/k1zlaorvys). Not an official UN record; the 15 position-critical quotes were audio-verified on 5 August 2026, with one ASR garble corrected. Candidate positions are their own programmes, not the positions of their states; the ministerial interventions are state positions on the selection process. Track: secretary-general (thematic), readout 2.
+    </footer>
+
+  </main>
+</div>
+
+<script>
+(function () {
+  const allDetails = () => document.querySelectorAll('section.block > details');
+  document.getElementById('expand-all').addEventListener('click', () => allDetails().forEach(d => d.open = true));
+  document.getElementById('collapse-all').addEventListener('click', () => allDetails().forEach(d => d.open = false));
+
+  // Search + chip filter
+  const search = document.getElementById('country-search');
+  const grid = document.getElementById('country-grid');
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  const chips = Array.from(document.querySelectorAll('.chip'));
+  const count = document.getElementById('result-count');
+  let activeFilter = 'all';
+
+  function apply() {
+    const q = search.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach(card => {
+      const text = Array.from(card.querySelectorAll('h4, p')).map(n => n.textContent).join(' ').toLowerCase();
+      const matchesText = !q || text.includes(q);
+      const matchesChip = activeFilter === 'all' || card.dataset.group === activeFilter;
+      const show = matchesText && matchesChip;
+      card.hidden = !show;
+      if (show) visible++;
+    });
+    count.textContent = 'Showing ' + visible + ' of ' + cards.length;
+  }
+  search.addEventListener('input', apply);
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      activeFilter = chip.dataset.filter;
+      chips.forEach(c => c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'));
+      apply();
+    });
+  });
+  apply();
+
+  // Scroll-spy
+  const tocLinks = Array.from(document.querySelectorAll('nav#toc a'));
+  const sections = tocLinks.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    const setCurrent = id => tocLinks.forEach(a => {
+      if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setCurrent(visible[0].target.id);
+    }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+    sections.forEach(s => io.observe(s));
+  }
+
+  // ---------- Engagement plot ----------
+  // Coding strictly from the transcript. Candidate positions are personal programmes,
+  // not state positions.
+  //   concrete: directional | mixed | concrete   (X — how concrete the answers were)
+  //   build:    none | reorganise | new          (Y — what they would build)
+  //   regional: none | partner | deep            (Y — how they use regional institutions)
+  // Grossi and Bachelet never faced a question, so they are unscored on X: shown ringed
+  // in the leftmost column with an explicit "did not take questions" label, never ranked.
+  const data = [
+    { name:"Rebeca Grinspan",          code:"GRI", bloc:"broker",        concrete:"concrete",    build:"new",        regional:"deep" },
+    { name:"María Fernanda Espinosa",  code:"ESP", bloc:"convener",      concrete:"concrete",    build:"new",        regional:"deep" },
+    { name:"Carolyn Rodrigues-Birkett",code:"RB",  bloc:"administrator", concrete:"mixed",       build:"reorganise", regional:"deep" },
+    { name:"Rafael Mariano Grossi",    code:"GRO", bloc:"nonlive",       concrete:"directional", build:"none",       regional:"none", unscored:true },
+    { name:"Michelle Bachelet",        code:"BAC", bloc:"nonlive",       concrete:"directional", build:"none",       regional:"none", unscored:true }
+  ];
+
+  // Pull the summary line from each candidate card
+  const stanceMap = {};
+  document.querySelectorAll('#country-grid .card').forEach(c => {
+    const ps = c.querySelectorAll('p');
+    stanceMap[c.querySelector('h4').textContent.trim()] = ps[ps.length - 1].textContent.trim();
+  });
+
+  const AXES = {
+    concrete: { label:"How concrete the answers were", buckets:["directional","mixed","concrete"], labels:["Directional","Mixed","Concrete"] },
+    build:    { label:"What they would build",         buckets:["none","reorganise","new"],        labels:["Nothing named","Reorganise existing","Build something new"] },
+    regional: { label:"Use of regional institutions",  buckets:["none","partner","deep"],          labels:["Not addressed","Partner with them","Build on them structurally"] }
+  };
+
+  const plot = document.getElementById('plot-grid');
+  const ySel = document.getElementById('axis-y');
+  const legendEl = document.getElementById('plot-legend');
+  const explainerEl = document.getElementById('axis-explainer');
+
+  const EYE_SVG = '<svg class="ae-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+
+  const AXIS_INFO = {
+    build: {
+      title: "What would you actually create if you got the job?",
+      def: "All three live candidates say prevention and mediation must return to the centre of the office. This asks what each would do about it in practice — set up a new piece of machinery inside the Secretariat, or rearrange the tools that already exist.",
+      rows: [
+        { label: "Build something new (top)", desc: "Grinspan would create a good-offices office she says does not exist; Espinosa would create an early-warning and early-action hub." },
+        { label: "Reorganise existing (middle)", desc: "Rodrigues-Birkett declines new initiatives on principle and would change how the existing tools are used, starting with envoys the parties trust." },
+        { label: "Nothing named (bottom)", desc: "Grossi and Bachelet — neither took a question, so neither was asked. This is a gap in the record, not a position." }
+      ]
+    },
+    regional: {
+      title: "What would you do with CELAC, CARICOM and the regional commissions?",
+      def: "Colombia and Paraguay both asked how the UN should work with the region's own organisations — CELAC, CARICOM, Mercosur, the OAS, and ECLAC, the UN's economic commission for the region. This tracks how far each answer went.",
+      rows: [
+        { label: "Build on them structurally (top)", desc: "All three live candidates: Espinosa proposes the UN–African Union relationship as the model, Grinspan would support what regional bodies already do rather than absorb it, Rodrigues-Birkett cites CARICOM's political work on Haiti and ECLAC's technical support." },
+        { label: "Partner with them (middle)", desc: "Unoccupied at this session — nobody stopped at cooperation without going further." },
+        { label: "Not addressed (bottom)", desc: "Grossi and Bachelet — the format put no question to them." }
+      ]
+    }
+  };
+
+  function renderExplainer() {
+    const info = AXIS_INFO[ySel.value];
+    if (!info) { explainerEl.innerHTML = ''; return; }
+    explainerEl.innerHTML =
+      '<div class="ae-header">' + EYE_SVG + '<span class="ae-title">' + info.title + '</span></div>' +
+      '<p class="ae-def">' + info.def + '</p>' +
+      '<div class="ae-rows">' +
+      info.rows.map(r => '<div class="ae-row"><span class="ae-row-label">' + r.label + '</span><span class="ae-row-desc">' + r.desc + '</span></div>').join('') +
+      '</div>';
+  }
+
+  const floatTip = document.createElement('div');
+  floatTip.id = 'dot-float-tip';
+  document.body.appendChild(floatTip);
+
+  function showTip(dot, name, stanceText, unscored) {
+    floatTip.innerHTML = '';
+    const strong = document.createElement('strong');
+    strong.textContent = name + (unscored ? ' — did not take questions' : '');
+    floatTip.appendChild(strong);
+    floatTip.appendChild(document.createTextNode(stanceText));
+    floatTip.style.opacity = '1';
+    moveTip(dot);
+  }
+  function moveTip(dot) {
+    const r = dot.getBoundingClientRect();
+    const tw = 250, th = floatTip.offsetHeight || 60;
+    let left = r.left + r.width / 2 - tw / 2;
+    let top  = r.top - th - 8;
+    if (top < 8) top = r.bottom + 8;
+    left = Math.max(8, Math.min(left, window.innerWidth - tw - 8));
+    floatTip.style.left = left + 'px';
+    floatTip.style.top  = top  + 'px';
+  }
+  function hideTip() { floatTip.style.opacity = '0'; }
+
+  function renderLegend() {
+    const items = [
+      ["var(--bloc-broker)","Build a mediation unit — Grinspan"],
+      ["var(--bloc-convener)","Build a prevention hub — Espinosa"],
+      ["var(--bloc-administrator)","Reorganise, build nothing new — Rodrigues-Birkett"],
+      ["var(--bloc-nonlive)","Did not take questions — Grossi, Bachelet (ringed, unplaced on the horizontal axis)"]
+    ];
+    legendEl.innerHTML =
+      '<span style="flex-basis:100%;margin-bottom:.15rem;"><strong>Colour = what they would build. Horizontal position = how concretely they argued it.</strong> The two are separate questions.</span>' +
+      items.map(([c, label]) => '<span><span class="swatch" style="background:' + c + '"></span>' + label + '</span>').join('');
+  }
+
+  function render() {
+    const xAxis = AXES.concrete, yAxis = AXES[ySel.value];
+    const yKey = ySel.value;
+    plot.innerHTML = '';
+
+    const yLab = document.createElement('div'); yLab.className = 'axis-label y'; yLab.textContent = yAxis.label; plot.appendChild(yLab);
+    const xLab = document.createElement('div'); xLab.className = 'axis-label x'; xLab.textContent = xAxis.label; plot.appendChild(xLab);
+
+    xAxis.labels.forEach((lab, i) => {
+      const h = document.createElement('div'); h.className = 'col-head';
+      h.style.gridColumn = String(i + 3); h.style.gridRow = '4';
+      h.textContent = lab; plot.appendChild(h);
+    });
+    yAxis.labels.slice().reverse().forEach((lab, i) => {
+      const h = document.createElement('div'); h.className = 'row-head';
+      h.style.gridColumn = '2'; h.style.gridRow = String(i + 1);
+      h.textContent = lab; plot.appendChild(h);
+    });
+
+    const cells = {};
+    for (let yi = 0; yi < 3; yi++) {
+      for (let xi = 0; xi < 3; xi++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.style.gridColumn = String(xi + 3);
+        cell.style.gridRow = String(yi + 1);
+        const inner = document.createElement('div');
+        inner.className = 'cell-inner';
+        cell.appendChild(inner);
+        plot.appendChild(cell);
+        cells[xAxis.buckets[xi] + '|' + yAxis.buckets[2 - yi]] = inner;
+      }
+    }
+
+    // Group by cell, then rank-space inside it. No jitter, no randomness.
+    const byCell = {};
+    data.forEach(d => {
+      const key = d.concrete + '|' + d[yKey];
+      (byCell[key] = byCell[key] || []).push(d);
+    });
+
+    Object.keys(byCell).forEach(key => {
+      const cell = cells[key];
+      if (!cell) return;
+      const members = byCell[key].slice().sort((a, b) => {
+        if (!!a.unscored !== !!b.unscored) return a.unscored ? 1 : -1; // unscored pinned right
+        return a.name.localeCompare(b.name);
+      });
+      const n = members.length;
+      members.forEach((d, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'dot' + (d.unscored ? ' unscored' : '');
+        dot.tabIndex = 0;
+        dot.dataset.bloc = d.bloc;
+        dot.textContent = d.code;
+        dot.setAttribute('aria-label', d.name + (d.unscored ? ' (did not take questions)' : ''));
+        // Rank-spaced, never jittered. With a small cast the full 8-92% span puts dots
+        // hard against the cell borders, so narrow the span for n<=2.
+        const span = n <= 2 ? 46 : 84;
+        const start = (100 - span) / 2;
+        dot.style.left = (n === 1 ? 50 : start + span * i / (n - 1)) + '%';
+        dot.style.top  = (n <= 4 ? 50 : (i % 2 === 0 ? 34 : 68)) + '%';
+        const name = d.name, stanceText = stanceMap[d.name] || '', uns = !!d.unscored;
+        dot.addEventListener('mouseenter', () => showTip(dot, name, stanceText, uns));
+        dot.addEventListener('mouseleave', hideTip);
+        dot.addEventListener('focus',      () => showTip(dot, name, stanceText, uns));
+        dot.addEventListener('blur',       hideTip);
+        cell.appendChild(dot);
+      });
+    });
+
+    renderLegend();
+  }
+
+  ySel.addEventListener('change', () => { render(); renderExplainer(); });
+  render();
+  renderExplainer();
+})();
+</script>
+<script>
+// ---- Edit mode: "Prepare your version" — local edits + export (pilot 2026-07) ----
+// Deletion undo keeps the removed node itself, so re-inserting it preserves every
+// wired event listener; text edits rely on the browser's native undo (Ctrl+Z).
+(() => {
+  // Readout-specific values are read from <body> data attributes so this block is
+  // copied verbatim into every readout. Set them in the markup, never edit them here:
+  //   <body data-live-url="https://…/readouts/<file>.html" data-edit-slug="<file-stem>">
+  const LIVE_URL = document.body.dataset.liveUrl || location.href.split('#')[0];
+  const SLUG = document.body.dataset.editSlug ||
+    (location.pathname.split('/').pop() || 'readout').replace(/\.html?$/, '');
+  const mainEl = document.querySelector('main');
+  const toggleBtn = document.getElementById('edit-toggle');
+  const undoBtn = document.getElementById('edit-undo');
+  const redoBtn = document.getElementById('edit-redo');
+  if (!mainEl || !toggleBtn) return;
+
+  // Interactive machinery is never editable or deletable
+  const EXCLUDE = '.global-toolbar, #edit-banner, .controls, .result-count, .plot-scroll, .plot-legend, .plot-guide, .axis-explainer, .ev-panel, .ev-note, details.glance';
+  const EDITABLE_SEL = 'p, li, h3, h4, blockquote';
+  const DELETABLE_SEL = '.card, blockquote.tp, .fault-line, .keybox, p, li, table.data';
+
+  let editMode = false, dirty = false;
+  const undoStack = [], redoStack = [];
+
+  const eligible = el => mainEl.contains(el) && !el.closest(EXCLUDE);
+
+  function markEditable(on) {
+    mainEl.querySelectorAll(EDITABLE_SEL).forEach(el => {
+      if (!eligible(el)) return;
+      if (on) { el.setAttribute('contenteditable', 'true'); el.classList.add('editable'); }
+      else { el.removeAttribute('contenteditable'); el.classList.remove('editable'); }
+    });
+  }
+
+  function markSections(on) {
+    mainEl.querySelectorAll('section.block > details > summary').forEach(s => {
+      const old = s.querySelector('.sec-del');
+      if (old) old.remove();
+      if (!on) return;
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'sec-del'; b.textContent = 'Remove section';
+      b.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        if (confirm('Remove this whole section from your version? "Undo remove" brings it back.')) {
+          removeNode(s.closest('section.block'));
+        }
+      });
+      s.appendChild(b);
+    });
+  }
+
+  // Package bands: remove the band and every section under it in one step
+  function markPackages(on) {
+    mainEl.querySelectorAll('.pkg-band').forEach(band => {
+      const old = band.querySelector('.sec-del');
+      if (old) old.remove();
+      if (!on) return;
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'sec-del';
+      b.style.marginLeft = 'auto';
+      const num = band.querySelector('.pkg-num');
+      b.textContent = 'Remove ' + (num ? num.textContent.trim() : 'this package');
+      b.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        if (!confirm('Remove this banner and every section under it? "Undo remove" brings it all back.')) return;
+        const nodes = [band];
+        let n = band.nextElementSibling;
+        while (n && !n.classList.contains('pkg-band')) { nodes.push(n); n = n.nextElementSibling; }
+        removeNodes(nodes);
+      });
+      const lead = band.querySelector('.pkg-lead');
+      if (lead) band.insertBefore(b, lead); else band.appendChild(b);
+    });
+  }
+
+  // Single floating delete button, repositioned over the hovered deletable item
+  const delBtn = document.createElement('button');
+  delBtn.id = 'del-float'; delBtn.type = 'button'; delBtn.textContent = '✕';
+  delBtn.title = 'Remove this item from your version';
+  delBtn.setAttribute('aria-label', 'Remove this item from your version');
+  document.body.appendChild(delBtn);
+  let delTarget = null;
+
+  function hideDel() {
+    delBtn.style.display = 'none';
+    if (delTarget) delTarget.classList.remove('del-target');
+    delTarget = null;
+  }
+
+  document.addEventListener('mouseover', e => {
+    if (!editMode) return;
+    if (e.target === delBtn) return;
+    const t = e.target.closest ? e.target.closest(DELETABLE_SEL) : null;
+    if (!t || !eligible(t)) { hideDel(); return; }
+    if (delTarget === t) return;
+    if (delTarget) delTarget.classList.remove('del-target');
+    delTarget = t;
+    t.classList.add('del-target');
+    const r = t.getBoundingClientRect();
+    delBtn.style.display = 'flex';
+    delBtn.style.left = Math.min(window.innerWidth - 30, r.right - 12) + 'px';
+    delBtn.style.top = Math.max(4, r.top - 12) + 'px';
+  });
+  document.addEventListener('scroll', hideDel, true);
+  delBtn.addEventListener('click', () => {
+    if (!delTarget) return;
+    const t = delTarget;
+    hideDel();
+    removeNode(t);
+  });
+
+  function removeNode(node) { removeNodes([node]); }
+  // One undo entry can hold several consecutive nodes (a package band + its sections)
+  function removeNodes(nodes) {
+    const items = nodes.map(n => {
+      if (n.classList) n.classList.remove('del-target');
+      return { node: n, parent: n.parentNode, next: n.nextSibling };
+    });
+    nodes.forEach(n => n.remove());
+    undoStack.push(items);
+    redoStack.length = 0;
+    dirty = true;
+    updateUndoBtns();
+    syncToc();
+  }
+  function undo() {
+    const items = undoStack.pop();
+    if (!items) return;
+    // Reverse order so each node's recorded anchor is back in the document first
+    for (let i = items.length - 1; i >= 0; i--) {
+      const op = items[i];
+      const anchor = op.next && op.parent.contains(op.next) ? op.next : null;
+      op.parent.insertBefore(op.node, anchor);
+    }
+    redoStack.push(items);
+    updateUndoBtns();
+    syncToc();
+  }
+  function redo() {
+    const items = redoStack.pop();
+    if (!items) return;
+    items.forEach(op => op.node.remove());
+    undoStack.push(items);
+    updateUndoBtns();
+    syncToc();
+  }
+
+  // Left-hand contents mirror the document: hide entries whose section is gone
+  function syncToc() {
+    const lis = Array.from(document.querySelectorAll('nav#toc li'));
+    lis.forEach(li => {
+      const a = li.querySelector('a');
+      if (!a) return;
+      li.hidden = !document.getElementById((a.getAttribute('href') || '').slice(1));
+    });
+    lis.filter(li => li.classList.contains('toc-pkg')).forEach(label => {
+      let n = label.nextElementSibling, any = false;
+      while (n && !n.classList.contains('toc-pkg')) {
+        if (!n.hidden) { any = true; break; }
+        n = n.nextElementSibling;
+      }
+      label.hidden = !any;
+    });
+  }
+  function updateUndoBtns() {
+    undoBtn.disabled = undoStack.length === 0;
+    redoBtn.disabled = redoStack.length === 0;
+  }
+  undoBtn.addEventListener('click', undo);
+  redoBtn.addEventListener('click', redo);
+
+  function setEditMode(on) {
+    editMode = on;
+    if (on) document.body.dataset.editMode = 'true';
+    else document.body.removeAttribute('data-edit-mode');
+    markEditable(on);
+    markSections(on);
+    markPackages(on);
+    toggleBtn.textContent = on ? 'Exit edit mode' : 'Prepare your version';
+    if (!on) hideDel();
+  }
+  toggleBtn.addEventListener('click', () => setEditMode(!editMode));
+  if (new URLSearchParams(location.search).has('edit')) setEditMode(true);
+
+  mainEl.addEventListener('input', () => { if (editMode) dirty = true; });
+  window.addEventListener('beforeunload', e => {
+    if (dirty) { e.preventDefault(); e.returnValue = ''; }
+  });
+
+  // Toast for quick feedback
+  const toast = document.createElement('div');
+  toast.id = 'edit-toast';
+  document.body.appendChild(toast);
+  let toastTimer = null;
+  function flash(msg) {
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { toast.style.opacity = '0'; }, 2600);
+  }
+
+  // -- Download HTML: serialize the current DOM, minus active edit-state --
+  function cleanClone() {
+    const clone = document.documentElement.cloneNode(true);
+    clone.querySelectorAll('#del-float, #edit-toast, .sec-del').forEach(n => n.remove());
+    clone.querySelectorAll('nav#toc li[hidden]').forEach(n => n.remove());
+    clone.querySelectorAll('[contenteditable]').forEach(n => n.removeAttribute('contenteditable'));
+    clone.querySelectorAll('.editable, .del-target').forEach(n => n.classList.remove('editable', 'del-target'));
+    const body = clone.querySelector('body');
+    if (body) body.removeAttribute('data-edit-mode');
+    const t = clone.querySelector('#dot-float-tip');
+    if (t) { t.style.opacity = '0'; t.innerHTML = ''; }
+    const foot = clone.querySelector('footer.page');
+    if (foot && !clone.querySelector('#adapted-note')) {
+      const p = document.createElement('p');
+      p.id = 'adapted-note';
+      p.innerHTML = 'This copy was adapted by a reader. The original interactive analysis is at ' +
+        '<a href="' + LIVE_URL + '">' + LIVE_URL + '</a>.';
+      foot.appendChild(p);
+    }
+    return clone;
+  }
+
+  document.getElementById('edit-download').addEventListener('click', () => {
+    const html = '<!doctype html>\n' + cleanClone().outerHTML;
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = SLUG + '-edited.html';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    dirty = false;
+    flash('Downloaded your version as a standalone HTML file.');
+  });
+
+  // -- Save as PDF: open everything, print, restore --
+  let reopenList = null;
+  window.addEventListener('beforeprint', () => {
+    reopenList = Array.from(document.querySelectorAll('section.block > details:not([open]), details.glance:not([open])'));
+    reopenList.forEach(d => d.open = true);
+  });
+  window.addEventListener('afterprint', () => {
+    if (reopenList) { reopenList.forEach(d => d.open = false); reopenList = null; }
+  });
+  document.getElementById('edit-pdf').addEventListener('click', () => window.print());
+
+  // -- Copy for Word: flatten the current DOM into Word-friendly HTML --
+  const CAMP_HEX = { 'c-donor': '#1f5fb0', 'c-canzpif': '#197b5a', 'c-g77': '#8a6d1c', 'c-sceptic': '#b03333', 'c-un': '#8a3d8f' };
+
+  function wordFragment() {
+    const frag = document.createElement('div');
+    const h1 = document.querySelector('header.page h1');
+    if (h1) {
+      const h = document.createElement('h1');
+      h.textContent = h1.textContent;
+      frag.appendChild(h);
+    }
+    document.querySelectorAll('header.page dl.meta > dt').forEach(dt => {
+      const dd = dt.nextElementSibling;
+      const p = document.createElement('p');
+      p.innerHTML = '<strong>' + dt.textContent + ':</strong> ' + (dd ? dd.innerHTML : '');
+      frag.appendChild(p);
+    });
+    mainEl.querySelectorAll('section.block').forEach(sec => {
+      const det = sec.querySelector(':scope > details');
+      if (!det) return;
+      const summary = det.querySelector(':scope > summary');
+      if (summary) {
+        const sc = summary.cloneNode(true);
+        sc.querySelectorAll('.sec-del').forEach(n => n.remove());
+        const h2 = document.createElement('h2');
+        h2.textContent = sc.textContent.trim();
+        frag.appendChild(h2);
+      }
+      const content = document.createElement('div');
+      Array.from(det.children).forEach(ch => {
+        if (ch !== summary) content.appendChild(ch.cloneNode(true));
+      });
+      content.querySelectorAll('.controls, .result-count, .plot-scroll, .plot-legend, .plot-guide, .axis-explainer, .ev-panel, .ev-note, .sec-del').forEach(n => n.remove());
+      // Plots cannot travel to Word: keep the score table, link the interactive original
+      content.querySelectorAll('details.glance').forEach(g => {
+        const tbl = g.querySelector('table');
+        const wrap = document.createElement('div');
+        if (tbl) {
+          const h3 = document.createElement('h3');
+          h3.textContent = 'Scores at a glance';
+          wrap.appendChild(h3);
+          wrap.appendChild(tbl.cloneNode(true));
+          const note = document.createElement('p');
+          note.innerHTML = '<em>Interactive engagement plot and evidence panels: see the <a href="' + LIVE_URL + '">original analysis</a>.</em>';
+          wrap.appendChild(note);
+        }
+        g.replaceWith(wrap);
+      });
+      frag.appendChild(content);
+    });
+    const note = document.createElement('p');
+    note.innerHTML = '<em>Adapted from the original interactive analysis: <a href="' + LIVE_URL + '">' + LIVE_URL + '</a></em>';
+    frag.appendChild(note);
+    // Inline the styles Word actually keeps: camp colours and quote formatting
+    Object.entries(CAMP_HEX).forEach(([cls, hex]) => {
+      frag.querySelectorAll('.' + cls).forEach(n => { n.style.color = hex; n.style.fontWeight = '600'; });
+    });
+    frag.querySelectorAll('blockquote').forEach(b => {
+      b.style.fontStyle = 'italic';
+      b.style.borderLeft = '3px solid #999';
+      b.style.paddingLeft = '10pt';
+      b.style.margin = '8pt 0 8pt 10pt';
+    });
+    frag.querySelectorAll('table').forEach(tb => {
+      tb.setAttribute('border', '1');
+      tb.style.borderCollapse = 'collapse';
+    });
+    return frag;
+  }
+
+  document.getElementById('edit-copy').addEventListener('click', async () => {
+    const frag = wordFragment();
+    const html = '<html><body>' + frag.innerHTML + '</body></html>';
+    const holder = document.createElement('div');
+    holder.style.position = 'fixed'; holder.style.left = '-9999px';
+    holder.appendChild(frag);
+    document.body.appendChild(holder);
+    const text = holder.innerText;
+    holder.remove();
+    try {
+      await navigator.clipboard.write([new ClipboardItem({
+        'text/html': new Blob([html], { type: 'text/html' }),
+        'text/plain': new Blob([text], { type: 'text/plain' })
+      })]);
+      flash('Copied. Paste into Word or Outlook.');
+    } catch (err) {
+      const sel = document.createElement('div');
+      sel.style.position = 'fixed'; sel.style.left = '-9999px';
+      sel.innerHTML = html;
+      document.body.appendChild(sel);
+      const range = document.createRange();
+      range.selectNodeContents(sel);
+      const s = getSelection();
+      s.removeAllRanges(); s.addRange(range);
+      document.execCommand('copy');
+      s.removeAllRanges(); sel.remove();
+      flash('Copied. Paste into Word or Outlook.');
+    }
+  });
+})();
+
+</script>
+</body>
+</html>
