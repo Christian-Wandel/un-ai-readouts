@@ -346,15 +346,19 @@
     --cell: 200px;
     position: relative; display: grid;
     grid-template-columns: 32px 130px repeat(3, var(--cell));
-    grid-template-rows: repeat(3, var(--cell)) 48px 30px;
+    grid-template-rows: repeat(3, var(--cell)) 48px minmax(30px, auto);
     gap: 0; min-width: calc(32px + 130px + 3 * var(--cell)); margin: 0 auto;
   }
   .plot .axis-label {
     font-size: .78rem; font-weight: 600; color: var(--muted);
-    text-transform: uppercase; letter-spacing: .06em;
-    display: flex; align-items: center; justify-content: center; padding: .25rem;
+    text-transform: uppercase; letter-spacing: .06em; line-height: 1.35;
+    display: flex; align-items: center; justify-content: center;
+    padding: .25rem; text-align: center;
   }
-  .plot .axis-label.x { grid-row: 5; grid-column: 3 / span 3; border-top: 1px solid var(--rule); }
+  .plot .axis-label.x {
+    grid-row: 5; grid-column: 3 / span 3;
+    border-top: 1px solid var(--rule); padding: .5rem .25rem;
+  }
   .plot .axis-label.y {
     grid-row: 1 / span 3; grid-column: 1;
     writing-mode: vertical-rl; transform: rotate(180deg);
