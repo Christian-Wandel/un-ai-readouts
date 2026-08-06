@@ -346,7 +346,7 @@
     --cell: 200px;
     position: relative; display: grid;
     grid-template-columns: 32px 130px repeat(3, var(--cell));
-    grid-template-rows: repeat(3, var(--cell)) 28px 28px;
+    grid-template-rows: repeat(3, var(--cell)) 48px 30px;
     gap: 0; min-width: calc(32px + 130px + 3 * var(--cell)); margin: 0 auto;
   }
   .plot .axis-label {
@@ -362,6 +362,12 @@
   .plot .col-head {
     grid-row: 4; font-size: .8rem; font-weight: 600; color: var(--ink);
     text-align: center; padding: .3rem .25rem; border-top: 1px solid var(--rule);
+    display: flex; flex-direction: column; gap: .1rem;
+    align-items: center; justify-content: center; line-height: 1.2;
+  }
+  .plot .col-head .col-sub {
+    font-size: .68rem; font-weight: 500; color: var(--muted);
+    letter-spacing: 0; text-transform: none;
   }
   .plot .row-head {
     grid-column: 2; font-size: .78rem; color: var(--ink); font-weight: 600;
@@ -372,12 +378,15 @@
     position: relative; border: 1px dashed var(--rule);
     background: color-mix(in srgb, var(--bg) 60%, white); min-height: var(--cell);
   }
+  /* Column tint deepens left to right, so the intensity scale reads even before
+     the column headings are consulted. */
+  .plot .cell.x-low    { background: color-mix(in srgb, var(--accent-default) 3%, white); }
+  .plot .cell.x-medium { background: color-mix(in srgb, var(--accent-default) 9%, white); }
+  .plot .cell.x-high   { background: color-mix(in srgb, var(--accent-default) 17%, white); }
   .plot .cell-inner { position: absolute; inset: 18px; }
-  .plot .cell:hover { background: color-mix(in srgb, var(--accent-default) 5%, white); }
-  .plot .cell.has-order::after {
-    content: ""; position: absolute; left: 10%; right: 10%; bottom: 6px; height: 3px; border-radius: 2px;
-    background: linear-gradient(90deg, color-mix(in srgb, var(--muted) 18%, transparent), color-mix(in srgb, var(--muted) 55%, transparent));
-  }
+  .plot .cell:hover { box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--accent-default) 30%, transparent); }
+  /* The old within-column ordering bar is retired: the intensity columns and their
+     score ranges now state the left-to-right scale directly. */
   .dot {
     position: absolute; width: 26px; height: 26px; border-radius: 50%;
     background: var(--dot, var(--grey)); color: #fff;
@@ -442,6 +451,17 @@
     font-size: .83rem; color: var(--muted); line-height: 1.5;
   }
   .plot-guide p { margin: 0; }
+  .plot-guide .guide-title { margin: 0 0 .5rem; color: var(--ink); }
+  .plot-guide .guide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .3rem .9rem; margin-bottom: .6rem; }
+  @media (max-width: 620px) { .plot-guide .guide-grid { grid-template-columns: 1fr; } }
+  .plot-guide .guide-grid > div { display: grid; grid-template-columns: 6.2rem 1fr; gap: .5rem; align-items: baseline; }
+  .plot-guide .guide-k { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; color: var(--accent-default); line-height: 1.5; }
+  .plot-guide .guide-v { font-size: .86rem; }
+  .plot-guide .guide-note {
+    margin: 0 0 .5rem; padding: .45rem .6rem; font-size: .86rem; color: var(--ink);
+    background: color-mix(in srgb, var(--accent-default) 6%, transparent); border-radius: 6px;
+  }
+  .plot-guide .guide-fine { margin: 0; font-size: .78rem; color: var(--muted); }
 
   .axis-explainer {
     margin: .5rem 1.25rem .75rem; padding: .75rem 1rem;
@@ -507,10 +527,27 @@
   .ep-ind .ei-pts .max { color: var(--muted); font-weight: 400; }
   .ep-ind .ei-quote { grid-column: 1 / -1; font-style: italic; color: #343a42; }
   .ep-ind .ei-quote .ns { font-style: normal; color: var(--muted); }
-  .ep-ind.neg { background: color-mix(in srgb, var(--bloc-rejector) 6%, white); }
-  .ep-ind.neg .ei-pts { color: var(--bloc-rejector); }
   .ep-bar { grid-column: 1 / -1; height: 5px; background: var(--rule); border-radius: 3px; overflow: hidden; }
-  .ep-bar i { display: block; height: 100%; background: var(--accent-default); border-radius: 3px; }
+  .ep-bar i { display: block; height: 100%; background: var(--pole, var(--accent-default)); border-radius: 3px; }
+
+  /* ---- The two rubrics, one section each ---- */
+  /* Bars scale within their own rubric, never across the two: a shared scale would assert that
+     arguing for an international court and arguing against it are the same kind of claim. */
+  .ep-rubric { display: grid; gap: .5rem; padding: .55rem .6rem; border-radius: 8px;
+    border: 1px solid color-mix(in srgb, var(--pole) 22%, transparent);
+    background: color-mix(in srgb, var(--pole) 4%, white); }
+  .ep-rubric.pole-for     { --pole: var(--bloc-defender); }
+  .ep-rubric.pole-against { --pole: var(--bloc-rejector); }
+  .ep-rubric-head { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem;
+    padding-bottom: .35rem; border-bottom: 1px solid color-mix(in srgb, var(--pole) 20%, transparent); }
+  .ep-rubric-title { font-size: .78rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .04em; color: var(--pole); }
+  .ep-rubric-total { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--pole); }
+  .ep-rubric .ep-ind .ei-pts { color: var(--pole); }
+  .ep-rubric.empty { background: transparent; border-style: dashed; }
+  .ep-rubric.empty .ep-rubric-title, .ep-rubric.empty .ep-rubric-total { color: var(--muted); }
+  .ep-rubric.empty { border-color: var(--rule); }
+  .ep-rubric-none { margin: 0; font-size: .82rem; color: var(--muted); }
   .ep-note { padding: .1rem .9rem .8rem; font-size: .78rem; color: var(--muted); }
 
   /* ---- Scores at a glance ---- */
@@ -729,14 +766,23 @@
         <summary>Fault-Line Plot — Cluster Map</summary>
 
         <div class="plot-guide">
-          <p><strong>How to read this plot.</strong> The X-axis is fixed to the defining divide — stance toward the ICC (defend → conditional → delegitimise). Choose a fault-line dimension below for the Y-axis. Each dot is one delegation; colour shows its camp. <strong>Inside every column dots run left → right, weakest → strongest</strong>, ordered by an evidence score in which each point cites a verbatim quote from this meeting (the faint gradient bar under a cell is the reminder). Vertical position only prevents overlap and carries no meaning. Hover a dot for its score and stance; click one dot for its per-quote breakdown and a second dot to compare two delegations side by side. The rubric and its caveats are on the <a href="../methodology/sudan-icc-methodology.html#scoring">methodology page</a>. Positions reflect the 15 July 2026 meeting only.</p>
+          <p class="guide-title"><strong>How to read this plot</strong></p>
+          <div class="guide-grid">
+            <div><span class="guide-k">Left &rarr; right</span><span class="guide-v">How much a delegation put on the record, counted from verbatim quotes. Arguing at length against the Court sits on the right too.</span></div>
+            <div><span class="guide-k">Up / down</span><span class="guide-v">Which side it argued for. This is where direction lives.</span></div>
+            <div><span class="guide-k">Colour</span><span class="guide-v">Which camp a delegation belongs to.</span></div>
+            <div><span class="guide-k">Click a dot</span><span class="guide-v">See both rubrics behind the score; click a second to compare.</span></div>
+          </div>
+          <p class="guide-note">The right-hand column is where the file is actually contested: <strong class="c-defender">France</strong>, <strong class="c-defender">Denmark</strong> and <strong class="c-defender">Greece</strong> arguing for the Court, and <strong class="c-rejector">the United States</strong> and <strong class="c-rejector">Russia</strong> arguing against it from the bottom row. Same column, opposite rows, arguing past each other. The left of the grid is where a position was recorded rather than pressed.</p>
+          <p class="guide-fine">Each delegation is scored on two rubrics of seven indicators &mdash; one for the Court, one against &mdash; and the horizontal position is the two added together. Dots are rank-spaced within a cell, never jittered. The briefer is unscored (dashed): the Court is not a delegation taking a position on itself. Positions reflect the 15 July 2026 meeting only. <a href="../methodology/sudan-icc-methodology.html#scoring">Rubric and caveats</a>.</p>
         </div>
 
         <div class="plot-controls">
           <div class="control-group">
             <label class="label" for="axis-y">Y axis — fault-line dimension</label>
             <select id="axis-y">
-              <option value="scope" selected>Mandate scope</option>
+              <option value="icc" selected>Stance toward the ICC</option>
+              <option value="scope">Mandate scope</option>
               <option value="urgency">Enforcement urgency</option>
             </select>
           </div>
@@ -745,7 +791,7 @@
         <div class="axis-explainer" id="axis-explainer" aria-live="polite"></div>
 
         <div class="plot-wrap">
-          <div class="plot" id="plot-grid" role="img" aria-label="Two-axis scatter of delegation positions, ordered by ICC-support score within each column"></div>
+          <div class="plot" id="plot-grid" role="img" aria-label="Delegation positions plotted with evidence-score intensity on the horizontal axis and a selectable fault-line dimension on the vertical axis"></div>
         </div>
 
         <div class="plot-legend" id="plot-legend"></div>
@@ -773,10 +819,10 @@
       <details>
         <summary>Scores at a Glance</summary>
         <div class="body">
-          <p>Every delegation ranked by the same evidence score that orders the dots in the plot above. <strong>Score</strong> is the displayed total, floored at 0; <strong>net</strong> is the pre-floor sum, which is what keeps the bottom of the scale ordered (Russia at −45 sits further from the Court than the United States at −35). The claim is ordinal — read it as "stronger than", not as a measurement. Full rubric, per-quote evidence and caveats are on the <a href="../methodology/sudan-icc-methodology.html#scoring">methodology page</a>.</p>
+          <p>Every delegation ranked from the one that argued hardest for the Court to the one that argued hardest against it. Each is scored on two rubrics of seven indicators: <strong>For</strong> is how much it put on the record backing the Court, <strong>Against</strong> is how much it put on the record opposing it. <strong>Net</strong> is For minus Against, which gives the direction. <strong>On record</strong> is the two added together — the total argued, either way — and that is what positions a dot horizontally, which is why France (94 for) and the United States (75 against) both sit to the right while facing opposite directions. The claim is ordinal — read it as "argued more than", not as a measurement. Full rubric, per-quote evidence and caveats are on the <a href="../methodology/sudan-icc-methodology.html#scoring">methodology page</a>.</p>
           <div class="tablewrap">
             <table class="ranked" id="ranked-table">
-              <thead><tr><th>#</th><th>Delegation</th><th class="num">Score</th><th class="num">Net</th><th>Profile in one line</th></tr></thead>
+              <thead><tr><th>#</th><th>Delegation</th><th class="num">On record</th><th class="num">For</th><th class="num">Against</th><th class="num">Net</th><th>Profile in one line</th></tr></thead>
               <tbody></tbody>
             </table>
           </div>
@@ -992,8 +1038,11 @@
   // scope:   expand | neutral | confine                          (Y for "Mandate scope")
   // urgency: high | mid | low                                    (Y for "Enforcement urgency")
   //
-  // score = displayed total (floored at 0); net = pre-floor sum, used for within-cell
-  // ordering. ev holds one verbatim quote per rubric indicator; q:null = not stated,
+  // net = signed sum; its sign is the direction (positive = argued for the Court) and its
+  // magnitude is the argument intensity that positions the dot. score = the legacy display
+  // total floored at 0, retained only for the per-indicator breakdown; it is NOT what the
+  // plot or the glance table read, because flooring made RU (-45) and BH (-3) both show 0.
+  // ev holds one verbatim quote per rubric indicator; q:null = not stated,
   // a quote in parentheses is an analyst summary of absence, not a quotation.
   // brief = spoke under 70% of the meeting's median word count (see the scoring sheet).
   // Source of every number and quote: research/sudan-icc-position-scores-2026-07.md
@@ -1007,10 +1056,26 @@
     { k:"G", label:"G. Speech-act tonality",              max:15 }
   ];
 
+  // The mirrored counter-rubric (added 2026-08-06). A-G only score if a delegation wants more
+  // Court, which made them a defend-rubric rather than a neutral one: opponents scored straight
+  // zeros and carried flat deductions, so the comparison panel could show what they failed to
+  // say but never what they argued. Same weights, so both rubrics sum to 100.
+  const IND_N = [
+    { k:"A", label:"A′. Counter-endorsement",             max:20 },
+    { k:"B", label:"B′. Performance / integrity critique", max:10 },
+    { k:"C", label:"C′. Maximal counter-ask",             max:15 },
+    { k:"D", label:"D′. Specificity of the counter-case", max:15 },
+    { k:"E", label:"E′. Non-obligation framing",          max:15 },
+    { k:"F", label:"F′. Material counter-commitment",     max:10 },
+    { k:"G", label:"G′. Counter-pole speech-act register", max:15 }
+  ];
+  const NO_N = { A:{p:0,q:null}, B:{p:0,q:null}, C:{p:0,q:null}, D:{p:0,q:null},
+                 E:{p:0,q:null}, F:{p:0,q:null}, G:{p:0,q:null} };
+
   const data = [
     { name:"ICC — Deputy Prosecutor Khan", code:"ICC", bloc:"icc", icc:"defender", scope:"expand", urgency:"high",
-      score:null, net:null, unscored:true, words:null, ev:null, neg:[] },
-    { name:"Denmark", code:"DK", bloc:"defender", icc:"defender", scope:"expand", urgency:"high", score:92, net:92, words:765,
+      score:null, net:null, unscored:true, words:null, ev:null, evn:null, unscoredBriefer:true },
+    { name:"Denmark", code:"DK", bloc:"defender", icc:"defender", scope:"expand", urgency:"high", words:765,
       ev:{ A:{p:19,q:"Denmark reiterates its unwavering support for the Court as an independent judicial institution"},
            B:{p:9,q:"Our commitment to defend the Court and the principles and values enshrined in the Rome Statute remains resolute"},
            C:{p:15,q:"Denmark reiterates its call for the mandate of the ICC to be expanded to all of Sudan"},
@@ -1018,8 +1083,8 @@
            E:{p:13,q:"in accordance with Sudan's obligations under Resolution 1593"},
            F:{p:9,q:"We call on all States… to offer their assistance in securing reparations for the victims and survivors"},
            G:{p:12,q:"we must ensure · We call on all parties · call on all relevant states to cease the supply of weapons"} },
-      neg:[] },
-    { name:"France", code:"FR", bloc:"defender", icc:"defender", scope:"expand", urgency:"high", score:94, net:94, words:969,
+      evn:NO_N },
+    { name:"France", code:"FR", bloc:"defender", icc:"defender", scope:"expand", urgency:"high", words:969,
       ev:{ A:{p:18,q:"it merits our full support, including— as does the ICC's integrity and independence"},
            B:{p:8,q:"as does the ICC's integrity and independence"},
            C:{p:15,q:"We call on the United Nations Security Council to extend the jurisdiction of the ICC to the entire territory of Sudan"},
@@ -1027,8 +1092,8 @@
            E:{p:15,q:"cooperation with the Court is an obligation. It's not an option"},
            F:{p:10,q:"we call on states, including members of the Council, to support the Court's Trust Fund for Victims"},
            G:{p:13,q:"France urges the RSF to immediately cease · We urge the UN Security Council · this persistent refusal to cooperate… is unacceptable"} },
-      neg:[] },
-    { name:"United Kingdom", code:"UK", bloc:"defender", icc:"defender", scope:"neutral", urgency:"high", score:43, net:43, words:376, brief:true,
+      evn:NO_N },
+    { name:"United Kingdom", code:"UK", bloc:"defender", icc:"defender", scope:"neutral", urgency:"high", words:376, brief:true,
       ev:{ A:{p:16,q:"reiterating the United Kingdom's strong support for the ICC"},
            B:{p:4,q:"and for its independence"},
            C:{p:0,q:null},
@@ -1036,8 +1101,8 @@
            E:{p:10,q:"we welcome the continued improvements in cooperation between the Sudanese authorities and the Office of the Prosecutor · all parties must cooperate with efforts to secure accountability"},
            F:{p:0,q:null},
            G:{p:6,q:"welcome (×3) · encourage · must not allow"} },
-      neg:[] },
-    { name:"Greece", code:"GR", bloc:"defender", icc:"defender", scope:"neutral", urgency:"high", score:68, net:68, words:545,
+      evn:NO_N },
+    { name:"Greece", code:"GR", bloc:"defender", icc:"defender", scope:"neutral", urgency:"high", words:545,
       ev:{ A:{p:17,q:"we reaffirm our commitment to respect and defend the Rome Statutes and preserve its integrity"},
            B:{p:9,q:"preserve its integrity in the face of threats and actions against the court and its officials"},
            C:{p:0,q:null},
@@ -1045,8 +1110,8 @@
            E:{p:13,q:"Security Council Resolution 1593 urges all States, both parties and non-parties to the Rome Statute, to fully cooperate with the Court"},
            F:{p:5,q:"Greece notes that proceedings on reparations in the Al-Rahman case have started"},
            G:{p:11,q:"we urgently need enhanced cooperation · we call for vigilance · must be held accountable"} },
-      neg:[] },
-    { name:"Latvia", code:"LV", bloc:"defender", icc:"defender", scope:"neutral", urgency:"high", score:50, net:50, words:558,
+      evn:NO_N },
+    { name:"Latvia", code:"LV", bloc:"defender", icc:"defender", scope:"neutral", urgency:"high", words:558,
       ev:{ A:{p:5,q:"Latvia will continue to stand with the victims and survivors of atrocities in Darfur"},
            B:{p:0,q:null},
            C:{p:0,q:null},
@@ -1054,8 +1119,8 @@
            E:{p:14,q:"cooperation with the ICC is a legal obligation under Security Council Resolution 1593"},
            F:{p:8,q:"Justice for victims requires more than convictions. It requires reparations. It requires witness protection."},
            G:{p:12,q:"without delay · we call on States and parties to cooperate fully · immediately cease hostilities"} },
-      neg:[] },
-    { name:"Panama", code:"PA", bloc:"defender", icc:"defender", scope:"neutral", urgency:"high", score:49, net:49, words:644,
+      evn:NO_N },
+    { name:"Panama", code:"PA", bloc:"defender", icc:"defender", scope:"neutral", urgency:"high", words:644,
       ev:{ A:{p:16,q:"Panama reaffirms its support to the work of the International Criminal Court · we firmly support the independence of the International Criminal Court"},
            B:{p:10,q:"reject any coercive measure or retaliation that could affect the mandate of the court, including those directed against its personnel"},
            C:{p:0,q:null},
@@ -1063,8 +1128,8 @@
            E:{p:6,q:"(welcomes OTP–mission cooperation; notes \"insufficient cooperation on the part of relevant actors\"; no direct call on states)"},
            F:{p:0,q:null},
            G:{p:9,q:"we firmly support · reject any coercive measure · We cannot allow"} },
-      neg:[] },
-    { name:"Colombia", code:"CO", bloc:"defender", icc:"defender", scope:"neutral", urgency:"mid", score:63, net:63, words:592,
+      evn:NO_N },
+    { name:"Colombia", code:"CO", bloc:"defender", icc:"defender", scope:"neutral", urgency:"mid", words:592,
       ev:{ A:{p:18,q:"we reiterate our absolute support to the International Criminal Court"},
            B:{p:10,q:"Colombia regrets interference in its work by way of sanctions against the court or against its judges or officials"},
            C:{p:0,q:null},
@@ -1072,8 +1137,8 @@
            E:{p:12,q:"Colombia reiterates its appeal to the authorities of Sudan and to all neighboring countries to continue to cooperate with the Office"},
            F:{p:7,q:"it needs to have all of the support necessary in order to gather the respective evidence and to ensure the protection of witnesses"},
            G:{p:9,q:"reiterates its appeal · invites · it's more urgent than ever"} },
-      neg:[] },
-    { name:"Liberia", code:"LI", bloc:"african", icc:"defender", scope:"neutral", urgency:"high", score:43, net:43, words:576,
+      evn:NO_N },
+    { name:"Liberia", code:"LI", bloc:"african", icc:"defender", scope:"neutral", urgency:"high", words:576,
       ev:{ A:{p:8,q:"you continue to have Liberia's support, and we thank you again for your work and your service"},
            B:{p:0,q:null},
            C:{p:0,q:null},
@@ -1081,8 +1146,8 @@
            E:{p:13,q:"Liberia, therefore, calls on all States to cooperate fully with the International Criminal Court including in the execution of outstanding arrest warrants"},
            F:{p:0,q:null},
            G:{p:12,q:"The Security Council must move beyond expressions of support · must compel this Council to act · perpetrators must face the consequences"} },
-      neg:[] },
-    { name:"Democratic Republic of the Congo", code:"DRC", bloc:"african", icc:"defender", scope:"neutral", urgency:"mid", score:25, net:25, words:786,
+      evn:NO_N },
+    { name:"Democratic Republic of the Congo", code:"DRC", bloc:"african", icc:"defender", scope:"neutral", urgency:"mid", words:786,
       ev:{ A:{p:2,q:"thanks the Deputy Prosecutor… for the presentation of the 43rd Report"},
            B:{p:3,q:"in accordance with the requirements of independence, impartiality, and rigor that must guide the action of international criminal justice"},
            C:{p:0,q:null},
@@ -1090,8 +1155,8 @@
            E:{p:11,q:"calls on all parties concerned to cooperate with the court. This is in accordance with the Security Council Resolution 1593"},
            F:{p:5,q:"The issue of reparations is of particular importance here to the individuals and communities"},
            G:{p:4,q:"takes note of the progress · takes note of the judgment · encourages further investigations"} },
-      neg:[] },
-    { name:"China", code:"CN", bloc:"sovereign", icc:"sovereign", scope:"confine", urgency:"low", score:0, net:-11, words:490,
+      evn:NO_N },
+    { name:"China", code:"CN", bloc:"sovereign", icc:"sovereign", scope:"confine", urgency:"low", words:490,
       ev:{ A:{p:3,q:"China supports the international community in combating and punishing the most serious international crimes in accordance with the law"},
            B:{p:0,q:null},
            C:{p:0,q:null},
@@ -1099,10 +1164,14 @@
            E:{p:6,q:"China welcomes the report's mentioning of the Sudanese government's positive attitude towards cooperating"},
            F:{p:0,q:null},
            G:{p:3,q:"takes note · welcomes · hopes"} },
-      neg:[{p:-10,q:"prevent undue expansion · strictly adhere to the mandate"},
-           {p:-8,q:"fully respect the judicial sovereignty and jurisdiction of the states concerned"},
-           {p:-5,q:"avoid politicization and selective justice"}] },
-    { name:"Pakistan", code:"PK", bloc:"sovereign", icc:"sovereign", scope:"neutral", urgency:"mid", score:1, net:1, words:344, brief:true,
+      evn:{ A:{p:11,q:"The Court should uphold the principle in handling any and all cases and fully respect the judicial sovereignty and jurisdiction of the states concerned"},
+            B:{p:3,q:"avoid politicization and selective justice, and earn the trust of all parties in Court's work through concrete actions"},
+            C:{p:0,q:null},
+            D:{p:8,q:"should strictly adhere to the mandate set by the council resolutions recently, define the scope and timeframe of the investigation, and prevent undue expansion"},
+            E:{p:0,q:null},
+            F:{p:0,q:null},
+            G:{p:7,q:"must handle such matters with caution · should respect · prevent undue expansion"} } },
+    { name:"Pakistan", code:"PK", bloc:"sovereign", icc:"sovereign", scope:"neutral", urgency:"mid", words:344, brief:true,
       ev:{ A:{p:2,q:"(thanks the Deputy Prosecutor; no endorsement of the Court on record)"},
            B:{p:0,q:null},
            C:{p:0,q:null},
@@ -1110,9 +1179,14 @@
            E:{p:6,q:"Pakistan appreciates the cooperation extended by the Government of Sudan to the Office of the Prosecutor"},
            F:{p:0,q:null},
            G:{p:3,q:"appreciates · has taken note"} },
-      neg:[{p:-7,q:"accountability must respect the principles of complementarity, national sovereignty, Sudanese Ownership"},
-           {p:-3,q:"without selectivity or double standards in all situations"}] },
-    { name:"Somalia", code:"SO", bloc:"sovereign", icc:"sovereign", scope:"neutral", urgency:"mid", score:17, net:17, words:474,
+      evn:{ A:{p:9,q:"accountability must respect the principles of complementarity, national sovereignty, Sudanese Ownership"},
+            B:{p:0,q:null},
+            C:{p:0,q:null},
+            D:{p:5,q:"Strengthening Sudan's national justice institutions remains essential for credible, sustainable, and locally anchored accountability"},
+            E:{p:0,q:null},
+            F:{p:0,q:null},
+            G:{p:4,q:"must respect · without selectivity or double standards in all situations"} } },
+    { name:"Somalia", code:"SO", bloc:"sovereign", icc:"sovereign", scope:"neutral", urgency:"mid", words:474,
       ev:{ A:{p:2,q:"took note of the 43rd report"},
            B:{p:0,q:null},
            C:{p:0,q:null},
@@ -1120,8 +1194,14 @@
            E:{p:7,q:"cooperation between Sudanese authorities and the ICC, as outlined in Security Council Resolution 1593, is encouraged"},
            F:{p:0,q:null},
            G:{p:6,q:"must remain vigilant · we must not tolerate another El Jinina · is encouraged"} },
-      neg:[{p:-7,q:"Sudanese leadership in addressing justice must take precedence · fully respecting Sudan's sovereignty, territorial integrity, and political independence"}] },
-    { name:"Bahrain", code:"BH", bloc:"sovereign", icc:"sovereign", scope:"neutral", urgency:"low", score:0, net:-3, words:253, brief:true,
+      evn:{ A:{p:6,q:"Sudanese leadership in addressing justice must take precedence, supported by regional and African mechanisms"},
+            B:{p:0,q:null},
+            C:{p:0,q:null},
+            D:{p:3,q:"Strengthening Sudan's national justice institutions must remain a priority to empower Sudanese authorities to lead this process"},
+            E:{p:0,q:null},
+            F:{p:0,q:null},
+            G:{p:3,q:"while fully respecting Sudan's sovereignty, territorial integrity, and political independence"} } },
+    { name:"Bahrain", code:"BH", bloc:"sovereign", icc:"sovereign", scope:"neutral", urgency:"low", words:253, brief:true,
       ev:{ A:{p:2,q:"has taken note of the 43rd report"},
            B:{p:0,q:null},
            C:{p:0,q:null},
@@ -1129,20 +1209,35 @@
            E:{p:2,q:"(take-note register only)"},
            F:{p:0,q:null},
            G:{p:1,q:"taken note · renews its support for all efforts aimed at achieving a just, comprehensive, and sustainable peace"} },
-      neg:[{p:-8,q:"the primary role of national judicial authorities… while the ICC plays a supportive and complementary role · requires respect for national judicial sovereignty"}] },
-    { name:"United States of America", code:"US", bloc:"rejector", icc:"rejector", scope:"neutral", urgency:"mid", score:0, net:-35, words:533,
+      evn:{ A:{p:8,q:"the principle of complementarity enshrined in the Rome Statute, which affirms the primary role of national judicial authorities in carrying out their responsibilities while the ICC plays a supportive and complementary role"},
+            B:{p:0,q:null},
+            C:{p:0,q:null},
+            D:{p:4,q:"It also requires respect for national judicial sovereignty"},
+            E:{p:0,q:null},
+            F:{p:0,q:null},
+            G:{p:3,q:"taken note · renews its support for all efforts aimed at achieving a just, comprehensive, and sustainable peace"} } },
+    { name:"United States of America", code:"US", bloc:"rejector", icc:"rejector", scope:"neutral", urgency:"mid", words:533,
       ev:{ A:{p:0,q:null}, B:{p:0,q:null}, C:{p:0,q:null}, D:{p:0,q:null},
-           E:{p:0,q:"(explicitly negative: \"importantly exclusive of the ICC\")"},
+           E:{p:0,q:"(argued the other way — see the case against)"},
            F:{p:0,q:null}, G:{p:0,q:null} },
-      neg:[{p:-25,q:"dismantle the capabilities of the ICC until it is completely incapable · withdraw from this power-hungry institution"},
-           {p:-10,q:"perverse attempts to encroach on the sovereignty of states… must be defeated"}] },
-    { name:"Russian Federation", code:"RU", bloc:"rejector", icc:"rejector", scope:"confine", urgency:"low", score:0, net:-45, words:1124,
-      ev:{ A:{p:0,q:"(\"the so-called Prosecutor's Office\")"}, B:{p:0,q:null}, C:{p:0,q:null}, D:{p:0,q:null},
+      evn:{ A:{p:17,q:"The ICC's perverse attempts to encroach on the sovereignty of states, including some on this Council, must be defeated"},
+            B:{p:4,q:"falsely asserting so-called jurisdiction beyond its mandate, including over nations who never consented to its authority"},
+            C:{p:15,q:"dismantle the capabilities of the ICC until it is completely incapable of threatening the United States, our people, and our interests"},
+            D:{p:9,q:"The ICC was supposed to be a court of last resort, a narrow backstop to prosecute the gravest crimes"},
+            E:{p:8,q:"importantly exclusive of the ICC"},
+            F:{p:9,q:"the United States has launched a full-on diplomatic campaign working beside every ally with whom we can make common cause"},
+            G:{p:13,q:"must be defeated · dismantle · we encourage all current states parties to the Rome Statute to withdraw"} } },
+    { name:"Russian Federation", code:"RU", bloc:"rejector", icc:"rejector", scope:"confine", urgency:"low", words:1124,
+      ev:{ A:{p:0,q:"(argued the other way — see the case against)"}, B:{p:0,q:null}, C:{p:0,q:null}, D:{p:0,q:null},
            E:{p:0,q:null}, F:{p:0,q:null}, G:{p:0,q:null} },
-      neg:[{p:-25,q:"the Hague pseudo-court · ceased to have anything in common with genuine justice"},
-           {p:-10,q:"consider the withdrawal of the Darfur file, as well as the Libyan file"},
-           {p:-10,q:"resolved by the Sudanese themselves within the framework of national proceedings"}] },
-    { name:"Sudan (invited, Rule 37)", code:"SD", bloc:"party", icc:"party", scope:"expand", urgency:"high", score:38, net:38, words:1564,
+      evn:{ A:{p:18,q:"a body that long ago ceased to have anything in common with genuine justice"},
+            B:{p:10,q:"the court has issued only one conviction against one accused person, and even that proceeding has still not been completed and remains at the appeals stage"},
+            C:{p:15,q:"we call on our colleagues on the Council to consider the withdrawal of the Darfur file, as well as the Libyan file, from the ICC"},
+            D:{p:13,q:"Resolution 1593 provided for the referral to the court of a very specific situation in Darfur — the situation as it existed in 2002. No other tasks regarding Sudan were assigned to the ICC"},
+            E:{p:0,q:null},
+            F:{p:0,q:null},
+            G:{p:14,q:"pseudo-court · we will not stand idly by · consider the withdrawal · merely an obvious obstacle"} } },
+    { name:"Sudan (invited, Rule 37)", code:"SD", bloc:"party", icc:"party", scope:"expand", urgency:"high", words:1564,
       ev:{ A:{p:4,q:"preserve the credibility of the International Criminal Court, a credibility that is now being put to the test"},
            B:{p:0,q:null},
            C:{p:0,q:"(asserts existing reach instead: \"these crimes fall squarely and entirely within the subjective and territorial jurisdiction of the ICC\")"},
@@ -1150,12 +1245,30 @@
            E:{p:11,q:"the Government of Sudan continues its cooperation with the ICC in accordance with Resolution 1593 and the Memorandum of Understanding"},
            F:{p:5,q:"providing redress to victims, ensuring reparations… fundamental pillars"},
            G:{p:13,q:"Justice delayed is justice denied · has become an urgent matter · requires expediting"} },
-      neg:[{p:-4,q:"This delay causes serious concern and sends a negative message to the victims"}] }
+      // Sudan carries no counter-material. Its former -4 marker ("This delay causes serious
+      // concern and sends a negative message to the victims") was removed 2026-08-06: it presses
+      // the Court to move faster, which is the same claim already scored +13 under G. It was
+      // matched on negative sentiment rather than on position.
+      evn:NO_N }
   ];
 
+  // Derived from the two rubrics; nothing is stored pre-summed.
+  //   P         how much was argued FOR the Court
+  //   N         how much was argued AGAINST it
+  //   net       P - N, the direction and how far off neutral
+  //   onRecord  P + N, the total put on the record either way  <- the X axis
+  // onRecord rather than |net|, because netting made mixed delegations cancel toward the middle:
+  // China argued 41 points' worth of material and would have plotted at |-17| = 17, reading as
+  // "barely spoke". Direction lives on the Y axis and in camp colour instead.
+  const sumP = d => d.ev  ? IND.reduce((s, i) => s + d.ev[i.k].p, 0) : 0;
+  const sumN = d => d.evn ? IND_N.reduce((s, i) => s + d.evn[i.k].p, 0) : 0;
+  const netOf      = d => sumP(d) - sumN(d);
+  const onRecordOf = d => sumP(d) + sumN(d);
+  const directionOf = d => netOf(d) < 0 ? 'argued against the Court' : 'argued for the Court';
+
   const scored = data.filter(d => !d.unscored);
-  const rankOf = d => 1 + scored.filter(o => o.net > d.net).length;
-  const tied   = d => scored.filter(o => o.net === d.net).length > 1;
+  const rankOf = d => 1 + scored.filter(o => netOf(o) > netOf(d)).length;
+  const tied   = d => scored.filter(o => netOf(o) === netOf(d)).length > 1;
 
   const BRIEF_CHIP = `<span class="brief-chip"><svg width="12" height="12" viewBox="0 0 20 20" aria-hidden="true"><use href="#head" fill="currentColor"/><use href="#wv" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>brief</span>`;
   const briefFor = d => d.brief ? BRIEF_CHIP : '';
@@ -1188,16 +1301,34 @@
     stanceMap[c.querySelector('h4').textContent.trim()] = c.querySelector('p').textContent.trim();
   });
 
+  // X is how much a delegation put on the record, banded into three fixed thirds. Left = argued
+  // least, right = argued most, identical meaning on all readouts in the series. Cut points are
+  // unchanged, so a column means here what it means everywhere else.
+  //
+  // DIRECTION is carried by the Y axis and by camp COLOUR, never by horizontal position: France
+  // at 94 and the United States at 75 both sit right because both argued at length, and the row
+  // they sit on says which way. Every number shown to a reader states its direction in words —
+  // otherwise 75 and 94 read as the same argument.
+  const X_AXIS = {
+    buckets: ["low", "medium", "high"],
+    labels:  ["Little on record", "Some on record", "Much on record"],
+    subs:    ["0-39 points", "40-66 points", "67+ points"],
+    bandOf:  d => {
+      if (d.unscored) return "high";
+      const v = onRecordOf(d);
+      return v <= 39 ? "low" : (v <= 66 ? "medium" : "high");
+    }
+  };
+
+  // Stance toward the ICC is now a selectable Y dimension rather than the fixed X.
+  // Sudan (invited party) sits off the defend↔delegitimise line; it is placed in the
+  // "defend" band — it wants a strong, faster Court — but keeps its own colour.
   const AXES = {
-    icc:     { label:"Stance toward the ICC", buckets:["defender","sovereign","rejector"], labels:["Defend","Conditional","Delegitimise"] },
+    icc:     { label:"Stance toward the ICC", buckets:["rejector","sovereign","defender"], labels:["Delegitimise","Conditional","Defend"] },
     scope:   { label:"Mandate scope", buckets:["confine","neutral","expand"], labels:["Confine","Neutral","Expand"] },
     urgency: { label:"Enforcement urgency", buckets:["low","mid","high"], labels:["Low","Moderate","High"] }
   };
-  const Y_KEY = { scope:"scope", urgency:"urgency" };
-
-  // Party (Sudan) sits off the defend↔delegitimise X-axis; map it to the "defend" column
-  // for placement (it wants a strong, faster Court) but keep its own colour.
-  const X_FOR = d => d.icc === "party" ? "defender" : d.icc;
+  const Y_FOR = (d, yKey) => yKey === "icc" ? (d.icc === "party" ? "defender" : d.icc) : d[yKey];
 
   const plot = document.getElementById('plot-grid');
   const ySel = document.getElementById('axis-y');
@@ -1207,6 +1338,15 @@
   const EYE_SVG = `<svg class="ae-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
 
   const AXIS_INFO = {
+    icc: {
+      title: "Stance toward the ICC",
+      def: "Whether a delegation treats the International Criminal Court as the right body to handle Darfur, treats it as acceptable only on conditions, or argues it should not be handling the file at all.",
+      rows: [
+        { label: "Defend (top)", desc: "Backs the Court's role outright and presses states to cooperate with it (Denmark, France, Greece, and the European and Latin American members)." },
+        { label: "Conditional (mid)", desc: "Accepts the Court only alongside sovereignty and complementarity — national courts first, the ICC as a fallback (China, Pakistan, Somalia, Bahrain)." },
+        { label: "Delegitimise (bottom)", desc: "Challenges the Court's standing over the file itself (the United States, Russia)." }
+      ]
+    },
     scope: {
       title: "Mandate scope",
       def: "Whether a delegation wants the ICC's remit in Sudan widened beyond the 2005 Darfur referral, held to it, or narrowed / withdrawn.",
@@ -1253,7 +1393,7 @@
     floatTip.appendChild(head);
     const sc = document.createElement('span');
     sc.className = 'tip-score';
-    sc.textContent = d.unscored ? 'Briefer — not scored' : `Score ${d.score}/100`;
+    sc.textContent = d.unscored ? 'Briefer — not scored' : `${onRecordOf(d)} on record · ${directionOf(d)}`;
     floatTip.appendChild(sc);
     floatTip.appendChild(document.createElement('br'));
     floatTip.appendChild(document.createTextNode(
@@ -1274,27 +1414,32 @@
   }
   function hideTip() { floatTip.style.opacity = '0'; }
 
-  // Deterministic score-ordered placement (replaces the old hash jitter):
-  // per cell, ascending net; ties alphabetical; the unscored briefer pinned
-  // rightmost; zigzag rows only when a cell holds 5+ dots. No randomness.
+  // Deterministic placement, ordered by how much is on the record (replaces the old hash
+  // jitter): per cell ascending, ties alphabetical, the unscored briefer pinned rightmost.
+  // Ordering uses the same quantity as the column, so within-cell order reinforces the band
+  // rather than contradicting it.
   function orderedPositions(yKey) {
     const groups = {};
     data.forEach(d => {
-      const key = X_FOR(d) + '|' + d[yKey];
+      const key = X_AXIS.bandOf(d) + '|' + Y_FOR(d, yKey);
       (groups[key] = groups[key] || []).push(d);
     });
     const pos = {};
     Object.values(groups).forEach(g => {
       g.sort((a, b) => {
         if (!!a.unscored !== !!b.unscored) return a.unscored ? 1 : -1;
-        if (a.net !== b.net) return a.net - b.net;
+        if (a.unscored) return a.name.localeCompare(b.name);
+        const d = onRecordOf(a) - onRecordOf(b);
+        if (d) return d;
         return a.name.localeCompare(b.name);
       });
       const n = g.length;
       g.forEach((d, i) => {
         pos[d.name] = {
+          // Single lane up to 5 dots — vertical offset would read as Y-axis meaning,
+          // which the selectable dimension now owns. Beyond 5, two lanes are unavoidable.
           x: n === 1 ? 50 : 6 + 88 * i / (n - 1),
-          y: n <= 4 ? 50 : (i % 2 === 0 ? 32 : 68)
+          y: n <= 5 ? 50 : (i % 2 === 0 ? 32 : 68)
         };
       });
     });
@@ -1314,19 +1459,20 @@
   }
 
   function render() {
-    const xAxis = AXES['icc'], yAxis = AXES[ySel.value];
-    const yKey = Y_KEY[ySel.value];
+    const yKey = ySel.value;
+    const yAxis = AXES[yKey];
     plot.innerHTML = '';
 
     const yLab = document.createElement('div'); yLab.className = 'axis-label y'; yLab.textContent = yAxis.label; plot.appendChild(yLab);
     const xLab = document.createElement('div'); xLab.className = 'axis-label x';
-    xLab.textContent = xAxis.label + '  ·  within each column: weak → strong';
+    xLab.textContent = 'How much the delegation put on the record — for or against the Court';
     plot.appendChild(xLab);
 
-    xAxis.labels.forEach((lab, i) => {
+    X_AXIS.labels.forEach((lab, i) => {
       const h = document.createElement('div'); h.className = 'col-head';
       h.style.gridColumn = String(i + 3); h.style.gridRow = '4';
-      h.textContent = lab; plot.appendChild(h);
+      h.innerHTML = `${lab}<span class="col-sub">${X_AXIS.subs[i]}</span>`;
+      plot.appendChild(h);
     });
     yAxis.labels.slice().reverse().forEach((lab, i) => {
       const h = document.createElement('div'); h.className = 'row-head';
@@ -1346,14 +1492,15 @@
         cell.appendChild(inner);
         plot.appendChild(cell);
         const yBucket = yAxis.buckets[2 - yi];
-        const xBucket = xAxis.buckets[xi];
+        const xBucket = X_AXIS.buckets[xi];
+        cell.classList.add('x-' + xBucket);
         cells[xBucket + '|' + yBucket] = inner;
       }
     }
 
     const pos = orderedPositions(yKey);
     data.forEach(d => {
-      const xb = X_FOR(d), yb = d[yKey];
+      const xb = X_AXIS.bandOf(d), yb = Y_FOR(d, yKey);
       const cell = cells[xb + '|' + yb];
       if (!cell) return;
       const dot = document.createElement('div');
@@ -1361,7 +1508,7 @@
       dot.tabIndex = 0;
       dot.dataset.bloc = d.bloc;
       dot.textContent = d.code;
-      dot.setAttribute('aria-label', d.name + (d.unscored ? ' (briefer, not scored)' : `, score ${d.score} of 100`) + (d.brief ? ', spoke well below the meeting median' : ''));
+      dot.setAttribute('aria-label', d.name + (d.unscored ? ' (briefer, not scored)' : `, ${onRecordOf(d)} points on record, ${directionOf(d)}`) + (d.brief ? ', spoke well below the meeting median' : ''));
       const p = pos[d.name];
       dot.style.left = p.x + '%';
       dot.style.top  = p.y + '%';
@@ -1377,10 +1524,6 @@
       cell.appendChild(dot);
     });
 
-    Object.values(cells).forEach(inner => {
-      if (inner.querySelectorAll('.dot').length >= 2) inner.parentElement.classList.add('has-order');
-    });
-
     renderLegend();
   }
 
@@ -1394,12 +1537,18 @@
 
   function esc(s) { const el = document.createElement('span'); el.textContent = s; return el.innerHTML; }
 
-  function slotBody(d) {
-    if (d.unscored) {
-      return `<div class="ep-body"><div class="ep-ind"><span class="ei-quote">${esc(PROFILE[d.name] || '')}</span></div></div>`;
+  // One rubric's seven rows. `pole` picks the styling; an all-zero rubric collapses to a single
+  // line rather than seven "not stated" rows — that filler was the defect this rewrite fixes.
+  function rubricSection(d, inds, evKey, total, title, pole) {
+    if (total === 0) {
+      return `<div class="ep-rubric ${pole} empty">
+        <div class="ep-rubric-head"><span class="ep-rubric-title">${title}</span>
+          <span class="ep-rubric-total">0</span></div>
+        <p class="ep-rubric-none">Not argued in this meeting.</p>
+      </div>`;
     }
-    let html = IND.map(ind => {
-      const e = d.ev[ind.k];
+    const rows = inds.map(ind => {
+      const e = d[evKey][ind.k];
       const q = e.q === null
         ? '<span class="ns">not stated in this meeting</span>'
         : (e.q.startsWith('(') ? `<span class="ns">${esc(e.q)}</span>` : `“${esc(e.q)}”`);
@@ -1411,13 +1560,22 @@
         <span class="ep-bar"><i style="width:${w}%"></i></span>
       </div>`;
     }).join('');
-    if (d.neg.length) {
-      html += d.neg.map(n => `<div class="ep-ind neg">
-        <span class="ei-label">Negative marker</span>
-        <span class="ei-pts">${n.p}</span>
-        <span class="ei-quote">“${esc(n.q)}”</span>
-      </div>`).join('');
+    return `<div class="ep-rubric ${pole}">
+      <div class="ep-rubric-head"><span class="ep-rubric-title">${title}</span>
+        <span class="ep-rubric-total">${total}</span></div>
+      ${rows}
+    </div>`;
+  }
+
+  function slotBody(d) {
+    if (d.unscored) {
+      return `<div class="ep-body"><div class="ep-ind"><span class="ei-quote">${esc(PROFILE[d.name] || '')}</span></div></div>`;
     }
+    const p = sumP(d), n = sumN(d);
+    const forSec = rubricSection(d, IND,   'ev',  p, 'The case for the Court',     'pole-for');
+    const agSec  = rubricSection(d, IND_N, 'evn', n, 'The case against the Court', 'pole-against');
+    // Dominant rubric first, so a delegation leads with what it actually argued.
+    const html = n > p ? agSec + forSec : forSec + agSec;
     return `<div class="ep-body">${html}</div>`;
   }
 
@@ -1439,9 +1597,9 @@
              title="${armed === key ? 'The next clicked dot replaces this delegation' : 'Click so the next dot replaces this delegation instead'}"
              aria-label="Next clicked dot replaces ${esc(d.name)}">⇄</button>`
         : '';
-      const scoreTxt = d.unscored ? 'not scored' : d.score + ' / 100';
+      const scoreTxt = d.unscored ? 'not scored' : `${onRecordOf(d)} on record`;
       const rankTxt = d.unscored ? 'briefer'
-        : `rank ${rankOf(d)}${tied(d) ? '=' : ''} of ${scored.length}` + (d.net !== d.score ? ` · net before floor: ${d.net}` : '');
+        : `for ${sumP(d)} · against ${sumN(d)} · ${directionOf(d)}`;
       el.innerHTML = `<div class="ep-head"><h3>${esc(d.name)}${briefFor(d)}${chip}</h3>
         <span class="ep-score">${scoreTxt}</span><span class="ep-rank">${rankTxt}</span></div>` + slotBody(d);
     });
@@ -1466,12 +1624,15 @@
 
   // ---------- Scores at a glance ----------
   const rtBody = document.querySelector('#ranked-table tbody');
-  [...scored].sort((a, b) => b.net - a.net).forEach(d => {
+  [...scored].sort((a, b) => netOf(b) - netOf(a)).forEach(d => {
     const tr = document.createElement('tr');
+    const net = netOf(d);
     tr.innerHTML = `<td class="num">${rankOf(d)}${tied(d) ? '=' : ''}</td>
       <td><span class="name-cell"><span class="swatch" style="background:var(--bloc-${d.bloc})"></span>${esc(d.name)}${briefFor(d)}</span></td>
-      <td class="num"><strong>${d.score}</strong></td>
-      <td class="num">${d.net}</td>
+      <td class="num"><strong>${onRecordOf(d)}</strong></td>
+      <td class="num">${sumP(d)}</td>
+      <td class="num">${sumN(d)}</td>
+      <td class="num">${net > 0 ? '+' + net : net}</td>
       <td>${esc(PROFILE[d.name] || '')}</td>`;
     rtBody.appendChild(tr);
   });
@@ -1480,7 +1641,7 @@
     tr.className = 'unscored-row';
     tr.innerHTML = `<td class="num">—</td>
       <td><span class="name-cell"><span class="swatch" style="background:var(--bloc-${d.bloc})"></span>${esc(d.name)}</span></td>
-      <td class="num">—</td><td class="num">—</td>
+      <td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td>
       <td>${esc(PROFILE[d.name] || '')}</td>`;
     rtBody.appendChild(tr);
   });
