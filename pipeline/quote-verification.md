@@ -60,6 +60,36 @@ The portal JSON (`transcripts/<silo>/*.json`) has word-level timestamps:
 Search sentences for a distinctive substring of each quote; take the sentence
 `start`/`end`.
 
+### 4b. Pre-flight: check `timestamps_flagged` before slicing anything
+
+The transcript JSON now carries its own re-cut warning:
+
+```
+transcript.timestamps_flagged        true when the portal knows the video was re-edited
+transcript.timestamps_note           the portal's wording
+transcript.original_duration_seconds / current_duration_seconds
+```
+
+**When `timestamps_flagged` is true, do not slice at the JSON timestamps.** Derive the
+offset empirically first:
+
+1. Probe 3–4 fixed audio points (`ffmpeg -ss T -t 20` + whisper), find each probe's text
+   in the JSON, `offset = json_start − T`.
+2. **Validate the offset at both ends of the recording** — a front trim gives one constant;
+   a distributed edit would not, and then per-quote landmarks are needed.
+3. Only then run the quote set at `json_start − offset`.
+
+**Never take the offset from `original_duration_seconds − current_duration_seconds`.** On
+the INC tax run (2026-08-11) the duration delta was 2447 s but the real constant was
+**2191 s** — the delta-derived value sends early quotes to negative timestamps and every
+other quote ~256 s wide. Worked example, probe tables and the command shape:
+`daily-runs/2026-08-11-2/STAGE4-OFFSET-SOLVED.md`.
+
+Slicing at wrong timestamps is worse than not verifying: it can stamp "verified" on a
+quote compared against a different speaker, or generate a false "correction" that edits a
+correct quote into a wrong one. A builder that stops on this flag instead of slicing
+blindly is right to stop — the offset derivation above is the unblock.
+
 ### 5. Slice and transcribe
 
 ```bash
@@ -98,6 +128,14 @@ then slice every quote at `json_start − offset` with a ±12 s window. Verified
 front-to-back on the AI-at-UN run (17/17 matched after correction).
 
 ### 7. Judge match / mismatch — carefully
+
+**A match verifies the words, never the attribution.** Whisper cannot hear who is speaking;
+if the readout credits the quote to the wrong actor, this step happily stamps the fabrication
+"audio-verified" (run 2, 2026-08-11: a co-lead's line was verified under the *other* co-lead —
+the words checked out, the label was wrong, and the ✓AV made it look proven). Before recording
+a quote as verified, confirm the readout's attribution against the transcript JSON's `speaker`
+object at that timestamp; `pipeline/verify_attribution.py` does this mechanically for the
+whole draft.
 
 - **Match** = the quoted words appear in whisper's output (punctuation/casing
   differences don't count).
@@ -171,3 +209,5 @@ at `video.id`). Read it from there; the URL-derivation regex is a fallback.
 | 2026-07-27 | SG town hall — candidate debate (23 Jul 2026) | `1_qth9jlfl` / `1_cr68e9m4` | 12 | all matched, **2 ASR garbles corrected**; **no paramsId-100 flavor — English was paramsId 2732162**; no drift and no offset, every quote hit on a ±3 s first-pass slice incl. the interpreted French speaker |
 | 2026-07-28 | SC 10200 Natural resources governance (22 Jul 2026) | `1_4t3uh64n` / `1_4rh4nfqf` | 15 | all matched, 0 corrections. 13/15 on ±3 s; 1 at ±18 s; 1 re-sliced. **Two new lessons — see "Matching gotchas" below.** Live entry id came from the transcript JSON's `video.kaltura_id`, not URL derivation |
 | 2026-07-29 | SC 10197 Sudan/ICC — **scoring-evidence round 2** (15 Jul 2026) | `1_c3icpgx0` / `1_1jj8elbu` | 20 | all matched, 0 corrections. 16/20 on ±3 s; 2 at ±18 s; 2 needed a 100–110 s probe. France drifted **~55 s** (round 1 saw 10–20 s on the same speaker — drift is not a fixed per-speaker constant, so escalate on the window, never on a remembered offset). **New gotcha: a near-identical earlier sentence can occupy the ±18 s window** (China said "the court should respect the judicial sovereignty of the states concerned" ~20 s before the quoted "…fully respect the judicial sovereignty **and jurisdiction** of the states concerned"); the wide probe is what disambiguates. Preceded by a mechanical pass confirming all 114 evidence fragments appear verbatim in the attributed transcript |
+| 2026-08-11 | INC Tax Session 5, meeting 12 (10 Aug 2026) | `1_sl5s51sj` / `1_9eid2amn` | 8 of ~12 | 8 matched (partial run — remaining quotes ASR-only, draft marked accordingly). **First `timestamps_flagged: true` entry**: video re-cut 11913 s → 9466 s, real offset **−2191 s** (front trim), NOT the 2447 s duration delta — this run created step 4b above. Full derivation: `daily-runs/2026-08-11-2/STAGE4-OFFSET-SOLVED.md`. Heavily interpreted session (CMR, SEN, BFA, DZA, HND, COL) — English flavor carries the interpreter |
+| 2026-08-05 | Regional Dialogue on the Future Leadership of the UN (3 Aug 2026) | `1_42nc950s` / `1_gycxkyou` | 15 | all matched, **1 ASR garble corrected** ("traemos" &rarr; "tenemos", Grinspan). 13/15 on &plusmn;3 s. **English flavor again outside paramsId 100 &mdash; 2732162**, same non-standard layout as the SG town hall; the two SG-track entries now both behave this way, so treat the 2732xxx range as normal for this track. **First substantially non-English session**: the entry carries separate English and Spanish flavors, and the English one is interpreter audio for the Spanish speakers &mdash; but every quote still matched on a tight window, so interpretation drift did not appear. **New gotcha: a comparison-side encoding bug produced two false MISSes** (mojibake in the target string, not the audio); normalise BOTH sides to NFKD and strip combining marks before declaring a miss. Also declined a bogus correction: whisper "deber&eacute;" vs ASR "deber&aacute;" is one unstressed vowel with no clear contradiction, so the ASR stood |

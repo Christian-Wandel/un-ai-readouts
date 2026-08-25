@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive Board Funding Dialogue — UNDP, UNFPA and UNOPS (24 August 2026)</title>
+<meta name="description" content="Readout of the 2nd meeting of the second regular session 2026 of the Executive Board of UNDP, UNFPA and UNOPS: structured funding dialogues, the UNCDF financial review, and Board governance and oversight.">
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --ink: #1a1c20;
+    --muted: #5b6470;
+    --rule: #e3e1da;
+    --accent-default: #2e4a86;
+
+    --green: #2f7a4d;
+    --amber: #b27406;
+    --amber-soft: #fbf1dc;
+    --red:   #b03333;
+    --grey:  #6a727b;
+    --grey-soft: #ecedef;
+
+    /* Camp palette — the same CVD-validated hexes as the Security Council series,
+       remapped to this meeting's camps so a colour keeps a fixed meaning within
+       the readout. Every camp colour is used in three places and must stay
+       identical across them: the plot dots, the delegation names in prose, and
+       the colour key. Re-checked under deuteranopia and protanopia simulation
+       (2026-08-25) for this five-camp set: the closest pair is restore/briefer
+       at dE 11.1 protan and capital/briefer at dE 11.8 deutan, both in line with
+       the parent palette's 11.5 / 12.3. */
+    --bloc-restore:      #1f5fb0;  /* Donors must restore core funding */
+    --bloc-inside:       #b03333;  /* Close the gap from inside */
+    --bloc-conditional:  #8a6d1c;  /* Fund, and ask what the reform buys */
+    --bloc-capital:      #2a7f8f;  /* Capital rather than core */
+    --bloc-briefer:      #8a3d8f;  /* Presenter — not scored */
+    --bloc-other:        #6a727b;
+
+    --focus: #ffbf47;
+    --radius: 10px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+  }
+  a { color: var(--accent-default); }
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .skip {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--ink); color: #fff; padding: .6rem 1rem;
+    z-index: 100;
+  }
+  .skip:focus { left: 0; }
+
+  .shell {
+    display: grid;
+    grid-template-columns: 240px minmax(0,1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    nav#toc { position: static !important; max-height: none !important; }
+  }
+
+  header.page {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  header.page h1 {
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    margin: 0 0 .5rem;
+    line-height: 1.2;
+  }
+  header.page dl.meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .15rem 1rem;
+    margin: .75rem 0 0;
+    color: var(--muted);
+    font-size: .92rem;
+  }
+  header.page dt { font-weight: 600; color: var(--ink); }
+  header.page dd { margin: 0; }
+
+  .asr-note {
+    grid-column: 1 / -1;
+    background: var(--amber-soft);
+    border: 1px solid color-mix(in srgb, var(--amber) 30%, var(--rule));
+    border-left: 4px solid var(--amber);
+    border-radius: var(--radius);
+    padding: .7rem 1rem;
+    margin-bottom: 1.25rem;
+    font-size: .86rem;
+    color: #4a3d1a;
+  }
+  .asr-note strong { color: var(--amber); }
+
+  nav#toc {
+    position: sticky;
+    top: 1rem;
+    align-self: start;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    padding: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    font-size: .92rem;
+  }
+  nav#toc h2 {
+    margin: 0 0 .5rem;
+    font-size: .78rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  nav#toc ol { list-style: none; padding: 0; margin: 0; }
+  nav#toc li { margin: .15rem 0; }
+  nav#toc a {
+    display: block;
+    padding: .35rem .5rem;
+    border-radius: 6px;
+    color: var(--ink);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+  }
+  nav#toc a:hover { background: var(--bg); }
+  nav#toc a[aria-current="location"] {
+    background: var(--bg);
+    border-left-color: var(--accent-default);
+    font-weight: 600;
+  }
+
+  main { min-width: 0; }
+  section.block {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+  section.block > details > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    user-select: none;
+  }
+  section.block > details > summary::-webkit-details-marker { display: none; }
+  section.block > details > summary::before {
+    content: "▸";
+    color: var(--muted);
+    transition: transform .15s ease;
+    display: inline-block;
+    width: 1ch;
+  }
+  section.block > details[open] > summary::before { transform: rotate(90deg); }
+  .body { padding: 0 1.25rem 1.25rem; }
+  .body > :first-child { margin-top: 0; }
+
+  h3.sub { font-size: 1rem; margin: 1.25rem 0 .5rem; color: var(--ink); }
+  ul.tight { margin: .25rem 0 .75rem; padding-left: 1.25rem; }
+  ul.tight li { margin: .25rem 0; }
+
+  blockquote.tp {
+    border-left: 4px solid var(--accent-default);
+    background: var(--bg);
+    margin: .75rem 0;
+    padding: .75rem 1rem;
+    font-style: italic;
+    color: #2a2f37;
+    border-radius: 0 6px 6px 0;
+  }
+  blockquote.tp footer {
+    margin-top: .45rem;
+    font-style: normal;
+    font-size: .85rem;
+    color: var(--muted);
+  }
+  /* the attribution's colour must beat the footer's muted grey */
+  blockquote.tp footer .c-restore  { color: var(--bloc-restore); }
+  blockquote.tp footer .c-inside  { color: var(--bloc-inside); }
+  blockquote.tp footer .c-conditional { color: var(--bloc-conditional); }
+  blockquote.tp footer .c-capital   { color: var(--bloc-capital); }
+  blockquote.tp footer .c-briefer       { color: var(--bloc-briefer); }
+
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    padding: 1rem 1.25rem; border-bottom: 1px solid var(--rule);
+    background: linear-gradient(180deg, #fbfaf6 0%, var(--surface) 100%);
+  }
+  .control-group { display: flex; align-items: center; gap: .5rem; }
+  .control-group .label {
+    font-size: .78rem; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--muted); font-weight: 600;
+  }
+  .search {
+    flex: 1 1 220px; min-width: 180px;
+    padding: .5rem .75rem; border: 1px solid var(--rule); border-radius: 8px;
+    font: inherit; background: var(--surface);
+  }
+
+  .chips {
+    display: flex; flex-wrap: wrap; gap: .4rem;
+    padding: .75rem 1.25rem; border-bottom: 1px solid var(--rule);
+    background: var(--surface);
+  }
+  .chip {
+    border: 1px solid var(--rule); background: var(--surface);
+    border-radius: 999px; padding: .3rem .7rem;
+    font: inherit; font-size: .85rem; cursor: pointer; color: var(--ink);
+  }
+  .chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .chip[data-filter="restore"][aria-pressed="true"]     { background: var(--bloc-restore);     border-color: var(--bloc-restore); }
+  .chip[data-filter="inside"][aria-pressed="true"]      { background: var(--bloc-inside);      border-color: var(--bloc-inside); }
+  .chip[data-filter="conditional"][aria-pressed="true"] { background: var(--bloc-conditional); border-color: var(--bloc-conditional); }
+  .chip[data-filter="capital"][aria-pressed="true"]     { background: var(--bloc-capital);     border-color: var(--bloc-capital); }
+
+  .result-count { font-size: .85rem; color: var(--muted); padding: 0 1.25rem .5rem; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: .85rem; padding: 1rem 1.25rem 1.25rem;
+  }
+  .card {
+    --accent: var(--grey); --accent-bg: var(--grey-soft);
+    background: var(--surface); border: 1px solid var(--rule);
+    border-left: 5px solid var(--accent); border-radius: 8px;
+    padding: .75rem .9rem; box-shadow: var(--shadow);
+    transition: border-color .15s ease;
+  }
+  .card h4 { margin: 0 0 .25rem; font-size: 1rem; }
+  .card .badge-row { display: flex; flex-wrap: wrap; gap: .3rem; margin: .25rem 0 .5rem; }
+  .badge {
+    display: inline-block; font-size: .72rem; font-weight: 600;
+    padding: .15rem .5rem; border-radius: 999px;
+    background: var(--accent-bg); color: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    letter-spacing: .02em;
+  }
+  .card p { margin: .25rem 0 0; font-size: .92rem; color: #2a2f37; }
+  .card[hidden] { display: none; }
+
+  .card[data-bloc="restore"]  { --accent: var(--bloc-restore);  --accent-bg: color-mix(in srgb, var(--bloc-restore) 12%, white); }
+  .card[data-bloc="inside"]  { --accent: var(--bloc-inside);  --accent-bg: color-mix(in srgb, var(--bloc-inside) 12%, white); }
+  .card[data-bloc="conditional"] { --accent: var(--bloc-conditional); --accent-bg: color-mix(in srgb, var(--bloc-conditional) 12%, white); }
+  .card[data-bloc="capital"]   { --accent: var(--bloc-capital);   --accent-bg: color-mix(in srgb, var(--bloc-capital) 12%, white); }
+  .card[data-bloc="briefer"]       { --accent: var(--bloc-briefer);       --accent-bg: color-mix(in srgb, var(--bloc-briefer) 12%, white); }
+  .card[data-bloc="other"]     { --accent: var(--bloc-other);     --accent-bg: var(--grey-soft); }
+
+  .global-toolbar {
+    grid-column: 1 / -1;
+    display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    justify-content: space-between;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: var(--radius); padding: .75rem 1rem; margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+  .btn {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 8px; padding: .4rem .75rem;
+    font: inherit; font-size: .88rem; cursor: pointer; color: var(--ink);
+  }
+  .btn:hover { background: var(--bg); }
+
+  footer.page {
+    grid-column: 1 / -1; margin-top: 1.5rem; padding-top: 1rem;
+    border-top: 1px solid var(--rule); color: var(--muted);
+    font-style: italic; font-size: .9rem;
+  }
+
+  /* ---- Camp colour on delegation names, everywhere a name appears ----
+     The same colour a delegation carries in the plot follows its name through
+     the executive summary, consensus, fault lines, outliers and talking points,
+     so a reader can track one delegation down the page by colour alone.
+     Colour key ships under the executive summary, the first coloured block. */
+  .c-restore  { color: var(--bloc-restore); }
+  .c-inside  { color: var(--bloc-inside); }
+  .c-conditional { color: var(--bloc-conditional); }
+  .c-capital   { color: var(--bloc-capital); }
+  .c-briefer       { color: var(--bloc-briefer); }
+  strong.c-restore, strong.c-inside, strong.c-conditional,
+  strong.c-capital, strong.c-briefer { font-weight: 700; }
+
+  .camp-key {
+    display: flex; flex-wrap: wrap; gap: .4rem 1.1rem;
+    margin: .9rem 0 .25rem; padding: .6rem .8rem;
+    background: var(--bg); border: 1px solid var(--rule); border-radius: 8px;
+    font-size: .8rem; color: var(--muted);
+  }
+  .camp-key .ck-lead { font-weight: 600; color: var(--ink); }
+  .camp-key b { font-weight: 700; }
+
+  .fault-line {
+    background: var(--bg); border-left: 4px solid var(--accent-default);
+    padding: .6rem .9rem; margin: .5rem 0; border-radius: 0 6px 6px 0;
+  }
+  /* a bare .c-* class must win over this generic rule (specificity note,
+     CLAUDE.md rendering rules) — hence the explicit overrides below */
+  .fault-line strong { color: var(--ink); }
+  .fault-line strong.c-restore  { color: var(--bloc-restore); }
+  .fault-line strong.c-inside  { color: var(--bloc-inside); }
+  .fault-line strong.c-conditional { color: var(--bloc-conditional); }
+  .fault-line strong.c-capital   { color: var(--bloc-capital); }
+  .fault-line strong.c-briefer       { color: var(--bloc-briefer); }
+  .outlier {
+    background: var(--amber-soft); border-left: 4px solid var(--amber);
+    padding: .6rem .9rem; margin: .75rem 0; border-radius: 0 6px 6px 0;
+  }
+
+  .plot-controls {
+    display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    padding: 1rem 1.25rem; border-bottom: 1px solid var(--rule);
+    background: linear-gradient(180deg, #fbfaf6 0%, var(--surface) 100%);
+  }
+  .plot-controls select {
+    font: inherit; padding: .4rem .55rem;
+    border: 1px solid var(--rule); border-radius: 8px; background: var(--surface);
+  }
+  .plot-wrap { padding: 1rem 1.25rem 1.5rem; overflow-x: auto; }
+  .plot {
+    --cell: 200px;
+    position: relative; display: grid;
+    grid-template-columns: 32px 130px repeat(3, var(--cell));
+    /* Four rows: three delegation bands plus a shorter presenter band below a dashed
+       separator, then the column heads and the axis title. The presenters hold no
+       position on any Y dimension, so they never share a cell with delegations. */
+    grid-template-rows: repeat(3, var(--cell)) 84px 48px minmax(30px, auto);
+    gap: 0; min-width: calc(32px + 130px + 3 * var(--cell)); margin: 0 auto;
+  }
+  .plot .axis-label {
+    font-size: .78rem; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .06em; line-height: 1.35;
+    display: flex; align-items: center; justify-content: center;
+    padding: .25rem; text-align: center;
+  }
+  .plot .axis-label.x {
+    grid-row: 6; grid-column: 3 / span 3;
+    border-top: 1px solid var(--rule); padding: .5rem .25rem;
+  }
+  .plot .axis-label.y {
+    grid-row: 1 / span 3; grid-column: 1;
+    writing-mode: vertical-rl; transform: rotate(180deg);
+  }
+  .plot .col-head {
+    grid-row: 5; font-size: .8rem; font-weight: 600; color: var(--ink);
+    text-align: center; padding: .3rem .25rem; border-top: 1px solid var(--rule);
+    display: flex; flex-direction: column; gap: .1rem;
+    align-items: center; justify-content: center; line-height: 1.2;
+  }
+  .plot .col-head .col-sub {
+    font-size: .68rem; font-weight: 500; color: var(--muted);
+    letter-spacing: 0; text-transform: none;
+  }
+  .plot .row-head {
+    grid-column: 2; font-size: .78rem; color: var(--ink); font-weight: 600;
+    display: flex; align-items: center; justify-content: flex-end;
+    padding: .25rem .5rem; text-align: right; border-right: 1px solid var(--rule);
+  }
+  .plot .cell {
+    position: relative; border: 1px dashed var(--rule);
+    background: color-mix(in srgb, var(--bg) 60%, white); min-height: var(--cell);
+  }
+  /* Column tint deepens left to right, so the intensity scale reads even before
+     the column headings are consulted. */
+  .plot .cell.x-low    { background: color-mix(in srgb, var(--accent-default) 3%, white); }
+  .plot .cell.x-medium { background: color-mix(in srgb, var(--accent-default) 9%, white); }
+  .plot .cell.x-high   { background: color-mix(in srgb, var(--accent-default) 17%, white); }
+  .plot .cell-inner { position: absolute; inset: 18px; }
+  .plot .cell:hover { box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--accent-default) 30%, transparent); }
+  /* The old within-column ordering bar is retired: the intensity columns and their
+     score ranges now state the left-to-right scale directly. */
+  .dot {
+    position: absolute; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--dot, var(--grey)); color: #fff;
+    font-size: .62rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,.18);
+    transform: translate(-50%, -50%); border: 2px solid #fff;
+    transition: transform .12s ease, z-index 0s;
+  }
+  .dot.unscored { border-style: dashed; border-color: #fff; opacity: .85; }
+  .dot:hover, .dot:focus { transform: translate(-50%, -50%) scale(1.5); z-index: 10; outline: none; }
+  .dot[data-bloc="restore"]  { --dot: var(--bloc-restore); }
+  .dot[data-bloc="inside"]  { --dot: var(--bloc-inside); }
+  .dot[data-bloc="conditional"] { --dot: var(--bloc-conditional); }
+  .dot[data-bloc="capital"]   { --dot: var(--bloc-capital); }
+  .dot[data-bloc="briefer"]       { --dot: var(--bloc-briefer); }
+  .dot[data-bloc="other"]     { --dot: var(--bloc-other); }
+
+  #dot-float-tip {
+    position: fixed; background: var(--ink); color: #fff;
+    padding: .45rem .6rem; border-radius: 6px;
+    font-size: .68rem; line-height: 1.35; font-weight: 400;
+    width: 250px; white-space: normal; text-align: left;
+    pointer-events: none; z-index: 9999; opacity: 0; transition: opacity .12s ease;
+  }
+  #dot-float-tip strong { display: block; margin-bottom: .15rem; font-size: .72rem; }
+  #dot-float-tip .tip-score { color: #ffd27a; font-weight: 700; }
+  #dot-float-tip .tip-head { display: flex; align-items: center; gap: .4rem; margin-bottom: .15rem; flex-wrap: wrap; }
+  #dot-float-tip .tip-head strong { margin: 0; }
+
+  /* ---- Brevity marker (`brief` chip) — see pipeline/position-scoring.md Step 4.5 ---- */
+  .brief-chip {
+    display: inline-flex; align-items: center; gap: .28rem;
+    font-size: .68rem; line-height: 1; color: #5b6470;
+    background: #f2f1ec; border: 1px solid #ddd9d0; border-radius: 999px;
+    padding: .18rem .5rem .18rem .38rem; vertical-align: middle;
+    white-space: nowrap; font-weight: 500;
+  }
+  .brief-chip svg { flex: none; display: block; }
+  #dot-float-tip .brief-chip {
+    background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.28); color: #f0ece6;
+  }
+  .brief-legend {
+    margin: 0 1.25rem 1rem; font-size: .8rem; color: var(--muted); line-height: 1.5;
+    display: flex; align-items: baseline; gap: .45rem; flex-wrap: wrap;
+  }
+
+  .plot-legend {
+    display: flex; flex-wrap: wrap; gap: .75rem 1.25rem;
+    padding: .75rem 1.25rem 1rem; font-size: .82rem; color: var(--muted);
+  }
+  .plot-legend .swatch {
+    display: inline-block; width: 12px; height: 12px; border-radius: 50%;
+    vertical-align: middle; margin-right: .35rem; border: 2px solid #fff;
+    box-shadow: 0 0 0 1px var(--rule);
+  }
+  .plot-guide {
+    margin: 0 1.25rem .75rem; padding: .65rem .9rem;
+    background: color-mix(in srgb, var(--accent-default) 7%, white);
+    border-left: 3px solid var(--accent-default); border-radius: 6px;
+    font-size: .83rem; color: var(--muted); line-height: 1.5;
+  }
+  .plot-guide p { margin: 0; }
+  .plot-guide .guide-title { margin: 0 0 .5rem; color: var(--ink); }
+  .plot-guide .guide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .3rem .9rem; margin-bottom: .6rem; }
+  @media (max-width: 620px) { .plot-guide .guide-grid { grid-template-columns: 1fr; } }
+  .plot-guide .guide-grid > div { display: grid; grid-template-columns: 6.2rem 1fr; gap: .5rem; align-items: baseline; }
+  .plot-guide .guide-k { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; color: var(--accent-default); line-height: 1.5; }
+  .plot-guide .guide-v { font-size: .86rem; }
+  .plot-guide .guide-note {
+    margin: 0 0 .5rem; padding: .45rem .6rem; font-size: .86rem; color: var(--ink);
+    background: color-mix(in srgb, var(--accent-default) 6%, transparent); border-radius: 6px;
+  }
+  .plot-guide .guide-fine { margin: 0; font-size: .78rem; color: var(--muted); }
+
+  .axis-explainer {
+    margin: .5rem 1.25rem .75rem; padding: .75rem 1rem;
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+    font-size: .83rem; line-height: 1.55;
+  }
+  .axis-explainer .ae-header { display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; }
+  .axis-explainer .ae-icon { flex-shrink: 0; color: var(--accent-default); }
+  .axis-explainer .ae-title { font-weight: 700; font-size: .88rem; color: var(--ink); }
+  .axis-explainer .ae-def { color: var(--muted); margin-bottom: .6rem; }
+  .axis-explainer .ae-rows { display: flex; flex-direction: column; gap: .3rem; }
+  .axis-explainer .ae-row { display: flex; gap: .6rem; align-items: baseline; }
+  .axis-explainer .ae-row-label { font-weight: 600; min-width: 150px; color: var(--ink); flex-shrink: 0; }
+  .axis-explainer .ae-row-desc { color: var(--muted); }
+
+  /* ---- Evidence panel — two-slot breakdown comparison ---- */
+  #evidence { display: none; margin: .25rem 1.25rem 1.25rem; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--bg); }
+  #evidence.open { display: block; }
+  .ep-top {
+    display: flex; align-items: center; justify-content: space-between; gap: .75rem;
+    padding: .65rem .9rem; border-bottom: 1px solid var(--rule); background: var(--surface);
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .ep-top-hint { font-size: .78rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .ep-close {
+    background: none; border: 1px solid var(--rule); border-radius: 6px;
+    font-size: .9rem; cursor: pointer; color: var(--muted); padding: .15rem .55rem;
+  }
+  .ep-close:hover { color: var(--ink); }
+  .ep-compare { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; padding: .9rem; align-items: start; }
+  .ep-slot {
+    border: 1px solid var(--rule); border-left: 5px solid var(--ep-accent, var(--rule));
+    border-radius: 8px; background: var(--surface); min-width: 0;
+  }
+  .ep-slot.empty {
+    border: 2px dashed var(--rule); border-left-width: 2px; background: transparent;
+    min-height: 260px; display: flex; align-items: center; justify-content: center; align-self: stretch;
+  }
+  .ep-empty { text-align: center; color: var(--muted); font-size: .88rem; padding: 1rem; }
+  .ep-empty p { margin: 0; }
+  .ep-empty-icon {
+    width: 40px; height: 40px; margin: 0 auto .5rem; border: 2px dashed var(--rule); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: var(--muted);
+  }
+  .ep-head {
+    display: flex; align-items: baseline; gap: .4rem .75rem; flex-wrap: wrap;
+    padding: .75rem .9rem; border-bottom: 1px solid var(--rule);
+  }
+  .ep-head h3 { margin: 0; font-size: 1rem; flex: 1; display: inline-flex; align-items: center; gap: .45rem; flex-wrap: wrap; }
+  .swap-chip {
+    background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; cursor: pointer;
+    font-size: .85rem; line-height: 1; padding: .15rem .4rem; color: var(--muted);
+  }
+  .swap-chip.armed { background: var(--amber-soft); border-color: var(--amber); color: #7a5004; }
+  .swap-chip:hover { border-color: var(--amber); }
+  .ep-score { font-size: 1.25rem; font-weight: 800; color: var(--ep-accent, var(--accent-default)); font-variant-numeric: tabular-nums; }
+  .ep-rank { font-size: .75rem; color: var(--muted); }
+  .ep-body { padding: .75rem .9rem; display: grid; gap: .5rem; }
+  .ep-ind { display: grid; grid-template-columns: 1fr auto; gap: .3rem .75rem; align-items: baseline;
+    padding: .5rem .6rem; background: var(--bg); border-radius: 7px; font-size: .82rem; }
+  .ep-ind .ei-label { font-weight: 600; }
+  .ep-ind .ei-pts { font-variant-numeric: tabular-nums; color: var(--accent-default); font-weight: 700; white-space: nowrap; }
+  .ep-ind .ei-pts .max { color: var(--muted); font-weight: 400; }
+  .ep-ind .ei-quote { grid-column: 1 / -1; font-style: italic; color: #343a42; }
+  .ep-ind .ei-quote .ns { font-style: normal; color: var(--muted); }
+  .ep-bar { grid-column: 1 / -1; height: 5px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+  .ep-bar i { display: block; height: 100%; background: var(--pole, var(--accent-default)); border-radius: 3px; }
+
+  /* ---- The two rubrics, one section each ---- */
+  /* Bars scale within their own rubric, never across the two: a shared scale would assert that
+     arguing for an international court and arguing against it are the same kind of claim. */
+  .ep-rubric { display: grid; gap: .5rem; padding: .55rem .6rem; border-radius: 8px;
+    border: 1px solid color-mix(in srgb, var(--pole) 22%, transparent);
+    background: color-mix(in srgb, var(--pole) 4%, white); }
+  .ep-rubric.pole-for     { --pole: var(--bloc-restore); }
+  .ep-rubric.pole-against { --pole: var(--bloc-inside); }
+  .ep-rubric-head { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem;
+    padding-bottom: .35rem; border-bottom: 1px solid color-mix(in srgb, var(--pole) 20%, transparent); }
+  .ep-rubric-title { font-size: .78rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .04em; color: var(--pole); }
+  .ep-rubric-total { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--pole); }
+  .ep-rubric .ep-ind .ei-pts { color: var(--pole); }
+  .ep-rubric.empty { background: transparent; border-style: dashed; }
+  .ep-rubric.empty .ep-rubric-title, .ep-rubric.empty .ep-rubric-total { color: var(--muted); }
+  .ep-rubric.empty { border-color: var(--rule); }
+  .ep-rubric-none { margin: 0; font-size: .82rem; color: var(--muted); }
+  .ep-note { padding: .1rem .9rem .8rem; font-size: .78rem; color: var(--muted); }
+
+  /* ---- Scores at a glance ---- */
+  .tablewrap { overflow-x: auto; }
+  table.ranked { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .5rem 0 .75rem; }
+  table.ranked th, table.ranked td {
+    border: 1px solid var(--rule); padding: .45rem .6rem; text-align: left; vertical-align: top;
+  }
+  table.ranked th { background: var(--bg); font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  table.ranked td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.ranked tr.unscored-row td { border-style: dashed; color: var(--muted); }
+  table.ranked .swatch {
+    display: inline-block; width: 12px; height: 12px; border-radius: 50%;
+    vertical-align: middle; margin-right: .4rem; border: 2px solid #fff;
+    box-shadow: 0 0 0 1px var(--rule);
+  }
+  table.ranked td:nth-child(2) { min-width: 13rem; }
+  table.ranked .name-cell { display: inline; }
+  table.ranked .name-cell .brief-chip { margin-left: .35rem; }
+
+  @media (max-width: 860px) {
+    .ep-compare { grid-template-columns: 1fr; }
+    .ep-slot.empty { min-height: 120px; }
+  }
+
+  @media (max-width: 720px) {
+    .plot { --cell: 110px; grid-template-columns: 32px 90px repeat(3, var(--cell)); min-width: calc(32px + 90px + 3 * var(--cell)); }
+    .dot { width: 22px; height: 22px; font-size: .58rem; }
+  }
+
+  @media print {
+    body { background: #fff; color: #000; }
+    .shell { grid-template-columns: 1fr; max-width: none; padding: 0; gap: 0; }
+    nav#toc, .global-toolbar, .controls, .chips, .result-count { display: none !important; }
+    section.block { box-shadow: none; border: none; page-break-inside: avoid; }
+    section.block > details > summary { font-size: 1.2rem; }
+    .card { box-shadow: none; }
+    .grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ---- Opt-in dark theme. Light is the unstamped ground state: the page opens
+     light for every reader regardless of their system setting, and the toggle
+     stamps data-theme="dark" on <html>. No prefers-color-scheme block. ---- */
+  :root[data-theme="dark"] {
+    --bg: #14161a;
+    --surface: #1c1f25;
+    --ink: #e9eaec;
+    --muted: #a6adb8;
+    --rule: #333840;
+    --accent-default: #7aa5e8;
+    --green: #6cc08c;
+    --amber: #e0a83c;
+    --amber-soft: #33291433;
+    --red: #e07a7a;
+    --grey: #9aa2ac;
+    --grey-soft: #2a2e35;
+    --bloc-restore:     #7aa5e8;
+    --bloc-inside:      #e58484;
+    --bloc-conditional: #d4ac4a;
+    --bloc-capital:     #5fb8c8;
+    --bloc-briefer:     #c98ecd;
+    --bloc-other:       #9aa2ac;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.3);
+  }
+  :root[data-theme="dark"] .cell { background: #20242b; }
+  :root[data-theme="dark"] .brief-chip { background: #262a31; border-color: #3a4049; color: var(--muted); }
+  #theme-toggle .t-dark { display: none; }
+  :root[data-theme="dark"] #theme-toggle .t-light { display: none; }
+  :root[data-theme="dark"] #theme-toggle .t-dark { display: inline; }
+
+  /* Talking-point attribution. The descriptive half of a footer sits in its own div so
+     pipeline/verify_attribution.py strips it before comparing the quote against the
+     transcript; without this the footer prose folds into the compared text and every
+     quote reports NOT-FOUND. Rendered inline so the footer still reads as one line. */
+  blockquote.tp footer .tp-attribution { display: inline; }
+
+  /* Presenter band: visually separated so it never reads as a delegation cluster.
+     min-height MUST be reset here — .plot .cell sets min-height: var(--cell) (200px),
+     which silently overrides this row's shorter grid track and pushes the band down
+     through the column heads and the axis title. This is the same failure the project
+     CLAUDE.md records ("min-height on .cell silently overriding shorter grid rows"),
+     and it is invisible in the markup: the DOM is valid and only the geometry is wrong. */
+  .plot .cell.presenter-cell {
+    min-height: 0;
+    border-top: 2px dashed var(--rule);
+    background: color-mix(in srgb, var(--bg) 60%, transparent);
+  }
+  .plot .row-head.presenter-head {
+    font-size: .72rem; font-style: italic; color: var(--muted);
+  }
+
+  /* ---- Edit mode: "Prepare your version" ---- HOUSE COMPONENT, copy verbatim.
+     Requires: --accent-default, --ink, --radius. Provides its own --edit-danger so it
+     does not depend on any readout's camp palette (the UN80 pilot borrowed
+     --camp-sceptic, which does not exist in most readouts). ---- */
+  :root { --edit-danger: #b03333; }
+  #edit-toggle { border-color:var(--accent-default); color:var(--accent-default); font-weight:600; }
+  body[data-edit-mode] #edit-toggle { background:var(--accent-default); color:#fff; }
+  #edit-controls { display:none; gap:.5rem; flex-wrap:wrap; align-items:center; }
+  body[data-edit-mode] #edit-controls { display:flex; }
+  #edit-controls .btn[disabled] { opacity:.45; cursor:default; }
+  #edit-banner { display:none; grid-column:1/-1; align-items:baseline; gap:.5rem; flex-wrap:wrap; background:color-mix(in srgb,var(--accent-default) 8%,white); border:1px solid color-mix(in srgb,var(--accent-default) 30%,transparent); border-radius:var(--radius); padding:.6rem 1rem; margin:-.5rem 0 1.25rem; font-size:.88rem; }
+  body[data-edit-mode] #edit-banner { display:flex; }
+  #edit-toast { position:fixed; left:50%; bottom:2rem; transform:translateX(-50%); background:var(--ink); color:#fff; padding:.55rem 1rem; border-radius:8px; font-size:.88rem; z-index:9999; opacity:0; transition:opacity .2s ease; pointer-events:none; }
+  body[data-edit-mode] .editable:hover { outline:1px dashed var(--accent-default); outline-offset:2px; cursor:text; }
+  body[data-edit-mode] .editable:focus { outline:2px solid var(--accent-default); outline-offset:2px; background:color-mix(in srgb,var(--accent-default) 5%,transparent); }
+  .del-target { outline:2px solid var(--edit-danger) !important; outline-offset:2px; }
+  #del-float { position:fixed; z-index:9998; display:none; width:24px; height:24px; align-items:center; justify-content:center; border-radius:50%; background:var(--edit-danger); color:#fff; border:2px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.3); cursor:pointer; font-size:.72rem; line-height:1; padding:0; }
+  .sec-del { margin-left:auto; border:1px solid var(--edit-danger); background:transparent; color:var(--edit-danger); border-radius:999px; font:inherit; font-size:.72rem; font-weight:600; padding:.2rem .6rem; cursor:pointer; }
+  .sec-del:hover { background:var(--edit-danger); color:#fff; }
+
+  /* ---- Print / save-as-PDF ---- */
+  .print-only { display:none; }
+  @media print {
+    body { background:#fff; }
+    .skip, nav#toc, .global-toolbar, #edit-banner, #del-float, #edit-toast, .sec-del, .controls, .result-count, #dot-float-tip, .ev-panel, .ev-note { display:none !important; }
+    .shell { display:block; max-width:none; padding:0 .25in; }
+    section.block { box-shadow:none; border-color:#ccc; }
+    section.block > details > summary::before { content:""; width:0; }
+    .card, blockquote.tp, .fault-line, .keybox { break-inside:avoid; page-break-inside:avoid; }
+    .plot-scroll, .plot-wrap { overflow:visible; }
+    .print-only { display:block !important; }
+  }
+
+</style>
+</head>
+<body data-live-url="https://christian-wandel.github.io/un-ai-readouts/readouts/un-funding-structured-dialogue-2026-08.html"
+      data-edit-slug="un-funding-structured-dialogue-2026-08">
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <!-- Brevity marker glyph: solid left-facing speaking head. viewBox 0 0 20 20 -->
+  <path id="head" d="M9.05 1.6
+    C5.35 1.6 2.5 4.35 2.5 7.75
+    c0 1.55 0.5 2.85 1.35 3.95
+    c0.35 0.45 0.5 0.85 0.5 1.4
+    L4.35 18.4
+    L7.6 18.4
+    L7.6 15.5
+    c0 -0.45 0.35 -0.8 0.8 -0.8
+    L10.6 14.7
+    c0.5 0 0.85 -0.35 0.85 -0.85
+    L11.45 12.6
+    l1.15 -0.35
+    c0.45 -0.15 0.55 -0.6 0.2 -0.9
+    L11.5 10.2
+    l0 -1.25
+    c0 -0.35 0.2 -0.6 0.5 -0.75
+    l1.15 -0.5
+    C12.55 4.2 11.1 1.6 9.05 1.6 Z"/>
+  <g id="wv"><path d="M15.2 6.9 L18.1 5.5 M15.8 9.8 L19.0 9.8 M15.2 12.7 L18.1 14.1"/></g>
+</defs></svg>
+
+<div class="shell">
+
+  <header class="page">
+    <h1>Executive Board Funding Dialogue — UNDP, UNFPA and UNOPS</h1>
+    <dl class="meta">
+      <dt>Subject</dt><dd>Structured funding dialogues for UNDP and UNFPA, the UNCDF 2025 financial review, and the assessment of how the Executive Board runs its governance and oversight — 2nd meeting, second regular session 2026</dd>
+      <dt>Date</dt><dd>24 August 2026 (afternoon)</dd>
+      <dt>Speakers</dt><dd>19 — 8 presenters and co-chairs, 11 delegations (Spain took the floor; its statement is not in the record)</dd>
+      <dt>Chair</dt><dd>President of the Executive Board of UNDP, UNFPA and UNOPS</dd>
+    </dl>
+    <p style="margin:.85rem 0 0; font-size:.9rem;">
+      <a href="../methodology/un-funding-structured-dialogue-methodology.html">How this was made — methodology</a>
+    </p>
+  </header>
+
+  <div class="asr-note">
+    <strong>Quotes audio-verified.</strong> The 11 position-critical quotes below were checked against the meeting audio on 25&nbsp;August&nbsp;2026 and match the recording; one word was corrected against a clear, repeatable audio reading (see the <a href="../methodology/un-funding-structured-dialogue-methodology.html#verification">methodology page</a>). The portal made this transcript from a 3&nbsp;h&nbsp;23&nbsp;m recording that UN Web TV has since cut to 2&nbsp;h&nbsp;01&nbsp;m; the word timestamps were re-derived empirically against the shortened audio (offset ≈1,021&nbsp;s, validated at six points spanning the recording) before any quote was checked. Other quotations on the page still reproduce the ASR text.
+  </div>
+
+  <div class="global-toolbar" role="group" aria-label="Document controls">
+    <div class="control-group">
+      <button class="btn" id="expand-all" type="button">Expand all</button>
+      <button class="btn" id="collapse-all" type="button">Collapse all</button>
+    </div>
+    <div class="control-group" id="edit-controls" role="group" aria-label="Edit and export controls">
+      <button class="btn" id="edit-undo" type="button" disabled>Undo remove</button>
+      <button class="btn" id="edit-redo" type="button" disabled>Redo</button>
+      <button class="btn" id="edit-download" type="button">Download HTML</button>
+      <button class="btn" id="edit-pdf" type="button">Save as PDF</button>
+      <button class="btn" id="edit-copy" type="button">Copy for Word</button>
+    </div>
+    <div class="control-group">
+      <button class="btn" id="edit-toggle" type="button">Prepare your version</button>
+      <button class="btn" id="theme-toggle" type="button" aria-label="Switch colour theme"><span class="t-light">Dark theme</span><span class="t-dark">Light theme</span></button>
+    </div>
+  </div>
+
+  <div id="edit-banner" role="status">
+    <strong>Edit mode.</strong>
+    <span>Click any paragraph to edit its text. Hover over an item and use the red &#10005; to remove it, or use
+    &ldquo;Remove section&rdquo; in a section title. Changes stay in your browser until you download, print or copy
+    your version &mdash; the published readout is not affected.</span>
+  </div>
+
+  <nav id="toc" aria-label="Sections">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#summary">Executive Summary</a></li>
+      <li><a href="#brief">What the Organisations Reported</a></li>
+      <li><a href="#consensus">Areas of Consensus</a></li>
+      <li><a href="#implications">Fault Lines</a></li>
+      <li><a href="#plot">Fault-Line Plot</a></li>
+      <li><a href="#glance">Scores at a Glance</a></li>
+      <li><a href="#talking">Talking Points</a></li>
+      <li><a href="#reference">Reference: Stances by Delegation</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+
+    <section class="block" id="summary">
+      <details open>
+        <summary>Executive Summary</summary>
+        <div class="body">
+          <p>The Executive Board took three items in one afternoon. They were the UNDP funding dialogue with the UNCDF financial review, the UNFPA funding dialogue, and an update on how the Board itself does governance and oversight. A draft decision is being prepared on each one.</p>
+
+          <p>Nobody in the room argued about the numbers. UNDP reports that official development assistance fell <strong>23.1%</strong> in 2025 and that its own core funding is down to <strong>9% of total contributions</strong> — the first time below 10% in sixty years. UNFPA reports core at <strong>24%</strong> of its funding against a compact target of 30%. UNCDF reports about <strong>$4 million</strong> of core against a $15 million requirement.</p>
+
+          <p>The defining divide is <strong>who has to move to close that gap</strong>. In practice it breaks down like this:</p>
+          <ul class="tight">
+            <li><strong class="c-restore">Donors must restore core funding</strong> — <strong class="c-restore">Chad</strong> for the African members, <strong class="c-restore">Nepal</strong> for the LDC Group and nationally, <strong class="c-restore">Ethiopia</strong>, <strong class="c-restore">Côte d'Ivoire</strong> and <strong class="c-restore">Finland</strong>. Chad names the target: regular resources should be "30% of total contribution", and member states should "reverse the current trend by significantly increasing their contribution".</li>
+            <li><strong class="c-inside">Close the gap from inside</strong> — the <strong class="c-inside">United States</strong>, alone. It asks the Board to "revisit the current resource allocation formula", presses UNDP on private-sector revenue, and asks whether cutting business class travel would free up $7 million. It commits no money, in either of its two statements.</li>
+            <li><strong class="c-conditional">Fund it, and ask what the reform buys</strong> — the <strong class="c-conditional">Netherlands</strong> and <strong class="c-conditional">Switzerland</strong> for two groups of states, joined by <strong class="c-conditional">Rwanda</strong> on the governance item. The Netherlands signed a new four-year core contribution of €40 million and then asked two questions: how has UNDP adapted, and what is it prioritising.</li>
+            <li><strong class="c-capital">Capital rather than core</strong> — <strong class="c-capital">Tanzania</strong>, which wants deployable capital instruments from UNCDF rather than a larger core budget, and brings the only worked example in the room.</li>
+          </ul>
+
+          <div class="keybox">
+            <strong>The finding worth taking away</strong>
+            The <strong class="c-inside">United States</strong> and the <strong class="c-restore">African members</strong> ask for the same thing in almost the same words, and mean opposite things by it. The US says the situation "compels the executive board to revisit the current resource allocation formula to make sure that the limited resources go where they are most needed". Chad calls for "greater coherence between UNDP strategic objectives and the resources allocated to them". Both want the money redirected. Only one of them is arguing for more money to redirect.
+          </div>
+
+          <p class="camp-key">
+            <span class="ck-lead">Colour key —</span>
+            <span>a delegation's colour follows its name through the whole page and matches its dot in the plot:</span>
+            <span><b class="c-restore">Donors must restore core</b></span>
+            <span><b class="c-conditional">Fund it, ask what reform buys</b></span>
+            <span><b class="c-capital">Capital rather than core</b></span>
+            <span><b class="c-inside">Close the gap from inside</b></span>
+            <span><b class="c-briefer">Presenter (not scored)</b></span>
+          </p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="brief">
+      <details open>
+        <summary>What the Organisations Reported</summary>
+        <div class="body">
+          <p>Eight officials presented. Two of their answers do more work than the reports themselves, because both correct a picture the room was working from.</p>
+
+          <h3>The state of the money</h3>
+          <ul class="tight">
+            <li><strong class="c-briefer">Suzanne Brown (UNDP)</strong> set out the landscape: aid "fell by a record 23.1%" in 2025 with a further fall expected, and core funding to the UN system fell 27%. UNDP still mobilised $19.6 billion over the last strategic plan, 91% of its resource plan. Her ask is about quality, not volume — and she repeats it: "If you can't give more, give core" (full quote below).</li>
+            <li><strong class="c-briefer">Linda McGuire (UNDP)</strong> gave the figure the debate turned on. Core contributions fell to $442 million, "just 9% of total contributions. This marks the first time in UNDP's six decades of existence that core's share has fallen below 10%." UNDP has cut 354 posts at headquarters, 11.5% of that workforce. Her conclusion sets the limit on the reform argument: "efficiency gains and cost recovery cannot replace predictable core funding".</li>
+            <li><strong class="c-briefer">Pradeep Kurukulasuriya (UNCDF)</strong> reported two clean performance audits and balanced books, then named the constraint. Co-funding is "below five million against an annual requirement of 15 million", from six member states — "Switzerland, Luxembourg, the Netherlands, Austria, China, and Thailand". He is the only presenter to name the governance consequence rather than the operational one: "the board risks having less room to shape the institution it governs".</li>
+            <li><strong class="c-briefer">Andrew Saberton (UNFPA)</strong> reported core down from $379 million to $340 million, a core-to-non-core ratio of "24% to 76%", and humanitarian resources down 31% in 2025 — which "led to the closure of over 1,000 health facilities and 250 safe spaces in fragile settings". Humanitarian funding is down a further 46% year on year in 2026.</li>
+            <li><strong class="c-briefer">Samuel Choritz (UNFPA)</strong> reported where the new money is coming from: thematic funds up 16% to $280 million, "13 new agreements worth $46 million, including $37 million in Bangladesh" with international financial institutions, a first $10 million philanthropic investment, and individual giving of almost $10 million, up 36%. He attaches the same condition the delegations do: "that doesn't replace the value of core and ODA".</li>
+          </ul>
+
+          <h3>The two answers that changed the picture</h3>
+          <ul class="tight">
+            <li><strong>Business class travel is a smaller prize than it looks.</strong> The <strong class="c-inside">United States</strong> put the saving at $7 million. <strong class="c-briefer">McGuire</strong> answered with numbers instead of an assurance: economy is "more than 95% of all of our travel", business class is "less than 2.5% of travel requests", business tickets are down more than 50% and the spend down 62% — "a reduction already of 7.4 million US". Total business class travel in 2025 was $4.5 million, and cutting it "would be limited in the sense that the travel would likely still take place, albeit in a different class". Most of the saving is already banked, and the rest is smaller than the figure quoted (full quote below).</li>
+            <li><strong>Only a quarter of core money is actually UNDP's to steer.</strong> <strong class="c-briefer">George Kuriakou</strong>, UNDP's Chief Financial Officer, answered the prioritisation question by opening the budget. The 2026 core programme budget is $321 million, of which $130 million has been collected — "just above the two-month threshold" against a Board agreement to hold three to five months. Within that, $170 million is fixed by Board resolution under a "predetermined formula". Management discretion covers $85.4 million, plus $24.1 million for crises. His conclusion reframes the whole item: "when we have a level in 2025, 9% of our funding is core, that doesn't mean 9% is subject to management discretion".</li>
+          </ul>
+
+          <h3>What each organisation has already cut</h3>
+          <ul class="tight">
+            <li><strong class="c-briefer">UNDP</strong> — down 8.5% since January 2025, "almost 2000 positions", 11.5% at headquarters and 8.76% in country offices. McGuire reads the country-office share as "the beginning of an erosion of our capacity to really be everywhere".</li>
+            <li><strong class="c-briefer">UNCDF</strong> — "eliminating seven D1 positions, which were in New York, going down to two", footprint down "nearly 30, 35% over the last couple of years", travel under 5% of budget, and 95–96% of staff moved closer to the field.</li>
+            <li><strong class="c-briefer">UNFPA</strong> — planned for the fall rather than reacting to it. Contributions for 2026–2029 are budgeted "in the region of about 20% less than they were achieved in the previous planning period. We've allowed for that." A business model review is running alongside.</li>
+          </ul>
+
+          <h3>The governance item</h3>
+          <p><strong class="c-briefer">Annette Kaiser (Germany)</strong> and <strong class="c-briefer">Zebib Gebrekidan (Eritrea)</strong>, co-chairs of the joint working group, presented a revised report on the 2023 Joint Inspection Unit review — 10 formal and 21 informal recommendations, clustered into five work packages. Kaiser stated the governing principle twice: "the working group advises and the executive board decides", and existing mechanisms get strengthened before new ones are built. Five proposals follow:</p>
+          <ul class="tight">
+            <li>A delegates handbook, drafted jointly by all five secretariats.</li>
+            <li>A review of Board working methods.</li>
+            <li>A possible standing advisory committee on audit, risk, budget and finance.</li>
+            <li>Harmonised terms of reference for Board secretariats.</li>
+            <li>A dual reporting line, so oversight committees report to the Board as well as to the executive head.</li>
+          </ul>
+          <p>The final implementation plan is due at the 2027 annual session.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="consensus">
+      <details>
+        <summary>Areas of Consensus</summary>
+        <div class="body">
+          <p>These hold across the camps, including between delegations that disagree about the remedy.</p>
+          <ul class="tight">
+            <li><strong>The diagnosis is agreed and nobody contests a figure.</strong> The presenters' numbers are quoted back by delegations and used as premises, never challenged. <strong class="c-restore">Chad</strong> and <strong class="c-restore">Nepal</strong> both cite the same 24% fall in regular resources; <strong class="c-inside">the United States</strong> works from the same picture to a different conclusion.</li>
+            <li><strong>Earmarking is a quality problem, not only a volume problem.</strong> Named by five presenters and by <strong class="c-restore">Nepal</strong>, <strong class="c-restore">Ethiopia</strong> and <strong class="c-restore">Chad</strong>. Tight conditions on money raise costs, cut flexibility and fragment delivery.</li>
+            <li><strong>New money sources add to aid, they do not replace it.</strong> Every delegation that welcomes private-sector, philanthropic, IFI or domestic financing attaches the same condition, and the presenters agree. <strong class="c-restore">Nepal</strong>: such innovation "should complement, not substitute concessional and core development financing".</li>
+            <li><strong>Efficiency has a ceiling.</strong> <strong class="c-briefer">McGuire</strong> states it and no delegation argues otherwise — including <strong class="c-inside">the United States</strong>, whose case is that savings are worth taking anyway, not that they close the gap.</li>
+            <li><strong>Country presence is what the money buys.</strong> <strong class="c-restore">Nepal</strong>, <strong class="c-restore">Ethiopia</strong>, <strong class="c-capital">Tanzania</strong>, <strong class="c-restore">Côte d'Ivoire</strong> and the <strong class="c-conditional">Netherlands</strong> all frame core funding as what keeps offices, staff and delivery in place.</li>
+            <li><strong>UNCDF's capital mandate is distinct and worth keeping.</strong> Said by <strong class="c-restore">Nepal</strong>, <strong class="c-conditional">Switzerland</strong>'s seven-state group, <strong class="c-capital">Tanzania</strong> and <strong class="c-restore">Ethiopia</strong>. Switzerland's group also recognises the turnaround: 40 joint initiatives and $46.8 million from UN pooled funds, up from $21 million in 2024.</li>
+            <li><strong>On governance, strengthen what exists before building anything new.</strong> <strong class="c-conditional">Rwanda</strong>, <strong class="c-conditional">Switzerland</strong>'s 21-state group and <strong class="c-inside">the United States</strong> all endorse the working group's principle and all three want the group kept running to track implementation.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="implications">
+      <details>
+        <summary>Fault Lines</summary>
+        <div class="body">
+          <p>Four fault lines run through the afternoon. Each names the poles, who anchors them, and the line that captures each side. Every delegation's full stance is in the <a href="#reference">reference grid</a>.</p>
+
+          <div class="fault-line">
+            <strong>1. Who has to move first — the donors, or the organisations?</strong> This is the defining divide.
+            <ul class="tight">
+              <li><strong class="c-restore">Donors move.</strong> <strong class="c-restore">Chad</strong>, for the African members, sets the ask against the funding compact: regular resources at "30% of total contribution", and a call on all member states "to reverse the current trend by significantly increasing their contribution to NDP's regular resources, a prerequisite for honoring the commitment made under the financing compact". <strong class="c-restore">Nepal</strong>, <strong class="c-restore">Ethiopia</strong> and <strong class="c-restore">Côte d'Ivoire</strong> argue the same way. <strong class="c-briefer">Kurukulasuriya</strong> puts it to the room directly: "please take this proposition back to your capitals, Join the six who have already shown support."</li>
+              <li><strong class="c-inside">The organisations move.</strong> <strong class="c-inside">The United States</strong> asks the Board to reopen how existing money is split, wants "more detailed tracking" of new revenue streams, and asks about cutting business class travel. It is the only delegation to raise cost-side savings, and it offers no contribution in either of its statements.</li>
+              <li><strong class="c-conditional">Both, on evidence.</strong> The <strong class="c-conditional">Netherlands</strong> pays and then asks. It signed "a new multi-year core contribution of 40 million euros for the next four years", and says it "wants to be a strong champion for UNDP. To do so, we need to better understand how UNDP is reforming and where it is choosing to prioritize its resources." <strong class="c-conditional">Switzerland</strong>, for seven states, hopes UNDP's core support to UNCDF "can be maintained" and encourages UNCDF to broaden its partner base.</li>
+            </ul>
+          </div>
+
+          <div class="fault-line">
+            <strong>2. Is finding money outside aid a solution or a distraction?</strong>
+            <ul class="tight">
+              <li><strong class="c-inside">Push harder and show results.</strong> <strong class="c-inside">The United States</strong> welcomes the focus on new revenue but says "this has been a common theme in these strategic funding dialogue sessions over a few years", and wants programmes "that will generate tangible results".</li>
+              <li><strong class="c-restore">Push, but ring-fence it.</strong> <strong class="c-restore">Nepal</strong>, <strong class="c-restore">Finland</strong>, <strong class="c-restore">Côte d'Ivoire</strong> and <strong class="c-restore">Ethiopia</strong> welcome the same partnerships and each attaches the condition that they add to aid rather than replace it.</li>
+              <li><strong>Where it left off.</strong> <strong class="c-briefer">Choritz</strong> answered with the numbers above and accepted the condition. Nobody asked what happens if the new sources do not close the gap.</li>
+            </ul>
+          </div>
+
+          <div class="fault-line">
+            <strong>3. Does UNCDF have a core problem or a capital problem?</strong> The same organisation, two different asks.
+            <ul class="tight">
+              <li><strong class="c-restore">Core is the constraint.</strong> <strong class="c-restore">Nepal</strong>, for the LDC Group, quantifies it: "Only 4.2% of contributions received directly by UNCDF were core", so a 40% revenue rise has not bought flexibility. <strong class="c-briefer">Kurukulasuriya</strong> agrees from the podium — "ultimately $4 million of core is a reality that we face".</li>
+              <li><strong class="c-capital">Deployable capital is the constraint.</strong> <strong class="c-capital">Tanzania</strong> wants instruments rather than a bigger core budget: "This is the only United Nations entity with a dedicated capital mandate and capital is what we need most." It brings the only worked example anyone offers — a water utility bond UNCDF helped structure where "65% of the capital was raised domestically".</li>
+              <li><strong class="c-conditional">Recognise the recovery first.</strong> <strong class="c-conditional">Switzerland</strong>'s group commends the joint initiatives and the pooled-fund growth while noting contributions "remained below expectations".</li>
+            </ul>
+          </div>
+
+          <div class="fault-line">
+            <strong>4. On governance: how much new machinery is warranted?</strong>
+            <ul class="tight">
+              <li><strong class="c-conditional">Build the committee.</strong> <strong class="c-conditional">Switzerland</strong>, for 21 states, sees "particular merit in considering the creation of a subcommittee on audit and finance" and proposes the Board run "a self-assessment survey after each session".</li>
+              <li><strong class="c-inside">Keep it lean.</strong> <strong class="c-inside">The United States</strong> backs the phased roadmap and the working group's continuation, and warns that implementation must "avoid creating unnecessary administrative overhead". It also reserves its own position: "at times we may have positions in our national capacity that differ from working group conclusions."</li>
+              <li><strong class="c-conditional">Show the practical effect first.</strong> <strong class="c-conditional">Rwanda</strong>, for the African members, asks for "further focus on the practical implications of the recommendations for day-to-day governance" and for clarity on "what will be tracked, what progress will be reported and what remains outstanding".</li>
+            </ul>
+          </div>
+
+          <div class="outlier">
+            <strong>Outliers to monitor.</strong> <strong class="c-capital">Tanzania</strong> — the only delegation to bring a completed transaction to a debate about instruments, and the only one to argue that the domestic capital is already there to be unlocked. <strong class="c-inside">The United States</strong> — the only delegation to speak in both the funding item and the governance item, and the only one to raise the cost side. <strong class="c-briefer">Kurukulasuriya</strong> — the only presenter to name his contributors on the record and to frame thin core funding as a governance risk to the Board rather than an operating problem for his office: "If barriers remain, please name them. If doubts remain, test us." <strong class="c-restore">Finland</strong> — the only delegation whose statement rests on a named bilateral programme, the Women's Health Hub in Turku, and the first country to join the Coalition for Reproductive Justice in Business.
+          </div>
+
+          <div class="outlier" style="border-left-color:var(--muted);">
+            <strong>Two questions that will come back.</strong> Every delegation's question was answered on the record — the presenters worked through them by name. Two answers are partial by design. On the <strong>Policy to Capital Investment Facility</strong>, asked about by <strong class="c-restore">Nepal</strong>, <strong class="c-capital">Tanzania</strong> and <strong class="c-restore">Ethiopia</strong>, <strong class="c-briefer">Kurukulasuriya</strong> explained the mechanism and deferred the operating detail: "further details on this will be coming very soon in terms of how the facility will be sort of rolled out, including terms of references, standard operating procedures". On the <strong>resource allocation formula</strong>, raised by <strong class="c-inside">the United States</strong>, <strong class="c-briefer">McGuire</strong> committed to a process rather than an outcome: "between now and the midterm review of the strategic plan, this will be a consultative process with the executive board".
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="plot">
+      <details>
+        <summary>Fault-Line Plot — Cluster Map</summary>
+
+        <div class="plot-guide">
+          <p class="guide-title"><strong>How to read this plot</strong></p>
+          <div class="guide-grid">
+            <div><span class="guide-k">Left &rarr; right</span><span class="guide-v">How much a delegation put on the record, counted from verbatim quotes. Arguing at length that the fix is internal sits on the right too.</span></div>
+            <div><span class="guide-k">Up / down</span><span class="guide-v">Which side it argued for. This is where direction lives.</span></div>
+            <div><span class="guide-k">Colour</span><span class="guide-v">Which camp a delegation belongs to.</span></div>
+            <div><span class="guide-k">Click a dot</span><span class="guide-v">See both rubrics behind the score; click a second to compare.</span></div>
+          </div>
+          <p class="guide-note">The right-hand column is where the money question is contested. <strong class="c-restore">Chad</strong> and <strong class="c-restore">Nepal</strong> argue that donors must restore core. <strong class="c-inside">The United States</strong> argues from the bottom row that the fix is internal. The <strong class="c-conditional">Netherlands</strong> sits in the same column and argues both: it is the only delegation that commits money and also makes its future support conditional on seeing the reform.</p>
+          <p class="guide-fine">Each delegation is scored on two rubrics of seven indicators &mdash; one for restoring core funding, one for closing the gap from inside &mdash; and the horizontal position is the two added together. Dots are rank-spaced within a cell, never jittered. The eight presenters and co-chairs are unscored and sit in their own band below the dashed line. They present the reports the axis measures reactions to, so they hold no position on it. No delegation spoke below the brevity threshold, so no delegation carries a <em>brief</em> chip. Positions reflect the 24 August 2026 meeting only. <a href="../methodology/un-funding-structured-dialogue-methodology.html#scoring">Rubrics and caveats</a>.</p>
+        </div>
+
+        <div class="plot-controls">
+          <div class="control-group">
+            <label class="label" for="axis-y">Y axis — fault-line dimension</label>
+            <select id="axis-y">
+              <option value="remedy" selected>Who has to move</option>
+              <option value="newmoney">Money outside aid</option>
+              <option value="ask">What is being asked for</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="axis-explainer" id="axis-explainer" aria-live="polite"></div>
+
+        <div class="plot-wrap">
+          <div class="plot" id="plot-grid" role="img" aria-label="Delegation positions plotted with evidence-score intensity on the horizontal axis and a selectable fault-line dimension on the vertical axis"></div>
+        </div>
+
+        <div class="plot-legend" id="plot-legend"></div>
+
+        <div id="evidence" aria-live="polite">
+          <div class="ep-top">
+            <span class="ep-top-hint">Breakdown comparison — click dots to fill the two slots</span>
+            <button class="ep-close" id="ep-close" type="button" aria-label="Close evidence panel">✕ close</button>
+          </div>
+          <div class="ep-compare">
+            <div class="ep-slot" id="ep-slot-A"></div>
+            <div class="ep-slot" id="ep-slot-B"></div>
+          </div>
+          <div class="ep-note">Every quote is verbatim from the automatic-speech-recognition transcript. The 11 quotes reproduced in Talking Points below were checked against the meeting audio and match (one correction, noted there); the remaining evidence fragments here still reproduce the ASR text. Grey parenthetical rows are analyst summaries of absence, not quotes. Scores are ordinal evidence tallies, not measurements. The ⇄ marker shows which delegation the next dot-click will replace — click the other slot's ⇄ to swap that one instead.</div>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="glance">
+      <details>
+        <summary>Scores at a Glance</summary>
+        <div class="body">
+          <p>Every delegation, ordered by direction: those putting most on the record for restoring core funding first, those arguing the fix is internal last. Each is scored on two rubrics of seven indicators. <strong>For</strong> counts what it put on the record pressing donors to give more predictable, unearmarked money. <strong>Against</strong> counts what it put on the record arguing the gap should be closed from inside. <strong>Net</strong> is For minus Against, which gives the direction. <strong>On record</strong> is the two added together — the total argued, either way — and that is what positions a dot horizontally. That is why Chad (88 for) and the United States (78 against) both sit to the right while facing opposite directions. The claim is ordinal — read it as "argued more than", not as a measurement. Full rubrics, per-quote evidence and caveats are on the <a href="../methodology/un-funding-structured-dialogue-methodology.html#scoring">methodology page</a>.</p>
+          <div class="tablewrap">
+            <table class="ranked" id="ranked-table">
+              <thead><tr><th>#</th><th>Delegation</th><th class="num">On record</th><th class="num">For</th><th class="num">Against</th><th class="num">Net</th><th>Profile in one line</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p style="font-size:.8rem;color:var(--muted);">Three agenda items ran in one afternoon and the cast changed between them. A low total can therefore mean a delegation argued little, or that the item was never in front of it. Rwanda spoke only on governance and Finland and Côte d'Ivoire only on UNFPA; the profile column says so in each case. Spain was given the floor under the UNFPA item and its statement is not in the record — it is listed unscored rather than silent, because silence would assert it said nothing.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="talking">
+      <details>
+        <summary>Talking Points</summary>
+        <div class="body">
+          <p style="font-size:.85rem;color:var(--muted);margin-top:0;">These 11 quotes were checked against the meeting audio on 25&nbsp;August&nbsp;2026 and match the recording, using an offset re-derived empirically after UN Web TV shortened the recording post-transcript. One word was corrected against a clear, repeatable audio reading (Tanzania: "bridged bond", not "sub-regional bond").</p>
+
+          <blockquote class="tp">"In 2025, core contributions fell to 442 million, just 9% of total contributions. This marks the first time in UNDP's six decades of existence that core's share has fallen below 10%."<footer>— <span class="who-name c-briefer">Linda McGuire, UNDP</span><div class="tp-attribution">, the figure the whole afternoon works from</div></footer></blockquote>
+
+          <blockquote class="tp">"We recognise that difficult fiscal choices are facing many member states and our appeal is therefore not just for more funding, but for better funding… If you can't give more, give core."<footer>— <span class="who-name c-briefer">Suzanne Brown, UNDP</span><div class="tp-attribution">, the ask restated twice, once in the presentation and once in the reply</div></footer></blockquote>
+
+          <blockquote class="tp">"The remaining resources we do receive largely arrive as earmarked, and as that share grows, priorities increasingly follow those resources. What that means is that the board risks having less room to shape the institution it governs."<footer>— <span class="who-name c-briefer">Pradeep Kurukulasuriya, UNCDF</span><div class="tp-attribution">, framing thin core funding as a governance risk to the Board itself</div></footer></blockquote>
+
+          <blockquote class="tp">"We call for regular resource to account for 30% of total contribution… we call on all member states to reverse the current trend by significantly increasing their contribution to NDP's regular resources, a prerequisite for honoring the commitment made under the financing compact."<footer>— <span class="who-name c-restore">Chad</span><div class="tp-attribution">, for the African members of the Board, anchoring the restore-core pole</div></footer></blockquote>
+
+          <blockquote class="tp">"The United States additionally wanted to take the opportunity during this dialogue to acknowledge that the current financial situation compels the executive board to revisit the current resource allocation formula to make sure that the limited resources go where they are most needed."<footer>— <span class="who-name c-inside">United States</span><div class="tp-attribution">, anchoring the close-it-from-inside pole</div></footer></blockquote>
+
+          <blockquote class="tp">"So business class alone these days accounts for less than 2.5% of travel requests. Business class tickets have decreased by more than 50%, and the associated expenditure has fallen by 62%. So that is actually a reduction already of 7.4 million US… But it would be limited in the sense that the travel would likely still take place, albeit in a different class."<footer>— <span class="who-name c-briefer">Linda McGuire, UNDP</span><div class="tp-attribution">, answering the United States on the $7 million saving</div></footer></blockquote>
+
+          <blockquote class="tp">"So when you put this in the context of our overall financing, When we have a level in 2025, 9% of our funding is core, that doesn't mean 9% is subject to management discretion."<footer>— <span class="who-name c-briefer">George Kuriakou, UNDP Chief Financial Officer</span><div class="tp-attribution">, on how little of the core budget management can actually steer</div></footer></blockquote>
+
+          <blockquote class="tp">"We are pleased to have signed a new multi-year core contribution of 40 million euros for the next four years… The Kingdom of the Netherlands wants to be a strong champion for UNDP. To do so, we need to better understand how UNDP is reforming and where it is choosing to prioritize its resources."<footer>— <span class="who-name c-conditional">Netherlands</span><div class="tp-attribution">, the only delegation that both commits money and states a condition</div></footer></blockquote>
+
+          <blockquote class="tp">"This is the only United Nations entity with a dedicated capital mandate and capital is what we need most… One vivid example is the water utility bond in my country, Tanzania. It's a bridged bond that UNCDF helped structure the financing. 65% of the capital was raised domestically, actually."<footer>— <span class="who-name c-capital">Tanzania</span><div class="tp-attribution">, the only worked instrument example in the room</div></footer></blockquote>
+
+          <blockquote class="tp">"A 31% drop in humanitarian resources in 2025 forced difficult trade-offs and led to the closure of over 1,000 health facilities and 250 safe spaces in fragile settings."<footer>— <span class="who-name c-briefer">Andrew Saberton, UNFPA</span><div class="tp-attribution">, on what the funding fall has already cost</div></footer></blockquote>
+
+          <blockquote class="tp">"It is important to emphasize that the working group advises and the executive board decides."<footer>— <span class="who-name c-briefer">Annette Kaiser, Germany</span><div class="tp-attribution">, co-chair, setting the limit on the governance proposals</div></footer></blockquote>
+        </div>
+      </details>
+    </section>
+
+    <section class="block" id="reference">
+      <details>
+        <summary>Reference: Stances by Delegation</summary>
+
+        <div class="controls" role="search">
+          <div class="control-group" style="flex:1 1 220px;">
+            <label for="country-search" class="label" style="white-space:nowrap;">Search</label>
+            <input id="country-search" class="search" type="search" placeholder="Filter by name or stance text…" aria-controls="country-grid">
+          </div>
+        </div>
+
+        <div class="chips" role="group" aria-label="Filter by category">
+          <button class="chip" data-filter="all"         aria-pressed="true">All</button>
+          <button class="chip" data-filter="restore"     aria-pressed="false">Restore core</button>
+          <button class="chip" data-filter="conditional" aria-pressed="false">Fund and ask</button>
+          <button class="chip" data-filter="capital"     aria-pressed="false">Capital not core</button>
+          <button class="chip" data-filter="inside"      aria-pressed="false">Close it from inside</button>
+        </div>
+
+        <div class="result-count" id="result-count" aria-live="polite">Showing 20 of 20</div>
+
+        <div class="grid" id="country-grid">
+
+          <article class="card" data-remedy="restore" data-newmoney="ringfence" data-bloc="restore">
+            <h4 class="c-restore">Chad</h4>
+            <div class="badge-row"><span class="badge">Restore core · African members</span></div>
+            <p>Speaks for eight African members of the Board. Names the funding-compact target — regular resources at "30% of total contribution" — and calls on all member states to increase contributions as "a prerequisite" for the compact. Cites the 24% fall in regular resources to 9% of contributions. Wants quality and predictability improved "while preserving the intergovernmental nature of UNDP, as well as its independence and neutrality", and asks for greater coherence between strategic objectives and the money allocated to them.</p>
+          </article>
+
+          <article class="card" data-remedy="restore" data-newmoney="ringfence" data-bloc="restore">
+            <h4 class="c-restore">Nepal</h4>
+            <div class="badge-row"><span class="badge">Restore core · LDC Group + national</span></div>
+            <p>Three statements: for the LDC Group on UNCDF, then nationally on UNDP and UNFPA. Regular resources "must remain the bedrock". Points out that "Only 4.2% of contributions received directly by UNCDF were core", so a 40% revenue rise has not bought flexibility. Wants multi-year contributions, thematic windows and pooled funds, with less earmarking. Welcomes IFI and blended finance on the condition that it "should complement, not substitute concessional and core development financing". Asks how UNFPA will protect country delivery under the new strategic plan.</p>
+          </article>
+
+          <article class="card" data-remedy="restore" data-newmoney="ringfence" data-bloc="restore">
+            <h4 class="c-restore">Ethiopia</h4>
+            <div class="badge-row"><span class="badge">Restore core · UNCDF item</span></div>
+            <p>Reads the 2025 results as reforms "beginning to take hold" that "must now be consolidated". Welcomes the joint UNCDF–UNDP Policy to Capital Investment Facility and wants it operational at scale. Argues that earmarked money delivers specific priorities but only "adequate core and flexible resources" let UNCDF keep country presence, retain expertise and originate new investments. Names its own digital financial inclusion and MSME work with UNCDF, and calls on partners "to match their confidence with the resource".</p>
+          </article>
+
+          <article class="card" data-remedy="restore" data-newmoney="ringfence" data-bloc="restore">
+            <h4 class="c-restore">Côte d'Ivoire</h4>
+            <div class="badge-row"><span class="badge">Restore core · African members · UNFPA item</span></div>
+            <p>Speaks for eight African members on the UNFPA item. Asks for "predictable, flexible and sustainable funding, in particular through an increase in contributions, core contributions to the UNFPA", because those resources keep the operational presence in countries. Frames sub-Saharan demographic growth as an opportunity conditional on investment in human capital. Welcomes diversification toward IFIs, regional development banks, the private sector and foundations, and wants those partnerships aligned to African priorities. Urges the international community "to double its efforts to close the funding gaps".</p>
+          </article>
+
+          <article class="card" data-remedy="both" data-newmoney="neutral" data-bloc="conditional">
+            <h4 class="c-conditional">Netherlands</h4>
+            <div class="badge-row"><span class="badge">Fund and ask · Largest stated commitment</span></div>
+            <p>The only delegation to commit money on the record: "a new multi-year core contribution of 40 million euros for the next four years", on top of targeted support for security, rule of law and governance. Notes 91.4 cents in every dollar reaches development activities. Concerned by the core decline, and frames the item as being "about people". Asks two questions before committing further — where the workforce reductions fell and what UNDP is prioritising — and says it needs to understand the reform to be "a strong champion for UNDP".</p>
+          </article>
+
+          <article class="card" data-remedy="capital" data-newmoney="pursue" data-bloc="capital">
+            <h4 class="c-capital">Tanzania</h4>
+            <div class="badge-row"><span class="badge">Capital rather than core · UNCDF item</span></div>
+            <p>Wants instruments, not a bigger core budget: "capital is what we need most", and much of it "already existing domestically". Brings the meeting's only completed transaction — a sub-regional water utility bond UNCDF helped structure, where "65% of the capital was raised domestically". Names five partnership areas: guarantees and access to finance, clean cooking energy, youth entrepreneurship, subnational and climate finance, digital finance. Asks how the Policy to Capital Investment Facility turns identified priorities into investable transactions, and invites partners to supply "flexible and deployable capital".</p>
+          </article>
+
+          <article class="card" data-remedy="inside" data-newmoney="pursue" data-bloc="inside">
+            <h4 class="c-inside">United States of America</h4>
+            <div class="badge-row"><span class="badge">Close it from inside · Both items</span></div>
+            <p>Argues the fix runs through the organisations. Says the financial situation "compels the executive board to revisit the current resource allocation formula". Welcomes new revenue streams but notes this "has been a common theme… over a few years" and wants tangible results and detailed tracking. Asks whether cutting business class travel would free up $7 million. On governance, supports the phased roadmap and keeping the working group running, warns against "unnecessary administrative overhead", and reserves positions it may take in national capacity. Commits no funding in either statement.</p>
+          </article>
+
+          <article class="card" data-remedy="both" data-newmoney="pursue" data-bloc="conditional">
+            <h4 class="c-conditional">Switzerland</h4>
+            <div class="badge-row"><span class="badge">Fund and ask · Two group statements</span></div>
+            <p>Speaks twice for two different groups. For seven states on UNCDF: commends the 40 joint initiatives and $46.8 million from pooled funds, up from $21 million, calls UNDP's core contributions to UNCDF "invaluable" and hopes they can be maintained, and notes contributions "remained below expectations". For 21 states on governance: backs the delegates handbook, direct reporting lines for oversight committees, a review of working methods, and sees "particular merit in considering the creation of a subcommittee on audit and finance", plus a Board self-assessment after each session.</p>
+          </article>
+
+          <article class="card" data-remedy="restore" data-newmoney="ringfence" data-bloc="restore">
+            <h4 class="c-restore">Finland</h4>
+            <div class="badge-row"><span class="badge">Restore core · UNFPA item</span></div>
+            <p>Concerned about the core decline "both in terms of absolute volume and as share of total funding", and about the humanitarian reductions, arguing that reproductive health services and protection from gender-based violence "are life-saving interventions and should remain integral to humanitarian responses". Commends UNFPA's work on innovative partnerships. Names the Women's Health Hub in Turku and its own status as the first country to join the Coalition for Reproductive Justice in Business. Supports the UN development system reform initiative.</p>
+          </article>
+
+          <article class="card" data-remedy="both" data-newmoney="neutral" data-bloc="conditional">
+            <h4 class="c-conditional">Rwanda</h4>
+            <div class="badge-row"><span class="badge">Fund and ask · African members · Governance item</span></div>
+            <p>Speaks for the African members on governance only, so it takes no position on the funding question. Welcomes the joint working group's report and its principle of strengthening existing mechanisms before creating new ones — "Reform should not be pursued for its own sake." Wants more focus on the practical implications for day-to-day governance and on how the recommendations will improve the information the Board gets. Asks for clarity on what will be tracked and what remains outstanding, and for consultations that stay open and inclusive.</p>
+          </article>
+
+          <article class="card" data-remedy="none" data-newmoney="neutral" data-bloc="other">
+            <h4 style="color:var(--muted)">Spain</h4>
+            <div class="badge-row"><span class="badge">Took the floor · statement not in the record</span></div>
+            <p>The President gave Spain the floor under the UNFPA item — "I now give the floor to the distinguished Representative of Spain. Spain, you have the floor" — and the transcript continues straight into the UNFPA responses. The recording was shortened after the transcript was made, and Spain's statement is not in what survives. Listed here as a speaker whose position is unknown rather than as a silent delegation, because coding it silent would assert something the record does not support.</p>
+          </article>
+
+          <article class="card" data-remedy="brief" data-newmoney="neutral" data-bloc="briefer">
+            <h4 class="c-briefer">Suzanne Brown — UNDP</h4>
+            <div class="badge-row"><span class="badge">Presenter · Bureau for External Relations and Advocacy</span></div>
+            <p>Opens the UNDP funding dialogue. Aid fell "a record 23.1%" in 2025 and core funding to the UN system fell 27%, while new pools of capital open through development banks and vertical funds. UNDP mobilised $19.6 billion over the last strategic plan, 91% of its resource plan, and programme countries contributed $1.588 billion of their own development financing in 2025. Her ask is about the quality of money rather than the amount: "If you can't give more, give core."</p>
+          </article>
+
+          <article class="card" data-remedy="brief" data-newmoney="neutral" data-bloc="briefer">
+            <h4 class="c-briefer">Linda McGuire — UNDP</h4>
+            <div class="badge-row"><span class="badge">Presenter · Bureau for Management Services</span></div>
+            <p>Programme expenses exceeded $4.9 billion in 2025, the highest in over a decade, while core fell to $442 million — "just 9% of total contributions", below 10% for the first time in six decades. UNDP cut 354 headquarters posts, 11.5% of that workforce, and 8.5% overall since January 2025. States the limit on the efficiency argument: "efficiency gains and cost recovery cannot replace predictable core funding." Answers the United States on business class travel with the figures, and the Netherlands on where the cuts fell.</p>
+          </article>
+
+          <article class="card" data-remedy="brief" data-newmoney="neutral" data-bloc="briefer">
+            <h4 class="c-briefer">George Kuriakou — UNDP</h4>
+            <div class="badge-row"><span class="badge">Presenter · Chief Financial Officer</span></div>
+            <p>Opens the core budget to answer the prioritisation question. The 2026 core programme budget is $321 million with $130 million collected, "just above the two-month threshold" against a Board agreement to hold three to five months. Board resolutions fix $170 million under a predetermined formula; management discretion covers $85.4 million plus $24.1 million for crises. His conclusion: "9% of our funding is core, that doesn't mean 9% is subject to management discretion."</p>
+          </article>
+
+          <article class="card" data-remedy="brief" data-newmoney="neutral" data-bloc="briefer">
+            <h4 class="c-briefer">Pradeep Kurukulasuriya — UNCDF</h4>
+            <div class="badge-row"><span class="badge">Presenter · Executive Secretary</span></div>
+            <p>Reports two clean performance audits, balanced books and growing capital deployment to least developed countries, then names the constraint: co-funding "below five million against an annual requirement of 15 million" from six member states, which he thanks by name. Warns that a growing earmarked share means "the board risks having less room to shape the institution it governs". Details UNCDF's own cuts — seven D1 posts eliminated, footprint down 30–35%, travel under 5% of budget. Invites scrutiny: "If barriers remain, please name them. If doubts remain, test us."</p>
+          </article>
+
+          <article class="card" data-remedy="brief" data-newmoney="neutral" data-bloc="briefer">
+            <h4 class="c-briefer">Andrew Saberton — UNFPA</h4>
+            <div class="badge-row"><span class="badge">Presenter · Deputy Executive Director, Management</span></div>
+            <p>Core fell from $379 million to $340 million, leaving a core-to-non-core ratio of "24% to 76%", well below the compact's 30% target and concentrated among a small group of partners. A 31% fall in humanitarian resources closed "over 1,000 health facilities and 250 safe spaces". Humanitarian funding is down a further 46% year on year in 2026. Says UNFPA planned for the fall: 2026–2029 contributions are budgeted around 20% below the last period. Clarifies that core is not the same as discretionary money once the institutional budget is taken out.</p>
+          </article>
+
+          <article class="card" data-remedy="brief" data-newmoney="neutral" data-bloc="briefer">
+            <h4 class="c-briefer">Samuel Choritz — UNFPA</h4>
+            <div class="badge-row"><span class="badge">Presenter · Division for External Relations</span></div>
+            <p>Attributes the 2025 decline primarily to "the termination of contributions from a major partner", with the broader donor base stable. Thematic funds grew 16% to $280 million; interagency funding grew 5% to $177 million. Reports 13 new IFI agreements worth $46 million including $37 million in Bangladesh, a first $10 million philanthropic investment following a GiveWell accreditation, and individual giving of almost $10 million, up 36%. Attaches the same condition the delegations do: "that doesn't replace the value of core and ODA".</p>
+          </article>
+
+          <article class="card" data-remedy="brief" data-newmoney="neutral" data-bloc="briefer">
+            <h4 class="c-briefer">Annette Kaiser — Germany</h4>
+            <div class="badge-row"><span class="badge">Presenter · Co-Chair, Joint Working Group</span></div>
+            <p>Presents the revised report on the 2023 Joint Inspection Unit review — 10 formal and 21 informal recommendations, clustered into five work packages. States the governing principle: "the working group advises and the executive board decides", and existing mechanisms are strengthened before new structures are proposed. Sets out the delegates handbook to be drafted jointly by all five secretariats, a review of Board working methods, and a possible standing advisory committee on audit, risk, budget and finance.</p>
+          </article>
+
+          <article class="card" data-remedy="brief" data-newmoney="neutral" data-bloc="briefer">
+            <h4 class="c-briefer">Zebib Gebrekidan — Eritrea</h4>
+            <div class="badge-row"><span class="badge">Presenter · Co-Chair, Joint Working Group</span></div>
+            <p>Presents the remaining work packages. Harmonised terms of reference for all five Board secretariats, with roles, reporting lines and impartiality made explicit. A dual reporting line so oversight committees report to Board members as well as to the executive head, which she frames as an independence question that leaves the executive head's role unchanged. Performance review of the executive head, common training and onboarding, and risk management sequencing are treated as the complex items needing further discussion, with a final implementation plan due at the 2027 annual session.</p>
+          </article>
+
+          <article class="card" data-remedy="brief" data-newmoney="neutral" data-bloc="briefer">
+            <h4 class="c-briefer">President of the Executive Board</h4>
+            <div class="badge-row"><span class="badge">Chair · Procedural</span></div>
+            <p>Chairs all three agenda items, holds the speakers' list to the clock and asks delegations to keep interventions concise so more can be accommodated. Directs delegations that cannot take the floor to submit e-statements and to route outstanding questions through the Board Secretariat. Announces after each item that a draft decision is under preparation for the Board's consideration later in the session. Closes the meeting and confirms the joint segment resumes the following morning.</p>
+          </article>
+
+        </div>
+      </details>
+    </section>
+
+  </main>
+
+
+</div>
+
+<script>
+(function () {
+  const allDetails = () => document.querySelectorAll('section.block > details');
+  document.getElementById('expand-all').addEventListener('click', () => allDetails().forEach(d => d.open = true));
+  document.getElementById('collapse-all').addEventListener('click', () => allDetails().forEach(d => d.open = false));
+
+  // Theme toggle. Light is the unstamped ground state: the page opens light for every
+  // reader regardless of their system setting, and this stamps data-theme="dark" on
+  // <html>. There is deliberately no prefers-color-scheme block in the stylesheet.
+  const themeBtn = document.getElementById('theme-toggle');
+  themeBtn.addEventListener('click', () => {
+    const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (dark) document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', 'dark');
+    themeBtn.setAttribute('aria-pressed', dark ? 'false' : 'true');
+  });
+
+  // Search + chip filter
+  const search = document.getElementById('country-search');
+  const grid = document.getElementById('country-grid');
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  const chips = Array.from(document.querySelectorAll('.chip'));
+  const count = document.getElementById('result-count');
+  let activeFilter = 'all';
+
+  function apply() {
+    const q = search.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach(card => {
+      const text = (card.querySelector('h4').textContent + ' ' + card.querySelector('p').textContent).toLowerCase();
+      const matchesText = !q || text.includes(q);
+      const matchesChip = activeFilter === 'all' || card.dataset.bloc === activeFilter;
+      const show = matchesText && matchesChip;
+      card.hidden = !show;
+      if (show) visible++;
+    });
+    count.textContent = 'Showing ' + visible + ' of ' + cards.length;
+  }
+  search.addEventListener('input', apply);
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      activeFilter = chip.dataset.filter;
+      chips.forEach(c => c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'));
+      apply();
+    });
+  });
+
+  // Scroll-spy
+  const tocLinks = Array.from(document.querySelectorAll('nav#toc a'));
+  const sections = tocLinks.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    const setCurrent = id => tocLinks.forEach(a => {
+      if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setCurrent(visible[0].target.id);
+    }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+    sections.forEach(s => io.observe(s));
+  }
+
+  // ---------- Fault-line plot ----------
+  // FORMAL meeting: two mirrored rubrics. A-G score the case for donors restoring core
+  // funding; A'-G' score the case for closing the gap from inside the organisations.
+  // Each sums to 100 and an actor scores on whichever pole it argued.
+  //
+  // remedy:   restore | both | capital | inside | brief | none   (Y for "Who has to move")
+  // newmoney: ringfence | neutral | pursue                       (Y for "Money outside aid")
+  // ask:      more | evidence | instruments | reallocation | none (Y for "What is being asked for")
+  //
+  // ev / evn hold one verbatim quote per indicator; q:null = not stated. A quote in
+  // parentheses is an analyst summary of absence, not a quotation.
+  // Source of every number and quote:
+  //   research/un-funding-structured-dialogue-position-scores-2026-08.md
+  const IND = [
+    { k:"A", label:"A. Core funding as the answer",     max:20 },
+    { k:"B", label:"B. Defence of the funding model",   max:10 },
+    { k:"C", label:"C. Maximal ask",                    max:15 },
+    { k:"D", label:"D. Specificity of the case",        max:15 },
+    { k:"E", label:"E. Obligation framing",             max:15 },
+    { k:"F", label:"F. Material commitment",            max:10 },
+    { k:"G", label:"G. Speech-act verb register",       max:15 }
+  ];
+
+  const IND_N = [
+    { k:"A", label:"A′. Counter-endorsement",            max:20 },
+    { k:"B", label:"B′. Performance critique",           max:10 },
+    { k:"C", label:"C′. Maximal counter-ask",            max:15 },
+    { k:"D", label:"D′. Specificity of the counter-case", max:15 },
+    { k:"E", label:"E′. Conditionality framing",         max:15 },
+    { k:"F", label:"F′. Material counter-commitment",    max:10 },
+    { k:"G", label:"G′. Counter-pole verb register",     max:15 }
+  ];
+  const NO_N = { A:{p:0,q:null}, B:{p:0,q:null}, C:{p:0,q:null}, D:{p:0,q:null},
+                 E:{p:0,q:null}, F:{p:0,q:null}, G:{p:0,q:null} };
+
+  const data = [
+    { name:"Chad", code:"TCD", bloc:"restore", remedy:"restore", newmoney:"ringfence", ask:"more", words:739,
+      ev:{ A:{p:18,q:"UNDP remains an indispensable strategic partner for our countries"},
+           B:{p:10,q:"These efforts to improve quality and predictability must be carried out while preserving the intergovernmental nature of UNDP, as well as its independence and neutrality"},
+           C:{p:15,q:"We call for regular resource to account for 30% of total contribution"},
+           D:{p:14,q:"the report indicates a 24% decrease in regular resources, bringing them down to just 9% of total contributions and falling short of the 30% target set in the funding compact"},
+           E:{p:15,q:"a prerequisite for honoring the commitment made under the financing compact"},
+           F:{p:4,q:"we command the donors who have honored their commitment and concluded multi-year funding agreements"},
+           G:{p:12,q:"we call on all member states to reverse the current trend by significantly increasing their contribution · we call for greater coherence · must be carried out"} },
+      evn:NO_N },
+
+    { name:"Nepal", code:"NPL", bloc:"restore", remedy:"restore", newmoney:"ringfence", ask:"more", words:1425,
+      ev:{ A:{p:19,q:"Regular resources must remain the bedrock of UNDP's ability to deliver integrated solutions, maintain robust oversight, and respond with agility"},
+           B:{p:8,q:"UNDP must preserve its universal country presence and ensure that support remains responsive to national priorities, cooperation frameworks, and country-specific circumstances"},
+           C:{p:12,q:"The group therefore encourages partners to increase core funding for UNCDF, we also call for contributions that UNCDF can deploy through guarantees"},
+           D:{p:15,q:"Only 4.2% of contributions received directly by UNCDF were core"},
+           E:{p:13,q:"We call upon Member States and development partners to support UNCDF with core resources and deployable capital"},
+           F:{p:5,q:"for this, we need the resources to match that demand"},
+           G:{p:13,q:"must remain the bedrock · indispensable · We call upon Member States and development partners"} },
+      evn:NO_N },
+
+    { name:"Ethiopia", code:"ETH", bloc:"restore", remedy:"restore", newmoney:"ringfence", ask:"more", words:405,
+      ev:{ A:{p:14,q:"adequate core and flexible resources are what allow UNCDF to maintain country presence, retain technical expertise, and originate the next generation of investments"},
+           B:{p:5,q:"supported by strong governance, transparency, and accountability"},
+           C:{p:0,q:null},
+           D:{p:9,q:"Its support for digital financial inclusion, financial capability, and MSME finance contributes directly to our national development priorities"},
+           E:{p:12,q:"We will also call upon partners to match their confidence with the resource"},
+           F:{p:8,q:"to encourage partners to provide the flexible and pooled resources needed for it to operate on a meaningful scale"},
+           G:{p:14,q:"These ambitions, however, require a stronger and more predictable financial foundation · must now be consolidated · call upon partners"} },
+      evn:NO_N },
+
+    { name:"Côte d'Ivoire", code:"CIV", bloc:"restore", remedy:"restore", newmoney:"ringfence", ask:"more", words:737,
+      ev:{ A:{p:15,q:"we reiterate the importance of predictable, flexible and sustainable funding, in particular through an increase in contributions, core contributions to the UNFPA"},
+           B:{p:6,q:"These resources are essential to ensure the operational presence of the organization across countries, strengthen national capacity and support the priorities set by governments"},
+           C:{p:0,q:null},
+           D:{p:8,q:"the global population stood at 8.2 billion people in 2025, and sub-Saharan Africa was one of the regions which saw the greatest, the fastest demographic growth"},
+           E:{p:12,q:"We therefore urge the international community to double its efforts to close the funding gaps"},
+           F:{p:5,q:"It requires mobilizing not just regular resources, but also broadening strategic partnerships"},
+           G:{p:15,q:"we urge the international community to double its efforts · It requires mobilizing · we reiterate the importance"} },
+      evn:NO_N },
+
+    { name:"Netherlands", code:"NLD", bloc:"conditional", remedy:"both", newmoney:"neutral", ask:"evidence", words:321,
+      ev:{ A:{p:13,q:"For that reason, we are concerned about the sharp decline in core funding"},
+           B:{p:6,q:"While the discussion here today is about funding and efficiencies, it ultimately is about people, whether UNDP can continue to reach those who need its support most"},
+           C:{p:0,q:null},
+           D:{p:9,q:"We note that 91.4 cents of every dollar are directed towards development activities and welcome UNDP's strong performance on the funding compact commitments"},
+           E:{p:6,q:"The Netherlands has consistently provided a relatively high share of core funding in recent years and remains committed to supporting UNIP"},
+           F:{p:10,q:"We are pleased to have signed a new multi-year core contribution of 40 million euros for the next four years"},
+           G:{p:4,q:"commends · welcome · remains committed"} },
+      evn:{ A:{p:0,q:null}, B:{p:0,q:null}, C:{p:0,q:null},
+            D:{p:0,q:"(its two questions are questions; a request for clarification never scores here)"},
+            E:{p:14,q:"The Kingdom of the Netherlands wants to be a strong champion for UNDP. To do so, we need to better understand how UNDP is reforming and where it is choosing to prioritize its resources"},
+            F:{p:0,q:null},
+            G:{p:8,q:"we need to better understand · would welcome more information on how UNDP is currently determining where its resources can have the greatest added value"} } },
+
+    { name:"Tanzania", code:"TZA", bloc:"capital", remedy:"capital", newmoney:"pursue", ask:"instruments", words:452,
+      ev:{ A:{p:8,q:"This is the only United Nations entity with a dedicated capital mandate and capital is what we need most"},
+           B:{p:0,q:null},
+           C:{p:0,q:null},
+           D:{p:15,q:"One vivid example is the water utility bond in my country, Tanzania. It's a bridged bond that UNCDF helped structure the financing. 65% of the capital was raised domestically, actually."},
+           E:{p:8,q:"We invite partners to provide UNCDF with the flexible and deployable capital required to make this possible"},
+           F:{p:7,q:"We are particularly interested in how UNCDF risk sharing mechanisms and guarantees could encourage financial institutions to direct more capital towards productive sectors"},
+           G:{p:5,q:"welcomes · We commend UNCDF · We invite partners"} },
+      evn:NO_N },
+
+    { name:"United States of America", code:"USA", bloc:"inside", remedy:"inside", newmoney:"pursue", ask:"reallocation", words:487,
+      ev:{ A:{p:0,q:"(argued the other way — see the case for closing the gap from inside)"},
+           B:{p:0,q:null}, C:{p:0,q:null}, D:{p:0,q:null},
+           E:{p:0,q:"(makes no ask of any member state, including itself, for core funding)"},
+           F:{p:0,q:null}, G:{p:0,q:null} },
+      evn:{ A:{p:18,q:"the current financial situation compels the executive board to revisit the current resource allocation formula to make sure that the limited resources go where they are most needed"},
+            B:{p:9,q:"However, this has been a common theme in these strategic funding dialogue sessions over a few years"},
+            C:{p:12,q:"We encourage UNDP to develop innovative programs to engage with the private sector that will generate tangible results"},
+            D:{p:13,q:"We further encourage UNDP to develop more detailed tracking of these initiatives and provide the Board with regular updates"},
+            E:{p:6,q:"at times we may have positions in our national capacity that differ from working group conclusions"},
+            F:{p:10,q:"if UNDP and UNCDF are considering some common sense cost saving measures like eliminating business class travel. For UNDP alone, we understand this could free up $7 million"},
+            G:{p:10,q:"compels the executive board to revisit · eliminating business class travel · avoid creating unnecessary administrative overhead"} } },
+
+    { name:"Switzerland", code:"CHE", bloc:"conditional", remedy:"both", newmoney:"pursue", ask:"evidence", words:890,
+      ev:{ A:{p:10,q:"UNDP contributions to UNCDF core resources are invaluable and we hope that the level of these contributions can be maintained despite the current constrained funding environment"},
+           B:{p:4,q:"We express our appreciation to UNDP for its strong commitment and for its recognition of UNCDF's strategic and unique mandate within the UN development system"},
+           C:{p:0,q:null},
+           D:{p:10,q:"mobilizing 46.8 million from UN pooled funds and entities, a significant increase from 21 million in 2024"},
+           E:{p:7,q:"we encourage UNCDF to continue its efforts to broaden and diversify its partner base and to advocate for increased regular and flexible funding"},
+           F:{p:0,q:null},
+           G:{p:3,q:"we commend UNCDF · we take note of its intention · We acknowledge · we encourage"} },
+      evn:{ A:{p:0,q:null}, B:{p:0,q:null}, C:{p:0,q:null},
+            D:{p:5,q:"We see particular merit in considering the creation of a subcommittee on audit and finance"},
+            E:{p:0,q:null}, F:{p:0,q:null},
+            G:{p:4,q:"We rightly ask UN entities to strengthen oversight, transparency and effectiveness. We should hold ourselves to the same standards"} } },
+
+    { name:"Finland", code:"FIN", bloc:"restore", remedy:"restore", newmoney:"ringfence", ask:"more", words:340,
+      ev:{ A:{p:12,q:"While we are concerned about the decline in core resources, both in terms of absolute volume and as share of total funding"},
+           B:{p:5,q:"Access to sexual and reproductive health services and protection from gender-based violence are life-saving interventions and should remain integral to humanitarian responses"},
+           C:{p:0,q:null},
+           D:{p:6,q:"Finland was also proud to become the first country to join the Coalition for Reproductive Justice in Business"},
+           E:{p:4,q:"We are committed to our collaboration with UNFPA, private sector, and research institutions in seeking solutions to women's health challenges"},
+           F:{p:0,q:null},
+           G:{p:6,q:"we would like to commend you · We must ensure that the quality of our humanitarian aid is not lost · We welcome UNFPA's efforts"} },
+      evn:NO_N },
+
+    { name:"Rwanda", code:"RWA", bloc:"conditional", remedy:"both", newmoney:"neutral", ask:"evidence", words:424,
+      ev:{ A:{p:3,q:"ultimately supporting better delivery on the ground for program countries"},
+           B:{p:5,q:"As an executive board, we have an intergovernmental responsibility to provide guidance and to ensure effective governance and oversight"},
+           C:{p:0,q:null},
+           D:{p:0,q:"(spoke only on the governance item; the funding question was never in front of it)"},
+           E:{p:0,q:null}, F:{p:0,q:null}, G:{p:0,q:null} },
+      evn:{ A:{p:0,q:null}, B:{p:0,q:null}, C:{p:0,q:null},
+            D:{p:7,q:"would welcome further focus on the practical implications of the recommendations for day-to-day governance and importantly how they will improve the quality of information available to this board for meaningful oversight"},
+            E:{p:0,q:null}, F:{p:0,q:null},
+            G:{p:5,q:"Reform should not be pursued for its own sake. It should lead to simpler processes, stronger accountability and better use of the time and resources available to Member States and organisations"} } },
+
+    // Presenters and co-chairs: not scored. Per position-scoring.md Step 5c-bis they present,
+    // author or embody the reports the axis measures reactions to, so they cannot "engage with"
+    // their own proposal. Dashed border, pinned rightmost, labelled "presenter - not scored".
+    { name:"Suzanne Brown — UNDP", code:"BRN", bloc:"briefer", remedy:"brief", newmoney:"neutral", ask:"none",
+      unscored:true, words:938, ev:null, evn:null },
+    { name:"Linda McGuire — UNDP", code:"MCG", bloc:"briefer", remedy:"brief", newmoney:"neutral", ask:"none",
+      unscored:true, words:927, ev:null, evn:null },
+    { name:"George Kuriakou — UNDP", code:"KUR", bloc:"briefer", remedy:"brief", newmoney:"neutral", ask:"none",
+      unscored:true, words:347, ev:null, evn:null },
+    { name:"Pradeep Kurukulasuriya — UNCDF", code:"PKS", bloc:"briefer", remedy:"brief", newmoney:"neutral", ask:"none",
+      unscored:true, words:992, ev:null, evn:null },
+    { name:"Andrew Saberton — UNFPA", code:"SAB", bloc:"briefer", remedy:"brief", newmoney:"neutral", ask:"none",
+      unscored:true, words:1099, ev:null, evn:null },
+    { name:"Samuel Choritz — UNFPA", code:"CHO", bloc:"briefer", remedy:"brief", newmoney:"neutral", ask:"none",
+      unscored:true, words:1409, ev:null, evn:null },
+    { name:"Annette Kaiser — Germany", code:"KAI", bloc:"briefer", remedy:"brief", newmoney:"neutral", ask:"none",
+      unscored:true, words:705, ev:null, evn:null },
+    { name:"Zebib Gebrekidan — Eritrea", code:"GEB", bloc:"briefer", remedy:"brief", newmoney:"neutral", ask:"none",
+      unscored:true, words:1369, ev:null, evn:null }
+  ];
+
+  // Derived from the two rubrics; nothing is stored pre-summed.
+  //   P         how much was argued FOR restoring core funding
+  //   N         how much was argued FOR closing the gap from inside
+  //   net       P - N, the direction and how far off neutral
+  //   onRecord  P + N, the total put on the record either way  <- the X axis
+  const sumP = d => d.ev  ? IND.reduce((s, i) => s + d.ev[i.k].p, 0) : 0;
+  const sumN = d => d.evn ? IND_N.reduce((s, i) => s + d.evn[i.k].p, 0) : 0;
+  const netOf      = d => sumP(d) - sumN(d);
+  const onRecordOf = d => sumP(d) + sumN(d);
+  const directionOf = d => netOf(d) < 0
+    ? 'argued the gap should be closed from inside'
+    : 'argued donors should restore core funding';
+
+  const scored = data.filter(d => !d.unscored);
+  const rankOf = d => 1 + scored.filter(o => netOf(o) > netOf(d)).length;
+  const tied   = d => scored.filter(o => netOf(o) === netOf(d)).length > 1;
+
+  // No delegation fell below 70% of the meeting's median word count (median 452, threshold
+  // 316.4, lowest counted delegation 321), so no brief chip is shown on this readout.
+  const BRIEF_CHIP = `<span class="brief-chip"><svg width="12" height="12" viewBox="0 0 20 20" aria-hidden="true"><use href="#head" fill="currentColor"/><use href="#wv" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>brief</span>`;
+  const briefFor = d => d.brief ? BRIEF_CHIP : '';
+
+  // One-line profile of each delegation *against the scored axis* — what the score is made
+  // of. Distinct from the reference-card blurbs, which summarise the whole statement.
+  const PROFILE = {
+    "Chad": "Every indicator hit: names the 30% funding-compact target, calls on all member states to raise contributions as a \"prerequisite\", and defends UNDP's intergovernmental character.",
+    "Nepal": "Core as \"the bedrock\" across three statements, the sharpest figure in the room on UNCDF's 4.2% core share, and multi-year contributions with less earmarking.",
+    "Ethiopia": "Core and flexible resources as what keeps country presence and expertise; calls on partners to \"match their confidence with the resource\" — but names no target figure.",
+    "Côte d'Ivoire": "Asks for an increase in core contributions to UNFPA and urges the international community to close the funding gaps; strong verbs, no target figure and no named instrument.",
+    "Netherlands": "The only delegation on both sides: a signed €40 million four-year core contribution, and future support stated as contingent on understanding the reform.",
+    "Tanzania": "Argues for deployable capital rather than core. Carries the meeting's only completed transaction — a water utility bond raising 65% of its capital domestically.",
+    "United States of America": "Argues the fix is internal on every indicator: reopen the allocation formula, track new revenue, cut business class travel. Commits no money in either statement.",
+    "Switzerland": "Two group statements. Hopes UNDP's core support to UNCDF holds and commends the pooled-fund growth, while proposing an audit and finance subcommittee to scrutinise how money is used.",
+    "Finland": "States concern about the core decline and defends humanitarian reproductive health services, but makes no ask of partners and commits no funding on the record.",
+    "Rwanda": "Spoke only on the governance item, so the funding question was never in front of it. Asks what the recommendations change in practice and what will be tracked.",
+    "Suzanne Brown — UNDP": "Presenter, not a delegation — sets out the funding picture the axis measures reactions to, so she is left unscored.",
+    "Linda McGuire — UNDP": "Presenter, not a delegation — reports UNDP's financial position and answers on travel and workforce cuts.",
+    "George Kuriakou — UNDP": "Presenter, not a delegation — opens the core budget to show how little of it management can steer.",
+    "Pradeep Kurukulasuriya — UNCDF": "Presenter, not a delegation — reports UNCDF's position and asks the Board to fund the core that makes the institution its own.",
+    "Andrew Saberton — UNFPA": "Presenter, not a delegation — reports UNFPA's core decline and the humanitarian consequences.",
+    "Samuel Choritz — UNFPA": "Presenter, not a delegation — reports where UNFPA's new, non-ODA money is coming from.",
+    "Annette Kaiser — Germany": "Co-chair presenting the joint working group report on Board governance — the object of the third item, not a position on the funding question.",
+    "Zebib Gebrekidan — Eritrea": "Co-chair presenting the joint working group report on Board governance — the object of the third item, not a position on the funding question."
+  };
+
+  // Pull verbatim stance line from card paragraphs
+  const stanceMap = {};
+  document.querySelectorAll('#country-grid .card').forEach(c => {
+    stanceMap[c.querySelector('h4').textContent.trim()] = c.querySelector('p').textContent.trim();
+  });
+
+  // X is how much a delegation put on the record, banded into three fixed thirds. Left =
+  // argued least, right = argued most, identical meaning on every readout in the series.
+  // DIRECTION is carried by the Y axis and by camp COLOUR, never by horizontal position:
+  // Chad at 88 and the United States at 78 both sit right because both argued at length,
+  // and the row they sit on says which way.
+  const X_AXIS = {
+    buckets: ["low", "medium", "high"],
+    labels:  ["Little on record", "Some on record", "Much on record"],
+    subs:    ["0-39 points", "40-66 points", "67+ points"],
+    bandOf:  d => {
+      // Unscored presenters have no X position: the axis counts how much was argued and
+      // they argued nothing, they presented. They get the full-width band instead of
+      // being parked in a column that would read as "argued most".
+      if (d.unscored) return "span";
+      const v = onRecordOf(d);
+      return v <= 39 ? "low" : (v <= 66 ? "medium" : "high");
+    }
+  };
+
+  const AXES = {
+    remedy:   { label:"Who has to move", buckets:["inside","both","restore"], labels:["The organisations","Both","The donors"] },
+    newmoney: { label:"Money outside aid", buckets:["pursue","neutral","ringfence"], labels:["Push it harder","No position","Only alongside aid"] },
+    ask:      { label:"What is being asked for", buckets:["reallocation","evidence","more"], labels:["Redirect what exists","Evidence first","More core money"] }
+  };
+  // Tanzania asks for instruments rather than core, so it folds into the nearest
+  // delegation band and keeps its own colour.
+  //
+  // The presenters are OFF every one of these dimensions — they present the reports the
+  // axis measures reactions to, so they hold no position on who should move. They get
+  // their own band below a dashed separator rather than being folded into a delegation
+  // row, which is the same separation principle position-scoring.md Step 5c-bis applies
+  // to observers: never let a group that does not get the floor on the same terms sit in
+  // a cell that reads as a delegation cluster. An earlier draft folded all eight into
+  // "Both", where they outnumbered the three conditional delegations 8 to 3 and made the
+  // cell look like the meeting's largest cluster.
+  const PRESENTER_BAND = "presenters";
+  const Y_FOR = (d, yKey) => {
+    if (d.unscored) return PRESENTER_BAND;
+    if (yKey === "remedy")  return d.remedy === "capital" ? "restore" : d.remedy;
+    if (yKey === "ask")     return d.ask === "instruments" ? "more" : d.ask;
+    return d[yKey];
+  };
+
+  const plot = document.getElementById('plot-grid');
+  const ySel = document.getElementById('axis-y');
+  const legendEl = document.getElementById('plot-legend');
+  const explainerEl = document.getElementById('axis-explainer');
+
+  const EYE_SVG = `<svg class="ae-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+
+  const AXIS_INFO = {
+    remedy: {
+      title: "Who has to move",
+      def: "The organisations are funded by voluntary contributions. “Core” money comes with no strings and pays for offices, staff and oversight; “earmarked” money is tied to a named country or project. Core has fallen to 9% of UNDP's income, so the gap has to be closed somehow — this axis is who each delegation says should close it.",
+      rows: [
+        { label: "The donors (top)", desc: "Member states should put in more core money. Chad names the 30% funding-compact target; Nepal, Ethiopia, Côte d'Ivoire and Finland argue the same way, and Tanzania sits here asking for capital instead of core." },
+        { label: "Both (mid)", desc: "Keep paying, and ask what the reform has produced before paying more. The Netherlands, Switzerland and Rwanda." },
+        { label: "The organisations (bottom)", desc: "The money already there should be spent differently and stretched further. The United States, alone." }
+      ]
+    },
+    newmoney: {
+      title: "Money outside aid",
+      def: "Both organisations are chasing income that is not government aid — development banks, foundations, private companies, individual donations, and programme countries paying for their own delivery. The question is what that money is for.",
+      rows: [
+        { label: "Push it harder (top)", desc: "Wants more of it, faster, with results to show. The United States, Switzerland's group and Tanzania." },
+        { label: "No position (mid)", desc: "Did not address where new money should come from." },
+        { label: "Only alongside aid (bottom)", desc: "Welcomes it on the stated condition that it adds to aid rather than replacing it. Nepal, Finland, Côte d'Ivoire, Ethiopia and Chad." }
+      ]
+    },
+    ask: {
+      title: "What is being asked for",
+      def: "Each delegation leaves the room having asked for one concrete thing. This axis sorts by what that thing is, rather than by how hard it argued for it.",
+      rows: [
+        { label: "More core money (top)", desc: "A larger contribution, or capital that can be deployed. Chad, Nepal, Ethiopia, Côte d'Ivoire, Finland and Tanzania." },
+        { label: "Evidence first (mid)", desc: "Information about how the organisations are adapting and prioritising, before further commitment. The Netherlands, Switzerland and Rwanda." },
+        { label: "Redirect what exists (bottom)", desc: "A change to how the current money is split and spent. The United States." }
+      ]
+    }
+  };
+
+  function renderExplainer() {
+    const info = AXIS_INFO[ySel.value];
+    if (!info) { explainerEl.innerHTML = ''; return; }
+    explainerEl.innerHTML = `
+      <div class="ae-header">${EYE_SVG}<span class="ae-title">${info.title} — what this dimension measures</span></div>
+      <p class="ae-def">${info.def}</p>
+      <div class="ae-rows">
+        ${info.rows.map(r => `<div class="ae-row"><span class="ae-row-label">${r.label}</span><span class="ae-row-desc">${r.desc}</span></div>`).join('')}
+      </div>`;
+  }
+
+  const floatTip = document.createElement('div');
+  floatTip.id = 'dot-float-tip';
+  document.body.appendChild(floatTip);
+
+  function showTip(dot, d, stanceText) {
+    floatTip.innerHTML = '';
+    const head = document.createElement('div');
+    head.className = 'tip-head';
+    const strong = document.createElement('strong');
+    strong.textContent = d.name;
+    head.appendChild(strong);
+    if (d.brief) head.insertAdjacentHTML('beforeend', BRIEF_CHIP);
+    floatTip.appendChild(head);
+    const sc = document.createElement('span');
+    sc.className = 'tip-score';
+    sc.textContent = d.unscored ? 'Presenter — not scored' : `${onRecordOf(d)} on record · ${directionOf(d)}`;
+    floatTip.appendChild(sc);
+    floatTip.appendChild(document.createElement('br'));
+    floatTip.appendChild(document.createTextNode(
+      stanceText + (d.unscored ? '' : ' Click for the evidence breakdown; click a second dot to compare.')
+    ));
+    floatTip.style.opacity = '1';
+    moveTip(dot);
+  }
+  function moveTip(dot) {
+    const r = dot.getBoundingClientRect();
+    const tw = 250, th = floatTip.offsetHeight || 60;
+    let left = r.left + r.width / 2 - tw / 2;
+    let top  = r.top - th - 8;
+    if (top < 8) top = r.bottom + 8;
+    left = Math.max(8, Math.min(left, window.innerWidth - tw - 8));
+    floatTip.style.left = left + 'px';
+    floatTip.style.top  = top  + 'px';
+  }
+  function hideTip() { floatTip.style.opacity = '0'; }
+
+  // Deterministic placement, ordered by how much is on the record. Per cell ascending, ties
+  // alphabetical, unscored presenters pinned rightmost. No Math.random anywhere.
+  function orderedPositions(yKey) {
+    const groups = {};
+    data.forEach(d => {
+      const key = X_AXIS.bandOf(d) + '|' + Y_FOR(d, yKey);
+      (groups[key] = groups[key] || []).push(d);
+    });
+    const pos = {};
+    Object.values(groups).forEach(g => {
+      g.sort((a, b) => {
+        if (!!a.unscored !== !!b.unscored) return a.unscored ? 1 : -1;
+        if (a.unscored) return a.name.localeCompare(b.name);
+        const d = onRecordOf(a) - onRecordOf(b);
+        if (d) return d;
+        return a.name.localeCompare(b.name);
+      });
+      const n = g.length;
+      g.forEach((d, i) => {
+        // The presenter band is a full-width strip, so its eight dots fit one lane.
+        // Two lanes are only needed where a normal cell holds more than five.
+        const oneLane = d.unscored || n <= 5;
+        pos[d.name] = {
+          x: n === 1 ? 50 : 6 + 88 * i / (n - 1),
+          y: oneLane ? 50 : (i % 2 === 0 ? 32 : 68)
+        };
+      });
+    });
+    return pos;
+  }
+
+  function renderLegend() {
+    const items = [
+      ["var(--bloc-restore)","Donors must restore core"],
+      ["var(--bloc-conditional)","Fund it, ask what reform buys"],
+      ["var(--bloc-capital)","Capital rather than core"],
+      ["var(--bloc-inside)","Close the gap from inside"],
+      ["var(--bloc-briefer)","Presenter (not scored)"]
+    ];
+    legendEl.innerHTML = items.map(([c, label]) => `<span><span class="swatch" style="background:${c}"></span><b style="color:${c}">${label}</b></span>`).join('');
+  }
+
+  function render() {
+    const yKey = ySel.value;
+    const yAxis = AXES[yKey];
+    plot.innerHTML = '';
+
+    const yLab = document.createElement('div'); yLab.className = 'axis-label y'; yLab.textContent = yAxis.label; plot.appendChild(yLab);
+    const xLab = document.createElement('div'); xLab.className = 'axis-label x';
+    xLab.textContent = 'How much the delegation put on the record about closing the funding gap';
+    plot.appendChild(xLab);
+
+    X_AXIS.labels.forEach((lab, i) => {
+      const h = document.createElement('div'); h.className = 'col-head';
+      h.style.gridColumn = String(i + 3); h.style.gridRow = '5';
+      h.innerHTML = `${lab}<span class="col-sub">${X_AXIS.subs[i]}</span>`;
+      plot.appendChild(h);
+    });
+    yAxis.labels.slice().reverse().forEach((lab, i) => {
+      const h = document.createElement('div'); h.className = 'row-head';
+      h.style.gridColumn = '2'; h.style.gridRow = String(i + 1);
+      h.textContent = lab; plot.appendChild(h);
+    });
+    const ph = document.createElement('div'); ph.className = 'row-head presenter-head';
+    ph.style.gridColumn = '2'; ph.style.gridRow = '4';
+    ph.textContent = 'Presenters (not scored)'; plot.appendChild(ph);
+
+    const cells = {};
+    for (let yi = 0; yi < 3; yi++) {
+      for (let xi = 0; xi < 3; xi++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.style.gridColumn = String(xi + 3);
+        cell.style.gridRow = String(yi + 1);
+        const inner = document.createElement('div');
+        inner.className = 'cell-inner';
+        cell.appendChild(inner);
+        plot.appendChild(cell);
+        const yBucket = yAxis.buckets[2 - yi];
+        const xBucket = X_AXIS.buckets[xi];
+        cell.classList.add('x-' + xBucket);
+        cells[xBucket + '|' + yBucket] = inner;
+      }
+    }
+    // Presenter band: one cell spanning all three columns, so eight dots fit in a single
+    // lane and no dot implies a horizontal position it has not earned.
+    const pcell = document.createElement('div');
+    pcell.className = 'cell presenter-cell';
+    pcell.style.gridColumn = '3 / span 3';
+    pcell.style.gridRow = '4';
+    const pinner = document.createElement('div');
+    pinner.className = 'cell-inner';
+    pcell.appendChild(pinner);
+    plot.appendChild(pcell);
+    cells['span|' + PRESENTER_BAND] = pinner;
+
+    const pos = orderedPositions(yKey);
+    data.forEach(d => {
+      const xb = X_AXIS.bandOf(d), yb = Y_FOR(d, yKey);
+      const cell = cells[xb + '|' + yb];
+      if (!cell) return;
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (d.unscored ? ' unscored' : '');
+      dot.tabIndex = 0;
+      dot.dataset.bloc = d.bloc;
+      dot.textContent = d.code;
+      dot.setAttribute('aria-label', d.name + (d.unscored ? ' (presenter, not scored)' : `, ${onRecordOf(d)} points on record, ${directionOf(d)}`) + (d.brief ? ', spoke well below the meeting median' : ''));
+      const p = pos[d.name];
+      dot.style.left = p.x + '%';
+      dot.style.top  = p.y + '%';
+      const stanceText = PROFILE[d.name] || stanceMap[d.name] || '';
+      dot.addEventListener('mouseenter', () => showTip(dot, d, stanceText));
+      dot.addEventListener('mouseleave', hideTip);
+      dot.addEventListener('focus',      () => showTip(dot, d, stanceText));
+      dot.addEventListener('blur',       hideTip);
+      dot.addEventListener('click',      () => openEvidence(d));
+      dot.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEvidence(d); }
+      });
+      cell.appendChild(dot);
+    });
+
+    renderLegend();
+  }
+
+  // ---------- Evidence panel — two-slot breakdown comparison ----------
+  const ep = document.getElementById('evidence');
+  const slotEls = { A: document.getElementById('ep-slot-A'), B: document.getElementById('ep-slot-B') };
+  const slots = { A: null, B: null };
+  let armed = 'A';
+
+  function esc(s) { const el = document.createElement('span'); el.textContent = s; return el.innerHTML; }
+
+  function rubricSection(d, inds, evKey, total, title, pole) {
+    if (total === 0) {
+      return `<div class="ep-rubric ${pole} empty">
+        <div class="ep-rubric-head"><span class="ep-rubric-title">${title}</span>
+          <span class="ep-rubric-total">0</span></div>
+        <p class="ep-rubric-none">Not argued in this meeting.</p>
+      </div>`;
+    }
+    const rows = inds.map(ind => {
+      const e = d[evKey][ind.k];
+      const q = e.q === null
+        ? '<span class="ns">not stated in this meeting</span>'
+        : (e.q.startsWith('(') ? `<span class="ns">${esc(e.q)}</span>` : `“${esc(e.q)}”`);
+      const w = Math.round(100 * e.p / ind.max);
+      return `<div class="ep-ind">
+        <span class="ei-label">${ind.label}</span>
+        <span class="ei-pts">${e.p} <span class="max">/ ${ind.max}</span></span>
+        <span class="ei-quote">${q}</span>
+        <span class="ep-bar"><i style="width:${w}%"></i></span>
+      </div>`;
+    }).join('');
+    return `<div class="ep-rubric ${pole}">
+      <div class="ep-rubric-head"><span class="ep-rubric-title">${title}</span>
+        <span class="ep-rubric-total">${total}</span></div>
+      ${rows}
+    </div>`;
+  }
+
+  function slotBody(d) {
+    if (d.unscored) {
+      return `<div class="ep-body"><div class="ep-ind"><span class="ei-quote">${esc(PROFILE[d.name] || '')}</span></div></div>`;
+    }
+    const p = sumP(d), n = sumN(d);
+    const forSec = rubricSection(d, IND,   'ev',  p, 'The case for restoring core funding', 'pole-for');
+    const agSec  = rubricSection(d, IND_N, 'evn', n, 'The case for closing the gap from inside', 'pole-against');
+    const html = n > p ? agSec + forSec : forSec + agSec;
+    return `<div class="ep-body">${html}</div>`;
+  }
+
+  function renderSlots() {
+    const bothFilled = !!(slots.A && slots.B);
+    ['A', 'B'].forEach(key => {
+      const el = slotEls[key], d = slots[key];
+      if (!d) {
+        el.className = 'ep-slot empty';
+        el.style.removeProperty('--ep-accent');
+        el.innerHTML = `<div class="ep-empty"><div class="ep-empty-icon">+</div>
+          <p><strong>Choose another delegation</strong><br>Click any dot in the plot to compare its breakdown side by side.</p></div>`;
+        return;
+      }
+      el.className = 'ep-slot';
+      el.style.setProperty('--ep-accent', `var(--bloc-${d.bloc})`);
+      const chip = bothFilled
+        ? `<button class="swap-chip${armed === key ? ' armed' : ''}" type="button" data-slot="${key}"
+             title="${armed === key ? 'The next clicked dot replaces this delegation' : 'Click so the next dot replaces this delegation instead'}"
+             aria-label="Next clicked dot replaces ${esc(d.name)}">⇄</button>`
+        : '';
+      const scoreTxt = d.unscored ? 'not scored' : `${onRecordOf(d)} on record`;
+      const rankTxt = d.unscored ? 'presenter'
+        : `for ${sumP(d)} · inside ${sumN(d)} · ${directionOf(d)}`;
+      el.innerHTML = `<div class="ep-head"><h3>${esc(d.name)}${briefFor(d)}${chip}</h3>
+        <span class="ep-score">${scoreTxt}</span><span class="ep-rank">${rankTxt}</span></div>` + slotBody(d);
+    });
+    ep.querySelectorAll('.swap-chip').forEach(btn => {
+      btn.addEventListener('click', () => { armed = btn.dataset.slot; renderSlots(); });
+    });
+  }
+
+  function openEvidence(d) {
+    const already = (slots.A && slots.A.name === d.name) || (slots.B && slots.B.name === d.name);
+    if (!already) {
+      if (!slots.A) { slots.A = d; }
+      else if (!slots.B) { slots.B = d; armed = 'A'; }
+      else { slots[armed] = d; armed = armed === 'A' ? 'B' : 'A'; }
+    }
+    ep.classList.add('open');
+    renderSlots();
+    ep.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  document.getElementById('ep-close').addEventListener('click', () => ep.classList.remove('open'));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') ep.classList.remove('open'); });
+
+  // ---------- Scores at a glance ----------
+  const rtBody = document.querySelector('#ranked-table tbody');
+  [...scored].sort((a, b) => netOf(b) - netOf(a)).forEach(d => {
+    const tr = document.createElement('tr');
+    const net = netOf(d);
+    tr.innerHTML = `<td class="num">${rankOf(d)}${tied(d) ? '=' : ''}</td>
+      <td><span class="name-cell"><span class="swatch" style="background:var(--bloc-${d.bloc})"></span>${esc(d.name)}${briefFor(d)}</span></td>
+      <td class="num"><strong>${onRecordOf(d)}</strong></td>
+      <td class="num">${sumP(d)}</td>
+      <td class="num">${sumN(d)}</td>
+      <td class="num">${net > 0 ? '+' + net : net}</td>
+      <td>${esc(PROFILE[d.name] || '')}</td>`;
+    rtBody.appendChild(tr);
+  });
+  data.filter(d => d.unscored).forEach(d => {
+    const tr = document.createElement('tr');
+    tr.className = 'unscored-row';
+    tr.innerHTML = `<td class="num">—</td>
+      <td><span class="name-cell"><span class="swatch" style="background:var(--bloc-${d.bloc})"></span>${esc(d.name)}</span></td>
+      <td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td>
+      <td>${esc(PROFILE[d.name] || '')}</td>`;
+    rtBody.appendChild(tr);
+  });
+  // Spain took the floor and its statement is absent from the shortened recording. Listed
+  // as unknown rather than silent — silence would assert it said nothing.
+  (function () {
+    const tr = document.createElement('tr');
+    tr.className = 'unscored-row';
+    tr.innerHTML = `<td class="num">—</td>
+      <td><span class="name-cell"><span class="swatch" style="background:var(--bloc-other)"></span>Spain</span></td>
+      <td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td>
+      <td>Given the floor under the UNFPA item; its statement is not in the record the shortened recording left behind. Position unknown, not silent.</td>`;
+    rtBody.appendChild(tr);
+  })();
+
+  ySel.addEventListener('change', () => { render(); renderExplainer(); });
+  render();
+  renderExplainer();
+})();
+
+</script>
+
+<script>
+// ---- Edit mode: "Prepare your version" — local edits + export (pilot 2026-07) ----
+// Deletion undo keeps the removed node itself, so re-inserting it preserves every
+// wired event listener; text edits rely on the browser's native undo (Ctrl+Z).
+(() => {
+  // Readout-specific values are read from <body> data attributes so this block is
+  // copied verbatim into every readout. Set them in the markup, never edit them here:
+  //   <body data-live-url="https://…/readouts/<file>.html" data-edit-slug="<file-stem>">
+  const LIVE_URL = document.body.dataset.liveUrl || location.href.split('#')[0];
+  const SLUG = document.body.dataset.editSlug ||
+    (location.pathname.split('/').pop() || 'readout').replace(/\.html?$/, '');
+  const mainEl = document.querySelector('main');
+  const toggleBtn = document.getElementById('edit-toggle');
+  const undoBtn = document.getElementById('edit-undo');
+  const redoBtn = document.getElementById('edit-redo');
+  if (!mainEl || !toggleBtn) return;
+
+  // Interactive machinery is never editable or deletable
+  const EXCLUDE = '.global-toolbar, #edit-banner, .controls, .result-count, .plot-scroll, .plot-wrap, .plot-legend, .plot-guide, .plot-controls, .axis-explainer, #evidence, .ev-panel, .ev-note, #ranked-table, details.glance';
+  const EDITABLE_SEL = 'p, li, h3, h4, blockquote';
+  const DELETABLE_SEL = '.card, blockquote.tp, .fault-line, .keybox, p, li, table.data';
+
+  let editMode = false, dirty = false;
+  const undoStack = [], redoStack = [];
+
+  const eligible = el => mainEl.contains(el) && !el.closest(EXCLUDE);
+
+  function markEditable(on) {
+    mainEl.querySelectorAll(EDITABLE_SEL).forEach(el => {
+      if (!eligible(el)) return;
+      if (on) { el.setAttribute('contenteditable', 'true'); el.classList.add('editable'); }
+      else { el.removeAttribute('contenteditable'); el.classList.remove('editable'); }
+    });
+  }
+
+  function markSections(on) {
+    mainEl.querySelectorAll('section.block > details > summary').forEach(s => {
+      const old = s.querySelector('.sec-del');
+      if (old) old.remove();
+      if (!on) return;
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'sec-del'; b.textContent = 'Remove section';
+      b.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        if (confirm('Remove this whole section from your version? "Undo remove" brings it back.')) {
+          removeNode(s.closest('section.block'));
+        }
+      });
+      s.appendChild(b);
+    });
+  }
+
+  // Package bands: remove the band and every section under it in one step
+  function markPackages(on) {
+    mainEl.querySelectorAll('.pkg-band').forEach(band => {
+      const old = band.querySelector('.sec-del');
+      if (old) old.remove();
+      if (!on) return;
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'sec-del';
+      b.style.marginLeft = 'auto';
+      const num = band.querySelector('.pkg-num');
+      b.textContent = 'Remove ' + (num ? num.textContent.trim() : 'this package');
+      b.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        if (!confirm('Remove this banner and every section under it? "Undo remove" brings it all back.')) return;
+        const nodes = [band];
+        let n = band.nextElementSibling;
+        while (n && !n.classList.contains('pkg-band')) { nodes.push(n); n = n.nextElementSibling; }
+        removeNodes(nodes);
+      });
+      const lead = band.querySelector('.pkg-lead');
+      if (lead) band.insertBefore(b, lead); else band.appendChild(b);
+    });
+  }
+
+  // Single floating delete button, repositioned over the hovered deletable item
+  const delBtn = document.createElement('button');
+  delBtn.id = 'del-float'; delBtn.type = 'button'; delBtn.textContent = '✕';
+  delBtn.title = 'Remove this item from your version';
+  delBtn.setAttribute('aria-label', 'Remove this item from your version');
+  document.body.appendChild(delBtn);
+  let delTarget = null;
+
+  function hideDel() {
+    delBtn.style.display = 'none';
+    if (delTarget) delTarget.classList.remove('del-target');
+    delTarget = null;
+  }
+
+  document.addEventListener('mouseover', e => {
+    if (!editMode) return;
+    if (e.target === delBtn) return;
+    const t = e.target.closest ? e.target.closest(DELETABLE_SEL) : null;
+    if (!t || !eligible(t)) { hideDel(); return; }
+    if (delTarget === t) return;
+    if (delTarget) delTarget.classList.remove('del-target');
+    delTarget = t;
+    t.classList.add('del-target');
+    const r = t.getBoundingClientRect();
+    delBtn.style.display = 'flex';
+    delBtn.style.left = Math.min(window.innerWidth - 30, r.right - 12) + 'px';
+    delBtn.style.top = Math.max(4, r.top - 12) + 'px';
+  });
+  document.addEventListener('scroll', hideDel, true);
+  delBtn.addEventListener('click', () => {
+    if (!delTarget) return;
+    const t = delTarget;
+    hideDel();
+    removeNode(t);
+  });
+
+  function removeNode(node) { removeNodes([node]); }
+  // One undo entry can hold several consecutive nodes (a package band + its sections)
+  function removeNodes(nodes) {
+    const items = nodes.map(n => {
+      if (n.classList) n.classList.remove('del-target');
+      return { node: n, parent: n.parentNode, next: n.nextSibling };
+    });
+    nodes.forEach(n => n.remove());
+    undoStack.push(items);
+    redoStack.length = 0;
+    dirty = true;
+    updateUndoBtns();
+    syncToc();
+  }
+  function undo() {
+    const items = undoStack.pop();
+    if (!items) return;
+    // Reverse order so each node's recorded anchor is back in the document first
+    for (let i = items.length - 1; i >= 0; i--) {
+      const op = items[i];
+      const anchor = op.next && op.parent.contains(op.next) ? op.next : null;
+      op.parent.insertBefore(op.node, anchor);
+    }
+    redoStack.push(items);
+    updateUndoBtns();
+    syncToc();
+  }
+  function redo() {
+    const items = redoStack.pop();
+    if (!items) return;
+    items.forEach(op => op.node.remove());
+    undoStack.push(items);
+    updateUndoBtns();
+    syncToc();
+  }
+
+  // Left-hand contents mirror the document: hide entries whose section is gone
+  function syncToc() {
+    const lis = Array.from(document.querySelectorAll('nav#toc li'));
+    lis.forEach(li => {
+      const a = li.querySelector('a');
+      if (!a) return;
+      li.hidden = !document.getElementById((a.getAttribute('href') || '').slice(1));
+    });
+    lis.filter(li => li.classList.contains('toc-pkg')).forEach(label => {
+      let n = label.nextElementSibling, any = false;
+      while (n && !n.classList.contains('toc-pkg')) {
+        if (!n.hidden) { any = true; break; }
+        n = n.nextElementSibling;
+      }
+      label.hidden = !any;
+    });
+  }
+  function updateUndoBtns() {
+    undoBtn.disabled = undoStack.length === 0;
+    redoBtn.disabled = redoStack.length === 0;
+  }
+  undoBtn.addEventListener('click', undo);
+  redoBtn.addEventListener('click', redo);
+
+  function setEditMode(on) {
+    editMode = on;
+    if (on) document.body.dataset.editMode = 'true';
+    else document.body.removeAttribute('data-edit-mode');
+    markEditable(on);
+    markSections(on);
+    markPackages(on);
+    toggleBtn.textContent = on ? 'Exit edit mode' : 'Prepare your version';
+    if (!on) hideDel();
+  }
+  toggleBtn.addEventListener('click', () => setEditMode(!editMode));
+  if (new URLSearchParams(location.search).has('edit')) setEditMode(true);
+
+  mainEl.addEventListener('input', () => { if (editMode) dirty = true; });
+  window.addEventListener('beforeunload', e => {
+    if (dirty) { e.preventDefault(); e.returnValue = ''; }
+  });
+
+  // Toast for quick feedback
+  const toast = document.createElement('div');
+  toast.id = 'edit-toast';
+  document.body.appendChild(toast);
+  let toastTimer = null;
+  function flash(msg) {
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { toast.style.opacity = '0'; }, 2600);
+  }
+
+  // -- Download HTML: serialize the current DOM, minus active edit-state --
+  function cleanClone() {
+    const clone = document.documentElement.cloneNode(true);
+    clone.querySelectorAll('#del-float, #edit-toast, .sec-del').forEach(n => n.remove());
+    clone.querySelectorAll('nav#toc li[hidden]').forEach(n => n.remove());
+    clone.querySelectorAll('[contenteditable]').forEach(n => n.removeAttribute('contenteditable'));
+    clone.querySelectorAll('.editable, .del-target').forEach(n => n.classList.remove('editable', 'del-target'));
+    const body = clone.querySelector('body');
+    if (body) body.removeAttribute('data-edit-mode');
+    const t = clone.querySelector('#dot-float-tip');
+    if (t) { t.style.opacity = '0'; t.innerHTML = ''; }
+    const foot = clone.querySelector('footer.page');
+    if (foot && !clone.querySelector('#adapted-note')) {
+      const p = document.createElement('p');
+      p.id = 'adapted-note';
+      p.innerHTML = 'This copy was adapted by a reader. The original interactive analysis is at ' +
+        '<a href="' + LIVE_URL + '">' + LIVE_URL + '</a>.';
+      foot.appendChild(p);
+    }
+    return clone;
+  }
+
+  document.getElementById('edit-download').addEventListener('click', () => {
+    const html = '<!doctype html>\n' + cleanClone().outerHTML;
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = SLUG + '-edited.html';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    dirty = false;
+    flash('Downloaded your version as a standalone HTML file.');
+  });
+
+  // -- Save as PDF: open everything, print, restore --
+  let reopenList = null;
+  window.addEventListener('beforeprint', () => {
+    reopenList = Array.from(document.querySelectorAll('section.block > details:not([open]), details.glance:not([open])'));
+    reopenList.forEach(d => d.open = true);
+  });
+  window.addEventListener('afterprint', () => {
+    if (reopenList) { reopenList.forEach(d => d.open = false); reopenList = null; }
+  });
+  document.getElementById('edit-pdf').addEventListener('click', () => window.print());
+
+  // -- Copy for Word: flatten the current DOM into Word-friendly HTML --
+  const CAMP_HEX = { 'c-donor': '#1f5fb0', 'c-canzpif': '#197b5a', 'c-g77': '#8a6d1c', 'c-sceptic': '#b03333', 'c-un': '#8a3d8f' };
+
+  function wordFragment() {
+    const frag = document.createElement('div');
+    const h1 = document.querySelector('header.page h1');
+    if (h1) {
+      const h = document.createElement('h1');
+      h.textContent = h1.textContent;
+      frag.appendChild(h);
+    }
+    document.querySelectorAll('header.page dl.meta > dt').forEach(dt => {
+      const dd = dt.nextElementSibling;
+      const p = document.createElement('p');
+      p.innerHTML = '<strong>' + dt.textContent + ':</strong> ' + (dd ? dd.innerHTML : '');
+      frag.appendChild(p);
+    });
+    mainEl.querySelectorAll('section.block').forEach(sec => {
+      const det = sec.querySelector(':scope > details');
+      if (!det) return;
+      const summary = det.querySelector(':scope > summary');
+      if (summary) {
+        const sc = summary.cloneNode(true);
+        sc.querySelectorAll('.sec-del').forEach(n => n.remove());
+        const h2 = document.createElement('h2');
+        h2.textContent = sc.textContent.trim();
+        frag.appendChild(h2);
+      }
+      const content = document.createElement('div');
+      Array.from(det.children).forEach(ch => {
+        if (ch !== summary) content.appendChild(ch.cloneNode(true));
+      });
+      content.querySelectorAll('.controls, .result-count, .plot-scroll, .plot-legend, .plot-guide, .axis-explainer, .ev-panel, .ev-note, .sec-del').forEach(n => n.remove());
+      // Plots cannot travel to Word: keep the score table, link the interactive original
+      content.querySelectorAll('details.glance').forEach(g => {
+        const tbl = g.querySelector('table');
+        const wrap = document.createElement('div');
+        if (tbl) {
+          const h3 = document.createElement('h3');
+          h3.textContent = 'Scores at a glance';
+          wrap.appendChild(h3);
+          wrap.appendChild(tbl.cloneNode(true));
+          const note = document.createElement('p');
+          note.innerHTML = '<em>Interactive engagement plot and evidence panels: see the <a href="' + LIVE_URL + '">original analysis</a>.</em>';
+          wrap.appendChild(note);
+        }
+        g.replaceWith(wrap);
+      });
+      frag.appendChild(content);
+    });
+    const note = document.createElement('p');
+    note.innerHTML = '<em>Adapted from the original interactive analysis: <a href="' + LIVE_URL + '">' + LIVE_URL + '</a></em>';
+    frag.appendChild(note);
+    // Inline the styles Word actually keeps: camp colours and quote formatting
+    Object.entries(CAMP_HEX).forEach(([cls, hex]) => {
+      frag.querySelectorAll('.' + cls).forEach(n => { n.style.color = hex; n.style.fontWeight = '600'; });
+    });
+    frag.querySelectorAll('blockquote').forEach(b => {
+      b.style.fontStyle = 'italic';
+      b.style.borderLeft = '3px solid #999';
+      b.style.paddingLeft = '10pt';
+      b.style.margin = '8pt 0 8pt 10pt';
+    });
+    frag.querySelectorAll('table').forEach(tb => {
+      tb.setAttribute('border', '1');
+      tb.style.borderCollapse = 'collapse';
+    });
+    return frag;
+  }
+
+  document.getElementById('edit-copy').addEventListener('click', async () => {
+    const frag = wordFragment();
+    const html = '<html><body>' + frag.innerHTML + '</body></html>';
+    const holder = document.createElement('div');
+    holder.style.position = 'fixed'; holder.style.left = '-9999px';
+    holder.appendChild(frag);
+    document.body.appendChild(holder);
+    const text = holder.innerText;
+    holder.remove();
+    try {
+      await navigator.clipboard.write([new ClipboardItem({
+        'text/html': new Blob([html], { type: 'text/html' }),
+        'text/plain': new Blob([text], { type: 'text/plain' })
+      })]);
+      flash('Copied. Paste into Word or Outlook.');
+    } catch (err) {
+      const sel = document.createElement('div');
+      sel.style.position = 'fixed'; sel.style.left = '-9999px';
+      sel.innerHTML = html;
+      document.body.appendChild(sel);
+      const range = document.createRange();
+      range.selectNodeContents(sel);
+      const s = getSelection();
+      s.removeAllRanges(); s.addRange(range);
+      document.execCommand('copy');
+      s.removeAllRanges(); sel.remove();
+      flash('Copied. Paste into Word or Outlook.');
+    }
+  });
+})();
+
+</script>
+</body>
+</html>
