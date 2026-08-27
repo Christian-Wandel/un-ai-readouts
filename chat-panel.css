@@ -1,0 +1,123 @@
+/* Chat panel — per-track source-grounded chat. Self-contained, no host-page
+   dependency beyond .chat-btn triggers and a #chat-panel-root mount point. */
+
+#chat-panel-root {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(90vw, 520px);
+  height: 100vh;
+  background: #fbfaf7;
+  color: #1a1c20;
+  box-shadow: -4px 0 18px rgba(0, 0, 0, 0.18);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.28s ease;
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  border-left: 1px solid #e3e1da;
+}
+#chat-panel-root.open { transform: translateX(0); }
+
+body.chat-open::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  right: min(90vw, 520px);
+  background: rgba(20, 18, 12, 0.28);
+  z-index: 9999;
+}
+
+.cp-header {
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid #e3e1da;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: #f4f2ec;
+}
+.cp-header h2 { margin: 0; font-size: 1.02rem; }
+.cp-header p { margin: 0.15rem 0 0; font-size: 0.82rem; color: #5a5e66; }
+.cp-close {
+  border: none; background: transparent; font-size: 1.4rem; line-height: 1;
+  cursor: pointer; color: #5a5e66; padding: 0.2rem 0.4rem;
+}
+.cp-close:hover { color: #1a1c20; }
+
+.cp-body { flex: 1; overflow-y: auto; padding: 1rem; }
+
+.cp-empty { color: #5a5e66; font-size: 0.9rem; padding: 0.5rem 0.2rem; }
+.cp-empty .ex { margin: 0.6rem 0 0; padding-left: 1.1rem; }
+.cp-empty .ex li { margin: 0.3rem 0; }
+
+.cp-msg { margin: 0 0 1rem; }
+.cp-msg.user .cp-bubble { background: #e7ebf3; margin-left: 2rem; }
+.cp-msg.assistant .cp-bubble { background: #f4f2ec; margin-right: 0.25rem; }
+.cp-bubble { border-radius: 10px; padding: 0.65rem 0.85rem; font-size: 0.94rem; }
+.cp-bubble p { margin: 0.4rem 0; }
+.cp-bubble p:first-child { margin-top: 0; }
+.cp-bubble p:last-child { margin-bottom: 0; }
+.cp-bubble ul { margin: 0.4rem 0; padding-left: 1.2rem; }
+.cp-bubble strong { font-weight: 600; }
+
+.cp-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 1.15rem; height: 1.15rem; padding: 0 0.3rem;
+  background: #2e4a86; color: #fff; border-radius: 4px;
+  font-size: 0.72rem; font-weight: 600; cursor: pointer;
+  vertical-align: super; margin: 0 0.05rem; border: none;
+}
+.cp-chip:hover { background: #1f3a6b; }
+
+.cp-source-card {
+  border: 1px solid #d9d6cc; background: #fff; border-radius: 8px;
+  padding: 0.7rem 0.85rem; margin: 0.5rem 0 1rem; font-size: 0.88rem;
+}
+.cp-source-card .who { font-weight: 600; }
+.cp-source-card .aff { color: #5a5e66; font-weight: 400; }
+.cp-source-card blockquote {
+  margin: 0.5rem 0; padding-left: 0.7rem; border-left: 3px solid #b27406;
+  color: #333; font-style: italic;
+}
+.cp-source-card a { color: #2e4a86; font-size: 0.85rem; }
+
+.cp-typing { color: #8a8e96; font-size: 0.85rem; font-style: italic; }
+
+.cp-gate { padding: 1rem; border-top: 1px solid #e3e1da; background: #f4f2ec; }
+.cp-gate p { margin: 0 0 0.5rem; font-size: 0.88rem; color: #333; }
+.cp-gate-row { display: flex; gap: 0.5rem; }
+.cp-gate-row input {
+  flex: 1; padding: 0.5rem 0.6rem; border: 1px solid #cfccc2; border-radius: 6px; font-size: 0.92rem;
+}
+.cp-gate-row button, .cp-input-row button {
+  background: #2e4a86; color: #fff; border: none; border-radius: 6px;
+  padding: 0.5rem 0.9rem; font-size: 0.9rem; cursor: pointer;
+}
+.cp-gate-row button:hover, .cp-input-row button:hover { background: #1f3a6b; }
+.cp-gate-error { color: #a4351d; font-size: 0.82rem; margin-top: 0.4rem; }
+
+.cp-input-area { border-top: 1px solid #e3e1da; padding: 0.8rem; background: #fbfaf7; }
+.cp-input-row { display: flex; gap: 0.5rem; }
+.cp-input-row input {
+  flex: 1; padding: 0.55rem 0.7rem; border: 1px solid #cfccc2; border-radius: 6px; font-size: 0.94rem;
+}
+.cp-input-row button:disabled { background: #b9bcc2; cursor: not-allowed; }
+.cp-hint { font-size: 0.76rem; color: #8a8e96; margin: 0.4rem 0 0; }
+.cp-error-banner {
+  background: #fbe4de; color: #7a2415; border-radius: 6px; padding: 0.5rem 0.7rem;
+  font-size: 0.85rem; margin-bottom: 0.6rem;
+}
+
+/* Trigger buttons (index track row + readout toolbar) */
+.chat-btn {
+  background: #2e4a86; color: #fff; border: none; border-radius: 6px;
+  padding: 0.35rem 0.7rem; font-size: 0.85rem; cursor: pointer; white-space: nowrap;
+}
+.chat-btn:hover { background: #1f3a6b; }
+
+@media (max-width: 640px) {
+  #chat-panel-root { width: 100vw; border-left: none; }
+  body.chat-open::after { right: 0; display: none; }
+}
