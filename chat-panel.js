@@ -42,7 +42,21 @@
       .replace(/"/g, "&quot;");
   }
 
-  // Minimal markdown: **bold**, paragraphs on blank lines, "- " bullet lists.
+  function isTableRow(t) {
+    return t.indexOf("|") !== -1 && t.trim().charAt(0) === "|";
+  }
+  function isTableSeparator(t) {
+    return /^\|[\s:|-]+\|$/.test(t.trim());
+  }
+  function splitTableRow(t) {
+    var s = t.trim();
+    if (s.charAt(0) === "|") s = s.slice(1);
+    if (s.charAt(s.length - 1) === "|") s = s.slice(0, -1);
+    return s.split("|").map(function (c) { return c.trim(); });
+  }
+
+  // Minimal markdown: **bold**, paragraphs on blank lines, "- " bullet lists,
+  // pipe tables (header row + separator row + body rows).
   function renderMarkdown(text) {
     var lines = text.split("\n");
     var html = "";
@@ -54,8 +68,28 @@
         para = [];
       }
     }
-    lines.forEach(function (line) {
+    var i = 0;
+    while (i < lines.length) {
+      var line = lines[i];
       var t = line.trim();
+      if (isTableRow(t) && isTableSeparator((lines[i + 1] || "").trim())) {
+        flushPara();
+        if (inList) { html += "</ul>"; inList = false; }
+        var headerCells = splitTableRow(t);
+        html += '<div class="cp-table-wrap"><table><thead><tr>';
+        headerCells.forEach(function (c) { html += "<th>" + inlineMd(c) + "</th>"; });
+        html += "</tr></thead><tbody>";
+        i += 2;
+        while (i < lines.length && isTableRow(lines[i].trim())) {
+          var cells = splitTableRow(lines[i].trim());
+          html += "<tr>";
+          cells.forEach(function (c) { html += "<td>" + inlineMd(c) + "</td>"; });
+          html += "</tr>";
+          i++;
+        }
+        html += "</tbody></table></div>";
+        continue;
+      }
       if (t.startsWith("- ")) {
         flushPara();
         if (!inList) {
@@ -74,7 +108,8 @@
           para.push(inlineMd(t));
         }
       }
-    });
+      i++;
+    }
     if (inList) html += "</ul>";
     flushPara();
     return html;
@@ -87,6 +122,12 @@
       return '<button class="cp-chip" data-chip="' + n + '">' + n + "</button>";
     });
     return esc;
+  }
+
+  function autosizeInput() {
+    var el = document.getElementById("cp-input");
+    el.style.height = "auto";
+    el.style.height = Math.min(el.scrollHeight, 160) + "px";
   }
 
   function ensurePanel() {
@@ -107,7 +148,7 @@
       '<div class="cp-gate-error" id="cp-gate-error" style="display:none"></div>' +
       "</div>" +
       '<div class="cp-input-area" id="cp-input-area" style="display:none">' +
-      '<div class="cp-input-row"><input type="text" id="cp-input" placeholder="Ask a question…" autocomplete="off">' +
+      '<div class="cp-input-row"><textarea id="cp-input" rows="1" placeholder="Ask a question…" autocomplete="off" maxlength="1000"></textarea>' +
       '<button id="cp-send">Send</button></div>' +
       '<p class="cp-hint">Answers are grounded in this track\'s readouts and transcripts only.</p>' +
       "</div>";
@@ -120,8 +161,12 @@
     });
     document.getElementById("cp-send").addEventListener("click", sendMessage);
     document.getElementById("cp-input").addEventListener("keydown", function (e) {
-      if (e.key === "Enter" && !state.sending) sendMessage();
+      if (e.key === "Enter" && !e.shiftKey && !state.sending) {
+        e.preventDefault();
+        sendMessage();
+      }
     });
+    document.getElementById("cp-input").addEventListener("input", autosizeInput);
     document.getElementById("cp-body").addEventListener("click", function (e) {
       var chip = e.target.closest(".cp-chip");
       if (chip) toggleSourceCard(chip);
@@ -224,6 +269,7 @@
     var message = input.value.trim();
     if (!message || !state.accessCode || state.sending) return;
     input.value = "";
+    autosizeInput();
     state.sending = true;
     document.getElementById("cp-send").disabled = true;
 

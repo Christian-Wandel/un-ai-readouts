@@ -1,11 +1,13 @@
 /* Chat panel — per-track source-grounded chat. Self-contained, no host-page
    dependency beyond .chat-btn triggers and a #chat-panel-root mount point. */
 
+:root { --cp-width: min(90vw, 680px); }
+
 #chat-panel-root {
   position: fixed;
   top: 0;
   right: 0;
-  width: min(90vw, 520px);
+  width: var(--cp-width);
   height: 100vh;
   background: #fbfaf7;
   color: #1a1c20;
@@ -20,13 +22,17 @@
 }
 #chat-panel-root.open { transform: translateX(0); }
 
-body.chat-open::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  right: min(90vw, 520px);
-  background: rgba(20, 18, 12, 0.28);
-  z-index: 9999;
+body.chat-open {
+  margin-right: var(--cp-width);
+  transition: margin-right 0.28s ease;
+}
+
+@media (max-width: 1500px) {
+  body.chat-open .shell { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 700px) {
+  body.chat-open { margin-right: 0; }
 }
 
 .cp-header {
@@ -61,6 +67,13 @@ body.chat-open::after {
 .cp-bubble p:last-child { margin-bottom: 0; }
 .cp-bubble ul { margin: 0.4rem 0; padding-left: 1.2rem; }
 .cp-bubble strong { font-weight: 600; }
+
+.cp-table-wrap { overflow-x: auto; margin: 0.5rem 0; }
+.cp-table-wrap table { border-collapse: collapse; width: 100%; font-size: 0.8rem; }
+.cp-table-wrap th, .cp-table-wrap td {
+  border: 1px solid #e3e1da; padding: 0.35rem 0.5rem; text-align: left; vertical-align: top;
+}
+.cp-table-wrap th { background: #f4f2ec; font-weight: 600; }
 
 .cp-chip {
   display: inline-flex; align-items: center; justify-content: center;
@@ -99,9 +112,11 @@ body.chat-open::after {
 .cp-gate-error { color: #a4351d; font-size: 0.82rem; margin-top: 0.4rem; }
 
 .cp-input-area { border-top: 1px solid #e3e1da; padding: 0.8rem; background: #fbfaf7; }
-.cp-input-row { display: flex; gap: 0.5rem; }
-.cp-input-row input {
-  flex: 1; padding: 0.55rem 0.7rem; border: 1px solid #cfccc2; border-radius: 6px; font-size: 0.94rem;
+.cp-input-row { display: flex; gap: 0.5rem; align-items: flex-end; }
+.cp-input-row textarea {
+  flex: 1; padding: 0.55rem 0.7rem; border: 1px solid #cfccc2; border-radius: 6px;
+  font-size: 0.94rem; font: inherit; line-height: 1.4; resize: none;
+  max-height: 160px; overflow-y: auto;
 }
 .cp-input-row button:disabled { background: #b9bcc2; cursor: not-allowed; }
 .cp-hint { font-size: 0.76rem; color: #8a8e96; margin: 0.4rem 0 0; }
@@ -119,5 +134,4 @@ body.chat-open::after {
 
 @media (max-width: 640px) {
   #chat-panel-root { width: 100vw; border-left: none; }
-  body.chat-open::after { right: 0; display: none; }
 }
