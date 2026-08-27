@@ -476,5 +476,19 @@
 <div id="chat-panel-root"></div>
 <link rel="stylesheet" href="chat-panel.css?v=20260828">
 <script src="chat-panel.js?v=20260828"></script>
+<script>
+(function () {
+  function openFromHash() {
+    var id = location.hash.slice(1);
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el || el.tagName !== 'DETAILS') return;
+    el.open = true;
+    el.scrollIntoView({ block: 'start' });
+  }
+  document.addEventListener('DOMContentLoaded', openFromHash);
+  window.addEventListener('hashchange', openFromHash);
+})();
+</script>
 </body>
 </html>
