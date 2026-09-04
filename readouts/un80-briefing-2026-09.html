@@ -1,0 +1,1646 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UN80 Initiative: the final briefing of the 80th session &mdash; General Assembly, 3 September 2026</title>
+<style>
+
+  :root {
+    --camp-accelerate: #1f5fb0;
+    --camp-deliver: #197b5a;
+    --camp-safeguard: #8a6d1c;
+    --camp-pace: #b03333;
+    --camp-un: #8a3d8f;
+    --bg: #f7f6f2; --surface: #ffffff; --ink: #1a1c20; --muted: #5b6470;
+    --rule: #e3e1da; --accent-default: #2e4a86;
+    --grey: #6a727b; --grey-soft: #ecedef;
+    --focus: #ffbf47; --radius: 10px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin:0; font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color:var(--ink); background:var(--bg); }
+  a { color: var(--accent-default); }
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-visible { outline:3px solid var(--focus); outline-offset:2px; }
+  .skip { position:absolute; left:-9999px; top:0; background:var(--ink); color:#fff; padding:.6rem 1rem; z-index:100; }
+  .skip:focus { left:0; }
+  .shell { display:grid; grid-template-columns:250px minmax(0,1fr); gap:2rem; max-width:1240px; margin:0 auto; padding:2rem 1.25rem 4rem; }
+  @media (max-width:900px){ .shell{grid-template-columns:1fr;} nav#toc{position:static !important;max-height:none !important;} }
+  header.page { grid-column:1/-1; border-bottom:1px solid var(--rule); padding-bottom:1rem; margin-bottom:1rem; }
+  header.page h1 { font-size:clamp(1.5rem,2.4vw,2.1rem); margin:0 0 .5rem; line-height:1.2; }
+  header.page dl.meta { display:grid; grid-template-columns:auto 1fr; gap:.15rem 1rem; margin:.75rem 0 0; color:var(--muted); font-size:.92rem; }
+  header.page dt { font-weight:600; color:var(--ink); }
+  header.page dd { margin:0; }
+  nav#toc { position:sticky; top:1rem; align-self:start; max-height:calc(100vh - 2rem); overflow-y:auto; padding:1rem; background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius); font-size:.92rem; }
+  nav#toc h2 { margin:0 0 .5rem; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+  nav#toc ol { list-style:none; padding:0; margin:0; }
+  nav#toc li { margin:.15rem 0; }
+  nav#toc a { text-decoration:none; display:block; padding:.2rem .3rem; border-radius:5px; }
+  nav#toc a:hover { background:var(--bg); }
+  nav#toc a[aria-current="location"] { background:color-mix(in srgb,var(--accent-default) 10%,white); color:var(--accent-default); font-weight:600; }
+  nav#toc .toc-pkg { margin-top:.6rem; font-size:.68rem; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); font-weight:700; padding:.2rem .3rem; border-top:1px solid var(--rule); padding-top:.5rem; }
+  main { min-width:0; }
+  .global-toolbar { grid-column:1/-1; display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:space-between; background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius); padding:.75rem 1rem; margin-bottom:1.25rem; box-shadow:var(--shadow); }
+  .btn { background:var(--surface); border:1px solid var(--rule); border-radius:8px; padding:.4rem .75rem; font:inherit; font-size:.88rem; cursor:pointer; color:var(--ink); }
+  .btn:hover { background:var(--bg); }
+  section.block { background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius); box-shadow:var(--shadow); margin-bottom:1.25rem; overflow:hidden; }
+  section.block > details > summary { list-style:none; cursor:pointer; padding:1rem 1.25rem; display:flex; align-items:center; gap:.75rem; font-weight:600; font-size:1.1rem; user-select:none; color:var(--accent,var(--accent-default)); }
+  section.block > details > summary::-webkit-details-marker { display:none; }
+  section.block > details > summary::before { content:"\25B8"; color:var(--muted); transition:transform .15s ease; display:inline-block; width:1ch; }
+  section.block > details[open] > summary::before { transform:rotate(90deg); }
+  .body { padding:0 1.25rem 1.25rem; }
+  .body > :first-child { margin-top:0; }
+  h3.sub { font-size:1rem; margin:1.25rem 0 .5rem; color:var(--ink); }
+  ul.tight { margin:.25rem 0 .75rem; padding-left:1.25rem; }
+  ul.tight li { margin:.3rem 0; }
+  blockquote.tp { border-left:4px solid var(--accent,var(--accent-default)); background:var(--bg); margin:.75rem 0; padding:.75rem 1rem; font-style:italic; color:#2a2f37; border-radius:0 6px 6px 0; }
+  blockquote.tp footer { margin-top:.45rem; font-style:normal; font-size:.85rem; color:var(--muted); }
+  .fault-line { background:var(--bg); border-left:4px solid var(--accent,var(--accent-default)); padding:.6rem .9rem; margin:.9rem 0; border-radius:0 6px 6px 0; }
+  .fault-line strong { color:var(--ink); }
+  .fl-title { display:block; color:var(--accent,var(--accent-default)); font-size:1rem; margin-bottom:.5rem; padding-bottom:.35rem; border-bottom:1px solid color-mix(in srgb,var(--accent,var(--accent-default)) 22%,transparent); }
+  .fl-title strong { color:var(--accent,var(--accent-default)); }
+  .pkg-band { display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; margin:2.4rem 0 .9rem; padding:.6rem .95rem; border-radius:var(--radius); background:color-mix(in srgb,var(--accent) 10%,white); border:1px solid color-mix(in srgb,var(--accent) 30%,transparent); }
+  .pkg-band .pkg-num { font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#fff; background:var(--accent); padding:.2rem .55rem; border-radius:999px; }
+  .pkg-band h2 { margin:0; font-size:1.12rem; color:var(--accent); }
+  .pkg-band .pkg-lead { flex-basis:100%; margin:.15rem 0 0; font-size:.87rem; color:var(--muted); }
+  .keybox { background:var(--bg); border:1px solid var(--rule); border-radius:8px; padding:.7rem .95rem; margin:.75rem 0; font-size:.9rem; }
+  .keybox p { margin:.3rem 0; }
+  .camp-key { display:flex; flex-wrap:wrap; gap:.5rem 1.1rem; margin:.6rem 0 .9rem; font-size:.83rem; color:var(--muted); }
+  .camp-key .swatch { display:inline-block; width:12px; height:12px; border-radius:50%; vertical-align:middle; margin-right:.35rem; border:2px solid #fff; box-shadow:0 0 0 1px var(--rule); }
+  table.data { width:100%; border-collapse:collapse; font-size:.88rem; margin:.75rem 0; }
+  table.data th, table.data td { text-align:left; padding:.4rem .5rem; border-bottom:1px solid var(--rule); vertical-align:top; }
+  table.data thead th { font-size:.74rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+  table.data td.num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .tbl-scroll { overflow-x:auto; }
+  .band-hi { color:#1d6b3f; font-weight:700; }
+  .band-md { color:#8a6d1c; font-weight:600; }
+  .band-lo { color:#a04040; font-weight:600; }
+  .shift { color:var(--accent-default); font-weight:700; }
+  .controls { display:flex; flex-wrap:wrap; gap:1rem; align-items:center; padding:1rem 1.25rem; border-bottom:1px solid var(--rule); background:linear-gradient(180deg,#fbfaf6 0%,var(--surface) 100%); }
+  .controls select { font:inherit; font-size:.9rem; padding:.35rem .5rem; border:1px solid var(--rule); border-radius:8px; background:var(--surface); color:var(--ink); }
+  input[type=search] { font:inherit; font-size:.9rem; padding:.4rem .6rem; border:1px solid var(--rule); border-radius:8px; min-width:min(280px,100%); }
+  .chip { border:1px solid var(--rule); background:var(--surface); border-radius:999px; padding:.3rem .7rem; font:inherit; font-size:.85rem; cursor:pointer; color:var(--ink); }
+  .chip[aria-pressed="true"] { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .card[data-bloc="accelerate"] { --accent: var(--camp-accelerate); --accent-bg: color-mix(in srgb, var(--camp-accelerate) 12%, white); }
+  .chip[data-filter="accelerate"][aria-pressed="true"] { background: var(--camp-accelerate); border-color: var(--camp-accelerate); }
+  .card[data-bloc="deliver"] { --accent: var(--camp-deliver); --accent-bg: color-mix(in srgb, var(--camp-deliver) 12%, white); }
+  .chip[data-filter="deliver"][aria-pressed="true"] { background: var(--camp-deliver); border-color: var(--camp-deliver); }
+  .card[data-bloc="safeguard"] { --accent: var(--camp-safeguard); --accent-bg: color-mix(in srgb, var(--camp-safeguard) 12%, white); }
+  .chip[data-filter="safeguard"][aria-pressed="true"] { background: var(--camp-safeguard); border-color: var(--camp-safeguard); }
+  .card[data-bloc="pace"] { --accent: var(--camp-pace); --accent-bg: color-mix(in srgb, var(--camp-pace) 12%, white); }
+  .chip[data-filter="pace"][aria-pressed="true"] { background: var(--camp-pace); border-color: var(--camp-pace); }
+  .card[data-bloc="un"] { --accent: var(--camp-un); --accent-bg: color-mix(in srgb, var(--camp-un) 12%, white); }
+  .chip[data-filter="un"][aria-pressed="true"] { background: var(--camp-un); border-color: var(--camp-un); }
+  .result-count { font-size:.85rem; color:var(--muted); padding:0 1.25rem .5rem; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(285px,1fr)); gap:.85rem; padding:1rem 1.25rem 1.25rem; }
+  .card { --accent-bg:var(--grey-soft); background:var(--surface); border:1px solid var(--rule); border-left:5px solid var(--accent,var(--grey)); border-radius:8px; padding:.75rem .9rem; box-shadow:var(--shadow); }
+  .card h4 { margin:0 0 .1rem; font-size:.98rem; }
+  .card .badge-row { display:flex; flex-wrap:wrap; gap:.3rem; margin:.35rem 0 .5rem; }
+  .badge { display:inline-block; font-size:.72rem; font-weight:600; padding:.15rem .5rem; border-radius:999px; background:var(--accent-bg); color:var(--accent); border:1px solid color-mix(in srgb,var(--accent) 25%,transparent); }
+  .card p { margin:.25rem 0 0; font-size:.9rem; color:#2a2f37; }
+  .card[hidden] { display:none; }
+  .plot-scroll { overflow-x:auto; padding:0 1.25rem; }
+  .plot { --cell:190px; display:grid; grid-template-columns:32px 165px repeat(3,var(--cell)); grid-template-rows:repeat(3,178px) 48px 30px; gap:0; min-width:calc(32px + 165px + 3*var(--cell)); margin:0 auto; }
+  .plot .axis-label { font-size:.76rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; display:flex; align-items:center; justify-content:center; padding:.25rem; text-align:center; }
+  .plot .axis-label.x { grid-row:5; grid-column:3/span 3; border-top:1px solid var(--rule); }
+  .plot .axis-label.y { grid-row:1/span 3; grid-column:1; writing-mode:vertical-rl; transform:rotate(180deg); }
+  .plot .col-head { grid-row:4; font-size:.8rem; font-weight:600; color:var(--ink); text-align:center; padding:.3rem .25rem; border-top:1px solid var(--rule); display:flex; flex-direction:column; gap:.1rem; align-items:center; justify-content:center; line-height:1.2; }
+  .plot .col-head .col-sub { font-size:.68rem; font-weight:500; color:var(--muted); letter-spacing:0; text-transform:none; }
+  .plot .row-head { grid-column:2; font-size:.76rem; color:var(--ink); font-weight:600; display:flex; align-items:center; justify-content:flex-end; padding:.25rem .5rem; text-align:right; border-right:1px solid var(--rule); }
+  .plot .cell { position:relative; border:1px dashed var(--rule); min-height:0; }
+  .plot .cell.x-low { background:color-mix(in srgb,var(--accent) 3%,white); }
+  .plot .cell.x-medium { background:color-mix(in srgb,var(--accent) 9%,white); }
+  .plot .cell.x-high { background:color-mix(in srgb,var(--accent) 17%,white); }
+  .plot .cell-inner { position:absolute; inset:16px 24px; }
+  .dot { position:absolute; width:26px; height:26px; border-radius:50%; background:var(--dot,var(--grey)); color:#fff; font-size:.6rem; font-weight:700; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 1px 3px rgba(0,0,0,.18); transform:translate(-50%,-50%); border:2px solid #fff; transition:transform .12s ease; }
+  .dot:hover, .dot:focus { transform:translate(-50%,-50%) scale(1.5); z-index:10; outline:none; }
+  .dot[data-bloc="accelerate"] { --dot: var(--camp-accelerate); }
+  .dot[data-bloc="deliver"] { --dot: var(--camp-deliver); }
+  .dot[data-bloc="safeguard"] { --dot: var(--camp-safeguard); }
+  .dot[data-bloc="pace"] { --dot: var(--camp-pace); }
+  .dot[data-bloc="un"] { --dot: var(--camp-un); }
+  .c-accelerate, strong.c-accelerate, .fault-line strong.c-accelerate, td .c-accelerate, li .c-accelerate { color: var(--camp-accelerate); font-weight: 600; }
+  .c-deliver, strong.c-deliver, .fault-line strong.c-deliver, td .c-deliver, li .c-deliver { color: var(--camp-deliver); font-weight: 600; }
+  .c-safeguard, strong.c-safeguard, .fault-line strong.c-safeguard, td .c-safeguard, li .c-safeguard { color: var(--camp-safeguard); font-weight: 600; }
+  .c-pace, strong.c-pace, .fault-line strong.c-pace, td .c-pace, li .c-pace { color: var(--camp-pace); font-weight: 600; }
+  .c-un, strong.c-un, .fault-line strong.c-un, td .c-un, li .c-un { color: var(--camp-un); font-weight: 600; }
+  #dot-float-tip { position:fixed; background:var(--ink); color:#fff; padding:.45rem .6rem; border-radius:6px; font-size:.68rem; line-height:1.35; width:250px; text-align:left; pointer-events:none; z-index:9999; opacity:0; transition:opacity .12s ease; }
+  #dot-float-tip strong { display:block; margin-bottom:.15rem; font-size:.72rem; }
+  #dot-float-tip .tip-head { display:flex; align-items:center; gap:.4rem; margin-bottom:.15rem; flex-wrap:wrap; }
+  #dot-float-tip .tip-head strong { margin:0; }
+  #dot-float-tip .tip-score { color:#ffd27a; font-weight:700; }
+  .plot-legend { display:flex; flex-wrap:wrap; gap:.75rem 1.25rem; padding:.75rem 1.25rem 1rem; font-size:.82rem; color:var(--muted); }
+  .plot-legend .legend-lead { flex-basis:100%; color:var(--ink); font-weight:600; margin-bottom:.1rem; }
+  .plot-legend .swatch { display:inline-block; width:12px; height:12px; border-radius:50%; vertical-align:middle; margin-right:.35rem; border:2px solid #fff; box-shadow:0 0 0 1px var(--rule); }
+  .plot-guide { margin:1rem 1.25rem .75rem; padding:.65rem .9rem; background:color-mix(in srgb,var(--accent) 7%,white); border-left:3px solid var(--accent); border-radius:6px; font-size:.83rem; color:var(--muted); line-height:1.5; }
+  .plot-guide .guide-title { margin:0 0 .5rem; }
+  .plot-guide .guide-grid { display:grid; grid-template-columns:1fr 1fr; gap:.3rem .9rem; margin-bottom:.6rem; }
+  @media (max-width:620px){ .plot-guide .guide-grid{grid-template-columns:1fr;} }
+  .plot-guide .guide-grid > div { display:grid; grid-template-columns:6.2rem 1fr; gap:.5rem; align-items:baseline; }
+  .plot-guide .guide-k { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--accent); line-height:1.5; }
+  .plot-guide .guide-v { font-size:.86rem; }
+  .plot-guide .guide-note { margin:0 0 .5rem; padding:.45rem .6rem; font-size:.86rem; background:color-mix(in srgb,var(--accent) 6%,transparent); border-radius:var(--radius); }
+  .plot-guide .guide-fine { margin:0; font-size:.78rem; color:var(--muted); }
+  .axis-explainer { margin:.5rem 1.25rem .75rem; padding:.75rem 1rem; background:var(--surface); border:1px solid var(--rule); border-radius:8px; font-size:.83rem; line-height:1.55; }
+  .axis-explainer .ae-header { display:flex; align-items:center; gap:.5rem; margin-bottom:.5rem; }
+  .axis-explainer .ae-icon { flex-shrink:0; color:var(--accent); }
+  .axis-explainer .ae-title { font-weight:700; font-size:.88rem; color:var(--ink); }
+  .axis-explainer .ae-def { color:var(--muted); margin-bottom:.6rem; }
+  .axis-explainer .ae-rows { display:flex; flex-direction:column; gap:.3rem; }
+  .axis-explainer .ae-row { display:flex; gap:.6rem; align-items:baseline; }
+  .axis-explainer .ae-row-label { font-weight:600; min-width:185px; color:var(--ink); flex-shrink:0; }
+  .axis-explainer .ae-row-desc { color:var(--muted); }
+  .brief-chip { display:inline-flex; align-items:center; gap:.28rem; font-size:.68rem; line-height:1; color:#5b6470; background:#f2f1ec; border:1px solid #ddd9d0; border-radius:999px; padding:.18rem .5rem .18rem .38rem; vertical-align:middle; white-space:nowrap; font-weight:500; }
+  .brief-chip svg { flex:none; display:block; }
+  #dot-float-tip .brief-chip { background:rgba(255,255,255,.14); border-color:rgba(255,255,255,.28); color:#f0ece6; }
+  .ev-panel { margin:1rem 1.25rem; border:1px solid var(--rule); border-radius:var(--radius); background:var(--surface); }
+  .ev-slots { display:grid; grid-template-columns:1fr 1fr; gap:0; }
+  @media (max-width:720px){ .ev-slots{grid-template-columns:1fr;} }
+  .ev-slot { padding:.9rem; border-right:1px solid var(--rule); min-width:0; }
+  .ev-slot:last-child { border-right:0; }
+  .ev-slot.armed { background:color-mix(in srgb,var(--accent) 5%,transparent); }
+  .ev-empty { color:var(--muted); font-size:.82rem; padding:1.4rem .9rem; text-align:center; }
+  .ev-head { display:flex; align-items:center; gap:.45rem; flex-wrap:wrap; margin-bottom:.5rem; }
+  .ev-head h4 { margin:0; font-size:.95rem; }
+  .ev-swatch { width:.7rem; height:.7rem; border-radius:50%; flex:none; }
+  .ev-score { font-weight:700; font-size:.95rem; }
+  .ev-rank { color:var(--muted); font-size:.78rem; }
+  .ev-arm { margin-left:auto; border:1px solid var(--rule); background:transparent; border-radius:999px; cursor:pointer; font-size:.78rem; line-height:1; padding:.22rem .45rem; color:var(--muted); }
+  .ev-arm[aria-pressed="true"] { border-color:var(--accent); color:var(--accent); font-weight:700; }
+  .ev-ind { margin-bottom:.5rem; }
+  .ev-ind-top { display:flex; align-items:baseline; gap:.4rem; font-size:.78rem; }
+  .ev-ind-label { font-weight:600; color:var(--ink); }
+  .ev-ind-pts { margin-left:auto; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .ev-bar { height:3px; background:var(--rule); border-radius:2px; margin:.18rem 0 .22rem; overflow:hidden; }
+  .ev-bar i { display:block; height:100%; background:var(--accent); }
+  .ev-q { font-size:.78rem; color:var(--muted); font-style:italic; }
+  .ev-q.absent { font-style:normal; opacity:.75; }
+  .ev-neg { margin-top:.5rem; padding-top:.5rem; border-top:1px dashed var(--rule); }
+  .ev-neg .ev-ind-pts { color:var(--camp-pace); font-weight:700; }
+  .ev-note { padding:.1rem .9rem .8rem; font-size:.78rem; color:var(--muted); margin:0; }
+  details.glance { border-top:1px solid var(--rule); }
+  details.glance > summary { cursor:pointer; padding:.7rem 1.25rem; font-size:.9rem; font-weight:600; color:var(--accent); }
+  table.ranked { width:100%; border-collapse:collapse; font-size:.85rem; }
+  table.ranked th, table.ranked td { text-align:left; padding:.35rem .6rem; border-bottom:1px solid var(--rule); vertical-align:top; }
+  table.ranked thead th { font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+  table.ranked td.num { text-align:right; font-variant-numeric:tabular-nums; }
+  table.ranked tr.unscored td { color:var(--muted); font-style:italic; }
+  table.ranked .name-cell { display:inline-flex; align-items:center; gap:.4rem; flex-wrap:wrap; }
+  table.ranked .ev-swatch { width:.6rem; height:.6rem; }
+  footer.page { grid-column:1/-1; margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--rule); color:var(--muted); font-style:italic; font-size:.9rem; }
+
+  /* ---- Edit mode: "Prepare your version" (pilot 2026-07) ---- */
+  #edit-toggle { border-color:var(--accent-default); color:var(--accent-default); font-weight:600; }
+  body[data-edit-mode] #edit-toggle { background:var(--accent-default); color:#fff; }
+  #edit-controls { display:none; gap:.5rem; flex-wrap:wrap; align-items:center; }
+  body[data-edit-mode] #edit-controls { display:flex; }
+  #edit-controls .btn[disabled] { opacity:.45; cursor:default; }
+  #edit-banner { display:none; grid-column:1/-1; align-items:baseline; gap:.5rem; flex-wrap:wrap; background:color-mix(in srgb,var(--accent-default) 8%,white); border:1px solid color-mix(in srgb,var(--accent-default) 30%,transparent); border-radius:var(--radius); padding:.6rem 1rem; margin:-.5rem 0 1.25rem; font-size:.88rem; }
+  body[data-edit-mode] #edit-banner { display:flex; }
+  #edit-toast { position:fixed; left:50%; bottom:2rem; transform:translateX(-50%); background:var(--ink); color:#fff; padding:.55rem 1rem; border-radius:8px; font-size:.88rem; z-index:9999; opacity:0; transition:opacity .2s ease; pointer-events:none; }
+  body[data-edit-mode] .editable:hover { outline:1px dashed var(--accent-default); outline-offset:2px; cursor:text; }
+  body[data-edit-mode] .editable:focus { outline:2px solid var(--accent-default); outline-offset:2px; background:color-mix(in srgb,var(--accent-default) 5%,transparent); }
+  .del-target { outline:2px solid var(--camp-pace) !important; outline-offset:2px; }
+  #del-float { position:fixed; z-index:9998; display:none; width:24px; height:24px; align-items:center; justify-content:center; border-radius:50%; background:var(--camp-pace); color:#fff; border:2px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.3); cursor:pointer; font-size:.72rem; line-height:1; padding:0; }
+  .sec-del { margin-left:auto; border:1px solid var(--camp-pace); background:transparent; color:var(--camp-pace); border-radius:999px; font:inherit; font-size:.72rem; font-weight:600; padding:.2rem .6rem; cursor:pointer; }
+  .sec-del:hover { background:var(--camp-pace); color:#fff; }
+
+  /* ---- Print / save-as-PDF ---- */
+  .print-only { display:none; }
+  @media print {
+    body { background:#fff; }
+    .skip, nav#toc, .global-toolbar, #edit-banner, #del-float, #edit-toast, .sec-del, .controls, .result-count, #dot-float-tip, .ev-panel, .ev-note { display:none !important; }
+    .shell { display:block; max-width:none; padding:0 .25in; }
+    section.block { box-shadow:none; border-color:#ccc; }
+    section.block > details > summary::before { content:""; width:0; }
+    .card, blockquote.tp, .fault-line, .keybox { break-inside:avoid; page-break-inside:avoid; }
+    .plot-scroll { overflow:visible; }
+    .print-only { display:block !important; }
+  }
+
+
+
+  /* 4-character grouping codes (CANZ, PGA) clip inside a 26px dot; shrink the
+     glyph rather than renaming a code the reader would recognise. */
+  .dot { font-size:.6rem; letter-spacing:-.02em; }
+  .dot[data-long="1"] { font-size:.5rem; letter-spacing:-.04em; }
+  /* who-name marks the attributed actor so pipeline/verify_attribution.py can
+     check every quote against the transcript's speaker record. */
+  blockquote.tp footer .who-name { font-weight:700; }
+
+</style>
+</head>
+<body data-live-url="https://christian-wandel.github.io/un-ai-readouts/readouts/un80-briefing-2026-09.html"
+      data-edit-slug="un80-briefing-2026-09">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <!-- Brevity marker glyph: solid left-facing speaking head. viewBox 0 0 20 20 -->
+  <path id="head" d="M9.05 1.6
+    C5.35 1.6 2.5 4.35 2.5 7.75
+    c0 1.55 0.5 2.85 1.35 3.95
+    c0.35 0.45 0.5 0.85 0.5 1.4
+    L4.35 18.4
+    L7.6 18.4
+    L7.6 15.5
+    c0 -0.45 0.35 -0.8 0.8 -0.8
+    L10.6 14.7
+    c0.5 0 0.85 -0.35 0.85 -0.85
+    L11.45 12.6
+    l1.15 -0.35
+    c0.45 -0.15 0.55 -0.6 0.2 -0.9
+    L11.5 10.2
+    l0 -1.25
+    c0 -0.35 0.2 -0.6 0.5 -0.75
+    l1.15 -0.5
+    C12.55 4.2 11.1 1.6 9.05 1.6 Z"/>
+  <g id="wv"><path d="M15.2 6.9 L18.1 5.5 M15.8 9.8 L19.0 9.8 M15.2 12.7 L18.1 14.1"/></g>
+</defs></svg>
+
+<a class="skip" href="#main">Skip to content</a>
+<div id="dot-float-tip" role="tooltip" aria-hidden="true"></div>
+<button id="del-float" type="button" aria-label="Remove this item">&#10005;</button>
+<div id="edit-toast" role="status"></div>
+
+<div class="shell">
+
+  <header class="page">
+    <h1>UN80: the final briefing of the 80th session</h1>
+    <dl class="meta">
+      <dt>Meeting</dt><dd>Informal meeting of the plenary to hear a briefing on the UN80 Initiative</dd>
+      <dt>Body</dt><dd>General Assembly, 80th session &mdash; the tenth and last UN80 briefing of the session</dd>
+      <dt>Date</dt><dd>3 September 2026</dd>
+      <dt>Floor</dt><dd>Secretary-General, two working-group co-chairs, and 29 delegations and groups</dd>
+      <dt>Source</dt><dd><a href="https://webtv.un.org/en/asset/k1q/k1qdc8zsa6">UN Web TV recording</a> &middot;
+        <a href="https://transcripts.un.org/en/asset/k1q/k1qdc8zsa6">UN transcript</a> &middot;
+        <a href="../methodology/un80-briefing-2026-09-methodology.html">Methodology and limitations</a></dd>
+    </dl>
+  </header>
+
+  <div class="global-toolbar">
+    <div class="control-group">
+      <button class="btn" id="expand-all" type="button">Expand all</button>
+      <button class="btn" id="collapse-all" type="button">Collapse all</button>
+    </div>
+    <div class="control-group" id="edit-controls" role="group" aria-label="Edit and export controls">
+      <button class="btn" id="edit-undo" type="button" disabled>Undo remove</button>
+      <button class="btn" id="edit-redo" type="button" disabled>Redo</button>
+      <button class="btn" id="edit-download" type="button">Download HTML</button>
+      <button class="btn" id="edit-pdf" type="button">Save as PDF</button>
+      <button class="btn" id="edit-copy" type="button">Copy for Word</button>
+    </div>
+    <div class="control-group">
+      <button class="btn" id="edit-toggle" type="button">Prepare your version</button>
+    </div>
+  </div>
+
+  <div id="edit-banner" role="status">
+    <strong>Edit mode.</strong>
+    <span>Click any paragraph to edit its text. Hover over an item and use the red &#10005; to remove it, or use
+    &ldquo;Remove section&rdquo; in a section title. Changes stay in your browser until you download, print or copy
+    your version &mdash; the published readout is not affected.</span>
+  </div>
+
+  <nav id="toc" aria-label="On this page">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#summary">1. Executive summary</a></li>
+      <li><a href="#proposals">2. What the principals set out</a></li>
+      <li><a href="#consensus">3. Where the room converged</a></li>
+      <li><a href="#open">4. Open questions</a></li>
+      <li><a href="#plot">5. Engagement plot</a></li>
+      <li><a href="#talking">6. Talking points</a></li>
+      <li><a href="#reference">7. Reference: positions by delegation</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+
+    <!-- ============================================ 1. EXECUTIVE SUMMARY -->
+    <section class="block" id="summary">
+      <details open>
+        <summary>1. Executive summary</summary>
+        <div class="body">
+
+          <div class="keybox" style="border-left:3px solid var(--accent-default)">
+            <p><strong>What kind of meeting this was.</strong> A stocktake, not a negotiation. This
+            was the tenth and final UN80 briefing of the 80th session, held three days before the
+            session closed and hours after the Assembly adopted the first structural merger of the
+            reform. Nothing was being decided in the room, so the useful question is not who won
+            &mdash; it is <strong>where the membership converged, and what the 81st session
+            inherits</strong>.</p>
+          </div>
+
+          <p class="editable">Nobody in this room argued against UN80. Every delegation that took
+          the floor backed the initiative and asked for it to continue past the end of the session.
+          That is the headline, and it holds across blocs that agree on very little else.</p>
+
+          <p class="editable">The disagreement is about <strong>process, pace and protection</strong>
+          &mdash; not direction. The morning's UNITAR and UN System Staff College merger, adopted by
+          vote rather than consensus, split the room on whether it proved the system can reform or
+          showed the reform moving faster than the membership can follow. That single decision is
+          the clearest read on what the next session will fight about.</p>
+
+          <h3 class="sub">Where the room converged</h3>
+          <ul class="tight">
+            <li class="editable"><strong>Mandates belong to Member States.</strong> The most repeated
+            line of the meeting, said by the Secretary-General himself as readily as by the
+            delegations that questioned his process.</li>
+            <li class="editable"><strong>UN80 continues into the 81st session.</strong> No delegation
+            treated the initiative as finished.</li>
+            <li class="editable"><strong>Efficiency is a means, not the end.</strong> Named by the
+            <span class="c-accelerate">European Union</span> and <span class="c-safeguard">Brazil</span>
+            in nearly the same words.</li>
+            <li class="editable"><strong>Efficiency cannot replace paying up.</strong> The
+            Secretary-General: efficiency &ldquo;cannot make an unpaid dollar appear&rdquo;
+            (full quote below).</li>
+            <li class="editable"><strong>The three pillars must stay balanced</strong>, and reviews
+            must be evidence-based rather than automatic.</li>
+          </ul>
+
+          <h3 class="sub">The four things the room asked the next session to do</h3>
+          <div class="camp-key">
+            <span><span class="swatch" style="background:#1f5fb0"></span><strong>Carry it further</strong> &mdash; name new targets, go faster</span>
+            <span><span class="swatch" style="background:#197b5a"></span><strong>Make it land</strong> &mdash; deliver what is already agreed</span>
+            <span><span class="swatch" style="background:#8a6d1c"></span><strong>Protect what it touches</strong> &mdash; guard mandates and resourcing</span>
+            <span><span class="swatch" style="background:#b03333"></span><strong>Slow the sequencing</strong> &mdash; right objective, wrong order</span>
+          </div>
+
+          <div class="keybox">
+            <p><strong>The cluster worth noticing.</strong> On the question of whether the merger
+            process was sound, <span class="c-pace">Russia and Belarus</span> land beside
+            <span class="c-safeguard">Pakistan</span>, <span class="c-safeguard">Egypt</span> and
+            <span class="c-safeguard">India</span> &mdash; delegations that agree on almost nothing
+            else. They arrive from opposite directions. Russia and Belarus argue the reform is being
+            rushed for the wrong reasons; Pakistan, Egypt and India argue that a reform adopted by
+            vote will not hold. The shared conclusion is that <strong>consensus is the durability
+            test</strong>, and it is the most likely friction point of the 81st session.</p>
+          </div>
+
+        </div>
+      </details>
+    </section>
+
+    <!-- ============================================ 2. PRINCIPALS -->
+    <section class="block" id="proposals">
+      <details open>
+        <summary>2. What the principals set out</summary>
+        <div class="body">
+
+          <h3 class="sub">Secretary-General Ant&oacute;nio Guterres</h3>
+          <p class="editable">The stocktake came with numbers. The Secretariat cut posts by
+          <strong>21%</strong> under the 2026 changes and moved functions to lower-cost locations. A
+          common administrative platform in New York now serves about <strong>6,000
+          personnel</strong>, payroll runs through a single global team, and a digital hub opened in
+          Valencia. The Unified Services Roadmap, published in July, projects
+          &ldquo;efficiencies of 20 to 80% in various back office services&rdquo;.</p>
+
+          <p class="editable">On mandates, the registry now holds &ldquo;over 40,000 resolutions and
+          decisions dating back to 1946&rdquo;, and new reporting guidance could cut about
+          <strong>700,000 words</strong> this year. The UN system data commons goes live within
+          weeks with more than 25 entities committed. The new humanitarian compact is being piloted
+          in five settings: Afghanistan, Haiti, Somalia, Sudan and the occupied Palestinian
+          territory.</p>
+
+          <p class="editable">He gave a plain account of where decisions sit. Of 85 UN80 actions,
+          <strong>15</strong> were approved in 2026, <strong>20</strong> are now inside
+          intergovernmental processes, and <strong>50</strong> fall under his own coordination. He
+          repeated the same six asks of Member States he made in May: use resolution 80/251 as a
+          governance tool, support the new country and regional arrangements, back shared services
+          and data, judge structural proposals on their merits, align funding practices, and
+          exercise governance coherently across the system.</p>
+
+          <h3 class="sub">The working-group co-chairs (Norway and Jamaica)</h3>
+          <p class="editable">Carolyn Schwalger reported the templates delivered on 29 May: concept
+          note and resolution templates plus model review and retirement clauses, offered
+          &ldquo;as reference tools, rather than rigid formats&rdquo;. Brian Wallace reported the
+          criteria and modalities work circulated on 14 August &mdash; nine principles and
+          <strong>three core criteria</strong>: whether the objectives have been achieved, the
+          impact of implementation, and coherence with related mandates.</p>
+
+          <p class="editable">On how reviews should run, he reported broad convergence that they
+          belong &ldquo;primarily by the bodies that originated them&rdquo;, with the working group
+          coordinating rather than reviewing centrally, and volunteer thematic pilots to test the
+          framework. He was careful about its standing: the report is a step in a process, not a
+          concluded outcome (full quote below). Member States had not yet responded to it in a
+          reconvened meeting.</p>
+
+        </div>
+      </details>
+    </section>
+
+    <!-- ============================================ 3. CONSENSUS -->
+    <section class="block" id="consensus">
+      <details>
+        <summary>3. Where the room converged</summary>
+        <div class="body">
+          <p class="editable">Six positions drew support across every bloc that spoke.</p>
+          <ul class="tight">
+            <li class="editable"><strong>Mandates are the exclusive prerogative of Member States.</strong>
+            Stated by the Secretary-General, the co-chairs,
+            <span class="c-safeguard">G77 and China</span>, the <span class="c-safeguard">LDC group</span>,
+            <span class="c-pace">Russia and Belarus</span>, <span class="c-deliver">Bangladesh</span>,
+            <span class="c-safeguard">Cuba</span>, <span class="c-safeguard">Iran</span>,
+            <span class="c-safeguard">Egypt</span>, <span class="c-safeguard">India</span> and
+            <span class="c-safeguard">Tunisia</span>. What it constrains in practice is Open Question 1.</li>
+
+            <li class="editable"><strong>UN80 runs into the 81st session.</strong>
+            <span class="c-accelerate">The United States</span> and
+            <span class="c-accelerate">the United Kingdom</span> said it most directly;
+            <span class="c-accelerate">Japan</span>, <span class="c-accelerate">Korea</span>,
+            <span class="c-deliver">Indonesia</span>, <span class="c-deliver">Mexico</span>,
+            <span class="c-accelerate">Poland</span>, <span class="c-accelerate">Latvia</span> and
+            <span class="c-accelerate">Croatia</span> agreed.</li>
+
+            <li class="editable"><strong>Efficiency serves delivery, it is not the goal.</strong>
+            <span class="c-safeguard">Brazil</span> and the <span class="c-accelerate">European Union</span>
+            put it almost identically;
+            <span class="c-safeguard">Egypt</span>, <span class="c-deliver">Bangladesh</span>,
+            <span class="c-deliver">Mexico</span> and <span class="c-accelerate">Korea</span> agreed.</li>
+
+            <li class="editable"><strong>Efficiency cannot substitute for assessed contributions.</strong>
+            Raised by the Secretary-General, <span class="c-accelerate">Latvia</span>,
+            <span class="c-safeguard">Cuba</span> and <span class="c-safeguard">Iran</span> &mdash;
+            three very different readings of the same financial fact.</li>
+
+            <li class="editable"><strong>No pillar loses ground.</strong>
+            <span class="c-deliver">Bangladesh</span>, <span class="c-accelerate">Poland</span>,
+            <span class="c-safeguard">Brazil</span>, <span class="c-deliver">China</span> and the
+            <span class="c-safeguard">LDC group</span>. Brazil named where it thinks the weight has
+            fallen: &ldquo;much of the reform effort so far has focused on the development
+            pillar&rdquo;.</li>
+
+            <li class="editable"><strong>Reviews are evidence-based, and renewal is not automatic.</strong>
+            <span class="c-accelerate">CANZ</span>, the <span class="c-accelerate">European Union</span>,
+            <span class="c-accelerate">Japan</span>, <span class="c-accelerate">Poland</span>,
+            <span class="c-safeguard">India</span> and the co-chairs' own framework converge here.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- ============================================ 4. OPEN QUESTIONS -->
+    <section class="block" id="open">
+      <details>
+        <summary>4. Open questions</summary>
+        <div class="body">
+          <p class="editable">These are things the room left to be worked out. At a stocktake
+          briefing there was no text to contest, so each item below is a design question the 81st
+          session inherits rather than a camp boundary.</p>
+
+          <div class="fault-line">
+            <span class="fl-title"><strong>O1 &mdash; What does &ldquo;Member State prerogative&rdquo; actually constrain?</strong></span>
+            <p class="editable">Everyone agrees mandates belong to Member States. Two readings of
+            what follows sat side by side all afternoon.</p>
+            <p class="editable"><strong>As a limit on the Secretariat.</strong>
+            <span class="c-safeguard">Iran</span> argued structural changes
+            &ldquo;cannot be regarded as merely administrative&rdquo;.
+            <span class="c-pace">Russia and Belarus</span> said the criteria and registers
+            &ldquo;can assist our work, but they should not prejudge political decisions&rdquo;.
+            <span class="c-safeguard">Tunisia</span> said the General Assembly and its subsidiary
+            bodies &ldquo;should remain the only source of decision making&rdquo; on structural
+            change.</p>
+            <p class="editable"><strong>As an obligation to actually decide.</strong> The
+            Secretary-General handed the decisions back (full quote below).
+            <span class="c-accelerate">CANZ</span> noted the agreed tools work
+            &ldquo;only if we actually apply them&rdquo;.
+            <span class="c-deliver">Romania</span> named the gap most plainly (full quote below).</p>
+            <p class="editable">The co-chairs' report does not settle it. By their own statement it
+            is guidance, not a mechanism.</p>
+          </div>
+
+          <div class="fault-line">
+            <span class="fl-title"><strong>O2 &mdash; Was the morning's merger a proof of concept, or a process warning?</strong></span>
+            <p class="editable">The Assembly adopted the UNITAR and UN System Staff College merger
+            hours before this meeting, by vote. The same decision was read two ways in the same
+            room.</p>
+            <p class="editable"><strong>Proof the system can reform.</strong> The
+            <span class="c-accelerate">European Union</span> called it
+            &ldquo;proof of concept that UNAD works&rdquo;.
+            <span class="c-accelerate">France</span> called it
+            &ldquo;a long overdue merger, a first step forward&rdquo;.
+            <span class="c-accelerate">Croatia</span>, <span class="c-accelerate">Denmark</span>,
+            <span class="c-accelerate">Latvia</span>, <span class="c-accelerate">the United Kingdom</span>,
+            <span class="c-accelerate">the United States</span> and
+            <span class="c-accelerate">Korea</span> all cited it as an achievement, Korea adding it
+            &ldquo;can be scaled across the UN system&rdquo;.</p>
+            <p class="editable"><strong>A process that moved too fast.</strong>
+            <span class="c-pace">Russia and Belarus</span> said the pace meant the membership
+            &ldquo;did not fully assess all aspects of the merger&rdquo; (full quote below).
+            <span class="c-safeguard">Pakistan</span> raised that both principal deliverables of
+            UN80 so far &ldquo;have been adopted by vote rather than by consensus&rdquo;.
+            <span class="c-safeguard">Egypt</span> shared
+            &ldquo;the concerns expressed by many this morning on the process&rdquo;.
+            <span class="c-safeguard">India</span> named the specifics: the compressed timeline,
+            the geographic footprint of the new entity, and its governance and financing.
+            <span class="c-accelerate">Croatia</span> noted its own host-city comments were not
+            reflected, and supported the text anyway.</p>
+          </div>
+
+          <div class="fault-line">
+            <span class="fl-title"><strong>O3 &mdash; Do the development-pillar mergers go ahead, and on whose authority?</strong></span>
+            <p class="editable">The Executive Board of UNDP, UNFPA and UNOPS decided it was not in a
+            position to recommend the UNDP&ndash;UNOPS and UNFPA&ndash;UN&nbsp;Women mergers. The room
+            split on what that means next.</p>
+            <p class="editable"><strong>Keep the structural route open.</strong>
+            <span class="c-accelerate">France</span> named both pairs and asked to continue
+            &ldquo;with pragmatism&rdquo;. <span class="c-accelerate">Denmark</span> asked for
+            sustained ambition &ldquo;including on structural changes such as mergers&rdquo;.
+            <span class="c-accelerate">CANZ</span> asked that each be judged on its own merits.</p>
+            <p class="editable"><strong>Look for something other than a merger.</strong>
+            <span class="c-safeguard">G77 and China</span> said &ldquo;the necessary conditions are
+            not yet in place&rdquo;. <span class="c-safeguard">India</span> encouraged
+            &ldquo;exploring alternatives to structural mergers&rdquo;.
+            <span class="c-safeguard">Brazil</span> said it cannot support the UNFPA and
+            UN&nbsp;Women merger on mandate-integrity grounds.
+            <span class="c-safeguard">Tunisia</span> said each body has a unique mandate.
+            <span class="c-accelerate">Korea</span> asked that UN&nbsp;Women's
+            &ldquo;triple mandate must be preserved and strengthened, not diluted&rdquo;.</p>
+            <p class="editable">The Secretary-General accepted the Board's position and said he
+            intends &ldquo;to present several new ideas and proposals for the work of the
+            board&rdquo;.</p>
+          </div>
+
+          <div class="fault-line">
+            <span class="fl-title"><strong>O4 &mdash; How far does mandate review reach, and what protects vulnerable mandates?</strong></span>
+            <p class="editable"><strong>Reach further.</strong>
+            <span class="c-safeguard">India</span> asked that review move beyond the General
+            Assembly to other principal organs, &ldquo;especially the UN Security Council&rdquo;.
+            <span class="c-accelerate">The United States</span> asked for consolidation or
+            retirement where mandates overlap or are no longer necessary.</p>
+            <p class="editable"><strong>Build the safeguards first.</strong> The
+            <span class="c-safeguard">LDC group</span> put seven numbered conditions on the record,
+            with figures behind them: LDCs are about 13% of world population and 1.3% of global GDP,
+            with more than 510 million people in extreme poverty. Its central point is that
+            under-resourcing should not be read as failure (full quote below), and that
+            &ldquo;similarity in subject matter does not necessarily constitute duplication&rdquo;.
+            <span class="c-deliver">Bangladesh</span> made the same complementarity argument.
+            <span class="c-safeguard">Pakistan</span> flagged observations on the relevance criterion
+            and on templates &ldquo;which were meant to be voluntary&rdquo;.</p>
+          </div>
+
+          <div class="fault-line">
+            <span class="fl-title"><strong>O5 &mdash; What counts as enough information before a decision?</strong></span>
+            <p class="editable">Five delegations asked a version of this question. None got an
+            answer that set a standard.</p>
+            <p class="editable"><span class="c-safeguard">Tunisia</span> said the time available to
+            study the restructuring scenarios &ldquo;has nevertheless not been enough&rdquo; and
+            asked for the administrative and financial consequences of each.
+            <span class="c-safeguard">India</span> asked for &ldquo;cost-benefit analysis and risk
+            assessment&rdquo;. <span class="c-safeguard">Iran</span> asked for
+            &ldquo;genuine alternatives and clearly defined scenarios&rdquo;.
+            <span class="c-safeguard">Cuba</span> asked what the next steps are and what the General
+            Assembly's role in them will be. <span class="c-safeguard">G77 and China</span> asked
+            which work packages to prioritise.</p>
+            <p class="editable">The Secretary-General answered on transparency and inclusivity in
+            general terms and committed to 20 briefings covering the 50 actions under his own
+            authority. He did not set a documentation standard, so this one carries into the 81st
+            session unresolved.</p>
+          </div>
+
+          <h3 class="sub">Raised once, by one delegation</h3>
+          <ul class="tight">
+            <li class="editable"><span class="c-accelerate">Switzerland</span> made a placement
+            argument nobody else made: Geneva hosts over 40 entities, close to scientific and
+            private partners.</li>
+            <li class="editable"><span class="c-deliver">Tanzania</span> raised representation in
+            downsizing &mdash; &ldquo;Equity, not equality should be observed in the downsizing
+            exercise&rdquo; &mdash; and was the only delegation to report first-hand on how the
+            resident coordinator system performs in country.</li>
+            <li class="editable"><span class="c-accelerate">The United Arab Emirates</span> and
+            <span class="c-accelerate">Korea</span> both raised artificial intelligence as an
+            administrative efficiency route.</li>
+            <li class="editable"><span class="c-accelerate">The United Kingdom</span> raised staff
+            compensation: &ldquo;We cannot have a modern UN without a modern compensation
+            package&rdquo;.</li>
+            <li class="editable"><span class="c-deliver">Indonesia</span> brought the only
+            system-wide savings figure, &ldquo;$981 million in system-wide efficiencies in
+            2025&rdquo;; the United Kingdom cited &ldquo;$360 million&rdquo; on the regular budget;
+            <span class="c-safeguard">Egypt</span> noted the 2027 proposed budget is down 4.3% on
+            2026 appropriations.</li>
+            <li class="editable"><span class="c-pace">Russia and Belarus</span> raised resolution
+            79/318 and noted no earlier speaker had mentioned it.</li>
+            <li class="editable">The <span class="c-un">President of the General Assembly</span>
+            named the item she considers unfinished: more than 200 posts at Under-Secretary-General
+            and Assistant-Secretary-General level (full quote below). She called it the elephant in
+            the room on her way out of office.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- ============================================ 5. ENGAGEMENT PLOT -->
+    <section class="block" id="plot" style="--accent:var(--accent-default)">
+      <details>
+        <summary>5. Engagement plot</summary>
+
+        <div class="plot-guide">
+          <p class="guide-title"><strong>How to read this plot</strong></p>
+          <div class="guide-grid">
+            <div><span class="guide-k">Left &rarr; right</span><span class="guide-v">How much a delegation put on the record about UN80. Low &rarr; medium &rarr; high.</span></div>
+            <div><span class="guide-k">Colour</span><span class="guide-v">What it asked the next session to do &mdash; a separate question from how much it said.</span></div>
+            <div><span class="guide-k">Up / down</span><span class="guide-v">Whatever you pick in the dropdown.</span></div>
+            <div><span class="guide-k">Click a dot</span><span class="guide-v">See the quotes behind the score; click a second to compare.</span></div>
+          </div>
+          <p class="guide-note"><strong>The cluster to look at:</strong>
+          <span class="c-pace">Russia and Belarus</span> sit high on the record, level with
+          <span class="c-accelerate">France</span> and <span class="c-accelerate">Denmark</span> and
+          above eight delegations that want the reform to go faster. They argued a great deal, in
+          the opposite direction. The axis counts how much, never which way.</p>
+          <p class="guide-fine">Delegations and groups are scored; the Secretary-General, the
+          co-chairs and the chair are not, because they present the material being reacted to.
+          Dots are rank-spaced, never jittered. Rubric and caveats on the
+          <a href="../methodology/un80-briefing-2026-09-methodology.html">methodology page</a>.</p>
+        </div>
+
+        <div class="controls">
+          <label for="p-axis-y">Up / down axis:
+            <select id="p-axis-y">
+              <option value="camp">What they asked the next session to do</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="p-axis-explainer" class="axis-explainer"></div>
+
+        <div class="plot-scroll">
+          <div class="plot" id="p-plot-grid"></div>
+        </div>
+
+        <div class="plot-legend" id="p-plot-legend"></div>
+
+        <div class="plot-legend" style="padding-top:0">
+          <span><svg width="12" height="12" viewBox="0 0 20 20" aria-hidden="true" style="vertical-align:middle"><use href="#head" fill="currentColor"/><use href="#wv" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <em>brief</em> &mdash; this delegation spoke well below the meeting median, so fewer indicators had the chance to appear.</span>
+        </div>
+
+        <div class="ev-panel" id="p-ev-panel">
+          <div class="ev-slots">
+            <div class="ev-slot" id="p-slot-0"></div>
+            <div class="ev-slot" id="p-slot-1"></div>
+          </div>
+          <p class="ev-note">Every quote is verbatim from the UN transcript. &ldquo;Not stated&rdquo;
+          means the delegation did not address that indicator in this meeting &mdash; it never means
+          it argued against it.</p>
+        </div>
+
+        <details class="glance">
+          <summary>Scores at a glance</summary>
+          <div class="tbl-scroll">
+            <table class="ranked" id="p-glance-table">
+              <thead><tr><th>Rank</th><th>Delegation</th><th class="num">On record</th><th class="num">Net</th><th>What they put on the record</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </details>
+      </details>
+    </section>
+
+    <!-- ============================================ 6. TALKING POINTS -->
+    <section class="block" id="talking">
+      <details>
+        <summary>6. Talking points</summary>
+        <div class="body">
+          <p class="editable" style="color:var(--muted);font-size:.9rem">Every quote below is
+          verbatim from the UN transcript, which is automatic speech recognition and not an official
+          record. <strong>These quotes were not checked against the meeting audio</strong> &mdash;
+          the re-cut recording carries only an interpretation relay channel, so audio verification
+          was not possible for this meeting. The
+          <a href="../methodology/un80-briefing-2026-09-methodology.html">methodology page</a>
+          explains what was attempted.</p>
+
+          <blockquote class="tp editable">Efficiency can make every dollar work harder. It cannot make an unpaid dollar appear.
+            <footer><span class="who-name">Antonio Guterres, Secretary-General, on the fifth of his six asks</span></footer></blockquote>
+
+          <blockquote class="tp editable">Many of the decisions ahead do not belong to the Secretary-General. They belong to you.
+            <footer><span class="who-name">Antonio Guterres, Secretary-General</span></footer></blockquote>
+
+          <blockquote class="tp editable">this report represents a further step in an ongoing and inclusive process, and not a concluded outcome
+            <footer><span class="who-name">Brian Wallace, Jamaica, co-chair of the ad hoc working group, on the criteria and modalities report</span></footer></blockquote>
+
+          <blockquote class="tp editable">UN80 must continue into UN81.
+            <footer><span class="who-name c-accelerate">United States of America</span></footer></blockquote>
+
+          <blockquote class="tp editable">the unjustified haste whipped up by the President of the General Assembly meant we did not fully assess all aspects of the merger
+            <footer><span class="who-name c-pace">Russian Federation, speaking also for Belarus</span></footer></blockquote>
+
+          <blockquote class="tp editable">reforms will only be durable if they are owned by the entirety of the membership
+            <footer><span class="who-name c-safeguard">Pakistan, on both deliverables being adopted by vote</span></footer></blockquote>
+
+          <blockquote class="tp editable">weak implementation resulting from under-resourcing should not automatically become grounds for retirement
+            <footer><span class="who-name c-safeguard">Nepal, for the Group of Least Developed Countries</span></footer></blockquote>
+
+          <blockquote class="tp editable">efficiency is but a means to an end, and the end is clear, enhanced effectiveness, delivery, and impact on the ground
+            <footer><span class="who-name c-safeguard">Brazil</span></footer></blockquote>
+
+          <blockquote class="tp editable">while we've been asking for this reform for a long time, when you come to the point of delivering, we have called fit
+            <footer><span class="who-name c-deliver">Romania, on Member States' own role</span></footer></blockquote>
+
+          <blockquote class="tp editable">With more than 200 USGs and ASG level posts across the US system, we must ask more fundamental question about duplication mandates and whether our structures remain fit for the purpose.
+            <footer><span class="who-name c-un">GA &mdash; President of the General Assembly, naming what she called the elephant in the room</span></footer></blockquote>
+        </div>
+      </details>
+    </section>
+
+    <!-- ============================================ 7. REFERENCE -->
+    <section class="block" id="reference">
+      <details>
+        <summary>7. Reference: positions by delegation</summary>
+
+        <div class="controls">
+          <input type="search" id="ref-search" placeholder="Search delegations and positions" aria-label="Search delegations and positions">
+          <button class="chip" data-chipfor="ref" data-filter="all" aria-pressed="true">All</button>
+          <button class="chip" data-chipfor="ref" data-filter="accelerate" aria-pressed="false">Carry it further</button>
+          <button class="chip" data-chipfor="ref" data-filter="deliver" aria-pressed="false">Make it land</button>
+          <button class="chip" data-chipfor="ref" data-filter="safeguard" aria-pressed="false">Protect what it touches</button>
+          <button class="chip" data-chipfor="ref" data-filter="pace" aria-pressed="false">Slow the sequencing</button>
+        </div>
+        <p class="result-count" id="ref-count"></p>
+
+        <div class="grid" id="ref-grid">
+      <article class="card" data-bloc="deliver">
+        <h4 class="editable">Bangladesh</h4>
+        <div class="badge-row"><span class="badge">Make it land</span><span class="badge">45 on record</span></div>
+        <p class="editable">Asks that no pillar be disadvantaged, and that complementary mandates not be read as duplication.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;We acknowledge the Secretary-General's leadership and sustained efforts in advancing the UN 80 initiative&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="safeguard">
+        <h4 class="editable">Brazil</h4>
+        <div class="badge-row"><span class="badge">Protect what it touches</span><span class="badge">54 on record</span></div>
+        <p class="editable">Names where the reform weight has fallen, and states its position on the UNFPA / UN Women merger.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;UNAT has already become a landmark in the history of the United Nations&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="accelerate">
+        <h4 class="editable">CANZ (Australia)</h4>
+        <div class="badge-row"><span class="badge">Carry it further</span><span class="badge">78 on record</span></div>
+        <p class="editable">Lists six workstream-three targets and three conditions for moving mandate review from design to delivery.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;But the need for ambitious reform remains urgent&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="deliver">
+        <h4 class="editable">China</h4>
+        <div class="badge-row"><span class="badge">Make it land</span><span class="badge">46 on record</span></div>
+        <p class="editable">Asks that reform be tested in practice, and that the three pillars stay balanced.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;Advancing the UN aid reform is a vital endeavour in face of new circumstances and challenges for the UN to renew itself&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="accelerate">
+        <h4 class="editable">Croatia</h4>
+        <div class="badge-row"><span class="badge">Carry it further</span><span class="badge">58 on record</span></div>
+        <p class="editable">Supported the merger although its own comments were not reflected, and asks for mandate discipline.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;UNAT has already demonstrated the discipline system-wide reform delivers concrete results&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="safeguard">
+        <h4 class="editable">Cuba</h4>
+        <div class="badge-row"><span class="badge">Protect what it touches</span><span class="badge">53 on record</span></div>
+        <p class="editable">Ties UN80 back to the liquidity crisis, and asks what the General Assembly's role is next.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;Cuba recognizes that there have been important gains in different components of UNAD throughout this year&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="accelerate">
+        <h4 class="editable">Denmark</h4>
+        <div class="badge-row"><span class="badge">Carry it further</span><span class="badge">63 on record</span></div>
+        <p class="editable">Names the measurement criteria by which it expects the reform to be judged next year.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;Denmark remains firmly committed to supporting the UNAD reform process, and we expect UNAD to deliver meaningful and lasting change&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="deliver">
+        <h4 class="editable">Ecuador</h4>
+        <div class="badge-row"><span class="badge">Make it land</span><span class="badge">41 on record</span></div>
+        <p class="editable">Warns against supporting only the changes each state finds convenient.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;I recognize your leadership, Mr. Secretary General, as well as the candor with which you have spoken about the challenges that the organization is facing&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="safeguard">
+        <h4 class="editable">Egypt</h4>
+        <div class="badge-row"><span class="badge">Protect what it touches</span><span class="badge">56 on record</span></div>
+        <p class="editable">Raises the 2027 budget decrease, and asks that reform not become a cost-cutting exercise.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;We continuously rely on these briefings to enable Member States to make informed decisions&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="accelerate">
+        <h4 class="editable">European Union</h4>
+        <div class="badge-row"><span class="badge">Carry it further</span><span class="badge">79 on record</span></div>
+        <p class="editable">Defends the reform against the reading that it is cost-cutting, and offers funding, political backing and expertise.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;a testament to the collective determination to make this organization fit for the challenges of the 21st century&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="accelerate">
+        <h4 class="editable">France</h4>
+        <div class="badge-row"><span class="badge">Carry it further</span><span class="badge">64 on record</span></div>
+        <p class="editable">Names both outstanding merger pairs, and asks to continue with them pragmatically.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;Thank you for placing this ambition squarely at the heart of your work&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="safeguard">
+        <h4 class="editable">G77 + China (Uruguay)</h4>
+        <div class="badge-row"><span class="badge">Protect what it touches</span><span class="badge">60 on record</span></div>
+        <p class="editable">Welcomes the Executive Board decision, and asks for prioritisation guidance on the work packages.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;reaffirms its support for you&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="accelerate">
+        <h4 class="editable">Germany</h4>
+        <div class="badge-row"><span class="badge">Carry it further</span><span class="badge">59 on record</span></div>
+        <p class="editable">Names the majority engagement as the encouraging finding, and asks the room not to lose steam.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;The organization needs reform and it can reform&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="safeguard">
+        <h4 class="editable">India</h4>
+        <div class="badge-row"><span class="badge">Protect what it touches</span><span class="badge">59 on record</span></div>
+        <p class="editable">Asks that mandate review reach the Security Council, and that decisions be taken by consensus.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;India reiterates its support for the overarching objective of the UNAT initiative&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="deliver">
+        <h4 class="editable">Indonesia</h4>
+        <div class="badge-row"><span class="badge">Make it land</span><span class="badge">51 on record</span></div>
+        <p class="editable">Brings the system-wide savings figure, and welcomes the practical digital tools.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;We reaffirm our support for the initiative's core goal to enhance efficiency and effectiveness to the work of the UN system&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="safeguard">
+        <h4 class="editable">Iran</h4>
+        <div class="badge-row"><span class="badge">Protect what it touches</span><span class="badge">50 on record</span></div>
+        <p class="editable">Reframes the central question away from how many mandates can be cut.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;structural changes, institutional realignments or modifications to working methods that affect mandates or functions cannot be regarded as merely administrative&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="accelerate">
+        <h4 class="editable">Japan</h4>
+        <div class="badge-row"><span class="badge">Carry it further</span><span class="badge">52 on record</span></div>
+        <p class="editable">Makes four points, and asks that agreed elements of resolution 80/251 be implemented immediately.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;It is essential to maintain this momentum and carry it forward into the 81st session of the General Assembly&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="safeguard">
+        <h4 class="editable">LDC Group (Nepal)</h4>
+        <div class="badge-row"><span class="badge">Protect what it touches</span><span class="badge">71 on record</span></div>
+        <p class="editable">Puts seven numbered safeguards on the record, with population and GDP figures behind them.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;our countries account for approximately 13% of the world's population but only around 1.3% of global GDP&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="accelerate">
+        <h4 class="editable">Latvia</h4>
+        <div class="badge-row"><span class="badge">Carry it further</span><span class="badge">59 on record</span></div>
+        <p class="editable">Runs through concrete outcomes under each of the three workstreams.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;The UNAD process provides the most realistic pathway to do so&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="deliver">
+        <h4 class="editable">Mexico</h4>
+        <div class="badge-row"><span class="badge">Make it land</span><span class="badge">46 on record</span></div>
+        <p class="editable">Traces the session's arc from the December budget to resolution 80/251.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;Mexico has supported reform efforts under your leadership, Mr. Secretary General&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="safeguard">
+        <h4 class="editable">Pakistan</h4>
+        <div class="badge-row"><span class="badge">Protect what it touches</span><span class="badge">51 on record</span></div>
+        <p class="editable">Raises that both principal deliverables were adopted by vote rather than by consensus.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;Pakistan supports the aims of the UNAT initiative, namely, a more efficient, effective and impactful United Nations&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="accelerate">
+        <h4 class="editable">Poland</h4>
+        <div class="badge-row"><span class="badge">Carry it further</span><span class="badge">59 on record</span></div>
+        <p class="editable">States three named priorities, and frames reform as a necessity rather than a choice.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;We welcome the progress achieved under the UNAD initiative and commend the Secretary General&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="accelerate">
+        <h4 class="editable">Republic of Korea</h4>
+        <div class="badge-row"><span class="badge">Carry it further</span><span class="badge">55 on record</span></div>
+        <p class="editable">Backs scaling the merger model, while asking that UN Women's mandate be preserved.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;The Republic of Korea commends the Secretary-General for his leadership in advancing UNAD initiative from broader proposals toward concrete action&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="deliver">
+        <h4 class="editable">Romania</h4>
+        <div class="badge-row"><span class="badge">Make it land</span><span class="badge">45 on record</span></div>
+        <p class="editable">Names the gap between asking for reform and delivering it when the moment comes.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;This process has shown so far that reform is possible&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="pace">
+        <h4 class="editable">Russian Federation / Belarus</h4>
+        <div class="badge-row"><span class="badge">Slow the sequencing</span><span class="badge">62 on record</span></div>
+        <p class="editable">Supports the objective and argues the sequencing was wrong, naming resolution 79/318 and the merger process.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;the unjustified haste whipped up by the President of the General Assembly meant we did not fully assess all aspects of the merger&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="accelerate">
+        <h4 class="editable">Switzerland</h4>
+        <div class="badge-row"><span class="badge">Carry it further</span><span class="badge">58 on record</span></div>
+        <p class="editable">Names work package 14 and the HLCM, and makes the Geneva placement argument nobody else made.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;Switzerland reiterates the salience of the reform&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="deliver">
+        <h4 class="editable">Tanzania <span class="brief-chip"><svg width="12" height="12" viewBox="0 0 20 20" aria-hidden="true"><use href="#head" fill="currentColor"/><use href="#wv" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>brief</span></h4>
+        <div class="badge-row"><span class="badge">Make it land</span><span class="badge">46 on record</span></div>
+        <p class="editable">Reports the resident coordinator system working on the ground, and asks for equity in downsizing.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;Tanzania commends the Secretary-General's steadfast leadership and his tireless efforts to strengthen the United Nations&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="safeguard">
+        <h4 class="editable">Tunisia</h4>
+        <div class="badge-row"><span class="badge">Protect what it touches</span><span class="badge">49 on record</span></div>
+        <p class="editable">Asks for more time and detail on the restructuring scenarios before decisions are taken.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;We renew our full support for the Secretary-General's initiative UN80 as a great opportunity to increase the effectiveness and efficiency&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="accelerate">
+        <h4 class="editable">United Arab Emirates</h4>
+        <div class="badge-row"><span class="badge">Carry it further</span><span class="badge">47 on record</span></div>
+        <p class="editable">Raises artificial intelligence as an efficiency route, and asks for ambition on inactive mandates.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;The UAE reiterates its strong support for the UNAT's initiative's efforts to strengthen the United Nations' ability to deliver on its core purposes&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="accelerate">
+        <h4 class="editable">United Kingdom</h4>
+        <div class="badge-row"><span class="badge">Carry it further</span><span class="badge">85 on record</span></div>
+        <p class="editable">Names four priority areas for the 81st session and puts senior-post reductions and staff compensation on the record.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;UNAT must not stop with the end of the 80th session&rdquo;</p>
+      </article>
+      <article class="card" data-bloc="accelerate">
+        <h4 class="editable">United States</h4>
+        <div class="badge-row"><span class="badge">Carry it further</span><span class="badge">81 on record</span></div>
+        <p class="editable">Frames UN80 as a beginning rather than an endpoint, and asks for senior-staff reductions and mandate retirement.</p>
+        <p class="editable" style="color:var(--muted);font-style:italic">&ldquo;UN80 must continue into UN81.&rdquo;</p>
+      </article>
+        </div>
+      </details>
+    </section>
+
+  </main>
+
+  <footer class="page">
+    Built from the UN transcript of the 3 September 2026 informal plenary. Quotes reproduce the UN
+    automatic speech recognition text and were not checked against audio &mdash; see the
+    <a href="../methodology/un80-briefing-2026-09-methodology.html">methodology page</a>.
+  </footer>
+
+</div>
+
+<script>
+const IND = [{"k": "A", "max": 20, "label": "A. Backing for UN80 as a programme"}, {"k": "B", "max": 10, "label": "B. Defends it against the cost-cutting reading"}, {"k": "C", "max": 15, "label": "C. Strongest concrete ask"}, {"k": "D", "max": 15, "label": "D. Named instruments, entities and figures"}, {"k": "E", "max": 15, "label": "E. Obligation framing"}, {"k": "F", "max": 10, "label": "F. Support offered"}, {"k": "G", "max": 15, "label": "G. Verb register across the statement"}];
+const AXES = {"camp": {"label": "What they asked the 81st session to do", "buckets": ["un", "pace", "safeguard", "deliver", "accelerate"], "labels": ["Briefers and chair (not scored)", "Slow the sequencing", "Protect what it touches", "Make it land", "Carry it further"]}};
+const AXIS_INFO = {"camp": {"question": "What did each delegation ask the next session to do with the reform?", "lead": "Nobody in this room argued against UN80. The Secretary-General set the terms himself: &ldquo;Many of the decisions ahead do not belong to the Secretary-General. They belong to you.&rdquo; So the question is not for or against &mdash; it is what each delegation asked the incoming 81st session to do next. These four bands are the four answers the room gave.", "rows": [["Carry it further", "Name new targets and go faster &mdash; senior posts, shared services, more mergers."], ["Make it land", "Stop adding and start delivering; judge the reform by what changes on the ground."], ["Protect what it touches", "Keep going, but guard mandates, resourcing and the countries that depend on them."], ["Slow the sequencing", "The objective is right; the order and pace of the decisions were not."], ["Briefers and chair", "The Secretary-General, the working-group co-chairs and the President. They present the material, so they are shown but not scored."]]}};
+const PROFILE = {"United Kingdom": "Four named priorities: efficiencies, staff compensation, country-team reconfiguration, and the mandates resolution.", "United States": "Reads the year as real progress and asks for consolidation or retirement where mandates overlap.", "European Union": "Reads the morning's merger as proof of concept, and asks that the three workstreams reinforce each other.", "CANZ (Australia)": "Asks that each outstanding merger be judged on its own merits, with governing-body support.", "LDC Group (Nepal)": "Asks that the checklist test resourcing and obstacles before a mandate is judged unimplemented.", "France": "Reads the UN80 reform as the start of a trend rather than an end point.", "Denmark": "Lists the implementation tests it will apply, and names gender equality among its priorities.", "Russian Federation / Belarus": "Argues the reform is not a personal project, and should not be tied to one office-holder's term.", "G77 + China (Uruguay)": "Asks the Secretariat which work packages to prioritise, so the membership can focus.", "Latvia": "Names the liquidity crisis as a member-state problem that efficiency alone cannot solve.", "Poland": "Three priorities: evidence-based reform, effective implementation, transparency and accountability.", "Germany": "Finds it encouraging that a clear majority of member states are engaged in the process.", "India": "Encourages exploring alternatives to structural mergers, while respecting executive-board prerogatives.", "Croatia": "Notes its host-city comments were not reflected in the merger text, but backed it regardless.", "Switzerland": "Argues Geneva's hub value: over 40 entities, close to scientific and private partners.", "Egypt": "Reads the slower merger processes as benefiting from extended scrutiny.", "Republic of Korea": "Supports responsible use of artificial intelligence to strengthen operational efficiency.", "Brazil": "Notes much of the reform effort so far has focused on the development pillar.", "Cuba": "Asks for clarity on next steps, the decisions ahead, and the General Assembly's role in them.", "Japan": "Expects restructuring to preserve the mandates of the organisations involved.", "Pakistan": "Asks that the co-chairs' report be refined before any of its proposals are implemented.", "Indonesia": "Names the mandates registry and the transcripts tool as transparency gains.", "Iran": "Argues one state's fiscal position should not substitute for the collective view of the membership.", "Tunisia": "Waits on the terms of reference before forming a view on the UNDP / UNOPS merger.", "United Arab Emirates": "Asks for continued consideration of how AI tools can support more efficient working.", "China": "Asks that reform be driven by member states, and that the process be fair, inclusive and transparent.", "Mexico": "Asks that efficiency measures not compromise operational capacity or tangible impact.", "Romania": "Argues the most important question is how the system works better, not what it costs.", "Bangladesh": "Asks that reviews be informed by accurate data and impartial analysis.", "Tanzania": "The only delegation to report first-hand how the resident coordinator system performs in country.", "Ecuador": "Names the exercise as one of shared responsibility rather than a menu to pick from.", "Secretary-General": "Presented the stocktake and six asks of Member States. Not scored: he authors the programme the axis measures engagement with.", "Co-chairs (Norway / Jamaica)": "Reported the working group's four deliverables under resolution 80/251. Not scored: they present the framework.", "President of the General Assembly": "Chaired the meeting, opened with the session stocktake and named the senior-post question. Not scored: chair."};
+const LEGEND = [["#1f5fb0", "Carry it further"], ["#197b5a", "Make it land"], ["#8a6d1c", "Protect what it touches"], ["#b03333", "Slow the sequencing"], ["#8a3d8f", "Briefers and chair"]];
+const PLOT_DATA = [{"name": "United Kingdom", "code": "UK", "bloc": "accelerate", "score": 85, "net": 85, "brief": false, "stance": "Names four priority areas for the 81st session and puts senior-post reductions and staff compensation on the record.", "camp": "accelerate", "ev": {"A": {"p": 18, "q": "UNAT must not stop with the end of the 80th session"}, "B": {"p": 6, "q": "More efficient processes mean more impactful delivery"}, "C": {"p": 15, "q": "We hope for ambitious proposals for senior reductions in 2028"}, "D": {"p": 14, "q": "$360 million in efficiencies realized on the regular budget"}, "E": {"p": 13, "q": "we must all work collectively to implement the historic mandates resolution"}, "F": {"p": 6, "q": "You have our full support in continuing this essential work during the 81st session"}, "G": {"p": 13, "q": "we must ensure that the momentum created is transformed into lasting change"}}}, {"name": "United States", "code": "US", "bloc": "accelerate", "score": 81, "net": 81, "brief": false, "stance": "Frames UN80 as a beginning rather than an endpoint, and asks for senior-staff reductions and mandate retirement.", "camp": "accelerate", "ev": {"A": {"p": 18, "q": "UN80 must continue into UN81."}, "B": {"p": 5, "q": "improving impact so every dollar saves more lives"}, "C": {"p": 15, "q": "We need reductions in senior staff and continued efforts to eliminate unnecessary duplication"}, "D": {"p": 12, "q": "reconfiguring country teams and the resident coordinator system"}, "E": {"p": 14, "q": "The mandate review resolution must now be implemented with ambition"}, "F": {"p": 4, "q": "The United States supports practical measures to achieve these objectives"}, "G": {"p": 13, "q": "We cannot allow the momentum for reform to dissipate"}}}, {"name": "European Union", "code": "EU", "bloc": "accelerate", "score": 79, "net": 79, "brief": false, "stance": "Defends the reform against the reading that it is cost-cutting, and offers funding, political backing and expertise.", "camp": "accelerate", "ev": {"A": {"p": 18, "q": "a testament to the collective determination to make this organization fit for the challenges of the 21st century"}, "B": {"p": 9, "q": "UN 80 is not just about cutting costs, it is about strengthening the UN's ability to act and deliver"}, "C": {"p": 10, "q": "undertaking structural reforms where it makes sense"}, "D": {"p": 11, "q": "the adoption just this morning of the PGA-led resolution to merge UNITAR and UNSSC"}, "E": {"p": 12, "q": "We must ensure that every mandate, every euro, every effort counts"}, "F": {"p": 8, "q": "including through aligned funding, political backing, and technical expertise"}, "G": {"p": 11, "q": "Now, we must seize this moment and work together to further advance on Workstream 3"}}}, {"name": "CANZ (Australia)", "code": "CANZ", "bloc": "accelerate", "score": 78, "net": 78, "brief": false, "stance": "Lists six workstream-three targets and three conditions for moving mandate review from design to delivery.", "camp": "accelerate", "ev": {"A": {"p": 17, "q": "But the need for ambitious reform remains urgent"}, "B": {"p": 6, "q": "The system remains too fragmented and overstretched, diluting its impact across its three pillars"}, "C": {"p": 12, "q": "expanding shared services by advancing the United Nations Unified Services Roadmap"}, "D": {"p": 14, "q": "recalibrate UN country teams, strengthen the resident coordinator system, optimize regional and sub-regional arrangements"}, "E": {"p": 13, "q": "Secretariat functions envisaged in the resolution to support member state decision-making must be established as a matter of urgency"}, "F": {"p": 4, "q": "CANS looks forward to working with member states and the Secretariat to advance impactful reforms in the 81st session"}, "G": {"p": 12, "q": "implementing measures already agreed to challenge the automatic renewals of mandates"}}}, {"name": "LDC Group (Nepal)", "code": "LDC", "bloc": "safeguard", "score": 71, "net": 71, "brief": false, "stance": "Puts seven numbered safeguards on the record, with population and GDP figures behind them.", "camp": "safeguard", "ev": {"A": {"p": 13, "q": "We welcome the progress made across three work streams under UNAT initiative"}, "B": {"p": 4, "q": "Complementarity must not be confused with duplication"}, "C": {"p": 12, "q": "weak implementation resulting from under-resourcing should not automatically become grounds for retirement"}, "D": {"p": 15, "q": "our countries account for approximately 13% of the world's population but only around 1.3% of global GDP"}, "E": {"p": 13, "q": "the criteria should include an explicit assessment of equity and differential impact"}, "F": {"p": 3, "q": "LDC perspectives must be integrated across all three pillars"}, "G": {"p": 11, "q": "thematic clustering and consolidation must not dilute mandates specifically established for LDCs"}}}, {"name": "France", "code": "FR", "bloc": "accelerate", "score": 64, "net": 64, "brief": false, "stance": "Names both outstanding merger pairs, and asks to continue with them pragmatically.", "camp": "accelerate", "ev": {"A": {"p": 16, "q": "Thank you for placing this ambition squarely at the heart of your work"}, "B": {"p": 5, "q": "The work on the humanitarian pillar is exemplary"}, "C": {"p": 9, "q": "There are potential mergers, for instance, UNFPA and UN Women, UNDP, UNOPS"}, "D": {"p": 10, "q": "a long overdue merger, a first step forward showing that it is possible to streamline our various entities all the while safeguarding the mandates"}, "E": {"p": 10, "q": "we need to collectively continue our efforts so as to address a more structural issue, the fragmentation of the UN system"}, "F": {"p": 5, "q": "You can count on France's support"}, "G": {"p": 9, "q": "It's now up to us to keep up the momentum, to do this in an ambitious and responsible manner"}}}, {"name": "Denmark", "code": "DK", "bloc": "accelerate", "score": 63, "net": 63, "brief": false, "stance": "Names the measurement criteria by which it expects the reform to be judged next year.", "camp": "accelerate", "ev": {"A": {"p": 16, "q": "Denmark remains firmly committed to supporting the UNAD reform process, and we expect UNAD to deliver meaningful and lasting change"}, "B": {"p": 5, "q": "one of the most important contributions of UNAD is the system-wide and the structural nature of the reform"}, "C": {"p": 8, "q": "including on structural changes such as mergers"}, "D": {"p": 9, "q": "how shared services operate at scale, how needed expertise reaches countries more rapidly"}, "E": {"p": 11, "q": "The success of UNAD will increasingly be measured through implementation"}, "F": {"p": 4, "q": "we encourage the Secretary General, the UN system and Member States to build upon the present momentum"}, "G": {"p": 10, "q": "sustain a high level of ambition going forward"}}}, {"name": "Russian Federation / Belarus", "code": "RU", "bloc": "pace", "score": 62, "net": 62, "brief": false, "stance": "Supports the objective and argues the sequencing was wrong, naming resolution 79/318 and the merger process.", "camp": "pace", "ev": {"A": {"p": 10, "q": "We support the endeavor of bolstering the organization's efficiency"}, "B": {"p": 3, "q": "we see no need to make haste"}, "C": {"p": 11, "q": "as for the proposal to test criteria in groups, this should be done in an open and inclusive format"}, "D": {"p": 13, "q": "the unjustified haste whipped up by the President of the General Assembly meant we did not fully assess all aspects of the merger"}, "E": {"p": 12, "q": "decisions on mandates can only be made by the bodies which established said mandates"}, "F": {"p": 2, "q": "We stand ready to engage in constructive work"}, "G": {"p": 11, "q": "the pace of the reform should not influence the quality of decisions"}}}, {"name": "G77 + China (Uruguay)", "code": "G77", "bloc": "safeguard", "score": 60, "net": 60, "brief": false, "stance": "Welcomes the Executive Board decision, and asks for prioritisation guidance on the work packages.", "camp": "safeguard", "ev": {"A": {"p": 13, "q": "reaffirms its support for you"}, "B": {"p": 4, "q": "The Group of 77 and China remains firmly committed to engaging in all relevant deliberations actively and constructively"}, "C": {"p": 8, "q": "the necessary conditions are not yet in place at this time to approve structural mergers"}, "D": {"p": 12, "q": "decision 2026/26 approved last week by consensus by the second regular session of the Executive Board"}, "E": {"p": 11, "q": "decisions concerning mandates remain the exclusive prerogative of Member States"}, "F": {"p": 3, "q": "the Group of 77 and China remains committed and constructively engaged with the UNAD initiative and supports your leadership"}, "G": {"p": 9, "q": "the group wishes to highlight the need of in-depth intergovernmental consultations"}}}, {"name": "Latvia", "code": "LV", "bloc": "accelerate", "score": 59, "net": 59, "brief": false, "stance": "Runs through concrete outcomes under each of the three workstreams.", "camp": "accelerate", "ev": {"A": {"p": 15, "q": "The UNAD process provides the most realistic pathway to do so"}, "B": {"p": 6, "q": "The proposed principles on mandate review are not the panacea, but they represent a real chance to reflect constructively on existing decisions and procedures"}, "C": {"p": 6, "q": "reorganizing the UN regional and country level capacities"}, "D": {"p": 10, "q": "member states have been able to agree on a major overall to the issue of return of credits"}, "E": {"p": 10, "q": "the ongoing liquidity crisis of the organization can only be sustainably solved by the member states paying their assessed contributions in full and on time"}, "F": {"p": 3, "q": "we look forward to continued efforts by the next Secretary General"}, "G": {"p": 9, "q": "it will be up to us, the member states, to remain ambitious and fulfill the promise behind these lofty goals"}}}, {"name": "Poland", "code": "PL", "bloc": "accelerate", "score": 59, "net": 59, "brief": false, "stance": "States three named priorities, and frames reform as a necessity rather than a choice.", "camp": "accelerate", "ev": {"A": {"p": 15, "q": "We welcome the progress achieved under the UNAD initiative and commend the Secretary General"}, "B": {"p": 5, "q": "Improving efficiency cannot come at the expense of activities that address the most pressing global challenges"}, "C": {"p": 5, "q": "encourage further efforts to strengthen data collection and transparency across the UN system"}, "D": {"p": 8, "q": "We welcome tools such as mandate registry"}, "E": {"p": 13, "q": "Strengthening the effectiveness and efficiency of the United Nations is not a choice, but a necessity"}, "F": {"p": 3, "q": "Poland stands ready to contribute constructively to the next phase of this work"}, "G": {"p": 10, "q": "These reforms are crucial for the organization to survive"}}}, {"name": "Germany", "code": "DE", "bloc": "accelerate", "score": 59, "net": 59, "brief": false, "stance": "Names the majority engagement as the encouraging finding, and asks the room not to lose steam.", "camp": "accelerate", "ev": {"A": {"p": 16, "q": "The organization needs reform and it can reform"}, "B": {"p": 6, "q": "the reforms must ultimately strengthen values and purposes of the organization and delivery on the ground in all three pillars"}, "C": {"p": 5, "q": "the steps we've taken on a more effective humanitarian system"}, "D": {"p": 7, "q": "the decision on the merger this morning on UNITAR and UNSCC"}, "E": {"p": 11, "q": "it is important to not lose steam in our reform efforts"}, "F": {"p": 4, "q": "I can assure you that Germany will stay a constructive partner in this endeavor"}, "G": {"p": 10, "q": "I would like to call on all of us to keep up this spirit and this drive in the times ahead"}}}, {"name": "India", "code": "IN", "bloc": "safeguard", "score": 59, "net": 59, "brief": false, "stance": "Asks that mandate review reach the Security Council, and that decisions be taken by consensus.", "camp": "safeguard", "ev": {"A": {"p": 12, "q": "India reiterates its support for the overarching objective of the UNAT initiative"}, "B": {"p": 3, "q": "to make the United Nations more effective, efficient, and responsive to the needs of member states"}, "C": {"p": 9, "q": "mandate review must move beyond UNGA to other principal organs, especially the UN Security Council"}, "D": {"p": 12, "q": "the compressed timeline, geographic footprint of the new entity, and its governance and financing"}, "E": {"p": 11, "q": "our collective endeavor must be to adopt UNAT decisions by consensus as it lends legitimacy and resilience to the reform process"}, "F": {"p": 2, "q": "India reaffirms its commitment to continue engaging constructively on UNAT initiative"}, "G": {"p": 10, "q": "No proposal should be rushed and none should be brought to vote before genuine effort to bridge differences have been exhausted"}}}, {"name": "Croatia", "code": "HR", "bloc": "accelerate", "score": 58, "net": 58, "brief": false, "stance": "Supported the merger although its own comments were not reflected, and asks for mandate discipline.", "camp": "accelerate", "ev": {"A": {"p": 15, "q": "UNAT has already demonstrated the discipline system-wide reform delivers concrete results"}, "B": {"p": 5, "q": "These gains are real and already reshaping how mandates are implemented"}, "C": {"p": 6, "q": "mandate prioritization, financing, and potential consolidation"}, "D": {"p": 10, "q": "this consolidation creates a unified modern learning platform that reduces duplication, improves quality, and strengthens knowledge services"}, "E": {"p": 10, "q": "The next step is ensuring these improvements translate into sustained institutional discipline"}, "F": {"p": 3, "q": "Let us continue to work on it"}, "G": {"p": 9, "q": "Croatia regrets that some recently adopted resolutions did not fully incorporate the requirements related to mandate delivery"}}}, {"name": "Switzerland", "code": "CH", "bloc": "accelerate", "score": 58, "net": 58, "brief": false, "stance": "Names work package 14 and the HLCM, and makes the Geneva placement argument nobody else made.", "camp": "accelerate", "ev": {"A": {"p": 14, "q": "Switzerland reiterates the salience of the reform"}, "B": {"p": 3, "q": "We don't believe that the reform is a one-off project"}, "C": {"p": 8, "q": "we believe we need to emphasize efficiency gains, concrete and realistic efficiency gains underpinned by a robust lasting business case"}, "D": {"p": 11, "q": "the implementation of efficiency proposals set forth in work package 14, spearheaded by the High Level Committee of Management"}, "E": {"p": 10, "q": "it's crucial that we continue to prioritize the implementation of efficiency proposals"}, "F": {"p": 3, "q": "We fully support the pilots which have been announced for the next session of the committee"}, "G": {"p": 9, "q": "It is a shift in mindset which will continue to evolve"}}}, {"name": "Egypt", "code": "EG", "bloc": "safeguard", "score": 56, "net": 56, "brief": false, "stance": "Raises the 2027 budget decrease, and asks that reform not become a cost-cutting exercise.", "camp": "safeguard", "ev": {"A": {"p": 12, "q": "We continuously rely on these briefings to enable Member States to make informed decisions"}, "B": {"p": 4, "q": "we emphasize that the reform should not devolve into a mere cost cutting exercise"}, "C": {"p": 6, "q": "reiterate the importance of a more inclusive approach moving forward"}, "D": {"p": 12, "q": "2027 proposed program budget presented by the Secretary General constitutes a decrease of 4.3% compared to 2026 appropriations"}, "E": {"p": 11, "q": "the decisions to create, renew, review or retire mandates are the exclusive prerogative of Member States"}, "F": {"p": 2, "q": "The work of the group in the weeks ahead is of relevant importance"}, "G": {"p": 9, "q": "We share the concerns expressed by many this morning on the process by which we reached this decision"}}}, {"name": "Republic of Korea", "code": "KR", "bloc": "accelerate", "score": 55, "net": 55, "brief": false, "stance": "Backs scaling the merger model, while asking that UN Women's mandate be preserved.", "camp": "accelerate", "ev": {"A": {"p": 14, "q": "The Republic of Korea commends the Secretary-General for his leadership in advancing UNAD initiative from broader proposals toward concrete action"}, "B": {"p": 3, "q": "The goal of the UNAD is not a smaller United Nations for its own sake"}, "C": {"p": 7, "q": "This can be scaled across the UN system"}, "D": {"p": 10, "q": "As the only United Nations entity dedicated solely to gender equality, UN Women's triple mandate must be preserved and strengthened, not diluted"}, "E": {"p": 10, "q": "we expect the Secretariat to continue providing timely and transparent information to support Member States decision making"}, "F": {"p": 2, "q": "The Republic of Korea remains committed to working constructively toward this goal"}, "G": {"p": 9, "q": "We encourage the UN system to continuously review its structures and processes"}}}, {"name": "Brazil", "code": "BR", "bloc": "safeguard", "score": 54, "net": 54, "brief": false, "stance": "Names where the reform weight has fallen, and states its position on the UNFPA / UN Women merger.", "camp": "safeguard", "ev": {"A": {"p": 13, "q": "UNAT has already become a landmark in the history of the United Nations"}, "B": {"p": 6, "q": "the alternative, inaction in the face of deep changes in international environment would be detrimental to the organization"}, "C": {"p": 5, "q": "we must build a leaner but muscle UN, one that is fully equipped to deliver to those who need most"}, "D": {"p": 9, "q": "we are unable to support merging UNFPA and UN Women as there is real risk that it would threaten the integrity of their respective mandates"}, "E": {"p": 10, "q": "it is indispensable to maintain the appropriate balance among the three pillars of the United Nations"}, "F": {"p": 2, "q": "Brazil aligns itself with the statement made by the G77 and China"}, "G": {"p": 9, "q": "efficiency is but a means to an end, and the end is clear, enhanced effectiveness, delivery, and impact on the ground"}}}, {"name": "Cuba", "code": "CU", "bloc": "safeguard", "score": 53, "net": 53, "brief": false, "stance": "Ties UN80 back to the liquidity crisis, and asks what the General Assembly's role is next.", "camp": "safeguard", "ev": {"A": {"p": 11, "q": "Cuba recognizes that there have been important gains in different components of UNAD throughout this year"}, "B": {"p": 4, "q": "We are convinced that UN reform is necessary and that it's a positive thing as long as it strengthens rather than weakening multilateralism"}, "C": {"p": 6, "q": "those that are responsible for the current liquidity crisis should fully comply with their financial obligations"}, "D": {"p": 10, "q": "the serious liquidity crisis that the organization is facing"}, "E": {"p": 11, "q": "any renovation, adaptation, merger or withdrawal of mandates should be based on objective criteria that have been agreed upon at the intergovernmental level"}, "F": {"p": 2, "q": "Cuba will continue constructively participating"}, "G": {"p": 9, "q": "This cannot become some automatic exercise to impose revision or withdrawal clauses"}}}, {"name": "Japan", "code": "JP", "bloc": "accelerate", "score": 52, "net": 52, "brief": false, "stance": "Makes four points, and asks that agreed elements of resolution 80/251 be implemented immediately.", "camp": "accelerate", "ev": {"A": {"p": 13, "q": "It is essential to maintain this momentum and carry it forward into the 81st session of the General Assembly"}, "B": {"p": 3, "q": "We recognize that such reform efforts are not easy and require sustained commitment from all stakeholders"}, "C": {"p": 6, "q": "the overarching goal of UN reform is to eliminate duplication across the UN system"}, "D": {"p": 8, "q": "the historic resolution 8251 on mandatory views already contains elements that member states can immediately begin to implement"}, "E": {"p": 11, "q": "achieving meaningful reform requires objective evidence-based analysis and careful deliberation regarding the benefits and costs of such reform"}, "F": {"p": 2, "q": "Japan stands ready to cooperate closely with all member states to advance this initiative"}, "G": {"p": 9, "q": "restructuring should lead to better coordination and agility at the field level"}}}, {"name": "Pakistan", "code": "PK", "bloc": "safeguard", "score": 51, "net": 51, "brief": false, "stance": "Raises that both principal deliverables were adopted by vote rather than by consensus.", "camp": "safeguard", "ev": {"A": {"p": 12, "q": "Pakistan supports the aims of the UNAT initiative, namely, a more efficient, effective and impactful United Nations"}, "B": {"p": 3, "q": "We are also encouraged by the progress achieved across the three work streams over the past months"}, "C": {"p": 5, "q": "should only be taken after adequate, transparent and inclusive intergovernmental negotiations"}, "D": {"p": 9, "q": "especially on the criteria of relevance as well as on the references to the model resolution templates and clauses which were meant to be voluntary"}, "E": {"p": 11, "q": "reforms will only be durable if they are owned by the entirety of the membership"}, "F": {"p": 2, "q": "We look forward to engaging closely and constructively with the co-chairs"}, "G": {"p": 9, "q": "have been adopted by vote rather than by consensus"}}}, {"name": "Indonesia", "code": "ID", "bloc": "deliver", "score": 51, "net": 51, "brief": false, "stance": "Brings the system-wide savings figure, and welcomes the practical digital tools.", "camp": "deliver", "ev": {"A": {"p": 14, "q": "We reaffirm our support for the initiative's core goal to enhance efficiency and effectiveness to the work of the UN system"}, "B": {"p": 3, "q": "These are practical initiatives that lower transaction costs while improving concrete support for member states"}, "C": {"p": 4, "q": "the critical importance to ensure the continuity of a culture of continuous review, mandate discipline, and measurement of effectiveness"}, "D": {"p": 11, "q": "the reported $981 million in system-wide efficiencies in 2025"}, "E": {"p": 9, "q": "We welcome the phased approach as outlined in the timeline"}, "F": {"p": 2, "q": "rest assured of Indonesia's support"}, "G": {"p": 8, "q": "We look forward to engaging constructively in the upcoming stages"}}}, {"name": "Iran", "code": "IR", "bloc": "safeguard", "score": 50, "net": 50, "brief": false, "stance": "Reframes the central question away from how many mandates can be cut.", "camp": "safeguard", "ev": {"A": {"p": 10, "q": "We support efforts to strengthen the effectiveness and financial sustainability of the United Nations"}, "B": {"p": 4, "q": "efficiency must reinforce rather than diminish multilateralism, institutional continuity, accountability, and member state ownership"}, "C": {"p": 5, "q": "Member States should be provided with precise, comprehensive and timely information, including genuine alternatives and clearly defined scenarios"}, "D": {"p": 8, "q": "the payment of assessed contributions should not be treated as a leverage over the organization"}, "E": {"p": 12, "q": "structural changes, institutional realignments or modifications to working methods that affect mandates or functions cannot be regarded as merely administrative"}, "F": {"p": 2, "q": "the full and meaningful participation of all member states"}, "G": {"p": 9, "q": "the central question should not be how many mandates can be reduced, consolidated or discontinued"}}}, {"name": "Tunisia", "code": "TN", "bloc": "safeguard", "score": 49, "net": 49, "brief": false, "stance": "Asks for more time and detail on the restructuring scenarios before decisions are taken.", "camp": "safeguard", "ev": {"A": {"p": 11, "q": "We renew our full support for the Secretary-General's initiative UN80 as a great opportunity to increase the effectiveness and efficiency"}, "B": {"p": 2, "q": "a more effective and coherent UN while maintaining the foundational mandates of different bodies"}, "C": {"p": 5, "q": "We ask the Secretariat to continue providing detailed information from Member States with enough time for a substantive and a sufficient review"}, "D": {"p": 10, "q": "each of the two bodies has a unique mandate that should not be undermined or weakened"}, "E": {"p": 11, "q": "should remain the only source of decision making on any institutional or structural changes"}, "F": {"p": 2, "q": "Tunisia renews its commitment to working constructively in UN reform processes"}, "G": {"p": 8, "q": "We believe that the time available to studying some of these scenarios has nevertheless not been enough"}}}, {"name": "United Arab Emirates", "code": "UAE", "bloc": "accelerate", "score": 47, "net": 47, "brief": false, "stance": "Raises artificial intelligence as an efficiency route, and asks for ambition on inactive mandates.", "camp": "accelerate", "ev": {"A": {"p": 13, "q": "The UAE reiterates its strong support for the UNAT's initiative's efforts to strengthen the United Nations' ability to deliver on its core purposes"}, "B": {"p": 2, "q": "reinforcing a culture of continuous improvement across the organization"}, "C": {"p": 6, "q": "we encourage member states to approach the next phase with ambition, particularly in identifying opportunities to reduce duplication and to address inactive or outdated mandates"}, "D": {"p": 7, "q": "we see particular scope for artificial intelligence to support the streamlining of administrative processes"}, "E": {"p": 9, "q": "we must ensure that any changes are grounded in evidence and ultimately improve how the organization fulfills its mandate"}, "F": {"p": 2, "q": "The UAE will continue to engage constructively"}, "G": {"p": 8, "q": "progress in the first two work streams should be accompanied by a careful look at the architecture of the UN system"}}}, {"name": "China", "code": "CN", "bloc": "deliver", "score": 46, "net": 46, "brief": false, "stance": "Asks that reform be tested in practice, and that the three pillars stay balanced.", "camp": "deliver", "ev": {"A": {"p": 12, "q": "Advancing the UN aid reform is a vital endeavour in face of new circumstances and challenges for the UN to renew itself"}, "B": {"p": 4, "q": "China commends these efforts"}, "C": {"p": 4, "q": "China supports Member States in steadily advancing the review of the implementation of mandates, enhancing effectiveness and reducing duplication"}, "D": {"p": 6, "q": "optimising resource allocation, improving working methods and strengthening institutional coordination"}, "E": {"p": 10, "q": "The Secretariat must commit to a culture of efficiency, strengthen budgetary management and financial accountability"}, "F": {"p": 2, "q": "China is ready to continue to work with all parties to advance reform"}, "G": {"p": 8, "q": "striving to avoid one size fits all, unnecessary duplication or formalism"}}}, {"name": "Mexico", "code": "MX", "bloc": "deliver", "score": 46, "net": 46, "brief": false, "stance": "Traces the session's arc from the December budget to resolution 80/251.", "camp": "deliver", "ev": {"A": {"p": 13, "q": "Mexico has supported reform efforts under your leadership, Mr. Secretary General"}, "B": {"p": 5, "q": "defending the principles and values of the UN Charter will always be a cause worth working tirelessly for"}, "C": {"p": 3, "q": "we believe that this process is sufficiently valuable to continue consolidating during our next session"}, "D": {"p": 8, "q": "in March, the members approved resolution 80/251 to create a mandate review process"}, "E": {"p": 8, "q": "it is crucial that the measures to create institutional efficiency do not compromise operational capacity on the ground"}, "F": {"p": 2, "q": "Mexico will support you on this path"}, "G": {"p": 7, "q": "each committee has worked hard to turn a liquidity crisis into an opportunity for efficiency"}}}, {"name": "Romania", "code": "RO", "bloc": "deliver", "score": 45, "net": 45, "brief": false, "stance": "Names the gap between asking for reform and delivering it when the moment comes.", "camp": "deliver", "ev": {"A": {"p": 12, "q": "This process has shown so far that reform is possible"}, "B": {"p": 5, "q": "There is no alternative to the organization and we are indeed probably at crossroads"}, "C": {"p": 4, "q": "not only in continuing the reflection, but also to bring it to a positive outcome"}, "D": {"p": 5, "q": "ten briefings during this session, and numerous other conversations among member states"}, "E": {"p": 9, "q": "it is important for all of us to reflect on our responsibility as member states"}, "F": {"p": 2, "q": "that's a good opportunity for all of us to support your efforts"}, "G": {"p": 8, "q": "while we've been asking for this reform for a long time, when you come to the point of delivering, we have called fit"}}}, {"name": "Bangladesh", "code": "BD", "bloc": "deliver", "score": 45, "net": 45, "brief": false, "stance": "Asks that no pillar be disadvantaged, and that complementary mandates not be read as duplication.", "camp": "deliver", "ev": {"A": {"p": 11, "q": "We acknowledge the Secretary-General's leadership and sustained efforts in advancing the UN 80 initiative"}, "B": {"p": 4, "q": "Efficiency, however, should not be understood simply as cutting mandates or reducing resources"}, "C": {"p": 4, "q": "the process should help us move beyond the automatic continuation of mandates without adequate assessment"}, "D": {"p": 6, "q": "The co-chairs report on criteria and modalities reflects broad convergence among member states"}, "E": {"p": 10, "q": "It is particularly important that the review process maintains a proper balance between the three pillars of the United Nations"}, "F": {"p": 2, "q": "Bangladesh stands ready to engage constructively with all member states in taking this important work forward"}, "G": {"p": 8, "q": "ensuring that complementary mandates are not treated as duplicative merely because they address related issues"}}}, {"name": "Tanzania", "code": "TZ", "bloc": "deliver", "score": 46, "net": 46, "brief": true, "stance": "Reports the resident coordinator system working on the ground, and asks for equity in downsizing.", "camp": "deliver", "ev": {"A": {"p": 12, "q": "Tanzania commends the Secretary-General's steadfast leadership and his tireless efforts to strengthen the United Nations"}, "B": {"p": 2, "q": "one that provides easy access and reduced transactions cost for national governments"}, "C": {"p": 5, "q": "A regional reset is also essential to maximize coherence and ensure that regional assets are aligned with national priorities"}, "D": {"p": 9, "q": "This system has made a tangible difference in Tanzania, enabling more coherent UN support, improved coordination"}, "E": {"p": 9, "q": "We also emphasize the importance of full and predictable funding for the RSC system"}, "F": {"p": 2, "q": "United Republic of Tanzania remains committed to constructive engagement"}, "G": {"p": 7, "q": "Equity, not equality should be observed in the downsizing exercise"}}}, {"name": "Ecuador", "code": "EC", "bloc": "deliver", "score": 41, "net": 41, "brief": false, "stance": "Warns against supporting only the changes each state finds convenient.", "camp": "deliver", "ev": {"A": {"p": 11, "q": "I recognize your leadership, Mr. Secretary General, as well as the candor with which you have spoken about the challenges that the organization is facing"}, "B": {"p": 5, "q": "the easy road is to criticize rather than making commitments in the midst of a process of transition and deep institutional reforms"}, "C": {"p": 3, "q": "we should also be willing to contribute and when necessary adopt decisions"}, "D": {"p": 4, "q": "This process is complex and comprehensive and it should be seen as a whole"}, "E": {"p": 9, "q": "It will be very important to have the necessary time and information to adequately evaluate proposals"}, "F": {"p": 2, "q": "My delegation will continue to participate with a constructive spirit and pragmatism in this process"}, "G": {"p": 7, "q": "a utilitarian approach whereby we only support those changes that we find convenient and we resist those that require concessions"}}}, {"name": "Secretary-General", "code": "SG", "bloc": "un", "unscored": true, "camp": "un", "stance": "Presented the material this plot measures engagement with."}, {"name": "Co-chairs (Norway / Jamaica)", "code": "CC", "bloc": "un", "unscored": true, "camp": "un", "stance": "Presented the material this plot measures engagement with."}, {"name": "President of the General Assembly", "code": "PGA", "bloc": "un", "unscored": true, "camp": "un", "stance": "Presented the material this plot measures engagement with."}];
+
+// Expand / collapse all sections
+(() => {
+  const allDetails = () => document.querySelectorAll('section.block > details');
+  document.getElementById('expand-all').addEventListener('click', () => allDetails().forEach(d => d.open = true));
+  document.getElementById('collapse-all').addEventListener('click', () => allDetails().forEach(d => d.open = false));
+})();
+
+// Table of contents: highlight the section in view
+(() => {
+  const tocLinks = Array.from(document.querySelectorAll('nav#toc a'));
+  const sections = tocLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if (!('IntersectionObserver' in window) || !sections.length) return;
+  const seen = new Map();
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => seen.set(e.target.id, e.intersectionRatio));
+    let best = null, bestRatio = 0;
+    seen.forEach((r, id) => { if (r > bestRatio) { bestRatio = r; best = id; } });
+    tocLinks.forEach(a => {
+      if (best && a.getAttribute('href') === '#' + best) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+  }, { rootMargin: '-10% 0px -70% 0px', threshold: [0, .25, .5, 1] });
+  sections.forEach(s => io.observe(s));
+})();
+
+// Shared floating tooltip for every plot on the page
+const tip = document.getElementById('dot-float-tip');
+const BRIEF_CHIP = `<span class="brief-chip"><svg width="12" height="12" viewBox="0 0 20 20" aria-hidden="true"><use href="#head" fill="currentColor"/><use href="#wv" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>brief</span>`;
+const briefFor = d => d.brief ? BRIEF_CHIP : '';
+
+function hideTip() { tip.style.opacity = '0'; }
+
+// X is ALWAYS the score, banded into three fixed thirds. Left = weakest, right =
+// strongest, identical meaning on all three plots and across the whole series.
+// Camp is carried by COLOUR only - camp and intensity are different questions and
+// they do not reliably agree (position-scoring.md Step 5).
+const X_AXIS = {
+  buckets: ['low', 'medium', 'high'],
+  labels: ['Little on record', 'Some on record', 'Much on record'],
+  subs: ['0-39 points', '40-66 points', '67-100 points'],
+  bandOf: d => d.unscored ? 'high' : (d.score <= 39 ? 'low' : (d.score <= 66 ? 'medium' : 'high'))
+};
+
+function buildPlot(cfg) {
+  const { pid, xLabel, IND, AXES, AXIS_INFO, PROFILE, LEGEND, data } = cfg;
+  const plot = document.getElementById(pid + '-plot-grid');
+  const legendEl = document.getElementById(pid + '-plot-legend');
+  const ySel = document.getElementById(pid + '-axis-y');
+  const explainer = document.getElementById(pid + '-axis-explainer');
+  if (!plot) return;
+
+  const scored = data.filter(d => !d.unscored);
+  const ordered = scored.slice().sort((a, b) => b.net - a.net);
+  const rankOf = d => ordered.findIndex(x => x.net === d.net) + 1;
+  const tied = d => scored.filter(x => x.net === d.net).length > 1;
+  const swatchFor = d => `<span class="ev-swatch" style="background:var(--camp-${d.bloc})"></span>`;
+
+  const slots = [document.getElementById(pid + '-slot-0'), document.getElementById(pid + '-slot-1')];
+  const slotState = [null, null];
+  let armed = 0;
+
+  function showTip(el, d) {
+    const r = el.getBoundingClientRect();
+    tip.innerHTML = `<div class="tip-head"><strong>${d.name}</strong>${briefFor(d)}</div>` +
+      (d.unscored ? '<span class="tip-score">briefer - not scored</span>'
+                  : `<span class="tip-score">Score ${d.score}/100</span>`) +
+      `<div>${d.stance || ''}</div>` +
+      (d.unscored ? '' : '<div style="opacity:.7;margin-top:.2rem">Click to see the evidence</div>');
+    tip.style.opacity = '1';
+    const w = 250;
+    let left = r.left + r.width / 2 - w / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - w - 8));
+    let top = r.top - tip.offsetHeight - 10;
+    if (top < 8) top = r.bottom + 10;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+
+  function renderSlot(i) {
+    const el = slots[i], d = slotState[i];
+    el.classList.toggle('armed', armed === i && slotState[0] && slotState[1]);
+    if (!d) {
+      el.innerHTML = `<div class="ev-empty">${i === 0
+        ? 'Click a dot in the plot to see the evidence behind its score.'
+        : 'Click a second dot to compare two delegations side by side.'}</div>`;
+      return;
+    }
+    const rows = IND.map(ind => {
+      const e = (d.ev || {})[ind.k] || { p: 0, q: null };
+      const absent = !e.q;
+      const pct = Math.max(0, Math.round(100 * e.p / ind.max));
+      return `<div class="ev-ind">
+        <div class="ev-ind-top"><span class="ev-ind-label">${ind.label}</span><span class="ev-ind-pts">${e.p}/${ind.max}</span></div>
+        <div class="ev-bar"><i style="width:${pct}%"></i></div>
+        <div class="ev-q${absent ? ' absent' : ''}">${absent ? 'not stated' : '&ldquo;' + e.q + '&rdquo;'}</div>
+      </div>`;
+    }).join('');
+    const negs = (d.neg || []).length
+      ? `<div class="ev-neg">${d.neg.map(n => `<div class="ev-ind">
+           <div class="ev-ind-top"><span class="ev-ind-label">Negative marker</span><span class="ev-ind-pts">${n.p}</span></div>
+           <div class="ev-q">&ldquo;${n.q}&rdquo;</div></div>`).join('')}</div>`
+      : '';
+    el.innerHTML = `
+      <div class="ev-head">${swatchFor(d)}<h4>${d.name}</h4>${briefFor(d)}
+        <button class="ev-arm" type="button" aria-pressed="${armed === i}" title="Replace this slot on the next click">&#8646;</button>
+      </div>
+      <div class="ev-head" style="gap:.6rem;margin-bottom:.6rem;">
+        <span class="ev-score">${d.score}/100</span>
+        <span class="ev-rank">Rank ${rankOf(d)}${tied(d) ? '=' : ''} of ${scored.length}${d.net !== d.score ? ' - net ' + d.net : ''}</span>
+      </div>
+      <div class="ev-q" style="font-style:normal;margin-bottom:.6rem;">${PROFILE[d.name] || ''}</div>
+      ${rows}${negs}`;
+    el.querySelector('.ev-arm').addEventListener('click', () => { armed = i; renderSlot(0); renderSlot(1); });
+  }
+
+  function selectDelegation(d) {
+    if (d.unscored) return;
+    if (slotState[0] && slotState[0].name === d.name) return;
+    if (slotState[1] && slotState[1].name === d.name) return;
+    if (!slotState[0]) { slotState[0] = d; armed = 1; }
+    else if (!slotState[1]) { slotState[1] = d; armed = 0; }
+    else { slotState[armed] = d; armed = armed === 0 ? 1 : 0; }
+    renderSlot(0); renderSlot(1);
+    document.getElementById(pid + '-ev-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function renderLegend() {
+    legendEl.innerHTML =
+      '<span class="legend-lead">Colour = grouping (which kind of actor). Position = how hard it was argued.</span>' +
+      LEGEND.map(([c, l]) => `<span><span class="swatch" style="background:${c}"></span>${l}</span>`).join('');
+  }
+
+  function renderExplainer() {
+    const info = AXIS_INFO[ySel.value];
+    const rows = info.rows.map(([lab, desc]) =>
+      `<div class="ae-row"><span class="ae-row-label">${lab}</span><span class="ae-row-desc">${desc}</span></div>`).join('');
+    explainer.innerHTML = `
+      <div class="ae-header">
+        <svg class="ae-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span class="ae-title">${info.question}</span>
+      </div>
+      <div class="ae-def">${info.lead}</div>
+      <div class="ae-rows">${rows}</div>`;
+  }
+
+  function renderGlance() {
+    const body = document.querySelector('#' + pid + '-glance-table tbody');
+    if (!body) return;
+    const rows = scored.slice().sort((a, b) => b.net - a.net || a.name.localeCompare(b.name));
+    body.innerHTML = rows.map(d => `<tr>
+        <td class="num">${rankOf(d)}${tied(d) ? '=' : ''}</td>
+        <td><span class="name-cell">${swatchFor(d)}<span class="c-${d.bloc}">${d.name}</span>${briefFor(d)}</span></td>
+        <td class="num">${d.score}</td><td class="num">${d.net}</td>
+        <td>${PROFILE[d.name] || ''}</td></tr>`).join('') +
+      data.filter(d => d.unscored).map(d => `<tr class="unscored">
+        <td class="num">&mdash;</td>
+        <td><span class="name-cell">${swatchFor(d)}<span class="c-${d.bloc}">${d.name}</span></span></td>
+        <td class="num">&mdash;</td><td class="num">&mdash;</td>
+        <td>${PROFILE[d.name] || ''}</td></tr>`).join('');
+  }
+
+  function render() {
+    const yKey = ySel.value;
+    const yAxis = AXES[yKey];
+    const nY = yAxis.buckets.length;
+    plot.innerHTML = '';
+    plot.style.gridTemplateRows = `repeat(${nY},178px) 48px 30px`;
+    plot.querySelectorAll && 0;
+
+    const yLab = document.createElement('div');
+    yLab.className = 'axis-label y';
+    yLab.textContent = yAxis.label;
+    yLab.style.gridRow = `1 / span ${nY}`;
+    plot.appendChild(yLab);
+
+    const xLab = document.createElement('div');
+    xLab.className = 'axis-label x';
+    xLab.textContent = xLabel;
+    xLab.style.gridRow = String(nY + 2);
+    plot.appendChild(xLab);
+
+    X_AXIS.labels.forEach((lab, i) => {
+      const h = document.createElement('div');
+      h.className = 'col-head';
+      h.style.gridColumn = String(i + 3);
+      h.style.gridRow = String(nY + 1);
+      h.innerHTML = `${lab}<span class="col-sub">${X_AXIS.subs[i]}</span>`;
+      plot.appendChild(h);
+    });
+
+    yAxis.labels.slice().reverse().forEach((lab, i) => {
+      const h = document.createElement('div');
+      h.className = 'row-head';
+      h.style.gridColumn = '2';
+      h.style.gridRow = String(i + 1);
+      h.textContent = lab;
+      plot.appendChild(h);
+    });
+
+    const cells = {};
+    for (let yi = 0; yi < nY; yi++) {
+      for (let xi = 0; xi < 3; xi++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell x-' + X_AXIS.buckets[xi];
+        cell.style.gridColumn = String(xi + 3);
+        cell.style.gridRow = String(yi + 1);
+        const inner = document.createElement('div');
+        inner.className = 'cell-inner';
+        cell.appendChild(inner);
+        plot.appendChild(cell);
+        cells[X_AXIS.buckets[xi] + '|' + yAxis.buckets[nY - 1 - yi]] = inner;
+      }
+    }
+
+    const byCell = {};
+    data.forEach(d => {
+      const key = X_AXIS.bandOf(d) + '|' + d[yKey];
+      if (!cells[key]) return;
+      (byCell[key] = byCell[key] || []).push(d);
+    });
+
+    Object.entries(byCell).forEach(([key, members]) => {
+      // Rank-spaced, never value-spaced, never jittered. Unscored briefers pinned right.
+      members.sort((a, b) => {
+        if (a.unscored !== b.unscored) return a.unscored ? 1 : -1;
+        if (a.unscored) return a.name.localeCompare(b.name);
+        return a.net - b.net || a.name.localeCompare(b.name);
+      });
+      const inner = cells[key], n = members.length;
+      // Lane count is derived from how many dots must fit, not fixed at two. A 26px dot
+      // in a ~140px-wide cell-inner needs ~19% horizontal spacing to clear its neighbour;
+      // below that the lanes have to multiply or dots collide. Verified geometrically
+      // across every Y setting (position-scoring.md Step 5c).
+      const lanes = n <= 4 ? 1 : (n <= 8 ? 2 : (n <= 12 ? 3 : 4));
+      const perLane = Math.ceil(n / lanes);
+      const laneTops = lanes === 1 ? [50]
+        : lanes === 2 ? [32, 68]
+        : lanes === 3 ? [22, 50, 78]
+        : [17, 39, 61, 83];
+      members.forEach((d, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'dot' + (d.unscored ? ' unscored' : '');
+        dot.tabIndex = 0;
+        dot.dataset.bloc = d.bloc;
+        dot.textContent = d.code;
+        if (d.code.length >= 4) dot.dataset.long = '1';
+        dot.setAttribute('aria-label', d.unscored
+          ? `${d.name}, briefer, not scored`
+          : `${d.name}, score ${d.score} of 100, rank ${rankOf(d)} of ${scored.length}`);
+        // Rank order still reads left-to-right, wrapping lane by lane.
+        const lane = Math.floor(i / perLane);
+        const posInLane = i % perLane;
+        const inThisLane = Math.min(perLane, n - lane * perLane);
+        dot.style.left = (inThisLane === 1 ? 50 : 8 + 84 * posInLane / (inThisLane - 1)) + '%';
+        dot.style.top = laneTops[lane] + '%';
+        // Unscored briefers: a dashed border on a 26px circle renders as a spiky
+        // starburst, not a ring. Use a solid white ring plus an offset outline so the
+        // "not scored" distinction still reads at a glance.
+        if (d.unscored) {
+          dot.style.opacity = '.9';
+          dot.style.outline = '2px dotted var(--camp-un)';
+          dot.style.outlineOffset = '2px';
+        }
+        dot.addEventListener('mouseenter', () => showTip(dot, d));
+        dot.addEventListener('mouseleave', hideTip);
+        dot.addEventListener('focus', () => showTip(dot, d));
+        dot.addEventListener('blur', hideTip);
+        dot.addEventListener('click', () => selectDelegation(d));
+        dot.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectDelegation(d); }
+        });
+        inner.appendChild(dot);
+      });
+    });
+    renderLegend();
+  }
+
+  ySel.addEventListener('change', () => { render(); renderExplainer(); });
+  render(); renderExplainer(); renderGlance(); renderSlot(0); renderSlot(1);
+}
+
+
+
+buildPlot({
+  pid: 'p',
+  xLabel: 'How much was put on the record',
+  IND, AXES, AXIS_INFO, PROFILE, LEGEND,
+  data: PLOT_DATA
+});
+
+function wireGrid(pid) {
+  const grid = document.getElementById(pid + '-grid');
+  if (!grid) return;
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  const chips = Array.from(document.querySelectorAll('[data-chipfor="' + pid + '"]'));
+  const search = document.getElementById(pid + '-search');
+  const count = document.getElementById(pid + '-count');
+  const note = document.getElementById(pid + '-filter-note');
+  let filter = 'all';
+  function apply() {
+    const q = search.value.trim().toLowerCase();
+    let shown = 0;
+    cards.forEach(card => {
+      let okChip;
+      if (filter === 'all') {
+        okChip = true;
+      } else if (filter === 'outlier') {
+        okChip = card.dataset.outlier === pid;
+      } else {
+        okChip = card.dataset.bloc === filter;
+      }
+      const text = Array.from(card.querySelectorAll('h4,p')).map(n => n.textContent).join(' ').toLowerCase();
+      const visible = okChip && (!q || text.includes(q));
+      card.hidden = !visible;
+      if (visible) shown++;
+    });
+    count.textContent = `Showing ${shown} of ${cards.length}`;
+    if (note) note.style.display = filter === 'outlier' ? 'block' : 'none';
+  }
+  search.addEventListener('input', apply);
+  chips.forEach(chip => chip.addEventListener('click', () => {
+    filter = chip.dataset.filter;
+    chips.forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
+    apply();
+  }));
+  apply();
+}
+
+wireGrid('ref');
+
+// ---- Edit mode: "Prepare your version" — local edits + export (pilot 2026-07) ----
+// Deletion undo keeps the removed node itself, so re-inserting it preserves every
+// wired event listener; text edits rely on the browser's native undo (Ctrl+Z).
+(() => {
+  const LIVE_URL = 'https://christian-wandel.github.io/un-ai-readouts/readouts/un80-briefing-2026-07.html';
+  const mainEl = document.querySelector('main');
+  const toggleBtn = document.getElementById('edit-toggle');
+  const undoBtn = document.getElementById('edit-undo');
+  const redoBtn = document.getElementById('edit-redo');
+  if (!mainEl || !toggleBtn) return;
+
+  // Interactive machinery is never editable or deletable
+  const EXCLUDE = '.global-toolbar, #edit-banner, .controls, .result-count, .plot-scroll, .plot-legend, .plot-guide, .axis-explainer, .ev-panel, .ev-note, details.glance';
+  const EDITABLE_SEL = 'p, li, h3, h4, blockquote';
+  const DELETABLE_SEL = '.card, blockquote.tp, .fault-line, .keybox, p, li, table.data';
+
+  let editMode = false, dirty = false;
+  const undoStack = [], redoStack = [];
+
+  const eligible = el => mainEl.contains(el) && !el.closest(EXCLUDE);
+
+  function markEditable(on) {
+    mainEl.querySelectorAll(EDITABLE_SEL).forEach(el => {
+      if (!eligible(el)) return;
+      if (on) { el.setAttribute('contenteditable', 'true'); el.classList.add('editable'); }
+      else { el.removeAttribute('contenteditable'); el.classList.remove('editable'); }
+    });
+  }
+
+  function markSections(on) {
+    mainEl.querySelectorAll('section.block > details > summary').forEach(s => {
+      const old = s.querySelector('.sec-del');
+      if (old) old.remove();
+      if (!on) return;
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'sec-del'; b.textContent = 'Remove section';
+      b.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        if (confirm('Remove this whole section from your version? "Undo remove" brings it back.')) {
+          removeNode(s.closest('section.block'));
+        }
+      });
+      s.appendChild(b);
+    });
+  }
+
+  // Package bands: remove the band and every section under it in one step
+  function markPackages(on) {
+    mainEl.querySelectorAll('.pkg-band').forEach(band => {
+      const old = band.querySelector('.sec-del');
+      if (old) old.remove();
+      if (!on) return;
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'sec-del';
+      b.style.marginLeft = 'auto';
+      const num = band.querySelector('.pkg-num');
+      b.textContent = 'Remove ' + (num ? num.textContent.trim() : 'this package');
+      b.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        if (!confirm('Remove this banner and every section under it? "Undo remove" brings it all back.')) return;
+        const nodes = [band];
+        let n = band.nextElementSibling;
+        while (n && !n.classList.contains('pkg-band')) { nodes.push(n); n = n.nextElementSibling; }
+        removeNodes(nodes);
+      });
+      const lead = band.querySelector('.pkg-lead');
+      if (lead) band.insertBefore(b, lead); else band.appendChild(b);
+    });
+  }
+
+  // Single floating delete button, repositioned over the hovered deletable item
+  const delBtn = document.createElement('button');
+  delBtn.id = 'del-float'; delBtn.type = 'button'; delBtn.textContent = '✕';
+  delBtn.title = 'Remove this item from your version';
+  delBtn.setAttribute('aria-label', 'Remove this item from your version');
+  document.body.appendChild(delBtn);
+  let delTarget = null;
+
+  function hideDel() {
+    delBtn.style.display = 'none';
+    if (delTarget) delTarget.classList.remove('del-target');
+    delTarget = null;
+  }
+
+  document.addEventListener('mouseover', e => {
+    if (!editMode) return;
+    if (e.target === delBtn) return;
+    const t = e.target.closest ? e.target.closest(DELETABLE_SEL) : null;
+    if (!t || !eligible(t)) { hideDel(); return; }
+    if (delTarget === t) return;
+    if (delTarget) delTarget.classList.remove('del-target');
+    delTarget = t;
+    t.classList.add('del-target');
+    const r = t.getBoundingClientRect();
+    delBtn.style.display = 'flex';
+    delBtn.style.left = Math.min(window.innerWidth - 30, r.right - 12) + 'px';
+    delBtn.style.top = Math.max(4, r.top - 12) + 'px';
+  });
+  document.addEventListener('scroll', hideDel, true);
+  delBtn.addEventListener('click', () => {
+    if (!delTarget) return;
+    const t = delTarget;
+    hideDel();
+    removeNode(t);
+  });
+
+  function removeNode(node) { removeNodes([node]); }
+  // One undo entry can hold several consecutive nodes (a package band + its sections)
+  function removeNodes(nodes) {
+    const items = nodes.map(n => {
+      if (n.classList) n.classList.remove('del-target');
+      return { node: n, parent: n.parentNode, next: n.nextSibling };
+    });
+    nodes.forEach(n => n.remove());
+    undoStack.push(items);
+    redoStack.length = 0;
+    dirty = true;
+    updateUndoBtns();
+    syncToc();
+  }
+  function undo() {
+    const items = undoStack.pop();
+    if (!items) return;
+    // Reverse order so each node's recorded anchor is back in the document first
+    for (let i = items.length - 1; i >= 0; i--) {
+      const op = items[i];
+      const anchor = op.next && op.parent.contains(op.next) ? op.next : null;
+      op.parent.insertBefore(op.node, anchor);
+    }
+    redoStack.push(items);
+    updateUndoBtns();
+    syncToc();
+  }
+  function redo() {
+    const items = redoStack.pop();
+    if (!items) return;
+    items.forEach(op => op.node.remove());
+    undoStack.push(items);
+    updateUndoBtns();
+    syncToc();
+  }
+
+  // Left-hand contents mirror the document: hide entries whose section is gone
+  function syncToc() {
+    const lis = Array.from(document.querySelectorAll('nav#toc li'));
+    lis.forEach(li => {
+      const a = li.querySelector('a');
+      if (!a) return;
+      li.hidden = !document.getElementById((a.getAttribute('href') || '').slice(1));
+    });
+    lis.filter(li => li.classList.contains('toc-pkg')).forEach(label => {
+      let n = label.nextElementSibling, any = false;
+      while (n && !n.classList.contains('toc-pkg')) {
+        if (!n.hidden) { any = true; break; }
+        n = n.nextElementSibling;
+      }
+      label.hidden = !any;
+    });
+  }
+  function updateUndoBtns() {
+    undoBtn.disabled = undoStack.length === 0;
+    redoBtn.disabled = redoStack.length === 0;
+  }
+  undoBtn.addEventListener('click', undo);
+  redoBtn.addEventListener('click', redo);
+
+  function setEditMode(on) {
+    editMode = on;
+    if (on) document.body.dataset.editMode = 'true';
+    else document.body.removeAttribute('data-edit-mode');
+    markEditable(on);
+    markSections(on);
+    markPackages(on);
+    toggleBtn.textContent = on ? 'Exit edit mode' : 'Prepare your version';
+    if (!on) hideDel();
+  }
+  toggleBtn.addEventListener('click', () => setEditMode(!editMode));
+  if (new URLSearchParams(location.search).has('edit')) setEditMode(true);
+
+  mainEl.addEventListener('input', () => { if (editMode) dirty = true; });
+  window.addEventListener('beforeunload', e => {
+    if (dirty) { e.preventDefault(); e.returnValue = ''; }
+  });
+
+  // Toast for quick feedback
+  const toast = document.createElement('div');
+  toast.id = 'edit-toast';
+  document.body.appendChild(toast);
+  let toastTimer = null;
+  function flash(msg) {
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { toast.style.opacity = '0'; }, 2600);
+  }
+
+  // -- Download HTML: serialize the current DOM, minus active edit-state --
+  function cleanClone() {
+    const clone = document.documentElement.cloneNode(true);
+    clone.querySelectorAll('#del-float, #edit-toast, .sec-del').forEach(n => n.remove());
+    clone.querySelectorAll('nav#toc li[hidden]').forEach(n => n.remove());
+    clone.querySelectorAll('[contenteditable]').forEach(n => n.removeAttribute('contenteditable'));
+    clone.querySelectorAll('.editable, .del-target').forEach(n => n.classList.remove('editable', 'del-target'));
+    const body = clone.querySelector('body');
+    if (body) body.removeAttribute('data-edit-mode');
+    const t = clone.querySelector('#dot-float-tip');
+    if (t) { t.style.opacity = '0'; t.innerHTML = ''; }
+    const foot = clone.querySelector('footer.page');
+    if (foot && !clone.querySelector('#adapted-note')) {
+      const p = document.createElement('p');
+      p.id = 'adapted-note';
+      p.innerHTML = 'This copy was adapted by a reader. The original interactive analysis is at ' +
+        '<a href="' + LIVE_URL + '">' + LIVE_URL + '</a>.';
+      foot.appendChild(p);
+    }
+    return clone;
+  }
+
+  document.getElementById('edit-download').addEventListener('click', () => {
+    const html = '<!doctype html>\n' + cleanClone().outerHTML;
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'un80-briefing-2026-07-edited.html';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    dirty = false;
+    flash('Downloaded your version as a standalone HTML file.');
+  });
+
+  // -- Save as PDF: open everything, print, restore --
+  let reopenList = null;
+  window.addEventListener('beforeprint', () => {
+    reopenList = Array.from(document.querySelectorAll('section.block > details:not([open]), details.glance:not([open])'));
+    reopenList.forEach(d => d.open = true);
+  });
+  window.addEventListener('afterprint', () => {
+    if (reopenList) { reopenList.forEach(d => d.open = false); reopenList = null; }
+  });
+  document.getElementById('edit-pdf').addEventListener('click', () => window.print());
+
+  // -- Copy for Word: flatten the current DOM into Word-friendly HTML --
+  const CAMP_HEX = { 'c-donor': '#1f5fb0', 'c-canzpif': '#197b5a', 'c-g77': '#8a6d1c', 'c-sceptic': '#b03333', 'c-un': '#8a3d8f' };
+
+  function wordFragment() {
+    const frag = document.createElement('div');
+    const h1 = document.querySelector('header.page h1');
+    if (h1) {
+      const h = document.createElement('h1');
+      h.textContent = h1.textContent;
+      frag.appendChild(h);
+    }
+    document.querySelectorAll('header.page dl.meta > dt').forEach(dt => {
+      const dd = dt.nextElementSibling;
+      const p = document.createElement('p');
+      p.innerHTML = '<strong>' + dt.textContent + ':</strong> ' + (dd ? dd.innerHTML : '');
+      frag.appendChild(p);
+    });
+    mainEl.querySelectorAll('section.block').forEach(sec => {
+      const det = sec.querySelector(':scope > details');
+      if (!det) return;
+      const summary = det.querySelector(':scope > summary');
+      if (summary) {
+        const sc = summary.cloneNode(true);
+        sc.querySelectorAll('.sec-del').forEach(n => n.remove());
+        const h2 = document.createElement('h2');
+        h2.textContent = sc.textContent.trim();
+        frag.appendChild(h2);
+      }
+      const content = document.createElement('div');
+      Array.from(det.children).forEach(ch => {
+        if (ch !== summary) content.appendChild(ch.cloneNode(true));
+      });
+      content.querySelectorAll('.controls, .result-count, .plot-scroll, .plot-legend, .plot-guide, .axis-explainer, .ev-panel, .ev-note, .sec-del').forEach(n => n.remove());
+      // Plots cannot travel to Word: keep the score table, link the interactive original
+      content.querySelectorAll('details.glance').forEach(g => {
+        const tbl = g.querySelector('table');
+        const wrap = document.createElement('div');
+        if (tbl) {
+          const h3 = document.createElement('h3');
+          h3.textContent = 'Scores at a glance';
+          wrap.appendChild(h3);
+          wrap.appendChild(tbl.cloneNode(true));
+          const note = document.createElement('p');
+          note.innerHTML = '<em>Interactive engagement plot and evidence panels: see the <a href="' + LIVE_URL + '">original analysis</a>.</em>';
+          wrap.appendChild(note);
+        }
+        g.replaceWith(wrap);
+      });
+      frag.appendChild(content);
+    });
+    const note = document.createElement('p');
+    note.innerHTML = '<em>Adapted from the original interactive analysis: <a href="' + LIVE_URL + '">' + LIVE_URL + '</a></em>';
+    frag.appendChild(note);
+    // Inline the styles Word actually keeps: camp colours and quote formatting
+    Object.entries(CAMP_HEX).forEach(([cls, hex]) => {
+      frag.querySelectorAll('.' + cls).forEach(n => { n.style.color = hex; n.style.fontWeight = '600'; });
+    });
+    frag.querySelectorAll('blockquote').forEach(b => {
+      b.style.fontStyle = 'italic';
+      b.style.borderLeft = '3px solid #999';
+      b.style.paddingLeft = '10pt';
+      b.style.margin = '8pt 0 8pt 10pt';
+    });
+    frag.querySelectorAll('table').forEach(tb => {
+      tb.setAttribute('border', '1');
+      tb.style.borderCollapse = 'collapse';
+    });
+    return frag;
+  }
+
+  document.getElementById('edit-copy').addEventListener('click', async () => {
+    const frag = wordFragment();
+    const html = '<html><body>' + frag.innerHTML + '</body></html>';
+    const holder = document.createElement('div');
+    holder.style.position = 'fixed'; holder.style.left = '-9999px';
+    holder.appendChild(frag);
+    document.body.appendChild(holder);
+    const text = holder.innerText;
+    holder.remove();
+    try {
+      await navigator.clipboard.write([new ClipboardItem({
+        'text/html': new Blob([html], { type: 'text/html' }),
+        'text/plain': new Blob([text], { type: 'text/plain' })
+      })]);
+      flash('Copied. Paste into Word or Outlook.');
+    } catch (err) {
+      const sel = document.createElement('div');
+      sel.style.position = 'fixed'; sel.style.left = '-9999px';
+      sel.innerHTML = html;
+      document.body.appendChild(sel);
+      const range = document.createRange();
+      range.selectNodeContents(sel);
+      const s = getSelection();
+      s.removeAllRanges(); s.addRange(range);
+      document.execCommand('copy');
+      s.removeAllRanges(); sel.remove();
+      flash('Copied. Paste into Word or Outlook.');
+    }
+  });
+})();
+
+</script>
+</body>
+</html>

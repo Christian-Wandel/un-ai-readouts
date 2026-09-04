@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Methodology &mdash; UN80 Initiative Readout, 3 September 2026</title>
+<style>
+
+  :root {
+    --bg: #f7f6f2; --surface: #ffffff; --ink: #1a1c20; --muted: #5b6470;
+    --rule: #e3e1da; --accent-default: #2e4a86;
+    --green: #2f7a4d; --green-soft: #e6f1ea;
+    --amber: #b27406; --amber-soft: #fbf1dc;
+    --red: #b03333; --red-soft: #f7e3e3;
+    --blue: #1f5fb0; --blue-soft: #e2ecf8;
+    --grey: #6a727b; --grey-soft: #ecedef;
+    --camp-donor: #1f5fb0; --camp-canzpif: #197b5a; --camp-g77: #8a6d1c;
+    --camp-sceptic: #b03333; --camp-un: #8a3d8f;
+    --focus: #ffbf47; --radius: 10px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin:0; font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color:var(--ink); background:var(--bg); }
+  a { color: var(--accent-default); }
+  a:focus-visible, summary:focus-visible { outline:3px solid var(--focus); outline-offset:2px; }
+  .skip { position:absolute; left:-9999px; top:0; background:var(--ink); color:#fff; padding:.6rem 1rem; z-index:100; }
+  .skip:focus { left:0; }
+  .shell { display:grid; grid-template-columns:240px minmax(0,1fr); gap:2rem; max-width:1200px; margin:0 auto; padding:2rem 1.25rem 4rem; }
+  @media (max-width:900px){ .shell{grid-template-columns:1fr;} nav#toc{position:static !important;max-height:none !important;} }
+  header.page { grid-column:1/-1; border-bottom:1px solid var(--rule); padding-bottom:1rem; margin-bottom:1rem; }
+  header.page h1 { font-size:clamp(1.5rem,2.4vw,2.1rem); margin:0 0 .5rem; line-height:1.2; }
+  header.page p.sub { margin:.4rem 0 0; color:var(--muted); }
+  nav#toc { position:sticky; top:1rem; align-self:start; max-height:calc(100vh - 2rem); overflow-y:auto; padding:1rem; background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius); font-size:.92rem; }
+  nav#toc h2 { margin:0 0 .5rem; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+  nav#toc ol { list-style:none; padding:0; margin:0; }
+  nav#toc li { margin:.15rem 0; }
+  nav#toc a { text-decoration:none; display:block; padding:.2rem .3rem; border-radius:5px; }
+  nav#toc a:hover { background:var(--bg); }
+  main { min-width:0; }
+  section { background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius); box-shadow:var(--shadow); margin-bottom:1.25rem; padding:1.1rem 1.35rem 1.35rem; }
+  section > h2 { margin:0 0 .6rem; font-size:1.15rem; color:var(--accent-default); }
+  h3 { font-size:1rem; margin:1.2rem 0 .45rem; }
+  ul.tight { margin:.3rem 0 .8rem; padding-left:1.25rem; }
+  ul.tight li { margin:.3rem 0; }
+  code { background:var(--grey-soft); padding:.1rem .35rem; border-radius:4px; font-size:.86em; }
+  pre { background:#1f2127; color:#e8e6df; padding:.9rem 1rem; border-radius:8px; overflow-x:auto; font-size:.82rem; line-height:1.5; margin:.6rem 0 1rem; }
+  pre code { background:none; padding:0; color:inherit; font-size:1em; }
+  .note { background:var(--bg); border-left:4px solid var(--accent-default); padding:.6rem .9rem; margin:.75rem 0; border-radius:0 6px 6px 0; }
+  .warn { background:var(--amber-soft); border-left:4px solid var(--amber); padding:.6rem .9rem; margin:.75rem 0; border-radius:0 6px 6px 0; }
+  .ok { background:var(--green-soft); border-left:4px solid var(--green); padding:.6rem .9rem; margin:.75rem 0; border-radius:0 6px 6px 0; }
+  table { width:100%; border-collapse:collapse; font-size:.88rem; margin:.7rem 0 1rem; }
+  th, td { text-align:left; padding:.4rem .55rem; border-bottom:1px solid var(--rule); vertical-align:top; }
+  thead th { font-size:.74rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+  td.num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .tbl-scroll { overflow-x:auto; }
+  .swatch { display:inline-block; width:12px; height:12px; border-radius:50%; vertical-align:middle; margin-right:.35rem; border:2px solid #fff; box-shadow:0 0 0 1px var(--rule); }
+  .pipeline { display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 1rem; }
+  .pipeline .step { flex:1 1 150px; border:1px solid var(--rule); border-top:4px solid var(--accent-default); border-radius:8px; background:var(--surface); padding:.65rem .75rem; box-shadow:var(--shadow); }
+  .pipeline .step b { display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:.2rem; }
+  .pipeline .step span { font-size:.88rem; }
+  footer.page { grid-column:1/-1; margin-top:1rem; padding-top:1rem; border-top:1px solid var(--rule); color:var(--muted); font-size:.9rem; font-style:italic; }
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+
+  <header class="page">
+    <h1>Methodology &mdash; UN80 Initiative Readout, 3 September 2026</h1>
+    <p class="sub">How the readout of the final UN80 briefing of the 80th session was produced:
+    sources, transcript handling, the engagement rubric, and what could not be verified.
+    <a href="../readouts/un80-briefing-2026-09.html">Back to the readout</a>.</p>
+  </header>
+
+  <nav id="toc" aria-label="On this page">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#source">1. Source and its limits</a></li>
+      <li><a href="#audio">2. Audio verification: attempted, not available</a></li>
+      <li><a href="#type">3. Why this is an informal readout</a></li>
+      <li><a href="#rubric">4. The engagement rubric</a></li>
+      <li><a href="#plot">5. How the plot is built</a></li>
+      <li><a href="#names">6. Attribution and naming</a></li>
+      <li><a href="#limits">7. What this readout does not claim</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+
+    <section id="source">
+      <h2>1. Source and its limits</h2>
+
+      <div class="warn">
+        <p><strong>This readout is built on an automatic speech recognition transcript, not an
+        official record.</strong> The UN transcripts preview tool generates it by machine. The
+        official record of this meeting, if one is issued, will be published through the UN's
+        Official Document System and takes precedence over anything here.</p>
+      </div>
+
+      <table>
+        <tbody>
+          <tr><th>Meeting</th><td>Informal meeting of the plenary to hear a briefing on the UN80 Initiative</td></tr>
+          <tr><th>Body</th><td>General Assembly, 80th session</td></tr>
+          <tr><th>Date</th><td>3 September 2026</td></tr>
+          <tr><th>Transcript</th><td><a href="https://transcripts.un.org/en/asset/k1q/k1qdc8zsa6">transcripts.un.org/en/asset/k1q/k1qdc8zsa6</a></td></tr>
+          <tr><th>Recording</th><td><a href="https://webtv.un.org/en/asset/k1q/k1qdc8zsa6">webtv.un.org/en/asset/k1q/k1qdc8zsa6</a></td></tr>
+          <tr><th>Length</th><td>2 h 33 m 46 s as published. The transcript was made from an earlier 3 h 16 m 45 s version.</td></tr>
+          <tr><th>Statements</th><td>70 turns, 35 distinct speakers</td></tr>
+          <tr><th>Scored</th><td>31 delegations and groups. The Secretary-General, the two working-group co-chairs and the President of the General Assembly are shown but not scored.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>What the ASR gets wrong here, and what we did about it</h3>
+      <p>The recognition is reliable on structure and speaker order, and unreliable on acronyms.
+      In this transcript the name &ldquo;UN80&rdquo; is rendered variously as UNAD, UNAT, UNATI,
+      UNIT, UNITA, UNHCR, UNAIDS and UNIDIR. These are all the same initiative. Quotes used in this
+      readout avoid the garbled tokens where a clean alternative sentence exists; where a quote must
+      carry one, the surrounding sentence makes the referent unambiguous and the garble is not the
+      load-bearing word.</p>
+
+      <p>Every quotation in the readout, and every quotation behind every score in the evidence
+      panel, was matched character by character against the transcript, after normalising
+      whitespace and curly quotation marks. That is <strong>217 evidence fragments plus 10 talking
+      points, all matching exactly and appearing exactly once.</strong> This confirms the readout
+      reproduces the transcript faithfully. It does not confirm the transcript reproduces the room
+      faithfully &mdash; see the next section.</p>
+    </section>
+
+    <section id="audio">
+      <h2>2. Audio verification: attempted, not available</h2>
+
+      <div class="warn">
+        <p><strong>The quotes in this readout were not checked against the meeting audio.</strong>
+        Every other readout in this series carries an audio-verification pass. This one could not,
+        and the reason is worth stating precisely rather than hiding behind a generic caveat.</p>
+      </div>
+
+      <h3>The problem the portal itself flags</h3>
+      <p>The transcript JSON carries a warning field: <em>&ldquo;UN Web TV re-edited this video
+      after the transcript was created; timestamps may no longer match the current
+      video.&rdquo;</em> The recording was cut from 11,805 seconds to 9,226 seconds after the
+      transcript was made, so every timestamp in the transcript points at the wrong moment in the
+      published video.</p>
+
+      <h3>That part was solved</h3>
+      <p>The offset was derived empirically, by transcribing short probes at four fixed points
+      across the recording and finding each probe's text in the transcript:</p>
+
+      <table>
+        <thead><tr><th>Probe at</th><th>Found in transcript at</th><th>Implied offset</th></tr></thead>
+        <tbody>
+          <tr><td class="num">290 s</td><td class="num">1,527&ndash;1,597 s</td><td class="num">1,237&ndash;1,307 s</td></tr>
+          <tr><td class="num">2,500 s</td><td class="num">3,767 s</td><td class="num">1,267 s</td></tr>
+          <tr><td class="num">7,500 s</td><td class="num">8,751 s</td><td class="num">1,251 s</td></tr>
+          <tr><td class="num">8,900 s</td><td class="num">10,161 s</td><td class="num">1,261 s</td></tr>
+        </tbody>
+      </table>
+
+      <p>The offset is a constant front trim of about <strong>1,260 seconds</strong>, stable from
+      the start of the recording to the end. It matches the transcript's own first statement, which
+      begins at 1,266 seconds &mdash; the cut removed the pre-meeting padding before the chair
+      called the meeting to order.</p>
+
+      <div class="note">
+        <p>Note that <strong>1,260 s is not the 2,579 s difference between the two durations.</strong>
+        Using the duration difference as the offset would have sent every quote roughly 22 minutes
+        wide, and would have produced confident comparisons against the wrong speaker.</p>
+      </div>
+
+      <h3>The part that was not solved</h3>
+      <p>The published recording carries <strong>one audio track</strong>. Requesting the English
+      track, the Interlingua (floor) track, or any of the other 30 listed language tracks returns
+      the identical file &mdash; same byte length, same checksum. That single track is an
+      interpretation relay, not floor audio.</p>
+
+      <p>Probes on four delegations known to have spoken English on the floor confirm it. At the
+      United Kingdom's slot, the audio renders as <em>&ldquo;for the preparation of the research and
+      college personnel of the UN&rdquo;</em> where the transcript has the UN Institute for Training
+      and Research and the UN System Staff College. The content is right, the speaker is right, the
+      position in the meeting is right &mdash; and the words are an interpreter's paraphrase.</p>
+
+      <p>Comparing English quotations against an interpreter's rendering cannot confirm wording. It
+      can only manufacture disagreements that look like transcription errors and are not. Correcting
+      a quote on that basis would replace an accurate quotation with an inaccurate one, so no quote
+      is marked verified and the readout says so wherever quotes appear.</p>
+
+      <div class="ok">
+        <p><strong>What this does and does not mean.</strong> The quotes are faithful to the UN's
+        published transcript, verified mechanically and completely. What is missing is the second,
+        independent check against the recording that this series normally applies on top. A reader
+        who needs certainty on an exact phrase should consult the official record when it is
+        issued.</p>
+      </div>
+    </section>
+
+    <section id="type">
+      <h2>3. Why this is an informal readout</h2>
+
+      <p>Readouts in this series come in two shapes, and the shape is chosen before any analysis
+      starts. A formal meeting &mdash; a Security Council session, a negotiation, a debate over
+      contested text &mdash; exists to resolve disagreement, so <strong>divergence is the
+      finding</strong>. An informal briefing or consultation exists to present work and collect
+      reactions, so <strong>convergence is the finding</strong>.</p>
+
+      <p>This was a briefing. There was no text on the table, no outcome to negotiate, and no vote
+      in the room. So this readout asks where the membership agreed, and treats what it does not
+      agree on as open questions rather than as camp boundaries.</p>
+
+      <p>That choice has one concrete consequence for the numbers. A formal readout scores two
+      mirrored rubrics &mdash; one for the case made for a position, one for the case made against
+      it. <strong>This readout scores one.</strong> No delegation argued against UN80, so a
+      for-and-against axis would impose a division the room was not having.</p>
+
+      <div class="note">
+        <p>This was rechecked rather than assumed. The most critical statements in the room &mdash;
+        Russia and Belarus on the pace of the merger, Pakistan on voting rather than consensus,
+        Egypt and India on process &mdash; all argue that reform decisions need better preparation.
+        None argues that reform should stop. Russia and Belarus opened by supporting
+        &ldquo;the endeavor of bolstering the organization's efficiency&rdquo;. That is pressure on
+        method, not opposition to the object, so it scores on the same rubric as everyone else.</p>
+      </div>
+
+      <p>A related rule applies throughout: <strong>a question is never counted as opposition.</strong>
+      A delegation asking how something will work has not taken a position against it. Detailed
+      questions usually mean the opposite &mdash; that the delegation read the documentation closely
+      enough to find the gaps.</p>
+    </section>
+
+    <section id="rubric">
+      <h2>4. The engagement rubric</h2>
+
+      <p>Each delegation's score answers one question: <strong>how much did it put on the record
+      about UN80 and what happens to it next?</strong> The score is not agreement, not support, and
+      not influence. A delegation that argued at length for slowing the reform down scores high,
+      because it argued at length.</p>
+
+      <p>Seven indicators, each scored only where a verbatim quotation earns it. Where a delegation
+      did not address an indicator, it reads &ldquo;not stated&rdquo; and scores nothing. Nothing is
+      ever inferred from silence, from bloc membership, or from what a delegation said at a
+      different meeting.</p>
+
+      <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Indicator</th><th class="num">Max</th><th>What earns points in this meeting</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A.</strong> Backing for UN80 as a programme</td><td class="num">20</td><td>How emphatically the delegation backs the initiative. Emphatic and specific outscores formulaic, which outscores thanks alone.</td></tr>
+          <tr><td><strong>B.</strong> Defends it against the cost-cutting reading</td><td class="num">10</td><td>Spends words arguing the reform is about delivery rather than savings &mdash; distinct from simply endorsing it.</td></tr>
+          <tr><td><strong>C.</strong> Strongest concrete ask</td><td class="num">15</td><td>The most forward-leaning concrete demand anywhere in this debate. The ceiling was set by the calls for reductions in senior posts.</td></tr>
+          <tr><td><strong>D.</strong> Named instruments, entities and figures</td><td class="num">15</td><td>Named resolutions, entities, decisions and numbers, rather than general support.</td></tr>
+          <tr><td><strong>E.</strong> Obligation framing</td><td class="num">15</td><td>&ldquo;must&rdquo; and &ldquo;requires&rdquo; outrank &ldquo;calls on&rdquo;, which outranks &ldquo;welcomes&rdquo;, which outranks &ldquo;takes note&rdquo;.</td></tr>
+          <tr><td><strong>F.</strong> Support offered</td><td class="num">10</td><td>Money, staffing, political backing or expertise actually offered.</td></tr>
+          <tr><td><strong>G.</strong> Verb register across the statement</td><td class="num">15</td><td>The dominant verbs the delegation uses about the reform, across its whole turn.</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <p>Anchor quotations for each indicator were drawn from this meeting's own transcript
+      <em>before</em> any delegation was scored, so the scale is set by the debate rather than by
+      the scorer's expectations. Each delegation was then scored against those anchors without
+      reference to any other delegation's total.</p>
+
+      <h3>The brevity marker</h3>
+      <p>Delegations speaking well below the meeting's median length carry a <em>brief</em> marker,
+      because a shorter statement has fewer chances to touch an indicator. Word counts were counted
+      mechanically, not estimated, and computed before any score was read.</p>
+
+      <p>The median across the 31 scored delegations is <strong>394 words</strong> and the threshold
+      is <strong>276 words</strong>. One delegation falls below it: Tanzania, at 264 words. The
+      chair enforced a three-minute limit with automatic microphone cut-off, which compresses the
+      range and makes the comparison meaningful.</p>
+    </section>
+
+    <section id="plot">
+      <h2>5. How the plot is built</h2>
+
+      <h3>The horizontal axis is quantity, never direction</h3>
+      <p>Left to right means <strong>how much was put on the record</strong>: 0&ndash;39 points,
+      40&ndash;66, 67&ndash;100. Those cut points are fixed thirds of the scale, identical in every
+      readout in this series, so a column means the same thing across meetings.</p>
+
+      <p>Direction never goes on this axis. A delegation arguing hard for slowing the reform sits on
+      the right, because it argued hard. Which way it argued is carried by the vertical bands and by
+      colour.</p>
+
+      <div class="note">
+        <p><strong>The split in this meeting is lopsided, and that is a finding.</strong> Five
+        delegations land in the high band, 26 in the middle, and <strong>none</strong> in the low
+        band &mdash; the lowest score is 41. At a closing stocktake everyone who took the floor came
+        prepared to say something substantive. The cut points were not adjusted to spread the room
+        out; doing that would make the columns mean something different here than elsewhere.</p>
+      </div>
+
+      <h3>Colour is grouping, position is quantity</h3>
+      <p>The four bands describe what each delegation asked the incoming session to do. They are
+      not a scale from good to bad, and they do not correlate with the score.</p>
+
+      <table>
+        <thead><tr><th>Band</th><th>What it means</th></tr></thead>
+        <tbody>
+          <tr><td><span class="swatch" style="background:#1f5fb0"></span><strong>Carry it further</strong></td><td>Name new targets and go faster &mdash; senior posts, shared services, further mergers.</td></tr>
+          <tr><td><span class="swatch" style="background:#197b5a"></span><strong>Make it land</strong></td><td>Stop adding and start delivering; judge the reform by what changes on the ground.</td></tr>
+          <tr><td><span class="swatch" style="background:#8a6d1c"></span><strong>Protect what it touches</strong></td><td>Keep going, but guard mandates, resourcing and the countries that depend on them.</td></tr>
+          <tr><td><span class="swatch" style="background:#b03333"></span><strong>Slow the sequencing</strong></td><td>The objective is right; the order and pace of the decisions were not.</td></tr>
+          <tr><td><span class="swatch" style="background:#8a3d8f"></span><strong>Briefers and chair</strong></td><td>Shown but not scored &mdash; see below.</td></tr>
+        </tbody>
+      </table>
+
+      <p>These colours are reused unchanged from the July 2026 UN80 readout, where they were checked
+      for colour-vision deficiency across every pair. Colour is never the only carrier of meaning:
+      every dot prints a country code, every band is labelled in words, and the key names each
+      group.</p>
+
+      <h3>Who is not scored, and why</h3>
+      <p>The Secretary-General, the two working-group co-chairs and the President of the General
+      Assembly are shown on the plot with a dotted outline and no score. They present the material
+      that the axis measures engagement with, so scoring their engagement with their own proposal
+      would be meaningless.</p>
+
+      <h3>Dot placement</h3>
+      <p>Within a cell, dots are ordered by score and spaced evenly. Spacing is by rank, not by
+      score value, because the rubric supports &ldquo;more than&rdquo; and &ldquo;less than&rdquo;
+      rather than exact distances. There is no randomness anywhere in the placement; the same data
+      always draws the same plot.</p>
+    </section>
+
+    <section id="names">
+      <h2>6. Attribution and naming</h2>
+
+      <ul class="tight">
+        <li><strong>One statement is misintroduced in the transcript.</strong> The chair introduces
+        &ldquo;the distinguished representative of Libya&rdquo;, but the portal's own speaker record
+        for that statement is Latvia, the statement aligns itself with the European Union group
+        statement, and the chair thanks Latvia immediately afterwards. Libya did not take the floor.
+        The introduction is a recognition error and the statement is attributed to Latvia.</li>
+        <li><strong>Russia and Belarus are treated as one speaker.</strong> The statement was
+        delivered on behalf of both, under the Treaty on the establishment of the Union State, and
+        says so in its opening line.</li>
+        <li><strong>Group statements are attributed to the group</strong>, with the speaking
+        delegation named: Uruguay for the Group of 77 and China, Nepal for the Least Developed
+        Countries, Australia for Canada, Australia and New Zealand.</li>
+        <li><strong>Partial personal names</strong> appear in the transcript for some delegates. The
+        readout uses country and group names only.</li>
+      </ul>
+    </section>
+
+    <section id="limits">
+      <h2>7. What this readout does not claim</h2>
+
+      <ul class="tight">
+        <li><strong>The score is not a verdict.</strong> It measures how much a delegation put on
+        the record, not whether it was right, influential, or representative of anyone beyond
+        itself.</li>
+        <li><strong>Longer statements score higher.</strong> A statement with more sentences has
+        more chances to touch an indicator. This is disclosed rather than corrected, because
+        correcting it would mean guessing what a delegation would have said with more time. The
+        brevity marker flags the delegation most affected.</li>
+        <li><strong>The scale is ordinal.</strong> It supports &ldquo;more than&rdquo; and
+        &ldquo;less than&rdquo;. It does not support the claim that 80 is twice 40.</li>
+        <li><strong>Interpretation stands between several delegations and this text.</strong>
+        Statements delivered in languages other than English reach the transcript through an
+        interpreter, so the wording is the interpreter's.</li>
+        <li><strong>Silence is not a position.</strong> A delegation that did not address something
+        is recorded as not having addressed it, never as opposing it. Delegations that did not speak
+        at all do not appear.</li>
+        <li><strong>The quotes are not audio-verified.</strong> See section 2.</li>
+        <li><strong>This is a first political reading, not an official record.</strong> It is meant
+        to be checkable: every claim traces to a named speaker and a quotable line, so a reader who
+        knows the file can test it rather than take it on trust.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="page">
+    Built 4 September 2026 from the UN transcript of the 3 September 2026 informal plenary.
+    <a href="../readouts/un80-briefing-2026-09.html">Back to the readout</a>.
+  </footer>
+
+</div>
+</body>
+</html>
